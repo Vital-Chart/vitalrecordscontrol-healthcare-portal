@@ -1,0 +1,32 @@
+{
+  "name": "vitalrecordscontrol-healthcare-portal",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Simple Focus Next.js starter.",
+  "author": "Simple Focus <dev@simplefocus.com>",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next build && next export",
+    "prestart": "next build",
+    "start": "next start",
+    "format": "prettier --write \"**/*.{js,jsx}\""
+  },
+  "dependencies": {
+    "@emotion/babel-plugin": "^11.0.0",
+    "@emotion/react": "^11.1.1",
+    "@svgr/webpack": "^5.5.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "autoprefixer": "^10.0.2",
+    "classnames": "^2.2.6",
+    "next": "^10.0.1",
+    "polished": "^4.0.4",
+    "postcss": "^8.1.9",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "tailwindcss": "^2.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  }
+}
