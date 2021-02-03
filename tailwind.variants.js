@@ -17,11 +17,11 @@ export default {
         compact: 'uppercase text-sm tracking-wide',
     },
     buttons: {
-        DEFAULT: 'px-6 py-3',
+        DEFAULT: 'px-6 py-3 rounded transition-colors',
         filled:
-            'text-white bg-gray-700 rounded hover:bg-gray-800 hover:border-gray-800 focus:bg-gray-800 focus:border-gray-800',
+            'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-800 focus:border-gray-800',
         outline:
-            'text-gray-700 bg-transparent rounded ring-2 ring-inset ring-gray-700 hover:bg-gray-100 hover:border-gray-100 hover:ring-gray-800 focus:bg-gray-100 focus:border-gray-100 focus:ring-gray-800',
+            'text-primary font-bold bg-transparent ring-2 ring-inset ring-primary hover:bg-primary hover:text-white focus:bg-gray-100 focus:border-gray-100 focus:ring-gray-800',
     },
     images: {},
 }
