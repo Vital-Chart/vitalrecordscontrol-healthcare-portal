@@ -82,42 +82,70 @@ export const Radio = forwardRef(
     )
 )
 
+// export const Checkbox = forwardRef(
+//     ({ label, labelClassName, className, ...props }, ref) => (
+//         <>
+//             {label ? (
+//                 <Label
+//                     className={cx('inline-flex items-center', labelClassName)}
+//                 >
+//                     <Box
+//                         ref={ref}
+//                         as="input"
+//                         type="checkbox"
+//                         // __variantKey="forms.checkbox"
+//                         className={cx(
+//                             'text-gray-700 rounded focus:ring-offset-0',
+//                             className
+//                         )}
+//                         {...props}
+//                     />
+//                     <Box as="span" className="pl-2">
+//                         {label}
+//                     </Box>
+//                 </Label>
+//             ) : (
+//                 <Box
+//                     ref={ref}
+//                     as="input"
+//                     type="checkbox"
+//                     // __variantKey="forms.checkbox"
+//                     className={cx(
+//                         'text-gray-700 focus:ring-offset-0',
+//                         className
+//                     )}
+//                     {...props}
+//                 />
+//             )}
+//         </>
+//     )
+// )
+
 export const Checkbox = forwardRef(
-    ({ label, labelClassName, className, ...props }, ref) => (
-        <>
-            {label ? (
-                <Label
-                    className={cx('inline-flex items-center', labelClassName)}
-                >
-                    <Box
-                        ref={ref}
-                        as="input"
-                        type="checkbox"
-                        // __variantKey="forms.checkbox"
-                        className={cx(
-                            'text-gray-700 rounded focus:ring-offset-0',
-                            className
-                        )}
-                        {...props}
-                    />
-                    <Box as="span" className="pl-2">
-                        {label}
-                    </Box>
-                </Label>
-            ) : (
+    ({ label, children, labelClassName, className, ...props }, ref) => (
+        <Label className={cx('relative flex items-start', labelClassName)}>
+            <Box className="flex items-center h-5">
                 <Box
                     ref={ref}
                     as="input"
                     type="checkbox"
                     // __variantKey="forms.checkbox"
                     className={cx(
-                        'text-gray-700 focus:ring-offset-0',
+                        'text-gray-700 rounded focus:ring-offset-0',
                         className
                     )}
                     {...props}
                 />
-            )}
-        </>
+            </Box>
+            <Box className="ml-3 text-sm">
+                <p>{label}</p>
+                {children ? (
+                    <p className="text-sm text-gray-dark">{children}</p>
+                ) : (
+                    ''
+                )}
+            </Box>
+        </Label>
     )
 )
 
