@@ -1,10 +1,9 @@
 const path = require('path')
-const defaultImageSizes = [80, 160, 320, 480, 768, 1024, 1280]
+// const defaultImageSizes = [80, 160, 320, 480, 768, 1024, 1280]
+const defaultImageSizes = [80, 160, 320]
 
 const nextConfig = {
-    env: {
-        POSTS_PER_PAGE: 3,
-    },
+    env: {},
     images: {
         deviceSizes: [
             ...defaultImageSizes,
