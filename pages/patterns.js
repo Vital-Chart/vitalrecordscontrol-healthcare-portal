@@ -38,7 +38,7 @@ const Card = ({ className, children, ...props }) => (
     </Box>
 )
 
-const Patterns = ({ navigation }) => {
+const Patterns = () => {
     const [switchOn, setSwitchOn] = useState(false)
 
     return (

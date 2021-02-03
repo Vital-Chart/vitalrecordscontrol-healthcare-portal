@@ -20,7 +20,7 @@ const breakpoints = {
 // const rem = px => `${round(px / 16)}rem`
 // const fluidValue = (min, max) =>
 //     polished.between(min, max, rem(breakpoints.xs), rem(breakpoints['2xl']))
-const fluidValue = (min, max) => polished.between(min, max, '20rem', '90rem')
+const fluidValue = (min, max) => polished.between(min, max, '20rem', '76.25rem')
 
 module.exports = {
     purge: {

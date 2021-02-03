@@ -11,6 +11,30 @@ const Home = ({ store }) => (
         <Link href="/pih/thirdparty/request">
             PIH - Third Party - Request Form
         </Link>
+
+        <div>Count: {store.state.count}</div>
+
+        <button
+            onClick={() =>
+                store.dispatch({
+                    type: 'UPDATE_COUNT',
+                    value: store.state.count - 1,
+                })
+            }
+        >
+            &ndash;
+        </button>
+
+        <button
+            onClick={() =>
+                store.dispatch({
+                    type: 'UPDATE_COUNT',
+                    value: store.state.count + 1,
+                })
+            }
+        >
+            +
+        </button>
     </Layout>
 )
 
