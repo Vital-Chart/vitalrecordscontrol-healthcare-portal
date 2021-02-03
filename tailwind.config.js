@@ -64,9 +64,11 @@ module.exports = {
                 dark: '#02532F',
             },
             secondary: {
+                lightest: '#F9F4E0',
                 light: '#ECC114',
                 DEFAULT: '#D5B227',
                 dark: '#C6A316',
+                darkest: '#6A5813',
             },
             tertiary: {
                 DEFAULT: '#80EFC4',
