@@ -44,7 +44,6 @@ const PIHPatientRequest = ({ store }) => {
                 >
                     <FormSection>
                         <SectionHeading>Facility / Facilities</SectionHeading>
-                        {/* TODO: Adjust alert component for variable alert text */}
                         <FacilitySelector />
                     </FormSection>
 

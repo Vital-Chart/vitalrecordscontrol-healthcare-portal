@@ -2,7 +2,7 @@ import cx from 'classnames'
 import { Box, Flex } from '@/components/core'
 import IconAlert from '@/icons/icon-alert.svg'
 
-export const Alert = ({ className }) => (
+export const Alert = ({ className, primaryAlertText, secondaryAlertText }) => (
     <Box
         className={cx(
             'rounded-md bg-secondary-lightest my-2 p-4 border-l-4 border-secondary',
@@ -14,13 +14,11 @@ export const Alert = ({ className }) => (
                 <IconAlert className="h-5 w-5 text-secondary-dark" />
             </Box>
             <Box className="ml-3">
+                <p className="text-sm text-secondary-darkest font-bold">
+                    {primaryAlertText}
+                </p>
                 <p className="text-sm text-secondary-darkest">
-                    <span className="font-bold">
-                        Once you hit "Continue" below, you cannot change which
-                        facilities you are requesting from.
-                    </span>{' '}
-                    Please double-check to make sure you select the correct
-                    facility or facilities.
+                    {secondaryAlertText}
                 </p>
             </Box>
         </Flex>

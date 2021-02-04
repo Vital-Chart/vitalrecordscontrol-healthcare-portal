@@ -30,8 +30,16 @@ export const FacilitySelector = ({ className }) => {
                     />
                 </CheckboxWrapper>
             </Box>
-            <Alert />
-            <Alert />
+            <Alert
+                primaryAlertText="Once you hit 'Continue' below, you cannot change which
+                    facilities you are requesting from."
+                secondaryAlertText="Please double-check to make sure you select the correct
+                    facility or facilities."
+            />
+            <Alert
+                primaryAlertText="You have selected more than one facility."
+                secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
+            />
         </Box>
     )
 }
