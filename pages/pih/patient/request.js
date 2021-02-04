@@ -1,5 +1,5 @@
 import { withStore } from '@/lib/store'
-import { months, days } from '@/lib/dates'
+import { months, range } from '@/lib/helpers'
 import {
     FormWrapper,
     FormSection,
@@ -111,7 +111,7 @@ const PIHPatientRequest = ({ store }) => (
                                 <option defaultValue selected disabled>
                                     Day
                                 </option>
-                                {days.map(day => (
+                                {range(1, 31).map(day => (
                                     <option value={day}>{day}</option>
                                 ))}
                             </Select>
