@@ -1,15 +1,95 @@
 import { Box, Flex, Label, Input, Select } from '@/components/core'
 
-export const ContactInformation = ({ className }) => {
+export const ContactInformation = ({ className, thirdParty }) => {
     return (
         <Box className={className}>
+            {thirdParty ? (
+                <>
+                    <Box className="mb-4">
+                        <Label htmlFor="YI_NM">Name</Label>
+                        <Input
+                            type="text"
+                            name="YI_NM"
+                            id="YI_NM"
+                            className="w-full mt-1"
+                        />
+                    </Box>
+                    <Box className="mb-4">
+                        <Label htmlFor="YI_ATN">Attention</Label>
+                        <Input
+                            type="text"
+                            name="YI_ATN"
+                            id="YI_ATN"
+                            className="w-full mt-1"
+                        />
+                    </Box>
+                    <Box className="mb-4">
+                        <Label htmlFor="YI_ADDR1">Address</Label>
+                        <Input
+                            type="text"
+                            name="YI_ADDR1"
+                            id="YI_ADDR1"
+                            className="w-full mt-1"
+                        />
+                    </Box>
+                    <Box className="mb-4">
+                        <Label htmlFor="YI_ADDR2">Address Line 2</Label>
+                        <Input
+                            type="text"
+                            name="YI_ADDR2"
+                            id="YI_ADDR2"
+                            className="w-full mt-1"
+                        />
+                    </Box>
+                    <Box className="mb-4">
+                        <Label htmlFor="YI_CITY">City</Label>
+                        <Input
+                            type="text"
+                            name="YI_CITY"
+                            id="YI_CITY"
+                            className="w-full mt-1"
+                        />
+                    </Box>
+                    <Flex className="flex-col sm:flex-row mb-4">
+                        <Label htmlFor="YI_ST_DD">State</Label>
+                        <Select
+                            className="mb-4 sm:mb-0"
+                            name="YI_ST_DD"
+                            id="YI_ST_DD"
+                        >
+                            <option>Select a State</option>
+                            {/* TODO: Add states */}
+                        </Select>
+                        <Box>
+                            <Label htmlFor="YI_ZIP">Zip</Label>
+                            <Input
+                                type="number"
+                                name="YI_ZIP"
+                                id="YI_ZIP"
+                                className="w-full mt-1"
+                            />
+                        </Box>
+                    </Flex>
+                    <Box className="mb-4">
+                        <Label htmlFor="YI_FAX">Fax</Label>
+                        <Input
+                            type="text"
+                            name="YI_FAX"
+                            id="YI_FAX"
+                            className="w-full mt-1"
+                        />
+                    </Box>
+                </>
+            ) : (
+                ''
+            )}
             <Box className="mb-4">
-                <Label htmlFor="preferredNotificationMethod">
+                <Label htmlFor="YI_NOTICE_DD">
                     Preferred Notification Method
                 </Label>
                 <Select
                     name="YI_NOTICE_DD"
-                    id="preferredNotificationMethod"
+                    id="YI_NOTICE_DD"
                     className="w-full mt-1"
                 >
                     <option value="text">
@@ -20,16 +100,16 @@ export const ContactInformation = ({ className }) => {
             </Box>
             <Flex className="flex-col sm:flex-row mb-4">
                 <Box className="mr-4">
-                    <Label htmlFor="phoneNumber">Phone Number</Label>
+                    <Label htmlFor="YI_PN">Phone Number</Label>
                     <Input
                         type="tel"
                         name="YI_PN"
-                        id="phoneNumber"
+                        id="YI_PN"
                         className="w-full mt-1"
                     />
                 </Box>
                 <Box>
-                    <Label>Type</Label>
+                    <Label htmlFor="YI_PHT_DD">Type</Label>
                     <Select name="YI_PHT_DD" className="w-full mt-1">
                         <option defaultValue disabled>
                             Select phone type
@@ -48,31 +128,29 @@ export const ContactInformation = ({ className }) => {
             </Flex>
 
             <Box className="mb-4">
-                <Label htmlFor="phoneNumberConfirm">Retype Phone Number</Label>
+                <Label htmlFor="YI_PHC">Retype Phone Number</Label>
                 <Input
                     type="tel"
                     name="YI_PHC"
-                    id="phoneNumberConfirm"
+                    id="YI_PHC"
                     className="w-full mt-1"
                 />
             </Box>
             <Box className="mb-4">
-                <Label htmlFor="emailAddress">Email Address</Label>
+                <Label htmlFor="YI_EM">Email Address</Label>
                 <Input
                     type="email"
                     name="YI_EM"
-                    id="emailAddress"
+                    id="YI_EM"
                     className="w-full mt-1"
                 />
             </Box>
             <Box className="mb-4">
-                <Label htmlFor="emailAddressConfirm">
-                    Retype Email Address
-                </Label>
+                <Label htmlFor="YI_EMC">Retype Email Address</Label>
                 <Input
                     type="email"
                     name="YI_EMC"
-                    id="emailAddressConfirm"
+                    id="YI_EMC"
                     className="w-full mt-1"
                 />
             </Box>

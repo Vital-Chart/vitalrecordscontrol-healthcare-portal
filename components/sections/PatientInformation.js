@@ -6,33 +6,31 @@ export const PatientInformation = ({ className }) => {
         <Box className={className}>
             <Flex className="flex-col sm:flex-row mb-4">
                 <Box className="w-full sm:mr-4">
-                    <Label htmlFor="patientFirstName">Patient First Name</Label>
+                    <Label htmlFor="PI_PFN">Patient First Name</Label>
                     <Input
                         type="text"
                         name="PI_PFN"
-                        id="patientFirstName"
+                        id="PI_PFN"
                         className="w-full mt-1"
                     />
                 </Box>
 
                 <Box className="w-full mt-4 sm:mt-0">
-                    <Label htmlFor="patientLastName">Patient Last Name</Label>
+                    <Label htmlFor="PI_PLN">Patient Last Name</Label>
                     <Input
                         type="text"
                         name="PI_PLN"
-                        id="patientLastName"
+                        id="PI_PLN"
                         className="w-full mt-1"
                     />
                 </Box>
             </Flex>
             <Box className="mb-4">
-                <Label htmlFor="patientOtherNames">
-                    Other Patient Names (Optional)
-                </Label>
+                <Label htmlFor="PI_PON">Other Patient Names (Optional)</Label>
                 <Input
                     type="text"
                     name="PI_PON"
-                    id="patientOtherNames"
+                    id="PI_PON"
                     className="w-full mt-1"
                 />
             </Box>
@@ -46,15 +44,20 @@ export const PatientInformation = ({ className }) => {
                 />
             </Box>
             <Box className="mb-4">
-                <Label>Physician/Clinic (Optional)</Label>
-                <Input type="text" className="w-full mt-1" />
+                <Label htmlFor="PI_PHYCL">Physician/Clinic (Optional)</Label>
+                <Input
+                    type="text"
+                    name="PI_PHYCL"
+                    id="PI_PHYCL"
+                    className="w-full mt-1"
+                />
             </Box>
             <Box className="mb-4">
-                <fieldset>
-                    <legend className="mb-2">
+                <Box as="fieldset">
+                    <Box as="legend" className="mb-2">
                         Please select the visits/admissions you would like
                         released:
-                    </legend>
+                    </Box>
                     <Box className="ml-4">
                         <Radio
                             label="Most recent"
@@ -76,7 +79,7 @@ export const PatientInformation = ({ className }) => {
                         />
                         <DateRangeSelector className="mt-4" />
                     </Box>
-                </fieldset>
+                </Box>
             </Box>
         </Box>
     )
