@@ -98,8 +98,8 @@ export const ContactInformation = ({ className, thirdParty }) => {
                     <option value="email">Email</option>
                 </Select>
             </Box>
-            <Flex className="flex-col sm:flex-row mb-4">
-                <Box className="mr-4">
+            <Flex className="flex-col sm:flex-row sm:mb-4">
+                <Box className="mr-4 mb-4 sm:mb-0">
                     <Label htmlFor="YI_PN">Phone Number</Label>
                     <Input
                         type="tel"
