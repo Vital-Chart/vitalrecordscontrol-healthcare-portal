@@ -48,7 +48,7 @@ export const Radio = forwardRef(
         <>
             {label ? (
                 <Label
-                    className={cx('inline-flex items-center', labelClassName)}
+                    className={cx('inline-flex items-start', labelClassName)}
                 >
                     <Box
                         ref={ref}
@@ -61,7 +61,7 @@ export const Radio = forwardRef(
                         )}
                         {...props}
                     />
-                    <Box as="span" className="pl-2">
+                    <Box as="span" className="pl-2 text-sm">
                         {label}
                     </Box>
                 </Label>
