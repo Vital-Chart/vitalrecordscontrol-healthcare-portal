@@ -5,3 +5,5 @@ export const PageHeading = ({ children }) => (
         {children}
     </Heading>
 )
+
+export default PageHeading

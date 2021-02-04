@@ -6,6 +6,4 @@ export const SectionHeading = ({ children }) => (
     </Heading>
 )
 
-// SectionHeading.defaultProps = {}
-
 export default SectionHeading

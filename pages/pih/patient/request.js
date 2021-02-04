@@ -5,8 +5,10 @@ import {
     FormSection,
     SectionHeading,
     CheckboxWrapper,
-} from '@/components/sections'
-import { Layout, Container, PageHeading, Alert } from '@/components/general'
+    PageHeading,
+    Alert,
+} from '@/components/atoms'
+import { Layout, Container } from '@/components/general'
 import {
     Box,
     Flex,
