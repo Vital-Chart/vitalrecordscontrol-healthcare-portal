@@ -200,80 +200,86 @@ const PIHPatientRequest = ({ store }) => {
                                                 value="FR"
                                             />
                                             <Box>
-                                                <CheckboxWrapper>
-                                                    <Checkbox
-                                                        label="Emergency/Urgent Care Physician Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="EUR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Consultation Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="CR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Laboratory Reports"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="LR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Newborn Record"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="NR"
-                                                    />
-                                                    <Checkbox
-                                                        label="History and Physical Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="HPR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Operative Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="OR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Pathology Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="PR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Immunization Record"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="IR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Discharge Summary Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="DSR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Anesthesia Records"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="AR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Radiology Report"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="RR"
-                                                    />
-                                                    <Checkbox
-                                                        label="Therapy Records"
-                                                        labelClassName="w-full"
-                                                        name="RI_MR_FR_CB"
-                                                        value="TR"
-                                                    />
-                                                </CheckboxWrapper>
+                                                <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
+                                                    <CheckboxWrapper className="w-full">
+                                                        <Checkbox
+                                                            label="Emergency/Urgent Care Physician Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="EUR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Consultation Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="CR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Laboratory Reports"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="LR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Newborn Record"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="NR"
+                                                        />
+                                                    </CheckboxWrapper>
+                                                    <CheckboxWrapper className="w-full">
+                                                        <Checkbox
+                                                            label="History and Physical Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="HPR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Operative Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="OR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Pathology Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="PR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Immunization Record"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="IR"
+                                                        />
+                                                    </CheckboxWrapper>
+                                                    <CheckboxWrapper className="w-full">
+                                                        <Checkbox
+                                                            label="Discharge Summary Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="DSR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Anesthesia Records"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="AR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Radiology Report"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="RR"
+                                                        />
+                                                        <Checkbox
+                                                            label="Therapy Records"
+                                                            labelClassName="w-full"
+                                                            name="RI_MR_FR_CB"
+                                                            value="TR"
+                                                        />
+                                                    </CheckboxWrapper>
+                                                </Box>
                                             </Box>
                                         </Box>
                                     </Box>
@@ -338,7 +344,7 @@ const PIHPatientRequest = ({ store }) => {
                                 as="textarea"
                                 name="PR_PUR"
                                 id="PR_PUR"
-                                className="block w-full mt-1 mb-2 sm:text-sm border-gray-300 rounded-md"
+                                className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded-md"
                                 placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
                             />
                             <Label htmlFor="PR_LIM">
@@ -348,7 +354,7 @@ const PIHPatientRequest = ({ store }) => {
                                 as="textarea"
                                 name="PR_LIM"
                                 id="PR_LIM"
-                                className="block w-full mt-1 sm:text-sm border-gray-300 rounded-md"
+                                className="block w-full mt-1 sm:text-sm border-gray-dark rounded-md"
                             />
                         </Box>
                     </FormSection>
