@@ -1,7 +1,7 @@
 export default {
     grids: {},
     texts: {
-        intro: 'text-gray-700 font-light leading-relaxed',
+        intro: 'text-gray-dark font-light leading-relaxed',
     },
     headings: {
         DEFAULT: 'font-bold',
@@ -19,9 +19,9 @@ export default {
     buttons: {
         DEFAULT: 'px-6 py-3 rounded transition-colors',
         filled:
-            'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-800 focus:border-gray-800',
+            'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark',
         outline:
-            'text-primary font-bold bg-transparent ring-2 ring-inset ring-primary hover:bg-primary hover:text-white focus:bg-gray-100 focus:border-gray-100 focus:ring-gray-800',
+            'text-primary font-bold bg-transparent ring-2 ring-inset ring-primary hover:bg-primary hover:text-white focus:bg-gray-lighter focus:border-gray-lighter focus:ring-gray-dark',
     },
     images: {},
 }

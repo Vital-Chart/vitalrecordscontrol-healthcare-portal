@@ -18,7 +18,7 @@ export const Input = forwardRef(({ className, ...props }, ref) => (
         as="input"
         type="text"
         // __variantKey="forms.input"
-        className={cx('rounded focus:border-gray-500', className)}
+        className={cx('rounded gray-light:border-gray-light', className)}
         {...props}
     />
 ))
@@ -28,7 +28,7 @@ export const Textarea = forwardRef(({ className, ...props }, ref) => (
         ref={ref}
         as="textarea"
         // __variantKey="forms.textarea"
-        className={cx('rounded focus:border-gray-500', className)}
+        className={cx('rounded gray-light:border-gray-light', className)}
         {...props}
     />
 ))
@@ -38,7 +38,7 @@ export const Select = forwardRef(({ className, ...props }, ref) => (
         ref={ref}
         as="select"
         // __variantKey="forms.select"
-        className={cx('rounded focus:border-gray-500', className)}
+        className={cx('rounded gray-light:border-gray-light', className)}
         {...props}
     />
 ))
@@ -48,17 +48,17 @@ export const Radio = forwardRef(
         <>
             {label ? (
                 <Label
-                    className={cx('inline-flex items-start', labelClassName)}
+                    className={cx(
+                        'inline-flex items-start mb-2',
+                        labelClassName
+                    )}
                 >
                     <Box
                         ref={ref}
                         as="input"
                         type="radio"
                         // __variantKey="forms.radio"
-                        className={cx(
-                            'text-gray-700 focus:ring-offset-0',
-                            className
-                        )}
+                        className={cx('focus:ring-offset-0', className)}
                         {...props}
                     />
                     <Box as="span" className="pl-2 text-sm">
@@ -71,10 +71,7 @@ export const Radio = forwardRef(
                     as="input"
                     type="radio"
                     // __variantKey="forms.radio"
-                    className={cx(
-                        'text-gray-700 focus:ring-offset-0',
-                        className
-                    )}
+                    className={cx('focus:ring-offset-0', className)}
                     {...props}
                 />
             )}
@@ -95,7 +92,7 @@ export const Radio = forwardRef(
 //                         type="checkbox"
 //                         // __variantKey="forms.checkbox"
 //                         className={cx(
-//                             'text-gray-700 rounded focus:ring-offset-0',
+//                             'text-gray-dark rounded focus:ring-offset-0',
 //                             className
 //                         )}
 //                         {...props}
@@ -111,7 +108,7 @@ export const Radio = forwardRef(
 //                     type="checkbox"
 //                     // __variantKey="forms.checkbox"
 //                     className={cx(
-//                         'text-gray-700 focus:ring-offset-0',
+//                         'text-gray-dark focus:ring-offset-0',
 //                         className
 //                     )}
 //                     {...props}
@@ -131,7 +128,7 @@ export const Checkbox = forwardRef(
                     type="checkbox"
                     // __variantKey="forms.checkbox"
                     className={cx(
-                        'text-gray-700 rounded focus:ring-offset-0',
+                        'rounded gray-light:ring-offset-0',
                         className
                     )}
                     {...props}
@@ -185,7 +182,7 @@ export const Switch = forwardRef(
                         aria-label="Toggle switch"
                         className={cx(
                             'appearance-none w-12 h-6 m-0 p-0 bg-current rounded-full transition-colors',
-                            checked ? 'text-gray-700' : 'text-gray-300',
+                            checked ? 'text-gray-dark' : 'text-gray-300',
                             getMargin(className)
                         )}
                         {...props}
@@ -219,7 +216,7 @@ export const Switch = forwardRef(
                     aria-label="Toggle switch"
                     className={cx(
                         'appearance-none w-12 h-6 m-0 p-0 bg-current rounded-full transition-colors',
-                        checked ? 'text-gray-700' : 'text-gray-500',
+                        checked ? 'text-gray-dark' : 'text-gray-light',
                         getMargin(className)
                     )}
                     {...props}
