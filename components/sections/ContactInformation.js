@@ -11,6 +11,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                             type="text"
                             name="YI_NM"
                             id="YI_NM"
+                            autocomplete="name"
                             className="w-full mt-1"
                         />
                     </Box>
@@ -29,6 +30,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                             type="text"
                             name="YI_ADDR1"
                             id="YI_ADDR1"
+                            autocomplete="address-line1"
                             className="w-full mt-1"
                         />
                     </Box>
@@ -38,6 +40,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                             type="text"
                             name="YI_ADDR2"
                             id="YI_ADDR2"
+                            autocomplete="address-line2"
                             className="w-full mt-1"
                         />
                     </Box>
@@ -66,6 +69,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                                 type="number"
                                 name="YI_ZIP"
                                 id="YI_ZIP"
+                                autocomplete="postal-code"
                                 className="w-full mt-1"
                             />
                         </Box>
@@ -105,6 +109,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                         type="tel"
                         name="YI_PN"
                         id="YI_PN"
+                        autocomplete="tel"
                         className="w-full mt-1"
                     />
                 </Box>
@@ -133,6 +138,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                     type="tel"
                     name="YI_PHC"
                     id="YI_PHC"
+                    autocomplete="tel"
                     className="w-full mt-1"
                 />
             </Box>
@@ -142,6 +148,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                     type="email"
                     name="YI_EM"
                     id="YI_EM"
+                    autocomplete="email"
                     className="w-full mt-1"
                 />
             </Box>
@@ -151,6 +158,7 @@ export const ContactInformation = ({ className, thirdParty }) => {
                     type="email"
                     name="YI_EMC"
                     id="YI_EMC"
+                    autocomplete="email"
                     className="w-full mt-1"
                 />
             </Box>
