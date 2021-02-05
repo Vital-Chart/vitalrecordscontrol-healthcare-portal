@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { withStore } from '@/lib/store'
 import { Layout, Container } from '@/components/general'
 import { Box, Checkbox, Select, Radio, Label, Input } from '@/components/core'
@@ -9,21 +10,20 @@ import {
     PageHeading,
     CheckboxWrapper,
     Alert,
-    DatePicker,
-    DateRangeSelector,
 } from '@/components/atoms'
 import { Flex, Button } from '@/components/core'
 
 const PIHPatientRequest = ({ store }) => {
-    const [formData, setFormData] = useState(null)
+    const { register, handleSubmit, watch, errors } = useForm()
+    const watchFacilityCheckboxes = watch('FI_CB', [])
+    const watchRequestedInformation = watch('RI_CB', [])
+    const watchVisitOptions = watch('VI_OPT', [])
 
-    function handleFormChange(e) {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value.trim(),
-        })
-        console.table({ formData })
-    }
+    const onSubmit = data => console.table(data)
+
+    // useEffect(() => {
+    //     console.log({ watchVisitOptions })
+    // })
 
     return (
         <Layout>
@@ -33,6 +33,7 @@ const PIHPatientRequest = ({ store }) => {
                 <FormWrapper
                     acceptCharset="UTF-8"
                     encType="multipart/form-data"
+                    onSubmit={handleSubmit(onSubmit)}
                 >
                     <FormSection>
                         <SectionHeading>Facility / Facilities</SectionHeading>
@@ -47,31 +48,44 @@ const PIHPatientRequest = ({ store }) => {
                                     value="P7202-1"
                                     name="FI_CB"
                                     labelClassName="w-full mb-2"
+                                    ref={register({ required: true })}
                                 />
                                 <Checkbox
                                     label="PIH Health Hospital - Whittier"
                                     value="P7201-1"
                                     name="FI_CB"
                                     labelClassName="w-full mb-2"
+                                    ref={register({ required: true })}
                                 />
                                 <Checkbox
                                     label="PIH Health Hospital - PIH Health Physicians"
                                     value="P7203-1"
                                     name="FI_CB"
                                     labelClassName="w-full"
+                                    ref={register({ required: true })}
                                 />
                             </CheckboxWrapper>
                         </Box>
-                        <Alert
-                            primaryAlertText="Once you hit 'Continue' below, you cannot change which
+
+                        {watchFacilityCheckboxes.length > 1 ? (
+                            <Alert
+                                primaryAlertText="You have selected more than one facility."
+                                secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
+                            />
+                        ) : (
+                            ''
+                        )}
+
+                        {watchFacilityCheckboxes.length > 0 ? (
+                            <Alert
+                                primaryAlertText="Once you hit 'Continue' below, you cannot change which
                     facilities you are requesting from."
-                            secondaryAlertText="Please double-check to make sure you select the correct
+                                secondaryAlertText="Please double-check to make sure you select the correct
                     facility or facilities."
-                        />
-                        <Alert
-                            primaryAlertText="You have selected more than one facility."
-                            secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
-                        />
+                            />
+                        ) : (
+                            ''
+                        )}
                     </FormSection>
 
                     <FormSection>
@@ -87,6 +101,7 @@ const PIHPatientRequest = ({ store }) => {
                                         name="PI_PFN"
                                         id="PI_PFN"
                                         className="w-full mt-1"
+                                        ref={register({ required: true })}
                                     />
                                 </Box>
 
@@ -99,6 +114,7 @@ const PIHPatientRequest = ({ store }) => {
                                         name="PI_PLN"
                                         id="PI_PLN"
                                         className="w-full mt-1"
+                                        ref={register({ required: true })}
                                     />
                                 </Box>
                             </Flex>
@@ -111,16 +127,59 @@ const PIHPatientRequest = ({ store }) => {
                                     name="PI_PON"
                                     id="PI_PON"
                                     className="w-full mt-1"
+                                    ref={register}
                                 />
                             </Box>
                             <Box className="mb-4">
-                                <Label>Patient Date of Birth</Label>
-                                <DatePicker
-                                    monthFieldName="birthMonth"
-                                    dayFieldName="birthDay"
-                                    yearFieldName="birthYear"
-                                    className="mt-1"
+                                <Label htmlFor="PI_DOB">
+                                    Patient Date of Birth
+                                </Label>
+                                <Input
+                                    type="date"
+                                    name="PI_DOB"
+                                    id="PI_DOB"
+                                    autoComplete="bday"
+                                    className="block mt-1"
+                                    ref={register({ required: true })}
                                 />
+                                {/* <Flex className="mt-1">
+                                    <Select name="birthMonth" className="mr-2">
+                                        <option
+                                            key="month"
+                                            defaultValue
+                                            disabled
+                                        >
+                                            Month
+                                        </option>
+                                        {months.map(month => (
+                                            <option
+                                                key={`mth-${month.number}`}
+                                                value={month.number}
+                                            >
+                                                {month.name}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                    <Select name="birthDay" className="mr-2">
+                                        <option defaultValue disabled>
+                                            Day
+                                        </option>
+                                        {range(1, 31).map(day => (
+                                            <option
+                                                key={`day-${day}`}
+                                                value={day}
+                                            >
+                                                {day}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                    <Input
+                                        name="birthYear"
+                                        type="number"
+                                        placeholder="Year"
+                                        className=""
+                                    />
+                                </Flex> */}
                             </Box>
                             <Box className="mb-4">
                                 <Label htmlFor="PI_PHYCL">
@@ -131,6 +190,7 @@ const PIHPatientRequest = ({ store }) => {
                                     name="PI_PHYCL"
                                     id="PI_PHYCL"
                                     className="w-full mt-1"
+                                    ref={register}
                                 />
                             </Box>
                             <Box className="mb-4">
@@ -144,21 +204,60 @@ const PIHPatientRequest = ({ store }) => {
                                             label="Most recent"
                                             labelClassName="w-full"
                                             name="VI_OPT"
+                                            defaultChecked
                                             value="MR"
+                                            ref={register({ required: true })}
                                         />
                                         <Radio
                                             label="All"
                                             labelClassName="w-full"
                                             name="VI_OPT"
                                             value="ALL"
+                                            ref={register({ required: true })}
                                         />
                                         <Radio
                                             label="In a date range"
                                             labelClassName="w-full"
                                             name="VI_OPT"
                                             value="DR"
+                                            ref={register({ required: true })}
                                         />
-                                        <DateRangeSelector className="mt-4" />
+
+                                        {watchVisitOptions.includes('DR') ? (
+                                            <Flex>
+                                                <Box>
+                                                    <Label className="block mb-1">
+                                                        Service Start:
+                                                    </Label>
+                                                    <Input
+                                                        type="date"
+                                                        name="PI_DOB"
+                                                        id="PI_DOB"
+                                                        autoComplete="bday"
+                                                        className="mr-4"
+                                                        ref={register({
+                                                            required: true,
+                                                        })}
+                                                    />
+                                                </Box>
+                                                <Box>
+                                                    <Label className="block mb-1">
+                                                        Service End:
+                                                    </Label>
+                                                    <Input
+                                                        type="date"
+                                                        name="PI_DOB"
+                                                        id="PI_DOB"
+                                                        autoComplete="bday"
+                                                        ref={register({
+                                                            required: true,
+                                                        })}
+                                                    />
+                                                </Box>
+                                            </Flex>
+                                        ) : (
+                                            ''
+                                        )}
                                     </Box>
                                 </Box>
                             </Box>
@@ -178,8 +277,12 @@ const PIHPatientRequest = ({ store }) => {
                                         labelClassName="w-full"
                                         name="RI_CB"
                                         value="MR"
+                                        ref={register({ required: true })}
                                     />
-                                    <Box>
+
+                                    {watchRequestedInformation.includes(
+                                        'MR'
+                                    ) ? (
                                         <Box className="ml-4">
                                             <Radio
                                                 label="Pertinent Information (Discharge Summary, History and Physical, Consultation, ER Reports, Labs, Radiology Reports, EKGs, Pathology Reports)"
@@ -199,95 +302,97 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="RI_MR_OPT"
                                                 value="FR"
                                             />
-                                            <Box>
-                                                <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
-                                                    <CheckboxWrapper className="w-full">
-                                                        <Checkbox
-                                                            label="Emergency/Urgent Care Physician Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="EUR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Consultation Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="CR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Laboratory Reports"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="LR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Newborn Record"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="NR"
-                                                        />
-                                                    </CheckboxWrapper>
-                                                    <CheckboxWrapper className="w-full">
-                                                        <Checkbox
-                                                            label="History and Physical Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="HPR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Operative Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="OR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Pathology Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="PR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Immunization Record"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="IR"
-                                                        />
-                                                    </CheckboxWrapper>
-                                                    <CheckboxWrapper className="w-full">
-                                                        <Checkbox
-                                                            label="Discharge Summary Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="DSR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Anesthesia Records"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="AR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Radiology Report"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="RR"
-                                                        />
-                                                        <Checkbox
-                                                            label="Therapy Records"
-                                                            labelClassName="w-full"
-                                                            name="RI_MR_FR_CB"
-                                                            value="TR"
-                                                        />
-                                                    </CheckboxWrapper>
-                                                </Box>
+                                            <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
+                                                <CheckboxWrapper className="w-full">
+                                                    <Checkbox
+                                                        label="Emergency/Urgent Care Physician Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="EUR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Consultation Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="CR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Laboratory Reports"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="LR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Newborn Record"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="NR"
+                                                    />
+                                                </CheckboxWrapper>
+                                                <CheckboxWrapper className="w-full">
+                                                    <Checkbox
+                                                        label="History and Physical Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="HPR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Operative Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="OR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Pathology Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="PR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Immunization Record"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="IR"
+                                                    />
+                                                </CheckboxWrapper>
+                                                <CheckboxWrapper className="w-full">
+                                                    <Checkbox
+                                                        label="Discharge Summary Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="DSR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Anesthesia Records"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="AR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Radiology Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="RR"
+                                                    />
+                                                    <Checkbox
+                                                        label="Therapy Records"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="TR"
+                                                    />
+                                                </CheckboxWrapper>
                                             </Box>
                                         </Box>
-                                    </Box>
+                                    ) : (
+                                        ''
+                                    )}
+
                                     <Checkbox
                                         label="Itemized Billing"
                                         labelClassName="w-full"
                                         name="RI_CB"
                                         value="IB"
+                                        ref={register({ required: true })}
                                     />
 
                                     <Checkbox
@@ -295,6 +400,7 @@ const PIHPatientRequest = ({ store }) => {
                                         labelClassName="w-full"
                                         name="RI_CB"
                                         value="RI"
+                                        ref={register({ required: true })}
                                     >
                                         The Radiology Department will follow up
                                         if any charges or additional information
@@ -305,6 +411,7 @@ const PIHPatientRequest = ({ store }) => {
                                         labelClassName="w-full"
                                         name="RI_CB"
                                         value="PS"
+                                        ref={register({ required: true })}
                                     >
                                         The Pathology Department will follow up
                                         if any charges or additional information
@@ -312,7 +419,21 @@ const PIHPatientRequest = ({ store }) => {
                                     </Checkbox>
                                 </CheckboxWrapper>
 
-                                <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                {/* TODO: Change following alerts to 'info' boxes */}
+
+                                {watchRequestedInformation.includes('MR') ||
+                                watchRequestedInformation.includes('IB') ? (
+                                    <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                ) : (
+                                    ''
+                                )}
+
+                                {watchRequestedInformation.includes('RI') ||
+                                watchRequestedInformation.includes('PS') ? (
+                                    <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
+                                ) : (
+                                    ''
+                                )}
 
                                 <Box className="mt-4">
                                     <p className="text-sm font-bold mb-2">
@@ -321,11 +442,36 @@ const PIHPatientRequest = ({ store }) => {
                                         by checking the relevant box(es) below:
                                     </p>
                                     <CheckboxWrapper>
-                                        <Checkbox label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment" />
-                                        <Checkbox label="Information pertaining to mental health diagnosis or treatment" />
-                                        <Checkbox label="HIV/AIDS test results" />
-                                        <Checkbox label="Genetic testing information" />
-                                        <Checkbox label="Worker's Comp information" />
+                                        <Checkbox
+                                            name="RI_MR_AI_CB"
+                                            label="Information pertaining to mental health diagnosis or treatment"
+                                            value="IPM"
+                                            ref={register}
+                                        />
+                                        <Checkbox
+                                            name="RI_MR_AI_CB"
+                                            label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
+                                            value="IPD"
+                                            ref={register}
+                                        />
+                                        <Checkbox
+                                            name="RI_MR_AI_CB"
+                                            label="HIV/AIDS test results"
+                                            value="HIV"
+                                            ref={register}
+                                        />
+                                        <Checkbox
+                                            name="RI_MR_AI_CB"
+                                            label="Genetic testing information"
+                                            value="GTI"
+                                            ref={register}
+                                        />
+                                        <Checkbox
+                                            name="RI_MR_AI_CB"
+                                            label="Worker's Comp information"
+                                            value="WCI"
+                                            ref={register}
+                                        />
                                     </CheckboxWrapper>
                                 </Box>
                             </Box>
@@ -346,6 +492,7 @@ const PIHPatientRequest = ({ store }) => {
                                 id="PR_PUR"
                                 className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded-md"
                                 placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
+                                ref={register}
                             />
                             <Label htmlFor="PR_LIM">
                                 Limitations (Optional):
@@ -355,6 +502,7 @@ const PIHPatientRequest = ({ store }) => {
                                 name="PR_LIM"
                                 id="PR_LIM"
                                 className="block w-full mt-1 sm:text-sm border-gray-dark rounded-md"
+                                ref={register}
                             />
                         </Box>
                     </FormSection>
@@ -370,6 +518,7 @@ const PIHPatientRequest = ({ store }) => {
                                     name="YI_NOTICE_DD"
                                     id="YI_NOTICE_DD"
                                     className="w-full mt-1"
+                                    ref={register({ required: true })}
                                 >
                                     <option value="text">
                                         Text Message (Standard messaging rates
@@ -385,8 +534,9 @@ const PIHPatientRequest = ({ store }) => {
                                         type="tel"
                                         name="YI_PN"
                                         id="YI_PN"
-                                        autocomplete="tel"
+                                        autoComplete="tel"
                                         className="w-full mt-1"
+                                        ref={register({ required: true })}
                                     />
                                 </Box>
                                 <Box>
@@ -394,6 +544,7 @@ const PIHPatientRequest = ({ store }) => {
                                     <Select
                                         name="YI_PHT_DD"
                                         className="w-full mt-1"
+                                        ref={register({ required: true })}
                                     >
                                         <option defaultValue disabled>
                                             Select phone type
@@ -419,8 +570,9 @@ const PIHPatientRequest = ({ store }) => {
                                     type="tel"
                                     name="YI_PHC"
                                     id="YI_PHC"
-                                    autocomplete="tel"
+                                    autoComplete="tel"
                                     className="w-full mt-1"
+                                    ref={register({ required: true })}
                                 />
                             </Box>
                             <Box className="mb-4">
@@ -429,8 +581,9 @@ const PIHPatientRequest = ({ store }) => {
                                     type="email"
                                     name="YI_EM"
                                     id="YI_EM"
-                                    autocomplete="email"
+                                    autoComplete="email"
                                     className="w-full mt-1"
+                                    ref={register({ required: true })}
                                 />
                             </Box>
                             <Box className="mb-4">
@@ -441,8 +594,9 @@ const PIHPatientRequest = ({ store }) => {
                                     type="email"
                                     name="YI_EMC"
                                     id="YI_EMC"
-                                    autocomplete="email"
+                                    autoComplete="email"
                                     className="w-full mt-1"
+                                    ref={register({ required: true })}
                                 />
                             </Box>
                         </Box>
@@ -584,6 +738,7 @@ const PIHPatientRequest = ({ store }) => {
                         </Box>
                         {/* TODO: Add Document Uploader */}
                     </FormSection>
+                    <Input type="submit" />
                 </FormWrapper>
             </Container>
         </Layout>
