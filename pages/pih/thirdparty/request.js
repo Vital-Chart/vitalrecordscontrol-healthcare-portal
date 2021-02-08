@@ -6,18 +6,9 @@ import {
     SectionHeading,
     PageHeading,
 } from '@/components/atoms'
-import {
-    PatientInformation,
-    FacilitySelector,
-    RecordsSelector,
-    RequestPurpose,
-    ContactInformation,
-    DeliveryInformation,
-} from '@/components/sections'
 import { Flex, Button } from '@/components/core'
 
 const PIHThirdPartyRequest = ({ store }) => {
-    const thirdParty = true
     return (
         <Layout>
             <Container>
