@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import cx from 'classnames'
 import { withStore } from '@/lib/store'
 import { Layout, Container } from '@/components/general'
 import { Box, Checkbox, Select, Radio, Label, Input } from '@/components/core'
@@ -10,20 +11,30 @@ import {
     PageHeading,
     CheckboxWrapper,
     Alert,
+    ErrorMessage,
 } from '@/components/atoms'
 import { Flex, Button } from '@/components/core'
 
 const PIHPatientRequest = ({ store }) => {
-    const { register, handleSubmit, watch, errors } = useForm()
+    const {
+        register,
+        handleSubmit,
+        watch,
+        getValues,
+        setValue,
+        errors,
+    } = useForm()
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
 
-    const onSubmit = data => console.table(data)
+    const onSubmit = data => {
+        console.table(data)
+    }
 
-    // useEffect(() => {
-    //     console.log({ watchVisitOptions })
-    // })
+    useEffect(() => {
+        //
+    })
 
     return (
         <Layout>
@@ -64,27 +75,26 @@ const PIHPatientRequest = ({ store }) => {
                                     labelClassName="w-full"
                                     ref={register({ required: true })}
                                 />
+                                {errors.FI_CB && (
+                                    <ErrorMessage message="Please select at least one facility." />
+                                )}
                             </CheckboxWrapper>
                         </Box>
 
-                        {watchFacilityCheckboxes.length > 1 ? (
+                        {watchFacilityCheckboxes.length > 1 && (
                             <Alert
                                 primaryAlertText="You have selected more than one facility."
                                 secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
                             />
-                        ) : (
-                            ''
                         )}
 
-                        {watchFacilityCheckboxes.length > 0 ? (
+                        {watchFacilityCheckboxes.length > 0 && (
                             <Alert
                                 primaryAlertText="Once you hit 'Continue' below, you cannot change which
                     facilities you are requesting from."
                                 secondaryAlertText="Please double-check to make sure you select the correct
                     facility or facilities."
                             />
-                        ) : (
-                            ''
                         )}
                     </FormSection>
 
@@ -223,7 +233,7 @@ const PIHPatientRequest = ({ store }) => {
                                             ref={register({ required: true })}
                                         />
 
-                                        {watchVisitOptions.includes('DR') ? (
+                                        {watchVisitOptions.includes('DR') && (
                                             <Flex>
                                                 <Box>
                                                     <Label className="block mb-1">
@@ -255,8 +265,6 @@ const PIHPatientRequest = ({ store }) => {
                                                     />
                                                 </Box>
                                             </Flex>
-                                        ) : (
-                                            ''
                                         )}
                                     </Box>
                                 </Box>
@@ -282,7 +290,7 @@ const PIHPatientRequest = ({ store }) => {
 
                                     {watchRequestedInformation.includes(
                                         'MR'
-                                    ) ? (
+                                    ) && (
                                         <Box className="ml-4">
                                             <Radio
                                                 label="Pertinent Information (Discharge Summary, History and Physical, Consultation, ER Reports, Labs, Radiology Reports, EKGs, Pathology Reports)"
@@ -383,8 +391,6 @@ const PIHPatientRequest = ({ store }) => {
                                                 </CheckboxWrapper>
                                             </Box>
                                         </Box>
-                                    ) : (
-                                        ''
                                     )}
 
                                     <Checkbox
@@ -422,18 +428,18 @@ const PIHPatientRequest = ({ store }) => {
                                 {/* TODO: Change following alerts to 'info' boxes */}
 
                                 {watchRequestedInformation.includes('MR') ||
-                                watchRequestedInformation.includes('IB') ? (
-                                    <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
-                                ) : (
-                                    ''
-                                )}
+                                    (watchRequestedInformation.includes(
+                                        'IB'
+                                    ) && (
+                                        <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                    ))}
 
                                 {watchRequestedInformation.includes('RI') ||
-                                watchRequestedInformation.includes('PS') ? (
-                                    <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
-                                ) : (
-                                    ''
-                                )}
+                                    (watchRequestedInformation.includes(
+                                        'PS'
+                                    ) && (
+                                        <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
+                                    ))}
 
                                 <Box className="mt-4">
                                     <p className="text-sm font-bold mb-2">
