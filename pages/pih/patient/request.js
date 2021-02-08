@@ -33,7 +33,7 @@ const PIHPatientRequest = ({ store }) => {
     }
 
     useEffect(() => {
-        //
+        console.table(errors)
     })
 
     return (
@@ -59,24 +59,35 @@ const PIHPatientRequest = ({ store }) => {
                                     value="P7202-1"
                                     name="FI_CB"
                                     labelClassName="w-full mb-2"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            'Please select at least one facility.',
+                                    })}
                                 />
                                 <Checkbox
                                     label="PIH Health Hospital - Whittier"
                                     value="P7201-1"
                                     name="FI_CB"
                                     labelClassName="w-full mb-2"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            'Please select at least one facility.',
+                                    })}
                                 />
                                 <Checkbox
                                     label="PIH Health Hospital - PIH Health Physicians"
                                     value="P7203-1"
                                     name="FI_CB"
                                     labelClassName="w-full"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            'Please select at least one facility.',
+                                    })}
                                 />
                                 {errors.FI_CB && (
-                                    <ErrorMessage message="Please select at least one facility." />
+                                    <ErrorMessage
+                                        message={errors.YI_PHC.message}
+                                    />
                                 )}
                             </CheckboxWrapper>
                         </Box>
@@ -111,8 +122,16 @@ const PIHPatientRequest = ({ store }) => {
                                         name="PI_PFN"
                                         id="PI_PFN"
                                         className="w-full mt-1"
-                                        ref={register({ required: true })}
+                                        ref={register({
+                                            required:
+                                                "Please enter the patient's name.",
+                                        })}
                                     />
+                                    {errors.PI_PFN && (
+                                        <ErrorMessage
+                                            message={errors.PI_PFN.message}
+                                        />
+                                    )}
                                 </Box>
 
                                 <Box className="w-full mt-4 sm:mt-0">
@@ -124,10 +143,19 @@ const PIHPatientRequest = ({ store }) => {
                                         name="PI_PLN"
                                         id="PI_PLN"
                                         className="w-full mt-1"
-                                        ref={register({ required: true })}
+                                        ref={register({
+                                            required:
+                                                "Please enter the patient's name.",
+                                        })}
                                     />
+                                    {errors.PI_PLN && (
+                                        <ErrorMessage
+                                            message={errors.PI_PLN.message}
+                                        />
+                                    )}
                                 </Box>
                             </Flex>
+
                             <Box className="mb-4">
                                 <Label htmlFor="PI_PON">
                                     Other Patient Names (Optional)
@@ -150,8 +178,16 @@ const PIHPatientRequest = ({ store }) => {
                                     id="PI_DOB"
                                     autoComplete="bday"
                                     className="block mt-1"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            "Please enter the patient's date of birth.",
+                                    })}
                                 />
+                                {errors.PI_DOB && (
+                                    <ErrorMessage
+                                        message={errors.PI_DOB.message}
+                                    />
+                                )}
                                 {/* <Flex className="mt-1">
                                     <Select name="birthMonth" className="mr-2">
                                         <option
@@ -214,58 +250,74 @@ const PIHPatientRequest = ({ store }) => {
                                             label="Most recent"
                                             labelClassName="w-full"
                                             name="VI_OPT"
-                                            defaultChecked
                                             value="MR"
-                                            ref={register({ required: true })}
+                                            ref={register({
+                                                required:
+                                                    'Please select which records you would like released.',
+                                            })}
                                         />
                                         <Radio
                                             label="All"
                                             labelClassName="w-full"
                                             name="VI_OPT"
                                             value="ALL"
-                                            ref={register({ required: true })}
+                                            ref={register({
+                                                required:
+                                                    'Please select which records you would like released.',
+                                            })}
                                         />
                                         <Radio
                                             label="In a date range"
                                             labelClassName="w-full"
                                             name="VI_OPT"
                                             value="DR"
-                                            ref={register({ required: true })}
+                                            ref={register({
+                                                required:
+                                                    'Please select which records you would like released.',
+                                            })}
                                         />
-
-                                        {watchVisitOptions.includes('DR') && (
-                                            <Flex>
-                                                <Box>
-                                                    <Label className="block mb-1">
-                                                        Service Start:
-                                                    </Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="PI_DOB"
-                                                        id="PI_DOB"
-                                                        autoComplete="bday"
-                                                        className="mr-4"
-                                                        ref={register({
-                                                            required: true,
-                                                        })}
-                                                    />
-                                                </Box>
-                                                <Box>
-                                                    <Label className="block mb-1">
-                                                        Service End:
-                                                    </Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="PI_DOB"
-                                                        id="PI_DOB"
-                                                        autoComplete="bday"
-                                                        ref={register({
-                                                            required: true,
-                                                        })}
-                                                    />
-                                                </Box>
-                                            </Flex>
+                                        {errors.VI_OPT && (
+                                            <ErrorMessage
+                                                message={errors.VI_OPT.message}
+                                            />
                                         )}
+
+                                        {watchVisitOptions &&
+                                            watchVisitOptions.includes(
+                                                'DR'
+                                            ) && (
+                                                <Flex>
+                                                    <Box>
+                                                        <Label className="block mb-1">
+                                                            Service Start:
+                                                        </Label>
+                                                        <Input
+                                                            type="date"
+                                                            name="PI_DOB"
+                                                            id="PI_DOB"
+                                                            autoComplete="bday"
+                                                            className="mr-4"
+                                                            ref={register({
+                                                                required: true,
+                                                            })}
+                                                        />
+                                                    </Box>
+                                                    <Box>
+                                                        <Label className="block mb-1">
+                                                            Service End:
+                                                        </Label>
+                                                        <Input
+                                                            type="date"
+                                                            name="PI_DOB"
+                                                            id="PI_DOB"
+                                                            autoComplete="bday"
+                                                            ref={register({
+                                                                required: true,
+                                                            })}
+                                                        />
+                                                    </Box>
+                                                </Flex>
+                                            )}
                                     </Box>
                                 </Box>
                             </Box>
@@ -487,29 +539,42 @@ const PIHPatientRequest = ({ store }) => {
                     <FormSection>
                         <SectionHeading>Purpose of Request</SectionHeading>
                         <Box>
-                            <p className="mb-2">
-                                Please enter your reason for requesting records.
-                            </p>
+                            <Box>
+                                <p className="mb-2">
+                                    Please enter your reason for requesting
+                                    records.
+                                </p>
 
-                            <Label htmlFor="PR_PUR">Purpose:</Label>
-                            <Box
-                                as="textarea"
-                                name="PR_PUR"
-                                id="PR_PUR"
-                                className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded-md"
-                                placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
-                                ref={register}
-                            />
-                            <Label htmlFor="PR_LIM">
-                                Limitations (Optional):
-                            </Label>
-                            <Box
-                                as="textarea"
-                                name="PR_LIM"
-                                id="PR_LIM"
-                                className="block w-full mt-1 sm:text-sm border-gray-dark rounded-md"
-                                ref={register}
-                            />
+                                <Label htmlFor="PR_PUR">Purpose:</Label>
+                                <Box
+                                    as="textarea"
+                                    name="PR_PUR"
+                                    id="PR_PUR"
+                                    className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded-md"
+                                    placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
+                                    ref={register({
+                                        required:
+                                            'Please enter the purpose of this request.',
+                                    })}
+                                />
+                                {errors.PR_PUR && (
+                                    <ErrorMessage
+                                        message={errors.PR_PUR.message}
+                                    />
+                                )}
+                            </Box>
+                            <Box>
+                                <Label htmlFor="PR_LIM">
+                                    Limitations (Optional):
+                                </Label>
+                                <Box
+                                    as="textarea"
+                                    name="PR_LIM"
+                                    id="PR_LIM"
+                                    className="block w-full mt-1 sm:text-sm border-gray-dark rounded-md"
+                                    ref={register}
+                                />
+                            </Box>
                         </Box>
                     </FormSection>
 
@@ -542,8 +607,16 @@ const PIHPatientRequest = ({ store }) => {
                                         id="YI_PN"
                                         autoComplete="tel"
                                         className="w-full mt-1"
-                                        ref={register({ required: true })}
+                                        ref={register({
+                                            required:
+                                                'Please enter your phone number.',
+                                        })}
                                     />
+                                    {errors.YI_PHC && (
+                                        <ErrorMessage
+                                            message={errors.YI_PN.message}
+                                        />
+                                    )}
                                 </Box>
                                 <Box>
                                     <Label htmlFor="YI_PHT_DD">Type</Label>
@@ -578,8 +651,21 @@ const PIHPatientRequest = ({ store }) => {
                                     id="YI_PHC"
                                     autoComplete="tel"
                                     className="w-full mt-1"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your phone number.',
+                                        validate: {
+                                            phoneMatch: value =>
+                                                value === getValues().YI_PN ||
+                                                'The phone numbers you entered do not match!',
+                                        },
+                                    })}
                                 />
+                                {errors.YI_PHC && (
+                                    <ErrorMessage
+                                        message={errors.YI_PHC.message}
+                                    />
+                                )}
                             </Box>
                             <Box className="mb-4">
                                 <Label htmlFor="YI_EM">Email Address</Label>
@@ -589,8 +675,16 @@ const PIHPatientRequest = ({ store }) => {
                                     id="YI_EM"
                                     autoComplete="email"
                                     className="w-full mt-1"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            'Please enter your email address.',
+                                    })}
                                 />
+                                {errors.YI_EM && (
+                                    <ErrorMessage
+                                        message={errors.YI_EM.message}
+                                    />
+                                )}
                             </Box>
                             <Box className="mb-4">
                                 <Label htmlFor="YI_EMC">
@@ -602,8 +696,21 @@ const PIHPatientRequest = ({ store }) => {
                                     id="YI_EMC"
                                     autoComplete="email"
                                     className="w-full mt-1"
-                                    ref={register({ required: true })}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your email address.',
+                                        validate: {
+                                            phoneMatch: value =>
+                                                value === getValues().YI_PN ||
+                                                'The email addresses you entered do not match.',
+                                        },
+                                    })}
                                 />
+                                {errors.YI_EMC && (
+                                    <ErrorMessage
+                                        message={errors.YI_EMC.message}
+                                    />
+                                )}
                             </Box>
                         </Box>
                     </FormSection>
@@ -651,7 +758,7 @@ const PIHPatientRequest = ({ store }) => {
                         </Flex>
                     </FormSection>
 
-                    <FormSection>
+                    <FormSection className="hidden">
                         <Box>
                             <p className="mb-2">
                                 Your request has been saved and assigned
