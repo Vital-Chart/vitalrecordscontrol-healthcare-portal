@@ -46,6 +46,9 @@ const PIHPatientRequest = ({ store }) => {
                     encType="multipart/form-data"
                     onSubmit={handleSubmit(onSubmit)}
                 >
+                    <Input type="hidden" name="CLNT" value="PIH" />
+                    <Input type="hidden" name="FTYPE" value="PAT" />
+
                     <FormSection>
                         <SectionHeading>Facility / Facilities</SectionHeading>
                         <Box>
