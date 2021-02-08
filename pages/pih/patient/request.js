@@ -33,7 +33,7 @@ const PIHPatientRequest = ({ store }) => {
     }
 
     useEffect(() => {
-        console.table(errors)
+        // console.table(errors)
     })
 
     return (
@@ -349,6 +349,9 @@ const PIHPatientRequest = ({ store }) => {
                                                 labelClassName="w-full"
                                                 name="RI_MR_OPT"
                                                 value="PI"
+                                                ref={register({
+                                                    required: true,
+                                                })}
                                             />
                                             <Radio
                                                 label="All health information pertaining to my medical history, mental or physical condition and treatment received, including records received from other healthcare providers. A reasonable clerical and reproduction processing fee is applicable."
@@ -700,8 +703,8 @@ const PIHPatientRequest = ({ store }) => {
                                         required:
                                             'Please confirm your email address.',
                                         validate: {
-                                            phoneMatch: value =>
-                                                value === getValues().YI_PN ||
+                                            emailMatch: value =>
+                                                value === getValues().YI_EM ||
                                                 'The email addresses you entered do not match.',
                                         },
                                     })}
