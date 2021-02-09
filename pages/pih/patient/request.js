@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import cx from 'classnames'
+import { useForm, FormProvider } from 'react-hook-form'
 import { withStore } from '@/lib/store'
 import { Layout, Container } from '@/components/general'
 import {
@@ -11,6 +11,8 @@ import {
     Radio,
     Label,
     Input,
+    Flex,
+    Button,
 } from '@/components/core'
 import {
     FormWrapper,
@@ -20,8 +22,8 @@ import {
     CheckboxWrapper,
     Alert,
     ErrorMessage,
+    FileInput,
 } from '@/components/atoms'
-import { Flex, Button } from '@/components/core'
 
 const PIHPatientRequest = ({ store }) => {
     const {
@@ -40,13 +42,6 @@ const PIHPatientRequest = ({ store }) => {
 
     const onSubmit = data => {
         console.log(data)
-        // Object.keys(data).map(key => {
-        //     console.log(key)
-        //     console.log(data[key])
-        //     if (data[key].isArray) {
-        //         console.log('Its an array!')
-        //     }
-        // })
     }
 
     useEffect(() => {
@@ -1032,6 +1027,13 @@ const PIHPatientRequest = ({ store }) => {
                                     browser to another app for 10 minutes.
                                 </li>
                             </ul>
+                        </Box>
+                        <Box>
+                            <FormProvider>
+                                <FormWrapper>
+                                    <FileInput />
+                                </FormWrapper>
+                            </FormProvider>
                         </Box>
                         {/* TODO: Add Document Uploader */}
                     </Box>
