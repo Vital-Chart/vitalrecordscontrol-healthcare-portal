@@ -5,7 +5,7 @@ import IconAlert from '@/icons/icon-alert.svg'
 export const Alert = ({ className, primaryAlertText, secondaryAlertText }) => (
     <Box
         className={cx(
-            'rounded-md bg-secondary-lightest my-2 p-4 border-l-4 border-secondary',
+            'rounded-md bg-secondary-lightest my-4 p-4 border-l-4 border-secondary',
             className
         )}
     >
