@@ -13,6 +13,7 @@ import {
     Input,
     Flex,
     Button,
+    Link,
 } from '@/components/core'
 import {
     FormWrapper,
@@ -24,6 +25,7 @@ import {
     ErrorMessage,
     FileInput,
 } from '@/components/atoms'
+import IconSlash from '@/icons/icon-slash.svg'
 
 const PIHPatientRequest = ({ store }) => {
     const {
@@ -80,74 +82,61 @@ const PIHPatientRequest = ({ store }) => {
         <Layout>
             <Box className="py-4 mb-4 bg-gray-lightest">
                 <Container>
-                    <nav className="flex" aria-label="Breadcrumb">
-                        <ol className="flex items-center space-x-4">
-                            <li>
-                                <div>
-                                    <a
+                    <Box as="nav" className="flex" aria-label="Breadcrumb">
+                        <Box as="ol" className="flex items-center space-x-4">
+                            <Box as="li">
+                                <Box>
+                                    <Link
                                         href="#"
                                         aria-current="page"
                                         className="text-sm font-medium text-gray hover:text-gray-dark"
-                                        onClick={() => {
+                                        onClick={e => {
+                                            e.preventDefault()
                                             if (currentStep !== 1) {
                                                 setCurrentStep(1)
                                             }
                                         }}
                                     >
                                         Request Information
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="flex-shrink-0 h-5 w-5 text-gray-light"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                                    </svg>
-                                    <a
+                                    </Link>
+                                </Box>
+                            </Box>
+                            <Box as="li">
+                                <Flex className="items-center">
+                                    <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
+                                    <Link
                                         href="#"
                                         className="ml-4 text-sm font-medium text-gray hover:text-gray-dark"
-                                        onClick={() => {
+                                        onClick={e => {
+                                            e.preventDefault()
                                             if (currentStep !== 2) {
                                                 setCurrentStep(2)
                                             }
                                         }}
                                     >
                                         Upload Authorization
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="flex items-center">
-                                    <svg
-                                        className="flex-shrink-0 h-5 w-5 text-gray-light"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                                    </svg>
-                                    <a
+                                    </Link>
+                                </Flex>
+                            </Box>
+                            <Box as="li">
+                                <Flex className="items-center">
+                                    <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
+                                    <Link
                                         href="#"
                                         className="ml-4 text-sm font-medium text-gray hover:text-gray-dark"
-                                        onClick={() => {
+                                        onClick={e => {
+                                            e.preventDefault()
                                             if (currentStep !== 3) {
                                                 setCurrentStep(3)
                                             }
                                         }}
                                     >
                                         Review & Submit
-                                    </a>
-                                </div>
-                            </li>
-                        </ol>
-                    </nav>
+                                    </Link>
+                                </Flex>
+                            </Box>
+                        </Box>
+                    </Box>
                 </Container>
             </Box>
             <Container>
