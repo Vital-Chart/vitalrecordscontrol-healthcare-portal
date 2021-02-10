@@ -1,8 +1,7 @@
-import cx from 'classnames'
 import { Box } from '@/components/core'
 
 export const FormWrapper = ({ className, children, ...props }) => (
-    <Box as="form" className={cx('pb-8', className)} {...props}>
+    <Box as="form" className={className} {...props}>
         {children}
     </Box>
 )
