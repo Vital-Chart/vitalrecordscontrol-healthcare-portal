@@ -41,11 +41,39 @@ const PIHPatientRequest = ({ store }) => {
     const [currentStep, setCurrentStep] = useState(1)
 
     const onSubmit = data => {
-        console.log(data)
+        console.table(data)
+        const formattedData = formatData(data)
+        console.table(formattedData)
+    }
+
+    const formatData = data => {
+        const formattedData = {}
+        Object.keys(data).map(key => {
+            const fieldValue = getValues(key)
+
+            // Format date of birth to mm/dd/yyyy
+            if (key === 'PI_DOB') {
+                formattedData[key] = formatDate(fieldValue)
+                console.log('DOB' + formattedData[key])
+            }
+
+            // Create comma separated strings from array values
+            if (Array.isArray(fieldValue)) {
+                formattedData[key] = fieldValue.join()
+            } else {
+                formattedData[key] = fieldValue
+            }
+        })
+        return formattedData
+    }
+
+    const formatDate = date => {
+        const [year, month, day] = date.split('-')
+        return `${month}/${day}/${year}`
     }
 
     useEffect(() => {
-        console.log({ currentStep })
+        // console.log({ currentStep })
     })
 
     return (
@@ -131,8 +159,6 @@ const PIHPatientRequest = ({ store }) => {
                             encType="multipart/form-data"
                             onSubmit={handleSubmit(onSubmit)}
                         >
-                            {/* TODO: Remove extra border */}
-
                             <Input
                                 type="hidden"
                                 name="CLNT"
