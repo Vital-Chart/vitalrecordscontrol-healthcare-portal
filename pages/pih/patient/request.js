@@ -89,7 +89,7 @@ const PIHPatientRequest = ({ store }) => {
                                     <Link
                                         href="#"
                                         aria-current="page"
-                                        className="text-sm font-medium text-gray hover:text-gray-dark"
+                                        className="text-sm text-center sm:text-left text-gray hover:text-gray-dark"
                                         onClick={e => {
                                             e.preventDefault()
                                             if (currentStep !== 1) {
@@ -106,7 +106,7 @@ const PIHPatientRequest = ({ store }) => {
                                     <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
                                     <Link
                                         href="#"
-                                        className="ml-4 text-sm font-medium text-gray hover:text-gray-dark"
+                                        className="ml-4 text-sm text-center sm:text-left text-gray hover:text-gray-dark"
                                         onClick={e => {
                                             e.preventDefault()
                                             if (currentStep !== 2) {
@@ -123,7 +123,7 @@ const PIHPatientRequest = ({ store }) => {
                                     <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
                                     <Link
                                         href="#"
-                                        className="ml-4 text-sm font-medium text-gray hover:text-gray-dark"
+                                        className="ml-4 text-sm text-center sm:text-left text-gray hover:text-gray-dark"
                                         onClick={e => {
                                             e.preventDefault()
                                             if (currentStep !== 3) {
@@ -504,12 +504,18 @@ const PIHPatientRequest = ({ store }) => {
                                                         labelClassName="w-full"
                                                         name="RI_MR_OPT"
                                                         value="AHI"
+                                                        ref={register({
+                                                            required: true,
+                                                        })}
                                                     />
                                                     <Radio
                                                         label="Only the following records or types of health information included in the following dates of service:"
                                                         labelClassName="w-full"
                                                         name="RI_MR_OPT"
                                                         value="FR"
+                                                        ref={register({
+                                                            required: true,
+                                                        })}
                                                     />
                                                     <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
                                                         <CheckboxWrapper className="w-full">
