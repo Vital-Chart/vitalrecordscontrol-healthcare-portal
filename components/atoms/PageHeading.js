@@ -1,12 +1,14 @@
 import cx from 'classnames'
-import { Heading } from '@/components/core'
+import { Box, Flex, Heading, Image } from '@/components/core'
+import hospitals from '@/lib/hospitals'
 
 export const PageHeading = ({ className, children }) => (
-    <Heading
-        className={cx('pt-8 pb-4 border-b-2 border-gray-light', className)}
-    >
-        {children}
-    </Heading>
+    <Box className={cx('py-4 border-b-2 border-gray-light', className)}>
+        <Box className="w-20 mb-6">
+            <Image src={hospitals.pih.logo} />
+        </Box>
+        <Heading>{children}</Heading>
+    </Box>
 )
 
 export default PageHeading
