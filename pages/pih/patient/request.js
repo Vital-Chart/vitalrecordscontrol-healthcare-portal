@@ -24,6 +24,7 @@ import {
     Alert,
     ErrorMessage,
     FileInput,
+    ButtonWrapper,
 } from '@/components/atoms'
 import IconSlash from '@/icons/icon-slash.svg'
 
@@ -928,22 +929,21 @@ const PIHPatientRequest = ({ store }) => {
                                 </Box>
                             </FormSection>
 
-                            <FormSection>
-                                <Flex>
-                                    <Button
-                                        variant="outline"
-                                        className="flex-grow mx-4"
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        variant="filled"
-                                        className="flex-grow mx-4"
-                                    >
-                                        Continue
-                                    </Button>
-                                </Flex>
-                            </FormSection>
+                            <ButtonWrapper>
+                                <Button
+                                    variant="outline"
+                                    className="flex-grow mx-4"
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant="filled"
+                                    className="flex-grow mx-4"
+                                >
+                                    Continue
+                                </Button>
+                            </ButtonWrapper>
+
                             <Input type="submit" />
                         </FormWrapper>
                     </Box>
@@ -986,34 +986,34 @@ const PIHPatientRequest = ({ store }) => {
                             <Text as="p" className="pb-4">
                                 To complete your request:
                             </Text>
-                            <ol className="pl-8 pb-4 list-decimal">
-                                <li>
+                            <Box as="ul" className="pl-8 pb-4 list-decimal">
+                                <Box as="li">
                                     Print out and sign this authorization form
                                     along with a copy of a government-issued
                                     picture ID,
-                                </li>
-                                <li>
+                                </Box>
+                                <Box as="li">
                                     Scan or photograph all pages of the form
                                     along with your government ID,
-                                </li>
-                                <li>
+                                </Box>
+                                <Box as="li">
                                     If requesting on behalf of a patient, scan
                                     or photograph all pages of the additional
                                     required documentation,
-                                </li>
-                                <li>
+                                </Box>
+                                <Box as="li">
                                     Upload all photos/scans in the area below,
                                     and
-                                </li>
-                                <li>Click Continue below.</li>
-                            </ol>
+                                </Box>
+                                <Box as="li">Click Continue below.</Box>
+                            </Box>
 
                             <Text as="p" className="pb-4 font-bold">
                                 Please note the following:
                             </Text>
 
-                            <ul className="pl-8 pb-4 list-disc">
-                                <li>
+                            <Box as="ul" className="pl-8 pb-4 list-disc">
+                                <Box as="li">
                                     If you are unable to submit the required
                                     images/documentation at this time, you may
                                     return to this screen by entering your
@@ -1023,25 +1023,25 @@ const PIHPatientRequest = ({ store }) => {
                                     you." You must upload the required
                                     documentation within 72 hours or your
                                     request will be canceled.
-                                </li>
-                                <li>
+                                </Box>
+                                <Box as="li">
                                     The files you upload must have PDF,
                                     JPG/JPEG, TIF/TIFF, or PNG as their
                                     extension.
-                                </li>
-                                <li>
+                                </Box>
+                                <Box as="li">
                                     Uploaded files must be less than 10 MB in
                                     size. If your files are too large, consult
                                     your device's documentation for instructions
                                     on lowering the resolution and/or color
                                     depth and compressing the file.
-                                </li>
-                                <li>
+                                </Box>
+                                <Box as="li">
                                     This site will automatically log you out if
                                     you are inactive or switch away from your
                                     browser to another app for 10 minutes.
-                                </li>
-                            </ul>
+                                </Box>
+                            </Box>
                         </Box>
                         <Box>
                             <FormProvider>
