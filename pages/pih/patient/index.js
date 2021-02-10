@@ -15,22 +15,28 @@ const PIHPatient = ({ store }) => (
                 </Text>
                 <Box as="ol" className="pl-8 pb-4 list-decimal">
                     <Box as="li">
-                        This option is designed for patients only to request
-                        records to be delivered electronically through the web.
-                        Anyone else, including parents/guardians or other third
-                        parties, should click here to view other options for
-                        submitting requests. Some materials, such as Radiology
-                        Imaging CDs or Pathology Slides, will be sent via the
-                        U.S. Postal service or will require pick-up.
+                        This option is designed for{' '}
+                        <span className="font-bold">patients only</span> to
+                        request records to be delivered{' '}
+                        <span className="font-bold">
+                            electronically through the web
+                        </span>
+                        . Anyone else, including parents/guardians or other
+                        third parties, should click here to view other options
+                        for submitting requests. Some materials, such as
+                        Radiology Imaging CDs or Pathology Slides, will be sent
+                        via the U.S. Postal service or will require pick-up.
                     </Box>
                     <Box as="li">
                         In order to protect your privacy and comply with federal
                         and state regulations, we need a copy of your driver's
                         license or other government-issued ID before we can
-                        release your records. Failure to upload all required
-                        documents through this system within 72 hours after
-                        beginning the process will result in your request being
-                        canceled.
+                        release your records.{' '}
+                        <span className="font-bold">
+                            Failure to upload all required documents through
+                            this system within 72 hours after beginning the
+                            process will result in your request being canceled.
+                        </span>
                     </Box>
                     <Box as="ul" className="pl-8 pb-4 list-disc">
                         <Box as="li">
@@ -54,17 +60,22 @@ const PIHPatient = ({ store }) => (
                         may result in your request being canceled or delayed.
                     </Box>
                     <Box as="li">
-                        There may be a clerical/reproduction processing fee
-                        charged. Items not able to be delivered electronically
-                        (e.g. Radiology Imaging CDs or Pathology Slides) may
-                        incur additional charges, which will be displayed if
-                        selected.
+                        <span className="font-bold">
+                            There may be a clerical/reproduction processing fee
+                            charged. Items not able to be delivered
+                            electronically (e.g. Radiology Imaging CDs or
+                            Pathology Slides) may incur additional charges,
+                            which will be displayed if selected.
+                        </span>
                     </Box>
                     <Box as="li">
                         If you request records from multiple facilities, you
                         will get ONE tracking number for each facility, as each
-                        facility processes records separately. You will receive
-                        separate notifications and records from each facility.
+                        facility processes records separately.{' '}
+                        <span className="font-bold">
+                            You will receive separate notifications and records
+                            from each facility.
+                        </span>
                     </Box>
                 </Box>
                 <Text as="p" className="pb-4">
