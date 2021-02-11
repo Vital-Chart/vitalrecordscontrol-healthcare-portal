@@ -42,6 +42,18 @@ const PIHPatientRequest = ({ store }) => {
 
     const [currentStep, setCurrentStep] = useState(1)
 
+    const handleChange = e => {
+        // console.log(e)
+        const formValues = getValues()
+        // console.log(formValues[e.target.name])
+
+        store.dispatch({
+            type: 'UPDATE_FORM',
+            name: e.target.name,
+            value: formValues[e.target.name],
+        })
+    }
+
     const onSubmit = data => {
         console.table(data)
         const formattedData = formatData(data)
@@ -188,6 +200,7 @@ const PIHPatientRequest = ({ store }) => {
                                             value="P7202-1"
                                             name="FI_CB"
                                             labelClassName="w-full mb-2"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please select at least one facility.',
@@ -198,6 +211,7 @@ const PIHPatientRequest = ({ store }) => {
                                             value="P7201-1"
                                             name="FI_CB"
                                             labelClassName="w-full mb-2"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please select at least one facility.',
@@ -208,6 +222,7 @@ const PIHPatientRequest = ({ store }) => {
                                             value="P7203-1"
                                             name="FI_CB"
                                             labelClassName="w-full"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please select at least one facility.',
@@ -387,6 +402,7 @@ const PIHPatientRequest = ({ store }) => {
                                                     labelClassName="w-full"
                                                     name="VI_OPT"
                                                     value="MR"
+                                                    onChange={handleChange}
                                                     ref={register({
                                                         required:
                                                             'Please select which records you would like released.',
@@ -397,6 +413,7 @@ const PIHPatientRequest = ({ store }) => {
                                                     labelClassName="w-full"
                                                     name="VI_OPT"
                                                     value="ALL"
+                                                    onChange={handleChange}
                                                     ref={register({
                                                         required:
                                                             'Please select which records you would like released.',
@@ -407,6 +424,7 @@ const PIHPatientRequest = ({ store }) => {
                                                     labelClassName="w-full"
                                                     name="VI_OPT"
                                                     value="DR"
+                                                    onChange={handleChange}
                                                     ref={register({
                                                         required:
                                                             'Please select which records you would like released.',
@@ -644,21 +662,26 @@ const PIHPatientRequest = ({ store }) => {
 
                                         {watchRequestedInformation.includes(
                                             'MR'
-                                        ) ||
-                                            (watchRequestedInformation.includes(
-                                                'IB'
-                                            ) && (
-                                                <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
-                                            ))}
+                                        ) && (
+                                            <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                        )}
+                                        {watchRequestedInformation.includes(
+                                            'IB'
+                                        ) && (
+                                            <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                        )}
 
                                         {watchRequestedInformation.includes(
                                             'RI'
-                                        ) ||
-                                            (watchRequestedInformation.includes(
-                                                'PS'
-                                            ) && (
-                                                <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
-                                            ))}
+                                        ) && (
+                                            <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
+                                        )}
+
+                                        {watchRequestedInformation.includes(
+                                            'PS'
+                                        ) && (
+                                            <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
+                                        )}
 
                                         <Box className="mt-4">
                                             <p className="text-sm font-bold mb-2">
@@ -723,6 +746,7 @@ const PIHPatientRequest = ({ store }) => {
                                             id="PR_PUR"
                                             className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded"
                                             placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please enter the purpose of this request.',
@@ -762,6 +786,7 @@ const PIHPatientRequest = ({ store }) => {
                                             name="YI_NOTICE_DD"
                                             id="YI_NOTICE_DD"
                                             className="w-full mt-1"
+                                            onChange={handleChange}
                                             ref={register({ required: true })}
                                         >
                                             <option value="text">

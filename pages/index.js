@@ -15,7 +15,7 @@ const Home = ({ store }) => (
                 PIH - Third Party - Request Form
             </Link>
 
-            <div>Count: {store.state.count}</div>
+            {/* <div>Count: {store.state.count}</div>
 
             <button
                 onClick={() =>
@@ -37,7 +37,7 @@ const Home = ({ store }) => (
                 }
             >
                 +
-            </button>
+            </button> */}
         </Flex>
     </Layout>
 )
