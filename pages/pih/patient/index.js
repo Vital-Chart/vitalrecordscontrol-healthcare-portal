@@ -13,8 +13,8 @@ const PIHPatient = ({ store }) => (
                     record and to retrieve it electronically. Please read the
                     important notes below before continuing to use this system:
                 </Text>
-                <Box as="ol" className="pl-8 list-decimal max-w-screen-md">
-                    <Box as="li" className="pb-4">
+                <Box as="ol" className="pl-8 pb-2 list-decimal max-w-screen-md">
+                    <Box as="li" className="pb-2">
                         This option is designed for{' '}
                         <span className="font-bold">patients only</span> to
                         request records to be delivered{' '}
@@ -27,7 +27,7 @@ const PIHPatient = ({ store }) => (
                         Radiology Imaging CDs or Pathology Slides, will be sent
                         via the U.S. Postal service or will require pick-up.
                     </Box>
-                    <Box as="li" className="pb-4">
+                    <Box as="li" className="pb-2">
                         In order to protect your privacy and comply with federal
                         and state regulations, we need a copy of your driver's
                         license or other government-issued ID before we can
@@ -38,14 +38,14 @@ const PIHPatient = ({ store }) => (
                             process will result in your request being canceled.
                         </span>
                     </Box>
-                    <Box as="ul" className="pl-8 list-disc">
-                        <Box as="li" className="pb-4">
+                    <Box as="ul" className="pl-8 pb-2 list-disc">
+                        <Box as="li" className="pb-2">
                             If you are on a mobile device (e.g.
                             smartphone/tablet), you will need to electronically
                             sign an authorization form and submit a picture of
                             yourself holding your government-issued ID.
                         </Box>
-                        <Box as="li" className="pb-4">
+                        <Box as="li" className="pb-2">
                             If you are on a non-mobile device (e.g.
                             desktop/laptop computer) you will need to print,
                             manually sign, and upload a scanned copy of an
@@ -53,13 +53,13 @@ const PIHPatient = ({ store }) => (
                             ID.
                         </Box>
                     </Box>
-                    <Box as="li" className="pb-4">
+                    <Box as="li" className="pb-2">
                         Information requested through this system must exactly
                         match hospital records. Typographic errors, such as
                         patient name misspelling or incorrect dates of service,
                         may result in your request being canceled or delayed.
                     </Box>
-                    <Box as="li" className="pb-4">
+                    <Box as="li" className="pb-2">
                         <span className="font-bold">
                             There may be a clerical/reproduction processing fee
                             charged. Items not able to be delivered
@@ -68,7 +68,7 @@ const PIHPatient = ({ store }) => (
                             which will be displayed if selected.
                         </span>
                     </Box>
-                    <Box as="li" className="pb-4">
+                    <Box as="li" className="pb-2">
                         If you request records from multiple facilities, you
                         will get ONE tracking number for each facility, as each
                         facility processes records separately.{' '}

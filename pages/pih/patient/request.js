@@ -992,25 +992,25 @@ const PIHPatientRequest = ({ store }) => {
                                 To complete your request:
                             </Text>
                             <Box as="ul" className="pl-8 pb-4 list-decimal">
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     Print out and sign this authorization form
                                     along with a copy of a government-issued
                                     picture ID,
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     Scan or photograph all pages of the form
                                     along with your government ID,
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     If requesting on behalf of a patient, scan
                                     or photograph all pages of the additional
                                     required documentation,
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     Upload all photos/scans in the area below,
                                     and
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     Click Continue below.
                                 </Box>
                             </Box>
@@ -1020,7 +1020,7 @@ const PIHPatientRequest = ({ store }) => {
                             </Text>
 
                             <Box as="ul" className="pl-8 pb-4 list-disc">
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     If you are unable to submit the required
                                     images/documentation at this time, you may
                                     return to this screen by entering your
@@ -1031,19 +1031,19 @@ const PIHPatientRequest = ({ store }) => {
                                     documentation within 72 hours or your
                                     request will be canceled.
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     The files you upload must have PDF,
                                     JPG/JPEG, TIF/TIFF, or PNG as their
                                     extension.
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     Uploaded files must be less than 10 MB in
                                     size. If your files are too large, consult
                                     your device's documentation for instructions
                                     on lowering the resolution and/or color
                                     depth and compressing the file.
                                 </Box>
-                                <Box as="li" className="pb-4">
+                                <Box as="li" className="pb-2">
                                     This site will automatically log you out if
                                     you are inactive or switch away from your
                                     browser to another app for 10 minutes.
