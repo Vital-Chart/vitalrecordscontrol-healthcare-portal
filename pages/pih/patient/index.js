@@ -8,12 +8,12 @@ const PIHPatient = ({ store }) => (
         <Container>
             <PageHeading>Information for Submitting Requests</PageHeading>
             <Box className="pt-8">
-                <Text as="p" className="pb-4">
+                <Text as="p" className="pb-4 max-w-screen-md leading-relaxed">
                     This website allows you to request copies of your medical
                     record and to retrieve it electronically. Please read the
                     important notes below before continuing to use this system:
                 </Text>
-                <Box as="ol" className="pl-8 list-decimal">
+                <Box as="ol" className="pl-8 list-decimal max-w-screen-md">
                     <Box as="li" className="pb-4">
                         This option is designed for{' '}
                         <span className="font-bold">patients only</span> to
@@ -78,20 +78,26 @@ const PIHPatient = ({ store }) => (
                         </span>
                     </Box>
                 </Box>
-                <Text as="p" className="pb-4">
+                <Text as="p" className="pb-4 max-w-screen-md">
                     If you are unable to complete the above, please refer to
                     this page to review other options for submitting your
                     request.
                 </Text>
             </Box>
             <ButtonWrapper>
-                <Button variant="outline" className="flex-grow mx-4">
+                <Button
+                    as={Link}
+                    href="/pih/"
+                    variant="outline"
+                    className="flex-grow mx-4 text-center"
+                >
                     Back
                 </Button>
                 <Button
+                    as={Link}
                     href="/pih/patient/request"
                     variant="filled"
-                    className="flex-grow mx-4"
+                    className="flex-grow mx-4 text-center"
                 >
                     Continue
                 </Button>
