@@ -3,10 +3,10 @@ import { Box, Flex } from '@/components/core'
 import IconInfo from '@/icons/icon-info.svg'
 
 export const Info = ({ className, primaryText, secondaryText }) => (
-    <Box className={cx('rounded-md py-4 px-6 bg-tertiary-lightest', className)}>
+    <Box className={cx('rounded-md py-4 px-6 bg-gray-lightest', className)}>
         <Flex>
             <Box className="flex-shrink-0">
-                <IconInfo className="h-5 w-5 text-primary" />
+                <IconInfo className="h-5 w-5 text-blue" />
             </Box>
             <Box className="ml-3">
                 <p className="text-sm font-bold">{primaryText}</p>
