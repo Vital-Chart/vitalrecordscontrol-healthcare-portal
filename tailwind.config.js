@@ -71,6 +71,7 @@ module.exports = {
                 darkest: '#6A5813',
             },
             tertiary: {
+                lightest: '#EDFDF7',
                 DEFAULT: '#80EFC4',
                 dark: '#60DDAC',
             },
@@ -78,6 +79,11 @@ module.exports = {
                 light: '#F8D8D8',
                 DEFAULT: '#DE4848',
                 dark: '#C53E3E',
+            },
+            blue: {
+                lightest: '#E1EFFF',
+                light: '#006EF4',
+                DEFAULT: '#00469C',
             },
             gray: {
                 lightest: '#F5F5F5',
