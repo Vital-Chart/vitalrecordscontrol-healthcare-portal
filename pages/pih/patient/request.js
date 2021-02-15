@@ -21,6 +21,7 @@ import {
     PageHeading,
     CheckboxWrapper,
     Alert,
+    Info,
     ErrorMessage,
     FileInput,
     ButtonWrapper,
@@ -43,9 +44,7 @@ const PIHPatientRequest = ({ store }) => {
     const [currentStep, setCurrentStep] = useState(1)
 
     const handleChange = e => {
-        // console.log(e)
         const formValues = getValues()
-        // console.log(formValues[e.target.name])
 
         store.dispatch({
             type: 'UPDATE_FORM',
@@ -58,6 +57,7 @@ const PIHPatientRequest = ({ store }) => {
         console.table(data)
         const formattedData = formatData(data)
         console.table(formattedData)
+        alert(JSON.stringify(formattedData))
     }
 
     const formatData = data => {
@@ -87,7 +87,9 @@ const PIHPatientRequest = ({ store }) => {
     }
 
     useEffect(() => {
-        // console.log({ currentStep })
+        // if (watchFacilityCheckboxes.includes('P7202-1')) {
+        //     console.log('true')
+        // }
     })
 
     return (
@@ -230,7 +232,7 @@ const PIHPatientRequest = ({ store }) => {
                                         />
                                         {errors.FI_CB && (
                                             <ErrorMessage
-                                                message={errors.YI_PHC.message}
+                                                message={errors.FI_CB.message}
                                             />
                                         )}
                                     </CheckboxWrapper>
@@ -270,7 +272,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 className="w-full mt-1"
                                                 ref={register({
                                                     required:
-                                                        "Please enter the patient's name.",
+                                                        "Please enter the patient's first name.",
                                                 })}
                                             />
                                             {errors.PI_PFN && (
@@ -293,7 +295,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 className="w-full mt-1"
                                                 ref={register({
                                                     required:
-                                                        "Please enter the patient's name.",
+                                                        "Please enter the patient's last name.",
                                                 })}
                                             />
                                             {errors.PI_PLN && (
@@ -500,9 +502,18 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="RI_CB"
                                                 value="MR"
                                                 ref={register({
-                                                    required: true,
+                                                    required:
+                                                        'Please select the items you would like released.',
                                                 })}
                                             />
+
+                                            {errors.RI_MR_OPT && (
+                                                <ErrorMessage
+                                                    message={
+                                                        errors.RI_MR_OPT.message
+                                                    }
+                                                />
+                                            )}
 
                                             {watchRequestedInformation.includes(
                                                 'MR'
@@ -514,7 +525,8 @@ const PIHPatientRequest = ({ store }) => {
                                                         name="RI_MR_OPT"
                                                         value="PI"
                                                         ref={register({
-                                                            required: true,
+                                                            required:
+                                                                'Please select the items you would like released.',
                                                         })}
                                                     />
                                                     <Radio
@@ -523,7 +535,8 @@ const PIHPatientRequest = ({ store }) => {
                                                         name="RI_MR_OPT"
                                                         value="AHI"
                                                         ref={register({
-                                                            required: true,
+                                                            required:
+                                                                'Please select the items you would like released.',
                                                         })}
                                                     />
                                                     <Radio
@@ -532,7 +545,8 @@ const PIHPatientRequest = ({ store }) => {
                                                         name="RI_MR_OPT"
                                                         value="FR"
                                                         ref={register({
-                                                            required: true,
+                                                            required:
+                                                                'Please select the items you would like released.',
                                                         })}
                                                     />
                                                     <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
@@ -624,7 +638,8 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="RI_CB"
                                                 value="IB"
                                                 ref={register({
-                                                    required: true,
+                                                    required:
+                                                        'Please select the items you would like released.',
                                                 })}
                                             />
 
@@ -634,7 +649,8 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="RI_CB"
                                                 value="RI"
                                                 ref={register({
-                                                    required: true,
+                                                    required:
+                                                        'Please select the items you would like released.',
                                                 })}
                                             >
                                                 The Radiology Department will
@@ -648,7 +664,8 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="RI_CB"
                                                 value="PS"
                                                 ref={register({
-                                                    required: true,
+                                                    required:
+                                                        'Please select the items you would like released.',
                                                 })}
                                             >
                                                 The Pathology Department will
@@ -658,72 +675,90 @@ const PIHPatientRequest = ({ store }) => {
                                             </Checkbox>
                                         </CheckboxWrapper>
 
-                                        {/* TODO: Change following alerts to 'info' boxes */}
+                                        {errors.RI_CB && (
+                                            <ErrorMessage
+                                                message={errors.RI_CB.message}
+                                            />
+                                        )}
 
                                         {watchRequestedInformation.includes(
                                             'MR'
                                         ) && (
-                                            <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                            <>
+                                                <Info
+                                                    secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
+                                                    className="mt-4"
+                                                />
+                                                <Box className="mt-4">
+                                                    <p className="text-sm font-bold mb-2">
+                                                        The following
+                                                        information will not be
+                                                        released unless
+                                                        specifically authorized
+                                                        by checking the relevant
+                                                        box(es) below:
+                                                    </p>
+                                                    <CheckboxWrapper>
+                                                        <Checkbox
+                                                            name="RI_MR_AI_CB"
+                                                            label="Information pertaining to mental health diagnosis or treatment"
+                                                            value="IPM"
+                                                            ref={register}
+                                                        />
+                                                        <Checkbox
+                                                            name="RI_MR_AI_CB"
+                                                            label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
+                                                            value="IPD"
+                                                            ref={register}
+                                                        />
+                                                        <Checkbox
+                                                            name="RI_MR_AI_CB"
+                                                            label="HIV/AIDS test results"
+                                                            value="HIV"
+                                                            ref={register}
+                                                        />
+                                                        <Checkbox
+                                                            name="RI_MR_AI_CB"
+                                                            label="Genetic testing information"
+                                                            value="GTI"
+                                                            ref={register}
+                                                        />
+                                                        <Checkbox
+                                                            name="RI_MR_AI_CB"
+                                                            label="Worker's Comp information"
+                                                            value="WCI"
+                                                            ref={register}
+                                                        />
+                                                    </CheckboxWrapper>
+                                                </Box>
+                                            </>
                                         )}
                                         {watchRequestedInformation.includes(
                                             'IB'
                                         ) && (
-                                            <Alert primaryAlertText="Medical Records and Itemized Billing will be delivered electronically through this website." />
+                                            <Info
+                                                secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
+                                                className="mt-4"
+                                            />
                                         )}
 
                                         {watchRequestedInformation.includes(
                                             'RI'
                                         ) && (
-                                            <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
+                                            <Info
+                                                secondaryText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered."
+                                                className="mt-4"
+                                            />
                                         )}
 
                                         {watchRequestedInformation.includes(
                                             'PS'
                                         ) && (
-                                            <Alert primaryAlertText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered." />
+                                            <Info
+                                                secondaryText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered."
+                                                className="mt-4"
+                                            />
                                         )}
-
-                                        <Box className="mt-4">
-                                            <p className="text-sm font-bold mb-2">
-                                                The following information will
-                                                not be released unless
-                                                specifically authorized by
-                                                checking the relevant box(es)
-                                                below:
-                                            </p>
-                                            <CheckboxWrapper>
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Information pertaining to mental health diagnosis or treatment"
-                                                    value="IPM"
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
-                                                    value="IPD"
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="HIV/AIDS test results"
-                                                    value="HIV"
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Genetic testing information"
-                                                    value="GTI"
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Worker's Comp information"
-                                                    value="WCI"
-                                                    ref={register}
-                                                />
-                                            </CheckboxWrapper>
-                                        </Box>
                                     </Box>
                                 </Box>
                             </FormSection>
@@ -938,24 +973,39 @@ const PIHPatientRequest = ({ store }) => {
                                         days from time of receipt. Please
                                         contact us if you have any questions.
                                     </p>
-                                    <p className="mb-2">
-                                        <span className="font-bold">
-                                            PIH Health Hospital - Downey:
-                                        </span>{' '}
-                                        (562) 904-5166 x26177
-                                    </p>
-                                    <p className="mb-2">
-                                        <span className="font-bold">
-                                            PIH Health Hospital - Whittier:
-                                        </span>{' '}
-                                        (562) 698-0811 x13685
-                                    </p>
-                                    <p className="mb-2">
-                                        <span className="font-bold">
-                                            PIH Health Physicians:
-                                        </span>{' '}
-                                        (562) 698-0811 x13858
-                                    </p>
+
+                                    {watchFacilityCheckboxes.includes(
+                                        'P7202-1'
+                                    ) && (
+                                        <p className="mb-2">
+                                            <span className="font-bold">
+                                                PIH Health Hospital - Downey:
+                                            </span>{' '}
+                                            (562) 904-5166 x26177
+                                        </p>
+                                    )}
+
+                                    {watchFacilityCheckboxes.includes(
+                                        'P7201-1'
+                                    ) && (
+                                        <p className="mb-2">
+                                            <span className="font-bold">
+                                                PIH Health Hospital - Whittier:
+                                            </span>{' '}
+                                            (562) 698-0811 x13685
+                                        </p>
+                                    )}
+
+                                    {watchFacilityCheckboxes.includes(
+                                        'P7203-1'
+                                    ) && (
+                                        <p className="mb-2">
+                                            <span className="font-bold">
+                                                PIH Health Physicians:
+                                            </span>{' '}
+                                            (562) 698-0811 x13858
+                                        </p>
+                                    )}
                                 </Box>
                             </FormSection>
 
@@ -966,15 +1016,13 @@ const PIHPatientRequest = ({ store }) => {
                                 >
                                     Cancel
                                 </Button>
-                                <Button
+                                <Input
                                     variant="filled"
-                                    className="flex-grow mx-4"
-                                >
-                                    Continue
-                                </Button>
+                                    className="flex-grow mx-4 text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark"
+                                    type="submit"
+                                    value="Continue"
+                                />
                             </ButtonWrapper>
-
-                            <Input type="submit" />
                         </FormWrapper>
                     </Box>
                 )}
