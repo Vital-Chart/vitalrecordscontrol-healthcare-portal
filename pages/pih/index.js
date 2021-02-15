@@ -17,9 +17,9 @@ const PIH = ({ store }) => (
                 />
             </Flex>
 
-            <Flex className="max-w-screen-lg flex-col md:flex-row flex-wrap md:justify-center mx-auto">
-                <Flex className="order-1 w-full md:w-1/2 md:px-4">
-                    <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 lg:px-20 border-t-8 border-primary">
+            <Flex className="max-w-4xl flex-col md:flex-row flex-wrap md:justify-center mx-auto mb-12">
+                <Flex className="flex-1 mx-4 border-t-8 border-primary">
+                    <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                         <Box className="pb-8">
                             <Heading
                                 as="h3"
@@ -47,50 +47,8 @@ const PIH = ({ store }) => (
                         </Button>
                     </Flex>
                 </Flex>
-                <Flex className="order-2 md:order-3 flex-col items-center w-full md:w-1/2 md:justify-between py-2 md:px-16">
-                    <Box as="ul" className="text-sm">
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Requests processed within 48 hours*.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Order and view records with your phone, tablet,
-                                or computer.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Receive notification when your request is ready.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">Access your own records.</Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Print, email, save, fax, and share your records
-                                with any 3rd party when and how you want.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Records made available online only***. The only
-                                item you may pick up or have mailed to you is an
-                                X-Ray/MRI CD.
-                            </Text>
-                        </Flex>
-                    </Box>
-                </Flex>
-                <Flex className="order-3 md:order-2 w-full md:w-1/2 md:px-4">
-                    <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 lg:px-20 border-t-8 border-secondary">
+                <Flex className="flex-1 mx-4 border-t-8 border-secondary">
+                    <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                         <Box className="pb-8">
                             <Heading
                                 as="h3"
@@ -119,50 +77,163 @@ const PIH = ({ store }) => (
                         </Button>
                     </Flex>
                 </Flex>
-                <Flex className="order-4 md:order-3 flex-col items-center w-full md:w-1/2 md:justify-between py-2 md:px-16">
-                    <Box as="ul" className="text-sm">
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Requests processed within 5-7 days*.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Order and view records with your phone, tablet,
-                                or computer.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Receive notification when your request is ready.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">Access your own records.</Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Print, email, save, fax, and share your records
-                                with any 3rd party when and how you want.
-                            </Text>
-                        </Flex>
-                        <Flex as="li" className="mb-4">
-                            <IconCheck className="flex-shrink-0 h-5 w-5 mr-4 text-primary" />
-                            <Text as="span">
-                                Records made available online only***. The only
-                                item you may pick up or have mailed to you is an
-                                X-Ray/MRI CD.
-                            </Text>
-                        </Flex>
+            </Flex>
+
+            <Box className="max-w-4xl mx-auto px-4 mb-12">
+                <Heading as="h3" variant="h4" className="mb-6 text-center">
+                    Need help choosing an option?
+                </Heading>
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/4 px-4 py-5 border-t-8 border-primary">
+                        <Text as="p" className="text-xs uppercase font-bold">
+                            Option 1
+                        </Text>
+                    </Box>
+                    <Box className="w-1/2 px-4 py-5 border-t-8 border-gray-light">
+                        <Text as="p" className="text-xs uppercase font-bold">
+                            Frequently Asked Questions
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-5 border-t-8 border-secondary">
+                        <Text as="p" className="text-xs uppercase font-bold">
+                            Option 2
+                        </Text>
                     </Box>
                 </Flex>
-            </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            How long can it take to process my request?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            48 hours*
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            5-7 business days*
+                        </Text>
+                    </Box>
+                </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Can I order my records with my phone/tablet?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3 ">
+                        <Text as="p" className="text-sm">
+                            Yes
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Yes
+                        </Text>
+                    </Box>
+                </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Will I be told when my request is ready?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3 ">
+                        <Text as="p" className="text-sm">
+                            Yes, immediately, by text message (see sample texts
+                            below) or email
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            No, only the Healthcare Provider is notified (by
+                            fax)***
+                        </Text>
+                    </Box>
+                </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Can I access my own records?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Yes
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            No
+                        </Text>
+                    </Box>
+                </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Can I print/email/save/fax my records?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3 ">
+                        <Text as="p" className="text-sm">
+                            Yes, and you can share them with any 3rd party when
+                            and how you want
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            No
+                        </Text>
+                    </Box>
+                </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            How are my records made available?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Online only. ***. The only item you may pick up or
+                            have mailed to you is an X-Ray/MRI CD.
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Online only. *** The only item mailed to the
+                            Healthcare Provider is an X-Ray/MRI CD.
+                        </Text>
+                    </Box>
+                </Flex>
+
+                <Flex className="w-full border-b border-gray-light">
+                    <Box className="w-1/2 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            Can I view my records on my phone/tablet?
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3 ">
+                        <Text as="p" className="text-sm">
+                            Yes
+                        </Text>
+                    </Box>
+                    <Box className="w-1/4 px-4 py-3">
+                        <Text as="p" className="text-sm">
+                            No
+                        </Text>
+                    </Box>
+                </Flex>
+            </Box>
         </Container>
+
         <Box className="bg-gray-lightest py-12">
             <Flex as={Container} className="flex-col md:flex-row">
                 <Box className="w-full md:w-2/3 pb-8 md:pr-12 md:pb-0 mb-12 md:mb-0 md:mr-12 border-b-2 md:border-r-2 md:border-b-0 border-gray-light leading-relaxed">
