@@ -10,7 +10,7 @@ const PIH = ({ store }) => (
             <PageHeading className="text-center mb-6">
                 Order Your Medical Records Online
             </PageHeading>
-            <Flex className="justify-center mb-6">
+            <Flex className=" mb-6">
                 <Info
                     secondaryText="NOTICE: This site is for Patient or Patient Directed Use
                     Only. Fees for processing medical records requests are non-refundable."
