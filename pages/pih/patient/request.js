@@ -27,6 +27,7 @@ import {
     ButtonWrapper,
 } from '@/components/atoms'
 import IconSlash from '@/icons/icon-slash.svg'
+import { range, months } from '@/lib/helpers'
 
 const PIHPatientRequest = ({ store }) => {
     const {
@@ -43,9 +44,12 @@ const PIHPatientRequest = ({ store }) => {
 
     const [currentStep, setCurrentStep] = useState(1)
 
+    const [birthDay, setBirthDay] = useState(null)
+    const [birthMonth, setBirthMonth] = useState(null)
+    const [birthYear, setBirthYear] = useState(null)
+
     const handleChange = e => {
         const formValues = getValues()
-
         store.dispatch({
             type: 'UPDATE_FORM',
             name: e.target.name,
@@ -53,23 +57,32 @@ const PIHPatientRequest = ({ store }) => {
         })
     }
 
-    const onSubmit = data => {
-        console.table(data)
+    async function onSubmit(data) {
         const formattedData = formatData(data)
         console.table(formattedData)
-        alert(JSON.stringify(formattedData))
+        // await fetch('https://vrctest.free.beeceptor.com ', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(formattedData),
+        // }).then(res => {
+        //     if (res.ok) {
+        //         alert('POST Successful')
+        //     } else {
+        //         alert(
+        //             'There was a problem with your submission. Please try again.'
+        //         )
+        //     }
+        //     console.table(res)
+        // })
+        // alert(JSON.stringify(formattedData))
     }
 
     const formatData = data => {
         const formattedData = {}
         Object.keys(data).map(key => {
             const fieldValue = getValues(key)
-
-            // Format date of birth to mm/dd/yyyy
-            if (key === 'PI_DOB') {
-                formattedData[key] = formatDate(fieldValue)
-                console.log('DOB' + formattedData[key])
-            }
 
             // Create comma separated strings from array values
             if (Array.isArray(fieldValue)) {
@@ -81,16 +94,16 @@ const PIHPatientRequest = ({ store }) => {
         return formattedData
     }
 
-    const formatDate = date => {
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
+    const formatDate = (month, day, year) => {
+        return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`
     }
 
     useEffect(() => {
-        // if (watchFacilityCheckboxes.includes('P7202-1')) {
-        //     console.log('true')
-        // }
-    })
+        if (birthDay && birthMonth && birthYear) {
+            const dateOfBirth = formatDate(birthMonth, birthDay, birthYear)
+            setValue('PI_DOB', dateOfBirth)
+        }
+    }, [birthDay, birthMonth, birthYear])
 
     return (
         <Layout>
@@ -270,6 +283,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="PI_PFN"
                                                 id="PI_PFN"
                                                 className="w-full mt-1"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         "Please enter the patient's first name.",
@@ -293,6 +307,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 name="PI_PLN"
                                                 id="PI_PLN"
                                                 className="w-full mt-1"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         "Please enter the patient's last name.",
@@ -317,67 +332,93 @@ const PIHPatientRequest = ({ store }) => {
                                             name="PI_PON"
                                             id="PI_PON"
                                             className="w-full mt-1"
+                                            onChange={handleChange}
                                             ref={register}
                                         />
                                     </Box>
-                                    <Box className="mb-4">
-                                        <Label htmlFor="PI_DOB">
+                                    <Box as="fieldset" className="mb-4">
+                                        <Box as="legend">
                                             Patient Date of Birth
-                                        </Label>
+                                        </Box>
+
                                         <Input
-                                            type="date"
+                                            type="text"
                                             name="PI_DOB"
-                                            id="PI_DOB"
-                                            autoComplete="bday"
-                                            className="block mt-1"
+                                            className="hidden"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     "Please enter the patient's date of birth.",
                                             })}
                                         />
+
+                                        <Flex className="mt-1">
+                                            <Select
+                                                name="birthMonth"
+                                                className="mr-2"
+                                                autoComplete="bday-month"
+                                                onChange={e =>
+                                                    setBirthMonth(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option
+                                                    key="month"
+                                                    defaultValue
+                                                    disabled
+                                                >
+                                                    Month
+                                                </option>
+                                                {months.map(month => (
+                                                    <option
+                                                        key={`mth-${month.number}`}
+                                                        value={month.number}
+                                                    >
+                                                        {month.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
+                                            <Select
+                                                name="birthDay"
+                                                className="mr-2"
+                                                autoComplete="bday-day"
+                                                onChange={e =>
+                                                    setBirthDay(e.target.value)
+                                                }
+                                            >
+                                                <option defaultValue disabled>
+                                                    Day
+                                                </option>
+                                                {range(1, 31).map(day => (
+                                                    <option
+                                                        key={`day-${day}`}
+                                                        value={day}
+                                                    >
+                                                        {day}
+                                                    </option>
+                                                ))}
+                                            </Select>
+                                            <Input
+                                                name="birthYear"
+                                                type="number"
+                                                min="1900"
+                                                max="2021"
+                                                placeholder="Year"
+                                                autoComplete="bday-year"
+                                                onChange={e =>
+                                                    setBirthYear(e.target.value)
+                                                }
+                                            />
+                                        </Flex>
+
                                         {errors.PI_DOB && (
                                             <ErrorMessage
-                                                message={errors.PI_DOB.message}
+                                                message={
+                                                    errors.birthMonth.message
+                                                }
                                             />
                                         )}
-                                        {/* <Flex className="mt-1">
-                                    <Select name="birthMonth" className="mr-2">
-                                        <option
-                                            key="month"
-                                            defaultValue
-                                            disabled
-                                        >
-                                            Month
-                                        </option>
-                                        {months.map(month => (
-                                            <option
-                                                key={`mth-${month.number}`}
-                                                value={month.number}
-                                            >
-                                                {month.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                    <Select name="birthDay" className="mr-2">
-                                        <option defaultValue disabled>
-                                            Day
-                                        </option>
-                                        {range(1, 31).map(day => (
-                                            <option
-                                                key={`day-${day}`}
-                                                value={day}
-                                            >
-                                                {day}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                    <Input
-                                        name="birthYear"
-                                        type="number"
-                                        placeholder="Year"
-                                        className=""
-                                    />
-                                </Flex> */}
                                     </Box>
                                     <Box className="mb-4">
                                         <Label htmlFor="PI_PHYCL">
@@ -388,6 +429,7 @@ const PIHPatientRequest = ({ store }) => {
                                             name="PI_PHYCL"
                                             id="PI_PHYCL"
                                             className="w-full mt-1"
+                                            onChange={handleChange}
                                             ref={register}
                                         />
                                     </Box>
@@ -455,8 +497,10 @@ const PIHPatientRequest = ({ store }) => {
                                                                     type="date"
                                                                     name="PI_DOB"
                                                                     id="PI_DOB"
-                                                                    autoComplete="bday"
                                                                     className="mr-4"
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
                                                                     ref={register(
                                                                         {
                                                                             required: true,
@@ -472,7 +516,9 @@ const PIHPatientRequest = ({ store }) => {
                                                                     type="date"
                                                                     name="PI_DOB"
                                                                     id="PI_DOB"
-                                                                    autoComplete="bday"
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
                                                                     ref={register(
                                                                         {
                                                                             required: true,
@@ -501,6 +547,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 labelClassName="w-full"
                                                 name="RI_CB"
                                                 value="MR"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         'Please select the items you would like released.',
@@ -524,6 +571,7 @@ const PIHPatientRequest = ({ store }) => {
                                                         labelClassName="w-full"
                                                         name="RI_MR_OPT"
                                                         value="PI"
+                                                        onChange={handleChange}
                                                         ref={register({
                                                             required:
                                                                 'Please select the items you would like released.',
@@ -534,6 +582,7 @@ const PIHPatientRequest = ({ store }) => {
                                                         labelClassName="w-full"
                                                         name="RI_MR_OPT"
                                                         value="AHI"
+                                                        onChange={handleChange}
                                                         ref={register({
                                                             required:
                                                                 'Please select the items you would like released.',
@@ -544,6 +593,7 @@ const PIHPatientRequest = ({ store }) => {
                                                         labelClassName="w-full"
                                                         name="RI_MR_OPT"
                                                         value="FR"
+                                                        onChange={handleChange}
                                                         ref={register({
                                                             required:
                                                                 'Please select the items you would like released.',
@@ -556,24 +606,40 @@ const PIHPatientRequest = ({ store }) => {
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="EUR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Consultation Report"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="CR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Laboratory Reports"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="LR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Newborn Record"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="NR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                         </CheckboxWrapper>
                                                         <CheckboxWrapper className="w-full">
@@ -582,24 +648,40 @@ const PIHPatientRequest = ({ store }) => {
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="HPR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Operative Report"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="OR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Pathology Report"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="PR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Immunization Record"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="IR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                         </CheckboxWrapper>
                                                         <CheckboxWrapper className="w-full">
@@ -608,24 +690,40 @@ const PIHPatientRequest = ({ store }) => {
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="DSR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Anesthesia Records"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="AR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Radiology Report"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="RR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                             <Checkbox
                                                                 label="Therapy Records"
                                                                 labelClassName="w-full"
                                                                 name="RI_MR_FR_CB"
                                                                 value="TR"
+                                                                onChange={
+                                                                    handleChange
+                                                                }
+                                                                ref={register}
                                                             />
                                                         </CheckboxWrapper>
                                                     </Box>
@@ -637,6 +735,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 labelClassName="w-full"
                                                 name="RI_CB"
                                                 value="IB"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         'Please select the items you would like released.',
@@ -648,6 +747,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 labelClassName="w-full"
                                                 name="RI_CB"
                                                 value="RI"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         'Please select the items you would like released.',
@@ -663,6 +763,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 labelClassName="w-full"
                                                 name="RI_CB"
                                                 value="PS"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         'Please select the items you would like released.',
@@ -703,30 +804,45 @@ const PIHPatientRequest = ({ store }) => {
                                                             name="RI_MR_AI_CB"
                                                             label="Information pertaining to mental health diagnosis or treatment"
                                                             value="IPM"
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                             ref={register}
                                                         />
                                                         <Checkbox
                                                             name="RI_MR_AI_CB"
                                                             label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
                                                             value="IPD"
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                             ref={register}
                                                         />
                                                         <Checkbox
                                                             name="RI_MR_AI_CB"
                                                             label="HIV/AIDS test results"
                                                             value="HIV"
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                             ref={register}
                                                         />
                                                         <Checkbox
                                                             name="RI_MR_AI_CB"
                                                             label="Genetic testing information"
                                                             value="GTI"
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                             ref={register}
                                                         />
                                                         <Checkbox
                                                             name="RI_MR_AI_CB"
                                                             label="Worker's Comp information"
                                                             value="WCI"
+                                                            onChange={
+                                                                handleChange
+                                                            }
                                                             ref={register}
                                                         />
                                                     </CheckboxWrapper>
@@ -802,6 +918,7 @@ const PIHPatientRequest = ({ store }) => {
                                             name="PR_LIM"
                                             id="PR_LIM"
                                             className="block w-full mt-1 sm:text-sm border-gray-dark rounded"
+                                            onChange={handleChange}
                                             ref={register}
                                         />
                                     </Box>
@@ -842,6 +959,7 @@ const PIHPatientRequest = ({ store }) => {
                                                 id="YI_PN"
                                                 autoComplete="tel"
                                                 className="w-full mt-1"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         'Please enter your phone number.',
@@ -862,6 +980,7 @@ const PIHPatientRequest = ({ store }) => {
                                             <Select
                                                 name="YI_PHT_DD"
                                                 className="w-full mt-1"
+                                                onChange={handleChange}
                                                 ref={register({
                                                     required: true,
                                                 })}
@@ -895,6 +1014,7 @@ const PIHPatientRequest = ({ store }) => {
                                             id="YI_PHC"
                                             autoComplete="tel"
                                             className="w-full mt-1"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please confirm your phone number.',
@@ -922,6 +1042,7 @@ const PIHPatientRequest = ({ store }) => {
                                             id="YI_EM"
                                             autoComplete="email"
                                             className="w-full mt-1"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please enter your email address.',
@@ -943,6 +1064,7 @@ const PIHPatientRequest = ({ store }) => {
                                             id="YI_EMC"
                                             autoComplete="email"
                                             className="w-full mt-1"
+                                            onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please confirm your email address.',
