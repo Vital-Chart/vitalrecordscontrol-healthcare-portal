@@ -16,7 +16,7 @@ const PIH = ({ store }) => (
                 />
             </Flex>
         </Container>
-        <Box className="max-w-screen-lg mx-auto pb-12">
+        <Box className="max-w-screen-md mx-auto pb-12">
             <Flex>
                 <Flex className="w-full flex-col items-center justify-between p-6 md:px-24 bg-primary-dark">
                     <Box className="pb-4">
@@ -25,7 +25,7 @@ const PIH = ({ store }) => (
                             variant="h4"
                             className="pb-2 text-center text-white"
                         >
-                            <span className="block mb-4 text-sm uppercase opacity-50">
+                            <span className="block mb-4 text-sm uppercase">
                                 Option 1
                             </span>
                             Quick Release to You

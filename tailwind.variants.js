@@ -20,6 +20,8 @@ export default {
         DEFAULT: 'px-6 py-3 rounded transition-colors',
         filled:
             'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark',
+        filledSecondary:
+            'text-black font-bold bg-secondary hover:bg-tertiary hover:text-white focus:bg-gray-dark focus:border-gray-dark',
         filledReverse:
             'text-primary font-bold bg-white hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark',
         secondaryReverse:
