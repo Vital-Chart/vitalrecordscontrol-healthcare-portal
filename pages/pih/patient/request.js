@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
-import { useForm, FormProvider } from 'react-hook-form'
+import { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import { useForm, Controller, FormProvider } from 'react-hook-form'
 import { withStore } from '@/lib/store'
 import { Layout, Container } from '@/components/general'
 import {
@@ -27,7 +28,6 @@ import {
     ButtonWrapper,
 } from '@/components/atoms'
 import IconSlash from '@/icons/icon-slash.svg'
-import { range, months } from '@/lib/helpers'
 
 const PIHPatientRequest = ({ store }) => {
     const {
@@ -37,16 +37,15 @@ const PIHPatientRequest = ({ store }) => {
         getValues,
         setValue,
         errors,
-    } = useForm()
+        control,
+    } = useForm({
+        defaultValues: store.state.form,
+    })
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
 
     const [currentStep, setCurrentStep] = useState(1)
-
-    const [birthDay, setBirthDay] = useState(null)
-    const [birthMonth, setBirthMonth] = useState(null)
-    const [birthYear, setBirthYear] = useState(null)
 
     const handleChange = e => {
         const formValues = getValues()
@@ -57,7 +56,9 @@ const PIHPatientRequest = ({ store }) => {
         })
     }
 
-    async function onSubmit(data) {
+    const onSubmit = async (data, e) => {
+        e.preventDefault()
+
         const formattedData = formatData(data)
         console.table(formattedData)
         // await fetch('https://vrctest.free.beeceptor.com ', {
@@ -93,17 +94,6 @@ const PIHPatientRequest = ({ store }) => {
         })
         return formattedData
     }
-
-    const formatDate = (month, day, year) => {
-        return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`
-    }
-
-    useEffect(() => {
-        if (birthDay && birthMonth && birthYear) {
-            const dateOfBirth = formatDate(birthMonth, birthDay, birthYear)
-            setValue('PI_DOB', dateOfBirth)
-        }
-    }, [birthDay, birthMonth, birthYear])
 
     return (
         <Layout>
@@ -341,84 +331,52 @@ const PIHPatientRequest = ({ store }) => {
                                             Patient Date of Birth
                                         </Box>
 
-                                        <Input
-                                            type="text"
+                                        <Controller
+                                            control={control}
                                             name="PI_DOB"
-                                            className="hidden"
-                                            onChange={handleChange}
-                                            ref={register({
+                                            rules={{
                                                 required:
                                                     "Please enter the patient's date of birth.",
-                                            })}
+                                            }}
+                                            render={({
+                                                onChange,
+                                                onBlur,
+                                                value,
+                                            }) => (
+                                                <DatePicker
+                                                    // https://reactdatepicker.com/#example-custom-header
+                                                    onChange={date => {
+                                                        onChange(date)
+
+                                                        store.dispatch({
+                                                            type: 'UPDATE_FORM',
+                                                            name: 'PI_DOB',
+                                                            value: date,
+                                                        })
+                                                    }}
+                                                    onBlur={onBlur}
+                                                    selected={
+                                                        value
+                                                            ? new Date(value)
+                                                            : new Date()
+                                                    }
+                                                    maxDate={new Date()}
+                                                    dateFormat="MMMM d, yyyy"
+                                                    showMonthDropdown
+                                                    showYearDropdown
+                                                    dropdownMode="select"
+                                                    customInput={<Input />}
+                                                />
+                                            )}
                                         />
-
-                                        <Flex className="mt-1">
-                                            <Select
-                                                name="birthMonth"
-                                                className="mr-2"
-                                                autoComplete="bday-month"
-                                                onChange={e =>
-                                                    setBirthMonth(
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                <option
-                                                    key="month"
-                                                    defaultValue
-                                                    disabled
-                                                >
-                                                    Month
-                                                </option>
-                                                {months.map(month => (
-                                                    <option
-                                                        key={`mth-${month.number}`}
-                                                        value={month.number}
-                                                    >
-                                                        {month.name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                            <Select
-                                                name="birthDay"
-                                                className="mr-2"
-                                                autoComplete="bday-day"
-                                                onChange={e =>
-                                                    setBirthDay(e.target.value)
-                                                }
-                                            >
-                                                <option defaultValue disabled>
-                                                    Day
-                                                </option>
-                                                {range(1, 31).map(day => (
-                                                    <option
-                                                        key={`day-${day}`}
-                                                        value={day}
-                                                    >
-                                                        {day}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                            <Input
-                                                name="birthYear"
-                                                type="number"
-                                                min="1900"
-                                                max="2021"
-                                                placeholder="Year"
-                                                autoComplete="bday-year"
-                                                onChange={e =>
-                                                    setBirthYear(e.target.value)
-                                                }
-                                            />
-                                        </Flex>
-
+                                        {/*
                                         {errors.PI_DOB && (
                                             <ErrorMessage
                                                 message={
                                                     errors.birthMonth.message
                                                 }
                                             />
-                                        )}
+                                        )} */}
                                     </Box>
                                     <Box className="mb-4">
                                         <Label htmlFor="PI_PHYCL">
@@ -493,36 +451,116 @@ const PIHPatientRequest = ({ store }) => {
                                                                     Service
                                                                     Start:
                                                                 </Label>
-                                                                <Input
-                                                                    type="date"
-                                                                    name="PI_DOB"
-                                                                    id="PI_DOB"
-                                                                    className="mr-4"
-                                                                    onChange={
-                                                                        handleChange
+
+                                                                <Controller
+                                                                    control={
+                                                                        control
                                                                     }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                        }
+                                                                    name="VI_DR_S"
+                                                                    rules={{
+                                                                        required: true,
+                                                                    }}
+                                                                    render={({
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value,
+                                                                    }) => (
+                                                                        <DatePicker
+                                                                            // https://reactdatepicker.com/#example-custom-header
+                                                                            onChange={date => {
+                                                                                onChange(
+                                                                                    date
+                                                                                )
+
+                                                                                store.dispatch(
+                                                                                    {
+                                                                                        type:
+                                                                                            'UPDATE_FORM',
+                                                                                        name:
+                                                                                            'VI_DR_S',
+                                                                                        value: date,
+                                                                                    }
+                                                                                )
+                                                                            }}
+                                                                            onBlur={
+                                                                                onBlur
+                                                                            }
+                                                                            selected={
+                                                                                value
+                                                                                    ? new Date(
+                                                                                          value
+                                                                                      )
+                                                                                    : new Date()
+                                                                            }
+                                                                            maxDate={
+                                                                                new Date()
+                                                                            }
+                                                                            showMonthDropdown
+                                                                            showYearDropdown
+                                                                            dropdownMode="select"
+                                                                            customInput={
+                                                                                <Input className="mr-4" />
+                                                                            }
+                                                                        />
                                                                     )}
                                                                 />
                                                             </Box>
+
                                                             <Box>
                                                                 <Label className="block mb-1">
                                                                     Service End:
                                                                 </Label>
-                                                                <Input
-                                                                    type="date"
-                                                                    name="PI_DOB"
-                                                                    id="PI_DOB"
-                                                                    onChange={
-                                                                        handleChange
+
+                                                                <Controller
+                                                                    control={
+                                                                        control
                                                                     }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                        }
+                                                                    name="VI_DR_E"
+                                                                    rules={{
+                                                                        required: true,
+                                                                    }}
+                                                                    render={({
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value,
+                                                                    }) => (
+                                                                        <DatePicker
+                                                                            // https://reactdatepicker.com/#example-custom-header
+                                                                            onChange={date => {
+                                                                                onChange(
+                                                                                    date
+                                                                                )
+
+                                                                                store.dispatch(
+                                                                                    {
+                                                                                        type:
+                                                                                            'UPDATE_FORM',
+                                                                                        name:
+                                                                                            'VI_DR_E',
+                                                                                        value: date,
+                                                                                    }
+                                                                                )
+                                                                            }}
+                                                                            onBlur={
+                                                                                onBlur
+                                                                            }
+                                                                            selected={
+                                                                                value
+                                                                                    ? new Date(
+                                                                                          value
+                                                                                      )
+                                                                                    : new Date()
+                                                                            }
+                                                                            maxDate={
+                                                                                new Date()
+                                                                            }
+                                                                            showMonthDropdown
+                                                                            showYearDropdown
+                                                                            dropdownMode="select"
+                                                                            customInput={
+                                                                                <Input />
+                                                                            }
+                                                                        />
                                                                     )}
                                                                 />
                                                             </Box>
