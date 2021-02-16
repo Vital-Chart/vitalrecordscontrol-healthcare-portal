@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
+import MicroModal from 'react-micro-modal'
 import { withStore } from '@/lib/store'
-import { Layout, Container } from '@/components/general'
+import { Layout, Container, ScreenReader } from '@/components/general'
 import {
     Box,
     Text,
@@ -29,6 +30,8 @@ import {
     UploadsList,
 } from '@/components/atoms'
 import IconSlash from '@/icons/icon-slash.svg'
+import IconQuestion from '@/icons/icon-question.svg'
+import IconClose from '@/icons/icon-close.svg'
 import { range, months } from '@/lib/helpers'
 
 const PIHPatientRequest = ({ store }) => {
@@ -933,9 +936,71 @@ const PIHPatientRequest = ({ store }) => {
                                 </SectionHeading>
                                 <Box>
                                     <Box className="mb-4">
-                                        <Label htmlFor="YI_NOTICE_DD">
-                                            Preferred Notification Method
-                                        </Label>
+                                        <Flex className="items-center">
+                                            <Label htmlFor="YI_NOTICE_DD">
+                                                Preferred Notification Method
+                                            </Label>
+                                            <MicroModal
+                                                trigger={handleOpen => (
+                                                    <IconQuestion
+                                                        onClick={handleOpen}
+                                                        className="h-5 w-5 ml-2 text-blue cursor-pointer"
+                                                    />
+                                                )}
+                                                children={handleClose => (
+                                                    <Box className="px-8 py-4 relative">
+                                                        <button
+                                                            onClick={
+                                                                handleClose
+                                                            }
+                                                            className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                                        >
+                                                            <IconClose
+                                                                onClick={
+                                                                    handleClose
+                                                                }
+                                                                className=""
+                                                            />
+                                                            <ScreenReader>
+                                                                Close
+                                                            </ScreenReader>
+                                                        </button>
+
+                                                        <Box>
+                                                            <Text
+                                                                as="p"
+                                                                className="text-xl font-bold"
+                                                            >
+                                                                Preferred
+                                                                Notification
+                                                                Method
+                                                            </Text>
+                                                            <Text as="p">
+                                                                This is the
+                                                                method by which
+                                                                you would like
+                                                                to receive
+                                                                automatic
+                                                                notifications of
+                                                                the progress of
+                                                                your request(s),
+                                                                as well as how
+                                                                you will receive
+                                                                password updates
+                                                                from this
+                                                                website. If we
+                                                                have specific
+                                                                questions about
+                                                                your request, we
+                                                                will call you at
+                                                                the phone number
+                                                                listed.
+                                                            </Text>
+                                                        </Box>
+                                                    </Box>
+                                                )}
+                                            />
+                                        </Flex>
                                         <Select
                                             name="YI_NOTICE_DD"
                                             id="YI_NOTICE_DD"
