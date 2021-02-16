@@ -13,6 +13,7 @@ import {
     Flex,
     Button,
     Link,
+    Heading,
 } from '@/components/core'
 import {
     FormWrapper,
@@ -1132,15 +1133,12 @@ const PIHPatientRequest = ({ store }) => {
                             </FormSection>
 
                             <ButtonWrapper>
-                                <Button
-                                    variant="outline"
-                                    className="flex-grow mx-4"
-                                >
+                                <Button variant="outline" className="flex-grow">
                                     Cancel
                                 </Button>
                                 <Input
                                     variant="filled"
-                                    className="flex-grow mx-4 text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark"
+                                    className="flex-grow text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark"
                                     type="submit"
                                     value="Continue"
                                 />
@@ -1150,8 +1148,9 @@ const PIHPatientRequest = ({ store }) => {
                 )}
 
                 {currentStep === 2 && (
-                    <Box>
-                        <Box className="py-8 mb-8 border-b border-gray-light">
+                    <Box className="max-w-screen-md space-y-8 pb-8">
+                        <PageHeading>Upload Authorization</PageHeading>
+                        <Box className="pb-8 border-b border-gray-light">
                             <Text as="p" className="pb-4">
                                 Your request has been saved and assigned
                                 tracking number(s):{' '}
@@ -1256,10 +1255,164 @@ const PIHPatientRequest = ({ store }) => {
                     </Box>
                 )}
                 {currentStep === 3 && (
-                    <Box>
-                        <Text as="p" className="pb-4">
-                            Step 3
+                    <Box className="max-w-screen-md space-y-8 pb-8">
+                        <PageHeading>Review & Submit</PageHeading>
+                        <Text as="p" className="leading-relaxed">
+                            Please review your submission below for accuracy. If
+                            there are any errors, please click here to correct
+                            them. (/patient/editrequest) Errors such as patient
+                            name misspelling, incorrect date of birth, or
+                            incorrect dates of service may result in your
+                            request being canceled. If there are no errors and
+                            you have uploaded all required documentation, you
+                            must click "Submit Request for Processing" below to
+                            complete submission of your request. Normal
+                            processing time is 7-14 days after submission.
                         </Text>
+
+                        <Box className="space-y-4">
+                            <SectionHeading className="uppercase">
+                                Request(s) Summary
+                            </SectionHeading>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Tracking Number(s):
+                                </span>{' '}
+                                67-192171, 68-150595, 69-156512
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Patient Name:
+                                </span>{' '}
+                                DONALD WHITE{' '}
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Patient DOB:
+                                </span>{' '}
+                                3/3/1977
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Dates of Service:{' '}
+                                </span>
+                                Most recent visit{' '}
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Requested Information:{' '}
+                                </span>
+                                Medical Records: PERTINENT; Itemized Billing;
+                                Radiology Images; Pathology Slides
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Purpose of Request:{' '}
+                                </span>
+                                test
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Limitations:{' '}
+                                </span>
+                                None{' '}
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Phone:{' '}
+                                </span>
+                                (858) 254-8585
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Email:{' '}
+                                </span>
+                                dwhite@abtvault.com
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Delivery Method for Records:{' '}
+                                </span>
+                            </Text>
+                            <Text as="p">
+                                <span className="block text-sm font-bold">
+                                    Delivery Method for CDs/Slides:{' '}
+                                </span>
+                                TRIMSNet e-Request Website Pick up CDs and/or
+                                slides at the facility.
+                            </Text>
+                            <Button variant="outline" className="flex-grow">
+                                Edit Request Information
+                            </Button>
+                        </Box>
+                        <Box className="space-y-4">
+                            <SectionHeading className="uppercase">
+                                Uploaded Files
+                            </SectionHeading>
+                            <Box>
+                                <Flex className="bg-gray-light">
+                                    <Box className="w-1/2 py-2 px-4">
+                                        <Text
+                                            as="p"
+                                            className="uppercase text-sm font-bold"
+                                        >
+                                            File Name
+                                        </Text>
+                                    </Box>
+                                    <Box className="w-1/4 py-2 px-4">
+                                        <Text
+                                            as="p"
+                                            className="uppercase text-sm font-bold"
+                                        >
+                                            Size
+                                        </Text>
+                                    </Box>
+                                    <Box className="w-1/4 py-2 px-4">
+                                        <Text
+                                            as="p"
+                                            className="uppercase text-sm  font-bold"
+                                        >
+                                            Pages
+                                        </Text>
+                                    </Box>
+                                </Flex>
+                                <Flex className="border-b border-gray-light">
+                                    <Box className="w-1/2 py-2 px-4">
+                                        <Text as="p">
+                                            ca_atty_agreement_20180129-1.pdf
+                                        </Text>
+                                    </Box>
+                                    <Box className="w-1/4 py-2 px-4">
+                                        <Text as="p">352.50 KB</Text>
+                                    </Box>
+                                    <Box className="w-1/4 py-2 px-4">
+                                        <Text as="p">1</Text>
+                                    </Box>
+                                </Flex>
+                                <Flex>
+                                    <Box className="w-1/2 py-2 px-4">
+                                        <Text as="p">File Name</Text>
+                                    </Box>
+                                    <Box className="w-1/4 py-2 px-4">
+                                        <Text as="p">32 kb</Text>
+                                    </Box>
+                                    <Box className="w-1/4 py-2 px-4">
+                                        <Text as="p">2</Text>
+                                    </Box>
+                                </Flex>
+                            </Box>
+                            <Button variant="outline" className="flex-grow">
+                                Upload Additional Documentation
+                            </Button>
+                        </Box>
+                        <ButtonWrapper>
+                            <Button variant="outline" className="flex-grow">
+                                Cancel and Delete Request
+                            </Button>
+                            <Button variant="filled" className="flex-grow">
+                                Submit Request for Processing
+                            </Button>
+                        </ButtonWrapper>
                     </Box>
                 )}
             </Container>
