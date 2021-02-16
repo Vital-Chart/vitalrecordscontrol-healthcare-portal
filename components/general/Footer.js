@@ -14,7 +14,7 @@ export const Footer = () => (
                 Rights Reserved. .
             </Text>
             <Link
-                href="#"
+                href="https://vitalrecordscontrol.com/privacy-policy/"
                 className="block py-2 underline text-sm text-center sm:text-left text-white"
             >
                 Website Privacy Policy
