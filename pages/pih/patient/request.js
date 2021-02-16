@@ -26,6 +26,7 @@ import {
     ErrorMessage,
     FileInput,
     ButtonWrapper,
+    UploadsList,
 } from '@/components/atoms'
 import IconSlash from '@/icons/icon-slash.svg'
 import { range, months } from '@/lib/helpers'
@@ -1166,21 +1167,35 @@ const PIHPatientRequest = ({ store }) => {
                             </Text>
                         </Box>
                         <Box>
-                            <Text as="p" className="pb-4">
-                                All requests for medical records require
-                                printing out, signing, and uploading an image of
-                                this authorization form. Note that your driver's
-                                license or other government issued
-                                identification is required in the authorization
-                                form where indicated. If you are requesting
-                                medical records as the representative of,
-                                patient, copies of documentation establishing
-                                your authority to release medical records on the
-                                patient's behalf are required and must be
-                                provided through the secure upload below. Click
-                                here for examples. If you have any questions
-                                regarding the documentation needed for your
-                                request, please contact us at the number above.
+                            <Text as="p" className="pb-4 leading-relaxed">
+                                <span className="font-bold">
+                                    All requests for medical records require
+                                    printing out, signing, and uploading an
+                                    image of this{' '}
+                                    <Link
+                                        href="#"
+                                        className="underline text-blue"
+                                    >
+                                        authorization form
+                                    </Link>
+                                    .
+                                </span>{' '}
+                                Note that your driver's license or other
+                                government issued identification is required in
+                                the authorization form where indicated. If you
+                                are requesting medical records as the
+                                representative of, patient, copies of
+                                documentation establishing your authority to
+                                release medical records on the patient's behalf
+                                are required and must be provided through the
+                                secure upload below.{' '}
+                                {/* TODO: Figure out the destination of this link */}
+                                <Link href="#" className="underline text-blue">
+                                    Click here for examples.
+                                </Link>{' '}
+                                If you have any questions regarding the
+                                documentation needed for your request, please
+                                contact us at the number above.
                             </Text>
                             <Text as="p" className="pb-4">
                                 To complete your request:
@@ -1205,7 +1220,9 @@ const PIHPatientRequest = ({ store }) => {
                                     and
                                 </Box>
                                 <Box as="li" className="pb-2">
-                                    Click Continue below.
+                                    Click{' '}
+                                    <span className="font-bold">Continue</span>{' '}
+                                    below.
                                 </Box>
                             </Box>
 
@@ -1221,9 +1238,12 @@ const PIHPatientRequest = ({ store }) => {
                                     tracking number on the main menu and
                                     following the prompts to log in with a
                                     temporary password that will be sent to
-                                    you." You must upload the required
-                                    documentation within 72 hours or your
-                                    request will be canceled.
+                                    you."{' '}
+                                    <span className="font-bold">
+                                        You must upload the required
+                                        documentation within 72 hours or your
+                                        request will be canceled.
+                                    </span>
                                 </Box>
                                 <Box as="li" className="pb-2">
                                     The files you upload must have PDF,
@@ -1245,13 +1265,25 @@ const PIHPatientRequest = ({ store }) => {
                             </Box>
                         </Box>
                         <Box>
+                            <SectionHeading>
+                                Upload Your Documentation Here
+                            </SectionHeading>
                             <FormProvider>
                                 <FormWrapper>
                                     <FileInput />
                                 </FormWrapper>
                             </FormProvider>
+                            <UploadsList className="mt-8" />
                         </Box>
-                        {/* TODO: Add Document Uploader */}
+                        {/* TODO: Add correct buttons here */}
+                        <ButtonWrapper>
+                            <Button variant="outline" className="flex-grow">
+                                Cancel and Delete Request
+                            </Button>
+                            <Button variant="filled" className="flex-grow">
+                                Submit Request for Processing
+                            </Button>
+                        </ButtonWrapper>
                     </Box>
                 )}
                 {currentStep === 3 && (
@@ -1349,58 +1381,7 @@ const PIHPatientRequest = ({ store }) => {
                             <SectionHeading className="uppercase">
                                 Uploaded Files
                             </SectionHeading>
-                            <Box>
-                                <Flex className="bg-gray-light">
-                                    <Box className="w-1/2 py-2 px-4">
-                                        <Text
-                                            as="p"
-                                            className="uppercase text-sm font-bold"
-                                        >
-                                            File Name
-                                        </Text>
-                                    </Box>
-                                    <Box className="w-1/4 py-2 px-4">
-                                        <Text
-                                            as="p"
-                                            className="uppercase text-sm font-bold"
-                                        >
-                                            Size
-                                        </Text>
-                                    </Box>
-                                    <Box className="w-1/4 py-2 px-4">
-                                        <Text
-                                            as="p"
-                                            className="uppercase text-sm  font-bold"
-                                        >
-                                            Pages
-                                        </Text>
-                                    </Box>
-                                </Flex>
-                                <Flex className="border-b border-gray-light">
-                                    <Box className="w-1/2 py-2 px-4">
-                                        <Text as="p">
-                                            ca_atty_agreement_20180129-1.pdf
-                                        </Text>
-                                    </Box>
-                                    <Box className="w-1/4 py-2 px-4">
-                                        <Text as="p">352.50 KB</Text>
-                                    </Box>
-                                    <Box className="w-1/4 py-2 px-4">
-                                        <Text as="p">1</Text>
-                                    </Box>
-                                </Flex>
-                                <Flex>
-                                    <Box className="w-1/2 py-2 px-4">
-                                        <Text as="p">File Name</Text>
-                                    </Box>
-                                    <Box className="w-1/4 py-2 px-4">
-                                        <Text as="p">32 kb</Text>
-                                    </Box>
-                                    <Box className="w-1/4 py-2 px-4">
-                                        <Text as="p">2</Text>
-                                    </Box>
-                                </Flex>
-                            </Box>
+                            <UploadsList />
                             <Button variant="outline" className="flex-grow">
                                 Upload Additional Documentation
                             </Button>
