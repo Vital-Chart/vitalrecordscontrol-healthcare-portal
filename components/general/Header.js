@@ -9,7 +9,7 @@ export const Header = () => (
                 <Image src={hospitals.pih.logo} />
             </Box>
             <Box className="ml-auto py-4 text-sm text-white">
-                <Link href="/">VRC Healthcare Portal</Link>
+                <Link href="/">VitalChart® Virtual ROI Portal</Link>
             </Box>
         </Flex>
     </Box>
