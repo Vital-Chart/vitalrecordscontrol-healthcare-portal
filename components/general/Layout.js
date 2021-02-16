@@ -5,7 +5,7 @@ import { Footer, Header, ScreenReader } from '@/components/general'
 export const Layout = ({ children }) => (
     <>
         <Head>
-            <title>Healthcare Portal | Vital Records Control</title>
+            <title>VitalChart® Virtual ROI Portal</title>
         </Head>
 
         <ScreenReader as="a" href="#content">

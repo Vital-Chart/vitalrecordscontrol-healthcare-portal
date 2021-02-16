@@ -17,9 +17,9 @@ const PIH = ({ store }) => (
                 />
             </Flex>
 
-            <Flex className="max-w-5xl flex-col md:flex-row flex-wrap md: mx-auto mb-12">
-                <Flex className="flex-1 md:mx-4 border-t-8 border-primary">
-                    <Flex className="flex-col items-center md:justify-between w-full mb-6 md:mb-0 p-8 md:px-12 border border-gray-light">
+            <Flex className="max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
+                <Flex className="flex-1 border-t-8 border-primary">
+                    <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                         <Box className="pb-8">
                             <Heading
                                 as="h3"
@@ -43,11 +43,11 @@ const PIH = ({ store }) => (
                             variant="filled"
                             className="text-sm text-center"
                         >
-                            Get Started
+                            Begin
                         </Button>
                     </Flex>
                 </Flex>
-                <Flex className="flex-1 md:mx-4 border-t-8 border-secondary">
+                <Flex className="flex-1 border-t-8 border-secondary">
                     <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                         <Box className="pb-8">
                             <Heading
@@ -73,7 +73,7 @@ const PIH = ({ store }) => (
                             variant="filledSecondary"
                             className="text-sm text-center"
                         >
-                            Get Started
+                            Begin
                         </Button>
                     </Flex>
                 </Flex>
@@ -119,13 +119,13 @@ const PIH = ({ store }) => (
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
                     <Text as="p" className="w-full text-sm text-center">
-                        48 hours*
+                        48 hours**
                     </Text>
                 </Flex>
 
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
                     <Text as="p" className="w-full text-sm text-center">
-                        5-7 business days*
+                        5-7 business days**
                     </Text>
                 </Flex>
             </Flex>
@@ -212,13 +212,13 @@ const PIH = ({ store }) => (
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
                     <Text as="p" className="w-full text-sm text-center">
-                        Online only. ***. The only item you may pick up or have
+                        Online only.*** The only item you may pick up or have
                         mailed to you is an X-Ray/MRI CD.
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
                     <Text as="p" className="w-full text-sm text-center">
-                        Online only. *** The only item mailed to the Healthcare
+                        Online only.*** The only item mailed to the Healthcare
                         Provider is an X-Ray/MRI CD.
                     </Text>
                 </Flex>
@@ -243,8 +243,8 @@ const PIH = ({ store }) => (
             </Flex>
         </Box>
 
-        <Flex as={Container} className="flex-col md:flex-row py-6 md:py-12">
-            <Box className="w-full md:w-2/3 pb-8 md:pr-12 md:pb-0 mb-12 md:mb-0 md:mr-12 border-b-2 md:border-r-2 md:border-b-0 border-gray-light leading-relaxed">
+        <Flex as={Container} className="flex-col md:flex-row pb-12">
+            <Box className="w-full md:w-2/3 py-8 md:pr-12 md:pb-0 leading-relaxed">
                 <Heading as="h3" variant="h4" className="pb-4">
                     Important - Please Read!
                 </Heading>
@@ -276,7 +276,7 @@ const PIH = ({ store }) => (
                     records.
                 </Text>
             </Box>
-            <Box className="w-full md:w-1/3">
+            <Box className="w-full md:w-1/3 py-8 px-12 bg-gray-lightest ">
                 <Heading as="h3" variant="h4" className="pb-4">
                     Sample Texts
                 </Heading>
@@ -286,7 +286,7 @@ const PIH = ({ store }) => (
                 <Text as="p" className="pb-4">
                     When your request is accepted:
                 </Text>
-                <Box className="rounded-8 bg-gray-lightest py-6 px-8 mb-4">
+                <Box className="rounded-8 bg-white py-6 px-8 mb-4">
                     <Text as="p" className="w-full text-sm">
                         Your Medical Records request is in process. When
                         complete, you will get Acct # and PIN # for online
@@ -300,7 +300,7 @@ const PIH = ({ store }) => (
                 <Text as="p" className="pb-4">
                     When your request is ready:
                 </Text>
-                <Box className="rounded-8 bg-gray-lightest py-6 px-8 mb-4">
+                <Box className="rounded-8 bg-white py-6 px-8 mb-4">
                     <Text as="p" className="w-full text-sm">
                         Your Medical Records are ready!
                     </Text>
