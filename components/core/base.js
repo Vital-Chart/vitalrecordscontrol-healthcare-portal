@@ -30,10 +30,12 @@ export const Box = forwardRef(
         />
     )
 )
+Box.displayName = 'Box'
 
 export const Flex = forwardRef(({ className, ...props }, ref) => (
     <Box ref={ref} className={cx('flex', className)} {...props} />
 ))
+Flex.displayName = 'Flex'
 
 export const Grid = forwardRef(({ className, ...props }, ref) => (
     <Box
@@ -43,14 +45,17 @@ export const Grid = forwardRef(({ className, ...props }, ref) => (
         {...props}
     />
 ))
+Grid.displayName = 'Grid'
 
 export const Text = forwardRef((props, ref) => (
     <Box ref={ref} as="p" __variantKey="texts" {...props} />
 ))
+Text.displayName = 'Text'
 
 export const Heading = forwardRef((props, ref) => (
     <Box ref={ref} as="h2" __variantKey="headings" variant="h2" {...props} />
 ))
+Heading.displayName = 'Heading'
 
 export const Link = forwardRef(
     ({ href, as, prefetch, replace, scroll, shallow, ...props }, ref) => {
@@ -81,6 +86,7 @@ export const Link = forwardRef(
         )
     }
 )
+Link.displayName = 'Link'
 
 export const Button = forwardRef((props, ref) => (
     <Box
@@ -91,10 +97,12 @@ export const Button = forwardRef((props, ref) => (
         {...props}
     />
 ))
+Button.displayName = 'Button'
 
 export const Image = forwardRef((props, ref) => (
     <Box ref={ref} as="img" __variantKey="images" alt="" {...props} />
 ))
+Image.displayName = 'Image'
 
 export const SVG = ({ width = 16, height = 16, ...props }) => (
     <Box
@@ -107,6 +115,7 @@ export const SVG = ({ width = 16, height = 16, ...props }) => (
         {...props}
     />
 )
+SVG.displayName = 'SVG'
 
 export const AspectRatio = forwardRef(
     ({ ratio = '4 / 3', className, ...props }, ref) => {
@@ -123,6 +132,7 @@ export const AspectRatio = forwardRef(
         )
     }
 )
+AspectRatio.displayName = 'AspectRatio'
 
 export const AspectImage = forwardRef(
     ({ ratio = '4 / 3', className, ...props }, ref) => (
@@ -139,6 +149,7 @@ export const AspectImage = forwardRef(
         </AspectRatio>
     )
 )
+AspectImage.displayName = 'AspectImage'
 
 export const Embed = forwardRef(
     (
@@ -167,3 +178,4 @@ export const Embed = forwardRef(
         </AspectRatio>
     )
 )
+Embed.displayName = 'Embed'
