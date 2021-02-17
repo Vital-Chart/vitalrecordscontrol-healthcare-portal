@@ -26,9 +26,12 @@ const PIH = ({ store }) => (
                                 variant="h4"
                                 className="pb-2 text-center"
                             >
-                                <span className="block mb-4 text-sm uppercase">
+                                <Text
+                                    as="span"
+                                    className="block mb-4 text-sm uppercase"
+                                >
                                     Option 1
-                                </span>
+                                </Text>
                                 Quick Release to You
                             </Heading>
                             <Text className="text-center">
@@ -55,9 +58,12 @@ const PIH = ({ store }) => (
                                 variant="h4"
                                 className="pb-2 text-center"
                             >
-                                <span className="block mb-4 text-sm uppercase">
+                                <Text
+                                    as="span"
+                                    className="block mb-4 text-sm uppercase"
+                                >
                                     Option 2
-                                </span>
+                                </Text>
                                 Release to Healthcare Provider
                             </Heading>
                             <Text className="text-center">
