@@ -7,7 +7,9 @@ const PIHPatient = ({ store }) => (
     <Layout>
         <Container>
             <Box className="max-w-screen-md space-y-8">
-                <PageHeading>Information for Submitting Requests</PageHeading>
+                <PageHeading>
+                    Information for Submitting Requests - Test
+                </PageHeading>
                 <Box>
                     <Text className="pb-4 leading-relaxed">
                         This website allows you to request copies of your
@@ -18,11 +20,13 @@ const PIHPatient = ({ store }) => (
                     <Box as="ol" className="pl-8 pb-2 list-decimal">
                         <Box as="li" className="pb-2">
                             This option is designed for{' '}
-                            <span className="font-bold">patients only</span> to
-                            request records to be delivered{' '}
-                            <span className="font-bold">
+                            <Text as="span" className="font-bold">
+                                patients only
+                            </Text>{' '}
+                            to request records to be delivered{' '}
+                            <Text as="span" className="font-bold">
                                 electronically through the web
-                            </span>
+                            </Text>
                             . Anyone else, including parents/guardians or other
                             third parties, should{' '}
                             <Link href="/pih" className="text-blue underline">
@@ -38,12 +42,12 @@ const PIHPatient = ({ store }) => (
                             federal and state regulations, we need a copy of
                             your driver's license or other government-issued ID
                             before we can release your records.{' '}
-                            <span className="font-bold">
+                            <Text as="span" className="font-bold">
                                 Failure to upload all required documents through
                                 this system within 72 hours after beginning the
                                 process will result in your request being
                                 canceled.
-                            </span>
+                            </Text>
                         </Box>
                         <Box as="ul" className="pl-8 pb-2 list-disc">
                             <Box as="li" className="pb-2">
@@ -79,10 +83,10 @@ const PIHPatient = ({ store }) => (
                             If you request records from multiple facilities, you
                             will get ONE tracking number for each facility, as
                             each facility processes records separately.{' '}
-                            <span className="font-bold">
+                            <Text as="span" className="font-bold">
                                 You will receive separate notifications and
                                 records from each facility.
-                            </span>
+                            </Text>
                         </Box>
                     </Box>
                     <Text>
