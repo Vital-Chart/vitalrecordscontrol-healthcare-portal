@@ -14,7 +14,6 @@ import {
     Flex,
     Button,
     Link,
-    Heading,
 } from '@/components/core'
 import {
     FormWrapper,
@@ -47,7 +46,7 @@ const PIHPatientRequest = ({ store }) => {
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
 
-    const [currentStep, setCurrentStep] = useState(1)
+    const [currentStep, setCurrentStep] = useState('request')
 
     const [birthDay, setBirthDay] = useState(null)
     const [birthMonth, setBirthMonth] = useState(null)
@@ -118,53 +117,39 @@ const PIHPatientRequest = ({ store }) => {
                         <Box as="ol" className="flex items-center space-x-4">
                             <Box as="li">
                                 <Box>
-                                    <Link
-                                        href="#"
-                                        aria-current="page"
+                                    <Box
+                                        as="button"
                                         className="text-sm text-center sm:text-left text-gray hover:text-gray-dark"
-                                        onClick={e => {
-                                            e.preventDefault()
-                                            if (currentStep !== 1) {
-                                                setCurrentStep(1)
-                                            }
-                                        }}
+                                        onClick={() =>
+                                            setCurrentStep('request')
+                                        }
                                     >
                                         Request Information
-                                    </Link>
+                                    </Box>
                                 </Box>
                             </Box>
                             <Box as="li">
                                 <Flex className="items-center">
                                     <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
-                                    <Link
-                                        href="#"
+                                    <Box
+                                        as="button"
                                         className="ml-4 text-sm text-center sm:text-left text-gray hover:text-gray-dark"
-                                        onClick={e => {
-                                            e.preventDefault()
-                                            if (currentStep !== 2) {
-                                                setCurrentStep(2)
-                                            }
-                                        }}
+                                        onClick={() => setCurrentStep('upload')}
                                     >
                                         Upload Authorization
-                                    </Link>
+                                    </Box>
                                 </Flex>
                             </Box>
                             <Box as="li">
                                 <Flex className="items-center">
                                     <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
-                                    <Link
-                                        href="#"
+                                    <Box
+                                        as="button"
                                         className="ml-4 text-sm text-center sm:text-left text-gray hover:text-gray-dark"
-                                        onClick={e => {
-                                            e.preventDefault()
-                                            if (currentStep !== 3) {
-                                                setCurrentStep(3)
-                                            }
-                                        }}
+                                        onClick={() => setCurrentStep('review')}
                                     >
                                         Review & Submit
-                                    </Link>
+                                    </Box>
                                 </Flex>
                             </Box>
                         </Box>
@@ -172,7 +157,7 @@ const PIHPatientRequest = ({ store }) => {
                 </Container>
             </Box>
             <Container>
-                {currentStep === 1 && (
+                {currentStep === 'request' && (
                     <Box>
                         <PageHeading>New Medical Records Request</PageHeading>
                         <FormWrapper
@@ -787,75 +772,8 @@ const PIHPatientRequest = ({ store }) => {
                                             />
                                         )}
 
-                                        {watchRequestedInformation.includes(
-                                            'MR'
-                                        ) && (
-                                            <>
-                                                <Info
-                                                    secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
-                                                    className="mt-4"
-                                                />
-                                                <Box className="mt-4">
-                                                    <p className="text-sm font-bold mb-2">
-                                                        The following
-                                                        information will not be
-                                                        released unless
-                                                        specifically authorized
-                                                        by checking the relevant
-                                                        box(es) below:
-                                                    </p>
-                                                    <CheckboxWrapper>
-                                                        <Checkbox
-                                                            name="RI_MR_AI_CB"
-                                                            label="Information pertaining to mental health diagnosis or treatment"
-                                                            value="IPM"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register}
-                                                        />
-                                                        <Checkbox
-                                                            name="RI_MR_AI_CB"
-                                                            label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
-                                                            value="IPD"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register}
-                                                        />
-                                                        <Checkbox
-                                                            name="RI_MR_AI_CB"
-                                                            label="HIV/AIDS test results"
-                                                            value="HIV"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register}
-                                                        />
-                                                        <Checkbox
-                                                            name="RI_MR_AI_CB"
-                                                            label="Genetic testing information"
-                                                            value="GTI"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register}
-                                                        />
-                                                        <Checkbox
-                                                            name="RI_MR_AI_CB"
-                                                            label="Worker's Comp information"
-                                                            value="WCI"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register}
-                                                        />
-                                                    </CheckboxWrapper>
-                                                </Box>
-                                            </>
-                                        )}
-                                        {watchRequestedInformation.includes(
-                                            'IB'
+                                        {watchRequestedInformation.some(i =>
+                                            ['MR', 'IB'].includes(i)
                                         ) && (
                                             <Info
                                                 secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
@@ -864,16 +782,58 @@ const PIHPatientRequest = ({ store }) => {
                                         )}
 
                                         {watchRequestedInformation.includes(
-                                            'RI'
+                                            'MR'
                                         ) && (
-                                            <Info
-                                                secondaryText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered."
-                                                className="mt-4"
-                                            />
+                                            <Box className="mt-4">
+                                                <p className="text-sm font-bold mb-2">
+                                                    The following information
+                                                    will not be released unless
+                                                    specifically authorized by
+                                                    checking the relevant
+                                                    box(es) below:
+                                                </p>
+                                                <CheckboxWrapper>
+                                                    <Checkbox
+                                                        name="RI_MR_AI_CB"
+                                                        label="Information pertaining to mental health diagnosis or treatment"
+                                                        value="IPM"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        name="RI_MR_AI_CB"
+                                                        label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
+                                                        value="IPD"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        name="RI_MR_AI_CB"
+                                                        label="HIV/AIDS test results"
+                                                        value="HIV"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        name="RI_MR_AI_CB"
+                                                        label="Genetic testing information"
+                                                        value="GTI"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        name="RI_MR_AI_CB"
+                                                        label="Worker's Comp information"
+                                                        value="WCI"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                </CheckboxWrapper>
+                                            </Box>
                                         )}
 
-                                        {watchRequestedInformation.includes(
-                                            'PS'
+                                        {watchRequestedInformation.some(i =>
+                                            ['RI', 'PS'].includes(i)
                                         ) && (
                                             <Info
                                                 secondaryText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered."
@@ -940,7 +900,7 @@ const PIHPatientRequest = ({ store }) => {
                                             <Label htmlFor="YI_NOTICE_DD">
                                                 Preferred Notification Method
                                             </Label>
-                                            <MicroModal
+                                            {/* <MicroModal
                                                 trigger={handleOpen => (
                                                     <IconQuestion
                                                         onClick={handleOpen}
@@ -999,7 +959,7 @@ const PIHPatientRequest = ({ store }) => {
                                                         </Box>
                                                     </Box>
                                                 )}
-                                            />
+                                            /> */}
                                         </Flex>
                                         <Select
                                             name="YI_NOTICE_DD"
@@ -1213,7 +1173,7 @@ const PIHPatientRequest = ({ store }) => {
                     </Box>
                 )}
 
-                {currentStep === 2 && (
+                {currentStep === 'upload' && (
                     <Box className="max-w-screen-md space-y-8 pb-8">
                         <PageHeading>Upload Authorization</PageHeading>
                         <Box className="pb-8 border-b border-gray-light">
@@ -1351,7 +1311,7 @@ const PIHPatientRequest = ({ store }) => {
                         </ButtonWrapper>
                     </Box>
                 )}
-                {currentStep === 3 && (
+                {currentStep === 'review' && (
                     <Box className="max-w-screen-md space-y-8 pb-8">
                         <PageHeading>Review & Submit</PageHeading>
                         <Text as="p" className="leading-relaxed">
