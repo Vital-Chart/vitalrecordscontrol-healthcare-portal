@@ -10,6 +10,9 @@ export const Header = () => (
             </Box>
             <Box className="ml-auto py-4 text-sm text-white">
                 <Link href="/">VitalChart® Virtual ROI Portal</Link>
+                <Link href="/pih/contact" className="ml-4 underline">
+                    Contact Us
+                </Link>
             </Box>
         </Flex>
     </Box>
