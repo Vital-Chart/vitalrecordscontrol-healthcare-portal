@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
-import { useForm, FormProvider } from 'react-hook-form'
+import { useState, useCallback } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import MicroModal from 'react-micro-modal'
+import DatePicker from 'react-datepicker'
+import { useDropzone } from 'react-dropzone'
 import { withStore } from '@/lib/store'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
@@ -24,14 +26,14 @@ import {
     Alert,
     Info,
     ErrorMessage,
-    FileInput,
     ButtonWrapper,
     UploadsList,
 } from '@/components/atoms'
+
+import IconUpload from '@/icons/icon-upload.svg'
 import IconSlash from '@/icons/icon-slash.svg'
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
-import { range, months } from '@/lib/helpers'
 
 const PIHPatientRequest = ({ store }) => {
     const {
@@ -41,16 +43,48 @@ const PIHPatientRequest = ({ store }) => {
         getValues,
         setValue,
         errors,
-    } = useForm()
+        control,
+    } = useForm({
+        defaultValues: store.state.form,
+    })
+
+    const handleDrop = useCallback(droppedFiles => {
+        // Generate base64 for files
+        // droppedFiles.forEach(file => {
+        //     const reader = new FileReader()
+
+        //     reader.onloadend = () => {
+        //         console.log(file)
+
+        //         store.dispatch({
+        //             type: 'ADD_FILES',
+        //             value: {
+        //                 ...file,
+        //                 pageCount: reader.result.match(/\/Type[\s]*\/Page[^s]/g)
+        //                     .length,
+        //                 base64: reader.result,
+        //             },
+        //         })
+        //     }
+        //     reader.readAsDataURL(file)
+        // })
+
+        store.dispatch({
+            type: 'ADD_FILES',
+            value: droppedFiles,
+        })
+    }, [])
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop: handleDrop,
+        accept: 'image/jpeg, image/png, image/tiff, .pdf',
+    })
+
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
 
     const [currentStep, setCurrentStep] = useState('request')
-
-    const [birthDay, setBirthDay] = useState(null)
-    const [birthMonth, setBirthMonth] = useState(null)
-    const [birthYear, setBirthYear] = useState(null)
 
     const handleChange = e => {
         const formValues = getValues()
@@ -61,7 +95,9 @@ const PIHPatientRequest = ({ store }) => {
         })
     }
 
-    async function onSubmit(data) {
+    const onSubmit = async (data, e) => {
+        e.preventDefault()
+
         const formattedData = formatData(data)
         console.table(formattedData)
         // await fetch('https://vrctest.free.beeceptor.com ', {
@@ -97,17 +133,6 @@ const PIHPatientRequest = ({ store }) => {
         })
         return formattedData
     }
-
-    const formatDate = (month, day, year) => {
-        return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`
-    }
-
-    useEffect(() => {
-        if (birthDay && birthMonth && birthYear) {
-            const dateOfBirth = formatDate(birthMonth, birthDay, birthYear)
-            setValue('PI_DOB', dateOfBirth)
-        }
-    }, [birthDay, birthMonth, birthYear])
 
     return (
         <Layout>
@@ -331,84 +356,52 @@ const PIHPatientRequest = ({ store }) => {
                                             Patient Date of Birth
                                         </Box>
 
-                                        <Input
-                                            type="text"
+                                        <Controller
+                                            control={control}
                                             name="PI_DOB"
-                                            className="hidden"
-                                            onChange={handleChange}
-                                            ref={register({
+                                            rules={{
                                                 required:
                                                     "Please enter the patient's date of birth.",
-                                            })}
+                                            }}
+                                            render={({
+                                                onChange,
+                                                onBlur,
+                                                value,
+                                            }) => (
+                                                <DatePicker
+                                                    // https://reactdatepicker.com/#example-custom-header
+                                                    onChange={date => {
+                                                        onChange(date)
+
+                                                        store.dispatch({
+                                                            type: 'UPDATE_FORM',
+                                                            name: 'PI_DOB',
+                                                            value: date,
+                                                        })
+                                                    }}
+                                                    onBlur={onBlur}
+                                                    selected={
+                                                        value
+                                                            ? new Date(value)
+                                                            : new Date()
+                                                    }
+                                                    maxDate={new Date()}
+                                                    dateFormat="MMMM d, yyyy"
+                                                    showMonthDropdown
+                                                    showYearDropdown
+                                                    dropdownMode="select"
+                                                    customInput={<Input />}
+                                                />
+                                            )}
                                         />
-
-                                        <Flex className="mt-1">
-                                            <Select
-                                                name="birthMonth"
-                                                className="mr-2"
-                                                autoComplete="bday-month"
-                                                onChange={e =>
-                                                    setBirthMonth(
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                <option
-                                                    key="month"
-                                                    defaultValue
-                                                    disabled
-                                                >
-                                                    Month
-                                                </option>
-                                                {months.map(month => (
-                                                    <option
-                                                        key={`mth-${month.number}`}
-                                                        value={month.number}
-                                                    >
-                                                        {month.name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                            <Select
-                                                name="birthDay"
-                                                className="mr-2"
-                                                autoComplete="bday-day"
-                                                onChange={e =>
-                                                    setBirthDay(e.target.value)
-                                                }
-                                            >
-                                                <option defaultValue disabled>
-                                                    Day
-                                                </option>
-                                                {range(1, 31).map(day => (
-                                                    <option
-                                                        key={`day-${day}`}
-                                                        value={day}
-                                                    >
-                                                        {day}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                            <Input
-                                                name="birthYear"
-                                                type="number"
-                                                min="1900"
-                                                max="2021"
-                                                placeholder="Year"
-                                                autoComplete="bday-year"
-                                                onChange={e =>
-                                                    setBirthYear(e.target.value)
-                                                }
-                                            />
-                                        </Flex>
-
+                                        {/*
                                         {errors.PI_DOB && (
                                             <ErrorMessage
                                                 message={
                                                     errors.birthMonth.message
                                                 }
                                             />
-                                        )}
+                                        )} */}
                                     </Box>
                                     <Box className="mb-4">
                                         <Label htmlFor="PI_PHYCL">
@@ -483,36 +476,116 @@ const PIHPatientRequest = ({ store }) => {
                                                                     Service
                                                                     Start:
                                                                 </Label>
-                                                                <Input
-                                                                    type="date"
-                                                                    name="PI_DOB"
-                                                                    id="PI_DOB"
-                                                                    className="mr-4"
-                                                                    onChange={
-                                                                        handleChange
+
+                                                                <Controller
+                                                                    control={
+                                                                        control
                                                                     }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                        }
+                                                                    name="VI_DR_SD"
+                                                                    rules={{
+                                                                        required: true,
+                                                                    }}
+                                                                    render={({
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value,
+                                                                    }) => (
+                                                                        <DatePicker
+                                                                            // https://reactdatepicker.com/#example-custom-header
+                                                                            onChange={date => {
+                                                                                onChange(
+                                                                                    date
+                                                                                )
+
+                                                                                store.dispatch(
+                                                                                    {
+                                                                                        type:
+                                                                                            'UPDATE_FORM',
+                                                                                        name:
+                                                                                            'VI_DR_SD',
+                                                                                        value: date,
+                                                                                    }
+                                                                                )
+                                                                            }}
+                                                                            onBlur={
+                                                                                onBlur
+                                                                            }
+                                                                            selected={
+                                                                                value
+                                                                                    ? new Date(
+                                                                                          value
+                                                                                      )
+                                                                                    : new Date()
+                                                                            }
+                                                                            maxDate={
+                                                                                new Date()
+                                                                            }
+                                                                            showMonthDropdown
+                                                                            showYearDropdown
+                                                                            dropdownMode="select"
+                                                                            customInput={
+                                                                                <Input className="mr-4" />
+                                                                            }
+                                                                        />
                                                                     )}
                                                                 />
                                                             </Box>
+
                                                             <Box>
                                                                 <Label className="block mb-1">
                                                                     Service End:
                                                                 </Label>
-                                                                <Input
-                                                                    type="date"
-                                                                    name="PI_DOB"
-                                                                    id="PI_DOB"
-                                                                    onChange={
-                                                                        handleChange
+
+                                                                <Controller
+                                                                    control={
+                                                                        control
                                                                     }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                        }
+                                                                    name="VI_DR_ED"
+                                                                    rules={{
+                                                                        required: true,
+                                                                    }}
+                                                                    render={({
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value,
+                                                                    }) => (
+                                                                        <DatePicker
+                                                                            // https://reactdatepicker.com/#example-custom-header
+                                                                            onChange={date => {
+                                                                                onChange(
+                                                                                    date
+                                                                                )
+
+                                                                                store.dispatch(
+                                                                                    {
+                                                                                        type:
+                                                                                            'UPDATE_FORM',
+                                                                                        name:
+                                                                                            'VI_DR_ED',
+                                                                                        value: date,
+                                                                                    }
+                                                                                )
+                                                                            }}
+                                                                            onBlur={
+                                                                                onBlur
+                                                                            }
+                                                                            selected={
+                                                                                value
+                                                                                    ? new Date(
+                                                                                          value
+                                                                                      )
+                                                                                    : new Date()
+                                                                            }
+                                                                            maxDate={
+                                                                                new Date()
+                                                                            }
+                                                                            showMonthDropdown
+                                                                            showYearDropdown
+                                                                            dropdownMode="select"
+                                                                            customInput={
+                                                                                <Input />
+                                                                            }
+                                                                        />
                                                                     )}
                                                                 />
                                                             </Box>
@@ -785,13 +858,13 @@ const PIHPatientRequest = ({ store }) => {
                                             'MR'
                                         ) && (
                                             <Box className="mt-4">
-                                                <p className="text-sm font-bold mb-2">
+                                                <Text className="text-sm font-bold mb-2">
                                                     The following information
                                                     will not be released unless
                                                     specifically authorized by
                                                     checking the relevant
                                                     box(es) below:
-                                                </p>
+                                                </Text>
                                                 <CheckboxWrapper>
                                                     <Checkbox
                                                         name="RI_MR_AI_CB"
@@ -850,10 +923,10 @@ const PIHPatientRequest = ({ store }) => {
                                 </SectionHeading>
                                 <Box>
                                     <Box>
-                                        <p className="mb-2">
+                                        <Text className="mb-2">
                                             Please enter your reason for
                                             requesting records.
-                                        </p>
+                                        </Text>
 
                                         <Label htmlFor="PR_PUR">Purpose:</Label>
                                         <Box
@@ -1117,43 +1190,43 @@ const PIHPatientRequest = ({ store }) => {
                                     Delivery Information
                                 </SectionHeading>
                                 <Box>
-                                    <p className="mb-4">
+                                    <Text className="mb-4">
                                         Normal processing time is 5 business
                                         days from time of receipt. Please
                                         contact us if you have any questions.
-                                    </p>
+                                    </Text>
 
                                     {watchFacilityCheckboxes.includes(
                                         'P7202-1'
                                     ) && (
-                                        <p className="mb-2">
+                                        <Text className="mb-2">
                                             <span className="font-bold">
                                                 PIH Health Hospital - Downey:
                                             </span>{' '}
                                             (562) 904-5166 x26177
-                                        </p>
+                                        </Text>
                                     )}
 
                                     {watchFacilityCheckboxes.includes(
                                         'P7201-1'
                                     ) && (
-                                        <p className="mb-2">
+                                        <Text className="mb-2">
                                             <span className="font-bold">
                                                 PIH Health Hospital - Whittier:
                                             </span>{' '}
                                             (562) 698-0811 x13685
-                                        </p>
+                                        </Text>
                                     )}
 
                                     {watchFacilityCheckboxes.includes(
                                         'P7203-1'
                                     ) && (
-                                        <p className="mb-2">
+                                        <Text className="mb-2">
                                             <span className="font-bold">
                                                 PIH Health Physicians:
                                             </span>{' '}
                                             (562) 698-0811 x13858
-                                        </p>
+                                        </Text>
                                     )}
                                 </Box>
                             </FormSection>
@@ -1289,17 +1362,72 @@ const PIHPatientRequest = ({ store }) => {
                                 </Box>
                             </Box>
                         </Box>
+
                         <Box>
                             <SectionHeading>
                                 Upload Your Documentation Here
                             </SectionHeading>
-                            <FormProvider>
-                                <FormWrapper>
-                                    <FileInput />
-                                </FormWrapper>
-                            </FormProvider>
+
+                            <FormWrapper>
+                                <Box {...getRootProps()}>
+                                    <input
+                                        name=""
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        ref={register({
+                                            required: true,
+                                        })}
+                                        {...getInputProps()}
+                                    />
+                                    <Box
+                                        className={
+                                            'w-full p-8 bg-gray-lightest border border-gray-light ' +
+                                            (isDragActive
+                                                ? 'bg-gray-400'
+                                                : 'bg-gray-200')
+                                        }
+                                    >
+                                        <Flex className="items-center justify-center text-center text-gray-dark my-2">
+                                            <IconUpload className="w-12 h-auto mr-4" />
+                                            <Text className="font-bold">
+                                                Drop the files here.
+                                            </Text>
+                                        </Flex>
+                                    </Box>
+                                </Box>
+
+                                {store.state.files &&
+                                    store.state.files.map(file => (
+                                        <Box>
+                                            <img
+                                                src={URL.createObjectURL(file)}
+                                                alt={file.name}
+                                                style={{
+                                                    width: '100px',
+                                                    height: '100px',
+                                                }}
+                                            />
+                                            <Text>
+                                                {file.name} -{' '}
+                                                <Box
+                                                    as="button"
+                                                    key={file.path}
+                                                    onClick={() => {
+                                                        store.dispatch({
+                                                            type: 'REMOVE_FILE',
+                                                            value: file.path,
+                                                        })
+                                                    }}
+                                                >
+                                                    Remove
+                                                </Box>
+                                            </Text>
+                                        </Box>
+                                    ))}
+                            </FormWrapper>
+
                             <UploadsList className="mt-8" />
                         </Box>
+
                         {/* TODO: Add correct buttons here */}
                         <ButtonWrapper>
                             <Button variant="outline" className="flex-grow">
