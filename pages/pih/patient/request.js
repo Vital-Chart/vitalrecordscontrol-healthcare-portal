@@ -49,26 +49,6 @@ const PIHPatientRequest = ({ store }) => {
     })
 
     const handleDrop = useCallback(droppedFiles => {
-        // Generate base64 for files
-        // droppedFiles.forEach(file => {
-        //     const reader = new FileReader()
-
-        //     reader.onloadend = () => {
-        //         console.log(file)
-
-        //         store.dispatch({
-        //             type: 'ADD_FILES',
-        //             value: {
-        //                 ...file,
-        //                 pageCount: reader.result.match(/\/Type[\s]*\/Page[^s]/g)
-        //                     .length,
-        //                 base64: reader.result,
-        //             },
-        //         })
-        //     }
-        //     reader.readAsDataURL(file)
-        // })
-
         store.dispatch({
             type: 'ADD_FILES',
             value: droppedFiles,
@@ -88,6 +68,7 @@ const PIHPatientRequest = ({ store }) => {
 
     const handleChange = e => {
         const formValues = getValues()
+
         store.dispatch({
             type: 'UPDATE_FORM',
             name: e.target.name,
@@ -98,41 +79,41 @@ const PIHPatientRequest = ({ store }) => {
     const onSubmit = async (data, e) => {
         e.preventDefault()
 
-        const formattedData = formatData(data)
-        // console.table(formattedData)
+        try {
+            const res = await fetch(
+                process.env.CREATE_UPDATE_REQUEST_ENDPOINT,
+                {
+                    method: 'POST',
+                    body: createFormData(data),
+                }
+            )
 
-        await fetch(process.env.CREATE_UPDATE_REQUEST_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formattedData),
-        }).then(res => {
-            console.log(res)
-            if (res.ok) {
-                alert('POST Successful')
-            } else {
-                alert(
-                    'There was a problem with your submission. Please try again.'
-                )
-            }
-            console.table(res)
-        })
+            const json = await res.json()
+
+            console.log(json)
+
+            // Handle response
+        } catch (e) {
+            // Handle error
+        }
     }
 
-    const formatData = data => {
-        const formattedData = {}
+    const createFormData = data => {
+        const formData = new FormData()
+
         Object.keys(data).map(key => {
-            const fieldValue = getValues(key)
+            const value = data[key]
+            let fieldValue = value
 
             // Create comma separated strings from array values
-            if (Array.isArray(fieldValue)) {
-                formattedData[key] = fieldValue.join()
-            } else {
-                formattedData[key] = fieldValue
+            if (Array.isArray(value)) {
+                fieldValue = value.join()
             }
+
+            formData.append(key, fieldValue)
         })
-        return formattedData
+
+        return formData
     }
 
     return (
@@ -1065,7 +1046,7 @@ const PIHPatientRequest = ({ store }) => {
                                                         'Please enter your phone number.',
                                                 })}
                                             />
-                                            {errors.YI_PHC && (
+                                            {errors.YI_PN && (
                                                 <ErrorMessage
                                                     message={
                                                         errors.YI_PN.message
