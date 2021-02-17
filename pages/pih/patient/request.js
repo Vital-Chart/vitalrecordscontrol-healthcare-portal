@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import DatePicker from 'react-datepicker'
 import { useForm, Controller, FormProvider } from 'react-hook-form'
+import { useDropzone } from 'react-dropzone'
 import { withStore } from '@/lib/store'
 import { Layout, Container } from '@/components/general'
 import {
@@ -24,14 +25,17 @@ import {
     Alert,
     Info,
     ErrorMessage,
-    FileInput,
+    // FileInput,
     ButtonWrapper,
 } from '@/components/atoms'
+
+import IconUpload from '@/icons/icon-upload.svg'
 import IconSlash from '@/icons/icon-slash.svg'
 
 const PIHPatientRequest = ({ store }) => {
     const {
         register,
+        unregister,
         handleSubmit,
         watch,
         getValues,
@@ -41,6 +45,39 @@ const PIHPatientRequest = ({ store }) => {
     } = useForm({
         defaultValues: store.state.form,
     })
+
+    const handleDrop = useCallback(droppedFiles => {
+        // Generate base64 for files
+        // droppedFiles.forEach(file => {
+        //     const reader = new FileReader()
+
+        //     reader.onloadend = () => {
+        //         console.log(file)
+
+        //         store.dispatch({
+        //             type: 'ADD_FILES',
+        //             value: {
+        //                 ...file,
+        //                 pageCount: reader.result.match(/\/Type[\s]*\/Page[^s]/g)
+        //                     .length,
+        //                 base64: reader.result,
+        //             },
+        //         })
+        //     }
+        //     reader.readAsDataURL(file)
+        // })
+
+        store.dispatch({
+            type: 'ADD_FILES',
+            value: droppedFiles,
+        })
+    }, [])
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop: handleDrop,
+        accept: 'image/jpeg, image/png, image/tiff, .pdf',
+    })
+
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
@@ -456,7 +493,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                     control={
                                                                         control
                                                                     }
-                                                                    name="VI_DR_S"
+                                                                    name="VI_DR_SD"
                                                                     rules={{
                                                                         required: true,
                                                                     }}
@@ -477,7 +514,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                                         type:
                                                                                             'UPDATE_FORM',
                                                                                         name:
-                                                                                            'VI_DR_S',
+                                                                                            'VI_DR_SD',
                                                                                         value: date,
                                                                                     }
                                                                                 )
@@ -515,7 +552,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                     control={
                                                                         control
                                                                     }
-                                                                    name="VI_DR_E"
+                                                                    name="VI_DR_ED"
                                                                     rules={{
                                                                         required: true,
                                                                     }}
@@ -536,7 +573,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                                         type:
                                                                                             'UPDATE_FORM',
                                                                                         name:
-                                                                                            'VI_DR_E',
+                                                                                            'VI_DR_ED',
                                                                                         value: date,
                                                                                     }
                                                                                 )
@@ -1283,16 +1320,100 @@ const PIHPatientRequest = ({ store }) => {
                                 </Box>
                             </Box>
                         </Box>
+
                         <Box>
                             <FormProvider>
                                 <FormWrapper>
-                                    <FileInput />
+                                    <Box {...getRootProps()}>
+                                        <input
+                                            name=""
+                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            ref={register({
+                                                required: true,
+                                            })}
+                                            {...getInputProps()}
+                                        />
+                                        <Box
+                                            className={
+                                                'w-full p-8 bg-gray-lightest border border-gray-light ' +
+                                                (isDragActive
+                                                    ? 'bg-gray-400'
+                                                    : 'bg-gray-200')
+                                            }
+                                        >
+                                            <Flex className="items-center justify-center text-center text-gray-dark my-2">
+                                                <IconUpload className="w-12 h-auto mr-4" />
+                                                <Text className="font-bold">
+                                                    Drop the files here.
+                                                </Text>
+                                            </Flex>
+                                            {/* Optionally you may display a preview of the file(s) */}
+                                            {/* {!!files?.length && (
+                                                <div className="grid gap-1 grid-cols-4 mt-2">
+                                                    {files.map(file => {
+                                                        return (
+                                                            <div
+                                                                key={file.name}
+                                                            >
+                                                                <img
+                                                                    src={URL.createObjectURL(
+                                                                        file
+                                                                    )}
+                                                                    alt={
+                                                                        file.name
+                                                                    }
+                                                                    style={{
+                                                                        width:
+                                                                            '100px',
+                                                                        height:
+                                                                            '100px',
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            )} */}
+                                        </Box>
+                                    </Box>
+                                    {store.state.files &&
+                                        store.state.files.map(file => (
+                                            <Box>
+                                                <img
+                                                    src={URL.createObjectURL(
+                                                        file
+                                                    )}
+                                                    alt={file.name}
+                                                    style={{
+                                                        width: '100px',
+                                                        height: '100px',
+                                                    }}
+                                                />
+                                                <Text>
+                                                    {file.name} -{' '}
+                                                    <Box
+                                                        as="button"
+                                                        key={file.path}
+                                                        onClick={() => {
+                                                            store.dispatch({
+                                                                type:
+                                                                    'REMOVE_FILE',
+                                                                value:
+                                                                    file.path,
+                                                            })
+                                                        }}
+                                                    >
+                                                        Remove
+                                                    </Box>
+                                                </Text>
+                                            </Box>
+                                        ))}
                                 </FormWrapper>
                             </FormProvider>
                         </Box>
-                        {/* TODO: Add Document Uploader */}
                     </Box>
                 )}
+
                 {currentStep === 3 && (
                     <Box>
                         <Text as="p" className="pb-4">
