@@ -10,7 +10,7 @@ export const Header = () => (
             </Box>
             <Flex className="flex-col ml-auto py-4 text-xs text-white text-right">
                 <Link href="/">VitalChart® Virtual ROI Portal</Link>
-                <Link href="/pih/contact" className="ml-4 underline">
+                <Link href="/pih/contact" className="underline">
                     Contact Us
                 </Link>
             </Flex>
