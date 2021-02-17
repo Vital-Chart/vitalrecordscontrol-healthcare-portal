@@ -8,12 +8,12 @@ export const Header = () => (
             <Box className="absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow">
                 <Image src={hospitals.pih.logo} />
             </Box>
-            <Box className="ml-auto py-4 text-sm text-white">
+            <Flex className="flex-col ml-auto py-4 text-xs text-white text-right">
                 <Link href="/">VitalChart® Virtual ROI Portal</Link>
-                <Link href="/pih/contact" className="ml-4 underline">
+                <Link href="/pih/contact" className="underline">
                     Contact Us
                 </Link>
-            </Box>
+            </Flex>
         </Flex>
     </Box>
 )
