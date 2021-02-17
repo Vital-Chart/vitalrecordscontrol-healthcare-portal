@@ -11,6 +11,7 @@ export const Label = forwardRef((props, ref) => (
         {...props}
     />
 ))
+Label.displayName = 'Label'
 
 export const Input = forwardRef(({ className, ...props }, ref) => (
     <Box
@@ -22,6 +23,7 @@ export const Input = forwardRef(({ className, ...props }, ref) => (
         {...props}
     />
 ))
+Input.displayName = 'Input'
 
 export const Textarea = forwardRef(({ className, ...props }, ref) => (
     <Box
@@ -32,6 +34,7 @@ export const Textarea = forwardRef(({ className, ...props }, ref) => (
         {...props}
     />
 ))
+Textarea.displayName = 'Textarea'
 
 export const Select = forwardRef(({ className, ...props }, ref) => (
     <Box
@@ -42,6 +45,7 @@ export const Select = forwardRef(({ className, ...props }, ref) => (
         {...props}
     />
 ))
+Select.displayName = 'Select'
 
 export const Radio = forwardRef(
     ({ label, labelClassName, className, ...props }, ref) => (
@@ -78,6 +82,7 @@ export const Radio = forwardRef(
         </>
     )
 )
+Radio.displayName = 'Radio'
 
 // export const Checkbox = forwardRef(
 //     ({ label, labelClassName, className, ...props }, ref) => (
@@ -145,6 +150,7 @@ export const Checkbox = forwardRef(
         </Label>
     )
 )
+Checkbox.displayName = 'Checkbox'
 
 export const Switch = forwardRef(
     (
@@ -234,3 +240,4 @@ export const Switch = forwardRef(
         </>
     )
 )
+Switch.displayName = 'Switch'
