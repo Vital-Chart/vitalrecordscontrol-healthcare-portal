@@ -18,12 +18,15 @@ const PIHThirdParty = ({ store }) => (
                     <Box as="ol" className="pl-8 pb-2 list-decimal">
                         <Box as="li" className="pb-2">
                             This website is designed for{' '}
-                            <span className="font-bold">patients</span> or{' '}
-                            <span className="font-bold">
+                            <Text as="span" className="font-bold">
+                                patients
+                            </Text>{' '}
+                            or{' '}
+                            <Text as="span" className="font-bold">
                                 parties with the power to make decisions on
                                 behalf of a patient (e.g. parents, guardians,
                                 personal representatives)
-                            </span>{' '}
+                            </Text>{' '}
                             to request records. Third parties should{' '}
                             <Link href="/pih" className="text-blue underline">
                                 click here
@@ -38,12 +41,12 @@ const PIHThirdParty = ({ store }) => (
                             ID as well as proof you are authorized to make
                             medical decisions for the patient (if you are not
                             the patient) before we can release records.{' '}
-                            <span className="font-bold">
+                            <Text as="span" className="font-bold">
                                 Failure to upload all required documents through
                                 this system within 72 hours after beginning the
                                 process will result in your request being
                                 canceled.
-                            </span>
+                            </Text>
                         </Box>
                         <Box as="ul" className="pl-8 pb-2 list-disc">
                             <Box as="li" className="pb-2">
@@ -86,10 +89,10 @@ const PIHThirdParty = ({ store }) => (
                             If you request records from multiple facilities, you
                             will get ONE tracking number for each facility, as
                             each facility processes records separately.{' '}
-                            <span className="font-bold">
+                            <Text as="span" className="font-bold">
                                 You will receive separate notifications and
                                 records from each facility.
-                            </span>
+                            </Text>
                         </Box>
                     </Box>
                     <Text>
