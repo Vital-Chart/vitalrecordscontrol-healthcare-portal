@@ -21,7 +21,7 @@ const PIH = ({ store }) => (
             <Box className="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
                 <Box className="p-6">
                     <Heading variant="h3">Quick release to you</Heading>
-                    <Text as="p" className="mt-2 mb-8 text-sm text-gray-dark">
+                    <Text className="mt-2 mb-8 text-sm text-gray-dark">
                         All the basics for starting a new business
                     </Text>
                     <Button
@@ -174,7 +174,7 @@ const PIH = ({ store }) => (
                     <Heading as="h3" variant="h4" className="pb-4">
                         Notes
                     </Heading>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         * For Option 2, the designated Healthcare Provider must
                         retrieve your written records online once your order is
                         complete. If you are uncertain that the Healthcare
@@ -182,7 +182,7 @@ const PIH = ({ store }) => (
                         responsible for the Healthcare Provider's willingness or
                         ability to access your records online.
                     </Text>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         ** The timeframe specified above for written records
                         excludes weekends and holidays. X-ray/MRI images take
                         longer to process than written records because they must
@@ -190,7 +190,7 @@ const PIH = ({ store }) => (
                         imaging CD is ready, please allow an additional average
                         of 14 business days for mail delivery time.
                     </Text>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         *** For Option 2, you are solely responsible for the
                         following: (a) providing us the correct contact
                         information for the designated Healthcare Provider; (b)
@@ -206,31 +206,27 @@ const PIH = ({ store }) => (
                     <Heading as="h3" variant="h4" className="pb-4">
                         Sample Texts
                     </Heading>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         You will receive text messages similar to these samples:
                     </Text>
-                    <Text as="p" className="pb-4">
-                        When your request is accepted:
-                    </Text>
+                    <Text className="pb-4">When your request is accepted:</Text>
                     <Box className="rounded-8 bg-white py-6 px-8 mb-4">
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             Your Medical Records request is in process. When
                             complete, you will get Acct # and PIN # for online
                             access.
                         </Text>
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             (PIH Health Whittier Hospital)
                         </Text>
                     </Box>
 
-                    <Text as="p" className="pb-4">
-                        When your request is ready:
-                    </Text>
+                    <Text className="pb-4">When your request is ready:</Text>
                     <Box className="rounded-8 bg-white py-6 px-8 mb-4">
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             Your Medical Records are ready!
                         </Text>
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             Go to{' '}
                             <Link
                                 href="https://abt.trimsnet.net/patient/landing/stros"

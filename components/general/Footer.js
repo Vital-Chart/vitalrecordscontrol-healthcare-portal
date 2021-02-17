@@ -13,10 +13,7 @@ export const Footer = () => (
                 </Link>
             </Box>
             <Box>
-                <Text
-                    as="p"
-                    className="pb-2 text-sm text-center md:text-right text-white"
-                >
+                <Text className="pb-2 text-sm text-center md:text-right text-white">
                     &copy;{new Date().getFullYear()} Vital Records Control. All
                     Rights Reserved.
                 </Text>

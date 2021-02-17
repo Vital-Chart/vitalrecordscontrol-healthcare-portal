@@ -80,7 +80,7 @@ const Patterns = () => {
             </Grid>
 
             <SectionHeading title="Text" />
-            <Text as="p" className="pb-4">
+            <Text className="pb-4">
                 My awesome paragraphs. Austin mustache master cleanse roof party
                 meh irony beard bitters Shoreditch artisan flexitarian synth
                 McSweeney's fap Pinterest lo-fi mixtape twee Truffaut salvia
@@ -96,7 +96,7 @@ const Patterns = () => {
                 skateboard craft beer asymmetrical tousled actually food truck
                 Bushwick photo booth 3 wolf moon Godard street.
             </Text>
-            <Text as="p">
+            <Text>
                 Art kogi Intelligentsia Etsy distillery art party selfies plaid
                 pickled Vice sartorial Blue Bottle raw denim jean shorts
                 church-key slow-carb keffiyeh fingerstache Neutra mlkshk

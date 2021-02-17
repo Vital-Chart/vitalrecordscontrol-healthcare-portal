@@ -30,10 +30,7 @@ const PIH = ({ store }) => (
                             </span>
                             Quick Release to You
                         </Heading>
-                        <Text
-                            as="p"
-                            className="text-sm md:text-base text-center text-white"
-                        >
+                        <Text className="text-sm md:text-base text-center text-white">
                             Records sent directly to you. Requests processed
                             within 48 hours*.
                         </Text>
@@ -61,10 +58,7 @@ const PIH = ({ store }) => (
                             </span>
                             Release to Healthcare Provider
                         </Heading>
-                        <Text
-                            as="p"
-                            className="text-sm md:text-base text-center text-white"
-                        >
+                        <Text className="text-sm md:text-base text-center text-white">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -82,17 +76,14 @@ const PIH = ({ store }) => (
             </Flex>
 
             <Box className="bg-black py-2">
-                <Text
-                    as="p"
-                    className="text-center text-sm text-white font-bold"
-                >
+                <Text className="text-center text-sm text-white font-bold">
                     How long can it take to process my request?
                 </Text>
             </Box>
             <Flex>
                 <Flex className="w-full p-6 bg-tertiary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -101,7 +92,7 @@ const PIH = ({ store }) => (
 
                 <Flex className="w-full p-6 bg-secondary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -109,17 +100,14 @@ const PIH = ({ store }) => (
                 </Flex>
             </Flex>
             <Box className="bg-black py-2">
-                <Text
-                    as="p"
-                    className="text-center text-sm text-white font-bold"
-                >
+                <Text className="text-center text-sm text-white font-bold">
                     How long can it take to process my request?
                 </Text>
             </Box>
             <Flex>
                 <Flex className="w-full p-6 bg-tertiary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -128,7 +116,7 @@ const PIH = ({ store }) => (
 
                 <Flex className="w-full p-6 bg-secondary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -136,17 +124,14 @@ const PIH = ({ store }) => (
                 </Flex>
             </Flex>
             <Box className="bg-black py-2">
-                <Text
-                    as="p"
-                    className="text-center text-sm text-white font-bold"
-                >
+                <Text className="text-center text-sm text-white font-bold">
                     How long can it take to process my request?
                 </Text>
             </Box>
             <Flex>
                 <Flex className="w-full p-6 bg-tertiary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -155,7 +140,7 @@ const PIH = ({ store }) => (
 
                 <Flex className="w-full p-6 bg-secondary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -163,17 +148,14 @@ const PIH = ({ store }) => (
                 </Flex>
             </Flex>
             <Box className="bg-black py-2">
-                <Text
-                    as="p"
-                    className="text-center text-sm text-white font-bold"
-                >
+                <Text className="text-center text-sm text-white font-bold">
                     How long can it take to process my request?
                 </Text>
             </Box>
             <Flex>
                 <Flex className="w-full p-6 bg-tertiary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -182,7 +164,7 @@ const PIH = ({ store }) => (
 
                 <Flex className="w-full p-6 bg-secondary-lightest">
                     <Box className="p-2">
-                        <Text as="p" className="text-center text-sm">
+                        <Text className="text-center text-sm">
                             Records sent directly to your healthcare provider.
                             Requests processed within 5-7 business days*.
                         </Text>
@@ -197,7 +179,7 @@ const PIH = ({ store }) => (
                     <Heading as="h3" variant="h4" className="pb-4">
                         Notes
                     </Heading>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         * For Option 2, the designated Healthcare Provider must
                         retrieve your written records online once your order is
                         complete. If you are uncertain that the Healthcare
@@ -205,7 +187,7 @@ const PIH = ({ store }) => (
                         responsible for the Healthcare Provider's willingness or
                         ability to access your records online.
                     </Text>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         ** The timeframe specified above for written records
                         excludes weekends and holidays. X-ray/MRI images take
                         longer to process than written records because they must
@@ -213,7 +195,7 @@ const PIH = ({ store }) => (
                         imaging CD is ready, please allow an additional average
                         of 14 business days for mail delivery time.
                     </Text>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         *** For Option 2, you are solely responsible for the
                         following: (a) providing us the correct contact
                         information for the designated Healthcare Provider; (b)
@@ -229,31 +211,27 @@ const PIH = ({ store }) => (
                     <Heading as="h3" variant="h4" className="pb-4">
                         Sample Texts
                     </Heading>
-                    <Text as="p" className="pb-4">
+                    <Text className="pb-4">
                         You will receive text messages similar to these samples:
                     </Text>
-                    <Text as="p" className="pb-4">
-                        When your request is accepted:
-                    </Text>
+                    <Text className="pb-4">When your request is accepted:</Text>
                     <Box className="rounded-8 bg-white py-6 px-8 mb-4">
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             Your Medical Records request is in process. When
                             complete, you will get Acct # and PIN # for online
                             access.
                         </Text>
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             (PIH Health Whittier Hospital)
                         </Text>
                     </Box>
 
-                    <Text as="p" className="pb-4">
-                        When your request is ready:
-                    </Text>
+                    <Text className="pb-4">When your request is ready:</Text>
                     <Box className="rounded-8 bg-white py-6 px-8 mb-4">
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             Your Medical Records are ready!
                         </Text>
-                        <Text as="p" className="text-sm">
+                        <Text className="text-sm">
                             Go to{' '}
                             <Link
                                 href="https://abt.trimsnet.net/patient/landing/stros"

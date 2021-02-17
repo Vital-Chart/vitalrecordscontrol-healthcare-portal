@@ -31,7 +31,7 @@ const PIH = ({ store }) => (
                                 </span>
                                 Quick Release to You
                             </Heading>
-                            <Text as="p" className="text-center">
+                            <Text className="text-center">
                                 Your request is processed within 48 hours*, and
                                 your records are sent directly to you.
                             </Text>
@@ -60,7 +60,7 @@ const PIH = ({ store }) => (
                                 </span>
                                 Release to Healthcare Provider
                             </Heading>
-                            <Text as="p" className="text-center">
+                            <Text className="text-center">
                                 Your request is processed within 5-7 days*, and
                                 your records are sent directly to your
                                 healthcare provider.
@@ -86,26 +86,17 @@ const PIH = ({ store }) => (
         <Box className="max-w-5xl mx-auto mb-12 border border-gray-light">
             <Flex className="w-full">
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 border-b-8 border-primary">
-                    <Text
-                        as="p"
-                        className="w-full text-xs uppercase font-bold text-center"
-                    >
+                    <Text className="w-full text-xs uppercase font-bold text-center">
                         Option 1
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 border-b-8 border-gray-light bg-gray-lightest">
-                    <Text
-                        as="p"
-                        className="w-full text-xs uppercase font-bold text-center"
-                    >
+                    <Text className="w-full text-xs uppercase font-bold text-center">
                         Frequently Asked Questions
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 border-b-8 border-secondary">
-                    <Text
-                        as="p"
-                        className="w-full text-xs uppercase font-bold text-center"
-                    >
+                    <Text className="w-full text-xs uppercase font-bold text-center">
                         Option 2
                     </Text>
                 </Flex>
@@ -113,18 +104,18 @@ const PIH = ({ store }) => (
 
             <Flex className="w-full border-b border-gray-light">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         How long can it take to process my request?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         48 hours**
                     </Text>
                 </Flex>
 
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         5-7 business days**
                     </Text>
                 </Flex>
@@ -132,36 +123,32 @@ const PIH = ({ store }) => (
 
             <Flex className="w-full border-b border-gray-light">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Can I order my records with my phone/tablet?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3  order-1">
-                    <Text as="p" className="w-full text-sm text-center">
-                        Yes
-                    </Text>
+                    <Text className="w-full text-sm text-center">Yes</Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
-                        Yes
-                    </Text>
+                    <Text className="w-full text-sm text-center">Yes</Text>
                 </Flex>
             </Flex>
 
             <Flex className="w-full border-b border-gray-light">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Will I be told when my request is ready?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Yes, immediately, by text message (see sample texts
                         below) or email
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         No, only the Healthcare Provider is notified (by fax)***
                     </Text>
                 </Flex>
@@ -169,55 +156,49 @@ const PIH = ({ store }) => (
 
             <Flex className="w-full border-b border-gray-light">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Can I access my own records?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                    <Text as="p" className="w-full text-sm text-center">
-                        Yes
-                    </Text>
+                    <Text className="w-full text-sm text-center">Yes</Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
-                        No
-                    </Text>
+                    <Text className="w-full text-sm text-center">No</Text>
                 </Flex>
             </Flex>
 
             <Flex className="w-full border-b border-gray-light">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Can I print, email, save, and/or fax my records?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Yes, and you can share them with any 3rd party when and
                         how you want
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
-                        No
-                    </Text>
+                    <Text className="w-full text-sm text-center">No</Text>
                 </Flex>
             </Flex>
 
             <Flex className="w-full border-b border-gray-light">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         How are my records made available?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Online only.*** The only item you may pick up or have
                         mailed to you is an X-Ray/MRI CD.
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Online only.*** The only item mailed to the Healthcare
                         Provider is an X-Ray/MRI CD.
                     </Text>
@@ -226,19 +207,15 @@ const PIH = ({ store }) => (
 
             <Flex className="w-full">
                 <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                    <Text as="p" className="w-full text-sm text-center">
+                    <Text className="w-full text-sm text-center">
                         Can I view my records on my phone/tablet?
                     </Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                    <Text as="p" className="w-full text-sm text-center">
-                        Yes
-                    </Text>
+                    <Text className="w-full text-sm text-center">Yes</Text>
                 </Flex>
                 <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                    <Text as="p" className="w-full text-sm text-center">
-                        No
-                    </Text>
+                    <Text className="w-full text-sm text-center">No</Text>
                 </Flex>
             </Flex>
         </Box>
@@ -248,7 +225,7 @@ const PIH = ({ store }) => (
                 <Heading as="h3" variant="h4" className="pb-4">
                     Important - Please Read!
                 </Heading>
-                <Text as="p" className="pb-4">
+                <Text className="pb-4">
                     * For Option 2, the designated Healthcare Provider must
                     retrieve your written records online once your order is
                     complete. If you are uncertain that the Healthcare Provider
@@ -256,7 +233,7 @@ const PIH = ({ store }) => (
                     the Healthcare Provider's willingness or ability to access
                     your records online.
                 </Text>
-                <Text as="p" className="pb-4">
+                <Text className="pb-4">
                     ** The timeframe specified above for written records
                     excludes weekends and holidays. X-ray/MRI images take longer
                     to process than written records because they must be
@@ -264,7 +241,7 @@ const PIH = ({ store }) => (
                     imaging CD is ready, please allow an additional average of
                     14 business days for mail delivery time.
                 </Text>
-                <Text as="p" className="pb-4">
+                <Text className="pb-4">
                     *** For Option 2, you are solely responsible for the
                     following: (a) providing us the correct contact information
                     for the designated Healthcare Provider; (b) making the
@@ -280,31 +257,27 @@ const PIH = ({ store }) => (
                 <Heading as="h3" variant="h4" className="pb-4">
                     Sample Texts
                 </Heading>
-                <Text as="p" className="pb-4">
+                <Text className="pb-4">
                     You will receive text messages similar to these samples:
                 </Text>
-                <Text as="p" className="pb-4">
-                    When your request is accepted:
-                </Text>
+                <Text className="pb-4">When your request is accepted:</Text>
                 <Box className="rounded-8 bg-white py-6 px-8 mb-4">
-                    <Text as="p" className="w-full text-sm">
+                    <Text className="w-full text-sm">
                         Your Medical Records request is in process. When
                         complete, you will get Acct # and PIN # for online
                         access.
                     </Text>
-                    <Text as="p" className="w-full text-sm">
+                    <Text className="w-full text-sm">
                         (PIH Health Whittier Hospital)
                     </Text>
                 </Box>
 
-                <Text as="p" className="pb-4">
-                    When your request is ready:
-                </Text>
+                <Text className="pb-4">When your request is ready:</Text>
                 <Box className="rounded-8 bg-white py-6 px-8 mb-4">
-                    <Text as="p" className="w-full text-sm">
+                    <Text className="w-full text-sm">
                         Your Medical Records are ready!
                     </Text>
-                    <Text as="p" className="w-full text-sm">
+                    <Text className="w-full text-sm">
                         Go to{' '}
                         <Link
                             href="https://abt.trimsnet.net/patient/landing/stros"

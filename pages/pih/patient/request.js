@@ -99,24 +99,25 @@ const PIHPatientRequest = ({ store }) => {
         e.preventDefault()
 
         const formattedData = formatData(data)
-        console.table(formattedData)
-        // await fetch('https://vrctest.free.beeceptor.com ', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(formattedData),
-        // }).then(res => {
-        //     if (res.ok) {
-        //         alert('POST Successful')
-        //     } else {
-        //         alert(
-        //             'There was a problem with your submission. Please try again.'
-        //         )
-        //     }
-        //     console.table(res)
-        // })
-        // alert(JSON.stringify(formattedData))
+        // console.table(formattedData)
+
+        await fetch(process.env.CREATE_UPDATE_REQUEST_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formattedData),
+        }).then(res => {
+            console.log(res)
+            if (res.ok) {
+                alert('POST Successful')
+            } else {
+                alert(
+                    'There was a problem with your submission. Please try again.'
+                )
+            }
+            console.table(res)
+        })
     }
 
     const formatData = data => {
@@ -383,7 +384,7 @@ const PIHPatientRequest = ({ store }) => {
                                                     selected={
                                                         value
                                                             ? new Date(value)
-                                                            : new Date()
+                                                            : null
                                                     }
                                                     maxDate={new Date()}
                                                     dateFormat="MMMM d, yyyy"
@@ -1001,14 +1002,13 @@ const PIHPatientRequest = ({ store }) => {
 
                                                         <Box>
                                                             <Text
-                                                                as="p"
                                                                 className="text-xl font-bold"
                                                             >
                                                                 Preferred
                                                                 Notification
                                                                 Method
                                                             </Text>
-                                                            <Text as="p">
+                                                            <Text>
                                                                 This is the
                                                                 method by which
                                                                 you would like
@@ -1200,9 +1200,12 @@ const PIHPatientRequest = ({ store }) => {
                                         'P7202-1'
                                     ) && (
                                         <Text className="mb-2">
-                                            <span className="font-bold">
+                                            <Text
+                                                as="span"
+                                                className="font-bold"
+                                            >
                                                 PIH Health Hospital - Downey:
-                                            </span>{' '}
+                                            </Text>{' '}
                                             (562) 904-5166 x26177
                                         </Text>
                                     )}
@@ -1211,9 +1214,12 @@ const PIHPatientRequest = ({ store }) => {
                                         'P7201-1'
                                     ) && (
                                         <Text className="mb-2">
-                                            <span className="font-bold">
+                                            <Text
+                                                as="span"
+                                                className="font-bold"
+                                            >
                                                 PIH Health Hospital - Whittier:
-                                            </span>{' '}
+                                            </Text>{' '}
                                             (562) 698-0811 x13685
                                         </Text>
                                     )}
@@ -1222,9 +1228,12 @@ const PIHPatientRequest = ({ store }) => {
                                         'P7203-1'
                                     ) && (
                                         <Text className="mb-2">
-                                            <span className="font-bold">
+                                            <Text
+                                                as="span"
+                                                className="font-bold"
+                                            >
                                                 PIH Health Physicians:
-                                            </span>{' '}
+                                            </Text>{' '}
                                             (562) 698-0811 x13858
                                         </Text>
                                     )}
@@ -1250,23 +1259,29 @@ const PIHPatientRequest = ({ store }) => {
                     <Box className="max-w-screen-md space-y-8 pb-8">
                         <PageHeading>Upload Authorization</PageHeading>
                         <Box className="pb-8 border-b border-gray-light">
-                            <Text as="p" className="pb-4">
+                            <Text className="pb-4">
                                 Your request has been saved and assigned
                                 tracking number(s):{' '}
-                                <span className="font-bold">81-196019</span>.
+                                <Text as="span" className="font-bold">
+                                    81-196019
+                                </Text>
+                                .
                             </Text>
-                            <Text as="p" className="pb-4">
+                            <Text className="pb-4">
                                 Please contact the following facility/facilities
                                 if you have any questions during this process:
                             </Text>
-                            <Text as="p" className="pb-4">
-                                <span className="font-bold">81-196019</span>:
-                                Palomar Health Medical Records - (760) 480-7911
+                            <Text className="pb-4">
+                                <Text as="span" className="font-bold">
+                                    81-196019
+                                </Text>
+                                : Palomar Health Medical Records - (760)
+                                480-7911
                             </Text>
                         </Box>
                         <Box>
-                            <Text as="p" className="pb-4 leading-relaxed">
-                                <span className="font-bold">
+                            <Text className="pb-4 leading-relaxed">
+                                <Text as="span" className="font-bold">
                                     All requests for medical records require
                                     printing out, signing, and uploading an
                                     image of this{' '}
@@ -1277,7 +1292,7 @@ const PIHPatientRequest = ({ store }) => {
                                         authorization form
                                     </Link>
                                     .
-                                </span>{' '}
+                                </Text>{' '}
                                 Note that your driver's license or other
                                 government issued identification is required in
                                 the authorization form where indicated. If you
@@ -1295,7 +1310,7 @@ const PIHPatientRequest = ({ store }) => {
                                 documentation needed for your request, please
                                 contact us at the number above.
                             </Text>
-                            <Text as="p" className="pb-4">
+                            <Text className="pb-4">
                                 To complete your request:
                             </Text>
                             <Box as="ul" className="pl-8 pb-4 list-decimal">
@@ -1319,12 +1334,14 @@ const PIHPatientRequest = ({ store }) => {
                                 </Box>
                                 <Box as="li" className="pb-2">
                                     Click{' '}
-                                    <span className="font-bold">Continue</span>{' '}
+                                    <Text as="span" className="font-bold">
+                                        Continue
+                                    </Text>{' '}
                                     below.
                                 </Box>
                             </Box>
 
-                            <Text as="p" className="pb-4 font-bold">
+                            <Text className="pb-4 font-bold">
                                 Please note the following:
                             </Text>
 
@@ -1337,11 +1354,11 @@ const PIHPatientRequest = ({ store }) => {
                                     following the prompts to log in with a
                                     temporary password that will be sent to
                                     you."{' '}
-                                    <span className="font-bold">
+                                    <Text as="span" className="font-bold">
                                         You must upload the required
                                         documentation within 72 hours or your
                                         request will be canceled.
-                                    </span>
+                                    </Text>
                                 </Box>
                                 <Box as="li" className="pb-2">
                                     The files you upload must have PDF,
@@ -1394,38 +1411,11 @@ const PIHPatientRequest = ({ store }) => {
                                         </Flex>
                                     </Box>
                                 </Box>
-
-                                {store.state.files &&
-                                    store.state.files.map(file => (
-                                        <Box>
-                                            <img
-                                                src={URL.createObjectURL(file)}
-                                                alt={file.name}
-                                                style={{
-                                                    width: '100px',
-                                                    height: '100px',
-                                                }}
-                                            />
-                                            <Text>
-                                                {file.name} -{' '}
-                                                <Box
-                                                    as="button"
-                                                    key={file.path}
-                                                    onClick={() => {
-                                                        store.dispatch({
-                                                            type: 'REMOVE_FILE',
-                                                            value: file.path,
-                                                        })
-                                                    }}
-                                                >
-                                                    Remove
-                                                </Box>
-                                            </Text>
-                                        </Box>
-                                    ))}
                             </FormWrapper>
 
-                            <UploadsList className="mt-8" />
+                            {store.state.files && (
+                                <UploadsList className="mt-8" />
+                            )}
                         </Box>
 
                         {/* TODO: Add correct buttons here */}
@@ -1442,7 +1432,7 @@ const PIHPatientRequest = ({ store }) => {
                 {currentStep === 'review' && (
                     <Box className="max-w-screen-md space-y-8 pb-8">
                         <PageHeading>Review & Submit</PageHeading>
-                        <Text as="p" className="leading-relaxed">
+                        <Text className="leading-relaxed">
                             Please review your submission below for accuracy. If
                             there are any errors, please click here to correct
                             them. (/patient/editrequest) Errors such as patient
@@ -1459,70 +1449,103 @@ const PIHPatientRequest = ({ store }) => {
                             <SectionHeading className="uppercase">
                                 Request(s) Summary
                             </SectionHeading>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Tracking Number(s):
-                                </span>{' '}
+                                </Text>{' '}
                                 67-192171, 68-150595, 69-156512
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Patient Name:
-                                </span>{' '}
+                                </Text>{' '}
                                 DONALD WHITE{' '}
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Patient DOB:
-                                </span>{' '}
+                                </Text>{' '}
                                 3/3/1977
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Dates of Service:{' '}
-                                </span>
+                                </Text>
                                 Most recent visit{' '}
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Requested Information:{' '}
-                                </span>
+                                </Text>
                                 Medical Records: PERTINENT; Itemized Billing;
                                 Radiology Images; Pathology Slides
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Purpose of Request:{' '}
-                                </span>
+                                </Text>
                                 test
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Limitations:{' '}
-                                </span>
+                                </Text>
                                 None{' '}
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Phone:{' '}
-                                </span>
+                                </Text>
                                 (858) 254-8585
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Email:{' '}
-                                </span>
+                                </Text>
                                 dwhite@abtvault.com
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Delivery Method for Records:{' '}
-                                </span>
+                                </Text>
                             </Text>
-                            <Text as="p">
-                                <span className="block text-sm font-bold">
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
                                     Delivery Method for CDs/Slides:{' '}
-                                </span>
+                                </Text>
                                 TRIMSNet e-Request Website Pick up CDs and/or
                                 slides at the facility.
                             </Text>

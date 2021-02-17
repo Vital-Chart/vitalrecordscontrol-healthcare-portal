@@ -56,9 +56,7 @@ export const FileInput = props => {
                 >
                     <Flex className="items-center justify-center text-center text-gray-dark my-2">
                         <IconUpload className="w-12 h-auto mr-4" />
-                        <Text as="p" className="font-bold">
-                            Drop the files here.
-                        </Text>
+                        <Text className="font-bold">Drop the files here.</Text>
                     </Flex>
                     {/* Optionally you may display a preview of the file(s) */}
                     {/* {!!files?.length && (

@@ -1,14 +1,18 @@
 const path = require('path')
 // const defaultImageSizes = [80, 160, 320, 480, 768, 1024, 1280]
-const defaultImageSizes = [80, 160, 320]
+const defaultImageSizes = [80, 160, 320, 640]
 
 const nextConfig = {
-    env: {},
+    env: {
+        CREATE_UPDATE_REQUEST_ENDPOINT:
+            'https://v2.abtroiplus.com/patientportalwebservicedev/PatientRequest/PersistPatientRequest',
+        CREATE_FORM_ENDPOINT:
+            'https://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/RenderForm',
+        GET_FORM_ENDPOINT:
+            'http://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/DisplayForm',
+    },
     images: {
-        deviceSizes: [
-            ...defaultImageSizes,
-            ...defaultImageSizes.map(size => size * 2),
-        ],
+        deviceSizes: defaultImageSizes,
         domains: [],
     },
     webpack(config) {

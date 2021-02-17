@@ -9,7 +9,7 @@ const PIHPatient = ({ store }) => (
             <Box className="max-w-screen-md space-y-8">
                 <PageHeading>Information for Submitting Requests</PageHeading>
                 <Box>
-                    <Text as="p" className="pb-4 leading-relaxed">
+                    <Text className="pb-4 leading-relaxed">
                         This website allows you to request copies of your
                         medical record and to retrieve it electronically. Please
                         read the important notes below before continuing to use
@@ -85,7 +85,7 @@ const PIHPatient = ({ store }) => (
                             </span>
                         </Box>
                     </Box>
-                    <Text as="p">
+                    <Text>
                         If you are unable to complete the above, please refer to{' '}
                         <Link href="/pih" className="text-blue underline">
                             this page

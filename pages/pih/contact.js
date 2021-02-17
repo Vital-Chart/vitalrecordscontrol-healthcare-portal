@@ -13,10 +13,10 @@ const Contact = () => (
 
                 {hospital.contact.map(facility => (
                     <Box>
-                        <Text as="p" className="font-bold">
+                        <Text className="font-bold">
                             {facility.facilityName}
                         </Text>
-                        <Text as="p">{facility.address1}</Text>
+                        <Text>{facility.address1}</Text>
                         <Text>{facility.address2}</Text>
                         <Text>{facility.phone}</Text>
                     </Box>
