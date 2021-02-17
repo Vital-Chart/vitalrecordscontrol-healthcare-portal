@@ -1,5 +1,5 @@
-import { Box, Link, Text, Button } from '@/components/core'
-import { PageHeading, ButtonWrapper } from '@/components/atoms'
+import { Box, Text } from '@/components/core'
+import { PageHeading } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 import { PIH as hospital } from '@/lib/hospitals'
 
