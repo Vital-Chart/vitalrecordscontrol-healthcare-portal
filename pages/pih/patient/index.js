@@ -7,9 +7,7 @@ const PIHPatient = ({ store }) => (
     <Layout>
         <Container>
             <Box className="max-w-screen-md space-y-8">
-                <PageHeading>
-                    Information for Submitting Requests - Test
-                </PageHeading>
+                <PageHeading>Information for Submitting Requests</PageHeading>
                 <Box>
                     <Text className="pb-4 leading-relaxed">
                         This website allows you to request copies of your
