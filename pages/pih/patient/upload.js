@@ -190,8 +190,13 @@ const PIHUpload = ({ store }) => {
                         <Button variant="outline" className="flex-grow">
                             Cancel and Delete Request
                         </Button>
-                        <Button variant="filled" className="flex-grow">
-                            Submit Request for Processing
+                        <Button
+                            as={Link}
+                            href="/pih/patient/review"
+                            variant="filled"
+                            className="flex-grow text-center"
+                        >
+                            Review and Submit Request
                         </Button>
                     </ButtonWrapper>
                 </Box>

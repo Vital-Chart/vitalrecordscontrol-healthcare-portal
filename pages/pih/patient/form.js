@@ -1,4 +1,3 @@
-import { useState, useCallback } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import MicroModal from 'react-micro-modal'
 import DatePicker from 'react-datepicker'
