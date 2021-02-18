@@ -27,6 +27,8 @@ import {
     Stepper,
 } from '@/components/atoms'
 
+import { states } from '@/lib/helpers'
+
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
 
@@ -45,6 +47,7 @@ const PIHForm = ({ store }) => {
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
+    const watchDeliveryMethod = watch('DI_DM_DD', [])
 
     const handleChange = e => {
         const formValues = getValues()
@@ -936,7 +939,7 @@ const PIHForm = ({ store }) => {
                                     <Select
                                         name="YI_NOTICE_DD"
                                         id="YI_NOTICE_DD"
-                                        className="w-full mt-1"
+                                        className="block mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
@@ -1080,11 +1083,235 @@ const PIHForm = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
                             <Box>
-                                <Text className="mb-4">
-                                    Normal processing time is 5 business days
-                                    from time of receipt. Please contact us if
-                                    you have any questions.
-                                </Text>
+                                <Box>
+                                    <Text className="mb-4">
+                                        Radiology Images are saved to CD.
+                                        Radiology Images and Pathology Slides
+                                        can be either picked up by you at the
+                                        facility, or delivered to you via US
+                                        Mail.
+                                    </Text>
+                                </Box>
+                                <Box className="mb-4">
+                                    <Label htmlFor="DI_DM_DD">
+                                        Records Delivery Method:
+                                    </Label>
+                                    <Select
+                                        name="DI_DM_DD"
+                                        id="DI_DM_DD"
+                                        className="block mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select a delivery method.',
+                                        })}
+                                    >
+                                        <option value="DL">Download</option>
+                                        <option value="PS">
+                                            Postal Service - Mail
+                                        </option>
+                                        <option value="PU">Pick Up</option>
+                                    </Select>
+                                    {errors.DI_DM_DD && (
+                                        <ErrorMessage
+                                            message={errors.DI_DM_DD.message}
+                                        />
+                                    )}
+                                </Box>
+
+                                {watchDeliveryMethod.includes('DL') && (
+                                    <Info
+                                        secondaryText="Medical records will be delivered
+                                    via this website in Adobe PDF
+                                    format. A notification will be sent
+                                    when the records are ready for
+                                    download, and they will be available
+                                    for 30 days."
+                                        className="my-6"
+                                    />
+                                )}
+
+                                {watchDeliveryMethod.includes('PS') && (
+                                    <>
+                                        <Box className="mb-4">
+                                            <Text className="mb-4">
+                                                Radiology CDs and / or Pathology
+                                                slides will be delivered to the
+                                                following address:
+                                            </Text>
+
+                                            <Label htmlFor="DI_NM">Name</Label>
+                                            <Input
+                                                type="text"
+                                                name="DI_NM"
+                                                id="DI_NM"
+                                                className="w-full mt-1 mb-2"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please enter a name.',
+                                                })}
+                                            />
+
+                                            {errors.DI_NM && (
+                                                <ErrorMessage
+                                                    message={
+                                                        errors.DI_NM.message
+                                                    }
+                                                />
+                                            )}
+
+                                            <Label htmlFor="DI_ATN">
+                                                Attention
+                                            </Label>
+                                            <Input
+                                                type="text"
+                                                name="DI_ATN"
+                                                id="DI_ATN"
+                                                className="w-full mt-1 mb-2"
+                                                onChange={handleChange}
+                                                ref={register}
+                                            />
+
+                                            <Label htmlFor="DI_ADDR1">
+                                                Address
+                                            </Label>
+                                            <Input
+                                                type="text"
+                                                name="DI_ADDR1"
+                                                id="DI_ADDR1"
+                                                className="w-full mt-1  mb-2"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please enter an address.',
+                                                })}
+                                            />
+
+                                            {errors.DI_ADDR1 && (
+                                                <ErrorMessage
+                                                    message={
+                                                        errors.DI_ADDR1.message
+                                                    }
+                                                />
+                                            )}
+
+                                            <Label htmlFor="DI_ADDR2">
+                                                Address Line 2
+                                            </Label>
+                                            <Input
+                                                type="text"
+                                                name="DI_ADDR2"
+                                                id="DI_ADDR2"
+                                                className="w-full mt-1  mb-2"
+                                                onChange={handleChange}
+                                                ref={register}
+                                            />
+
+                                            <Label htmlFor="DI_CITY">
+                                                City
+                                            </Label>
+                                            <Input
+                                                type="text"
+                                                name="DI_CITY"
+                                                id="DI_CITY"
+                                                className="w-full mt-1 mb-2"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please enter a city.',
+                                                })}
+                                            />
+
+                                            {errors.DI_CITY && (
+                                                <ErrorMessage
+                                                    message={
+                                                        errors.DI_CITY.message
+                                                    }
+                                                />
+                                            )}
+                                            <Flex>
+                                                <Box>
+                                                    <Label htmlFor="DI_ST_DD">
+                                                        State
+                                                    </Label>
+                                                    <Select
+                                                        name="DI_ST_DD"
+                                                        id="DI_ST_DD"
+                                                        className="block mt-1 mr-4 mb-2"
+                                                        onChange={handleChange}
+                                                        ref={register({
+                                                            required:
+                                                                'Please select a state.',
+                                                        })}
+                                                    >
+                                                        {Object.keys(
+                                                            states
+                                                        ).map(key => (
+                                                            <option
+                                                                value={key}
+                                                                key={key}
+                                                            >
+                                                                {states[key]}
+                                                            </option>
+                                                        ))}
+                                                    </Select>
+
+                                                    {errors.DI_ST_DD && (
+                                                        <ErrorMessage
+                                                            message={
+                                                                errors.DI_ST_DD
+                                                                    .message
+                                                            }
+                                                        />
+                                                    )}
+                                                </Box>
+                                                <Box>
+                                                    <Label htmlFor="DI_ZIP">
+                                                        Zip
+                                                    </Label>
+                                                    <Input
+                                                        type="text"
+                                                        name="DI_ZIP"
+                                                        id="DI_ZIP"
+                                                        className="w-full mt-1"
+                                                        onChange={handleChange}
+                                                        ref={register({
+                                                            required:
+                                                                'Please enter a zip code.',
+                                                        })}
+                                                    />
+
+                                                    {errors.DI_ST_DD && (
+                                                        <ErrorMessage
+                                                            message={
+                                                                errors.DI_ZIP
+                                                                    .message
+                                                            }
+                                                        />
+                                                    )}
+                                                </Box>
+                                            </Flex>
+                                        </Box>
+                                        <Info
+                                            secondaryText="Radiology CDs and/or Pathology
+                                        Slides will be mailed to the
+                                        address above via the US Postal
+                                        Service. The department will
+                                        contact you if additional
+                                        information is required."
+                                            className="my-6"
+                                        />
+                                    </>
+                                )}
+
+                                <Box>
+                                    <Text className="mb-4">
+                                        Normal processing time is 5 business
+                                        days from time of receipt. Please
+                                        contact us if you have any questions.
+                                    </Text>
+                                </Box>
 
                                 {watchFacilityCheckboxes.includes(
                                     'P7202-1'

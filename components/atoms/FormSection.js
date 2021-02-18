@@ -4,7 +4,10 @@ import { Box } from '@/components/core'
 export const FormSection = ({ className, children }) => (
     <Box
         as="section"
-        className={cx('py-8 border-b border-gray-light', className)}
+        className={cx(
+            'max-w-screen-md py-8 border-b border-gray-light',
+            className
+        )}
     >
         {children}
     </Box>

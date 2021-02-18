@@ -10,10 +10,8 @@ const Home = ({ store }) => (
             <Link href="/pih/patient/request">
                 PIH - Patient - Request Form
             </Link>
-            <Link href="/pih/sendto">PIH - Third Party - Instructions</Link>
-            <Link href="/pih/sendto/form">
-                PIH - Third Party - Request Form
-            </Link>
+            <Link href="/pih/sendto">PIH - Send To - Instructions</Link>
+            <Link href="/pih/sendto/form">PIH - Send To - Request Form</Link>
         </Flex>
     </Layout>
 )
