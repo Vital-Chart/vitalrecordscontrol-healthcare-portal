@@ -872,6 +872,28 @@ const PIHSendToForm = ({ store }) => {
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
                                 <Box className="mb-4">
+                                    <Label htmlFor="YI_REL_DD">
+                                        Relationship to Patient
+                                    </Label>
+                                    <Select
+                                        name="YI_REL_DD"
+                                        id="YI_REL_DD"
+                                        className="block mt-1"
+                                        onChange={handleChange}
+                                        ref={register({ required: true })}
+                                    >
+                                        <option value="SELF">Self</option>
+                                        <option value="PG">
+                                            Parent/Guardian
+                                        </option>
+                                        <option value="CON">Conservator</option>
+                                        <option value="PR">
+                                            Personal Representative
+                                        </option>
+                                        <option value="OT">Other</option>
+                                    </Select>
+                                </Box>
+                                <Box className="mb-4">
                                     <Flex className="items-center">
                                         <Label htmlFor="YI_NOTICE_DD">
                                             Preferred Notification Method
@@ -1083,40 +1105,79 @@ const PIHSendToForm = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
                             <Box>
-                                <Box>
-                                    <Text className="mb-4">
-                                        Radiology Images are saved to CD.
-                                        Radiology Images and Pathology Slides
-                                        can be either picked up by you at the
-                                        facility, or delivered to you via US
-                                        Mail.
-                                    </Text>
-                                </Box>
                                 <Box className="mb-4">
-                                    <Label htmlFor="DI_DM_DD">
-                                        Records Delivery Method:
-                                    </Label>
-                                    <Select
-                                        name="DI_DM_DD"
-                                        id="DI_DM_DD"
-                                        className="block mt-1"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select a delivery method.',
-                                        })}
-                                    >
-                                        <option value="DL">Download</option>
-                                        <option value="PS">
-                                            Postal Service - Mail
-                                        </option>
-                                        <option value="PU">Pick Up</option>
-                                    </Select>
-                                    {errors.DI_DM_DD && (
-                                        <ErrorMessage
-                                            message={errors.DI_DM_DD.message}
-                                        />
-                                    )}
+                                    <Flex>
+                                        <Box className="mr-4">
+                                            <Label htmlFor="DI_REC_DD">
+                                                Recipient
+                                            </Label>
+                                            <Select
+                                                name="DI_REC_DD"
+                                                id="DI_REC_DD"
+                                                className="block mt-1"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select a recipient.',
+                                                })}
+                                            >
+                                                <option value="SELF">
+                                                    Self
+                                                </option>
+                                                <option value="HP">
+                                                    Healthcare Provider
+                                                </option>
+                                                <option value="ATY">
+                                                    Attorney
+                                                </option>
+                                                <option value="INS">
+                                                    Insurance Company
+                                                </option>
+                                                <option value="OTHER">
+                                                    Other
+                                                </option>
+                                            </Select>
+                                            {errors.DI_REC_DD && (
+                                                <ErrorMessage
+                                                    message={
+                                                        errors.DI_REC_DD.message
+                                                    }
+                                                />
+                                            )}
+                                        </Box>
+                                        <Box>
+                                            <Label htmlFor="DI_DM_DD">
+                                                Records Delivery Method
+                                            </Label>
+                                            <Select
+                                                name="DI_DM_DD"
+                                                id="DI_DM_DD"
+                                                className="block mt-1"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select a delivery method.',
+                                                })}
+                                            >
+                                                <option value="DL">
+                                                    Download
+                                                </option>
+                                                <option value="PS">
+                                                    Postal Service - Mail
+                                                </option>
+                                                <option value="PU">
+                                                    Pick Up
+                                                </option>
+                                            </Select>
+                                            {errors.DI_DM_DD && (
+                                                <ErrorMessage
+                                                    message={
+                                                        errors.DI_DM_DD.message
+                                                    }
+                                                />
+                                            )}
+                                        </Box>
+                                    </Flex>
                                 </Box>
 
                                 {watchDeliveryMethod.includes('DL') && (

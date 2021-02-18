@@ -1094,7 +1094,7 @@ const PIHForm = ({ store }) => {
                                 </Box>
                                 <Box className="mb-4">
                                     <Label htmlFor="DI_DM_DD">
-                                        Records Delivery Method:
+                                        Records Delivery Method
                                     </Label>
                                     <Select
                                         name="DI_DM_DD"
