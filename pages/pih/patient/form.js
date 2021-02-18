@@ -1,5 +1,6 @@
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
+import dynamic from 'next/dynamic'
 import { withStore } from '@/lib/store'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
@@ -31,7 +32,6 @@ import { states } from '@/lib/helpers'
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
 
-import dynamic from 'next/dynamic'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 
 const PIHForm = ({ store }) => {
