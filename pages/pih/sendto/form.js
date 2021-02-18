@@ -306,14 +306,11 @@ const PIHSendToForm = ({ store }) => {
                                             />
                                         )}
                                     />
-                                    {/*
-                                        {errors.PI_DOB && (
-                                            <ErrorMessage
-                                                message={
-                                                    errors.birthMonth.message
-                                                }
-                                            />
-                                        )} */}
+                                    {errors.PI_DOB && (
+                                        <ErrorMessage
+                                            message={errors.PI_DOB.message}
+                                        />
+                                    )}
                                 </Box>
                                 <Box className="mb-4">
                                     <Label htmlFor="PI_PHYCL">
