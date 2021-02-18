@@ -1,11 +1,19 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useCallback, useRef, forwardRef } from 'react'
+import dynamic from 'next/dynamic'
 import { useForm, Controller } from 'react-hook-form'
 import MicroModal from 'react-micro-modal'
 import DatePicker from 'react-datepicker'
 import { useDropzone } from 'react-dropzone'
 import SignatureCanvas from 'react-signature-canvas'
+// const DynamicSignatureCanvas = dynamic(() => import('react-signature-canvas'), {
+//     ssr: false,
+// })
+// const SignatureCanvas = forwardRef((props, ref) => (
+//     <DynamicSignatureCanvas {...props} ref={ref} />
+// ))
 import cx from 'classnames'
 import { withStore } from '@/lib/store'
+import { isTouchDevice } from '@/lib/helpers'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
     Box,
@@ -119,6 +127,7 @@ const PIHPatientRequest = ({ store }) => {
     }
 
     const canvasRef = useRef(null)
+    const hasTouch = isTouchDevice()
 
     return (
         <Layout>
@@ -1389,19 +1398,24 @@ const PIHPatientRequest = ({ store }) => {
                                     >
                                         <Flex className="items-center justify-center text-center text-gray-dark my-2">
                                             <IconUpload className="w-12 h-auto mr-4" />
-                                            <Text className="hidden lg:block font-bold">
-                                                Drop Files to Upload or{' '}
-                                                <Box
-                                                    as="span"
-                                                    className="underline"
-                                                >
-                                                    Click Here
-                                                </Box>
-                                            </Text>
 
-                                            <Text className="lg:hidden font-bold">
-                                                Tap Here to Take a Picture or
-                                                Upload Files
+                                            <Text className="font-bold">
+                                                {hasTouch ? (
+                                                    <>
+                                                        Tap Here to Take a
+                                                        Picture or Upload Files
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        Drop Files to Upload or{' '}
+                                                        <Box
+                                                            as="span"
+                                                            className="underline"
+                                                        >
+                                                            Click Here
+                                                        </Box>
+                                                    </>
+                                                )}
                                             </Text>
                                         </Flex>
                                     </Box>
@@ -1557,47 +1571,50 @@ const PIHPatientRequest = ({ store }) => {
                             </Button>
                         </Box>
 
-                        <Box className="lg:hidden pt-8 border-t-2 border-gray-light">
-                            <Text className="mb-2">
-                                Sign in the box below to complete submission of
-                                your medical records request:
-                            </Text>
+                        {hasTouch && (
+                            <Box className="pt-8 border-t-2 border-gray-light">
+                                <Text className="mb-2">
+                                    Sign in the box below to complete submission
+                                    of your medical records request:
+                                </Text>
 
-                            <Box className="inline-block border">
-                                <SignatureCanvas
-                                    ref={canvasRef}
-                                    onEnd={() => {
-                                        canvasRef.current
-                                            .getTrimmedCanvas()
-                                            .toBlob(blob => {
-                                                store.dispatch({
-                                                    type: 'ADD_SIGNATURE',
-                                                    value: blob,
+                                <Box className="w-full border">
+                                    <SignatureCanvas
+                                        ref={canvasRef}
+                                        onEnd={() => {
+                                            canvasRef.current
+                                                .getTrimmedCanvas()
+                                                .toBlob(blob => {
+                                                    store.dispatch({
+                                                        type: 'ADD_SIGNATURE',
+                                                        value: blob,
+                                                    })
                                                 })
-                                            })
 
-                                        // store.dispatch({
-                                        //     type: 'ADD_SIGNATURE',
-                                        //     value: canvasRef.current
-                                        //         .getTrimmedCanvas()
-                                        //         .toDataURL('image/png'),
-                                        // })
-                                    }}
-                                    canvasProps={{
-                                        width: 500,
-                                        height: 200,
-                                    }}
-                                />
-                            </Box>
+                                            // store.dispatch({
+                                            //     type: 'ADD_SIGNATURE',
+                                            //     value: canvasRef.current
+                                            //         .getTrimmedCanvas()
+                                            //         .toDataURL('image/png'),
+                                            // })
+                                        }}
+                                        canvasProps={{
+                                            // width: 400,
+                                            // height: 200,
+                                            className: 'w-full h-36',
+                                        }}
+                                    />
+                                </Box>
 
-                            {/* {store.state.signature && (
+                                {/* {store.state.signature && (
                                 <img
                                     src={URL.createObjectURL(
                                         store.state.signature
                                     )}
                                 />
                             )} */}
-                        </Box>
+                            </Box>
+                        )}
 
                         <ButtonWrapper>
                             <Button variant="outline" className="flex-grow">
