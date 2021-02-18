@@ -15,7 +15,7 @@ import {
 
 import IconUpload from '@/icons/icon-upload.svg'
 
-const PIHUpload = ({ store }) => {
+const PIHPatientUpload = ({ store }) => {
     const { register } = useForm({
         defaultValues: store.state.form,
     })
@@ -205,4 +205,4 @@ const PIHUpload = ({ store }) => {
     )
 }
 
-export default withStore(PIHUpload)
+export default withStore(PIHPatientUpload)

@@ -9,7 +9,7 @@ import {
     Stepper,
 } from '@/components/atoms'
 
-const PIHReview = ({ store }) => {
+const PIHPatientReview = ({ store }) => {
     console.table(store.state.form)
     return (
         <Layout>
@@ -128,4 +128,4 @@ const PIHReview = ({ store }) => {
     )
 }
 
-export default withStore(PIHReview)
+export default withStore(PIHPatientReview)
