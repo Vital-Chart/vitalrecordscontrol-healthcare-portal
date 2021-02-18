@@ -1,8 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import MicroModal from 'react-micro-modal'
 import DatePicker from 'react-datepicker'
 import { useDropzone } from 'react-dropzone'
+import SignatureCanvas from 'react-signature-canvas'
+import cx from 'classnames'
 import { withStore } from '@/lib/store'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
@@ -115,6 +117,8 @@ const PIHPatientRequest = ({ store }) => {
 
         return formData
     }
+
+    const canvasRef = useRef(null)
 
     return (
         <Layout>
@@ -1369,34 +1373,42 @@ const PIHPatientRequest = ({ store }) => {
                             <FormWrapper>
                                 <Box {...getRootProps()}>
                                     <input
-                                        name=""
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        name="files"
                                         ref={register({
                                             required: true,
                                         })}
                                         {...getInputProps()}
                                     />
                                     <Box
-                                        className={
-                                            'w-full p-8 bg-gray-lightest border border-gray-light ' +
-                                            (isDragActive
+                                        className={cx([
+                                            'w-full p-8 rounded bg-gray-lightest border border-gray-light cursor-pointer',
+                                            isDragActive
                                                 ? 'bg-gray-400'
-                                                : 'bg-gray-200')
-                                        }
+                                                : 'bg-gray-200',
+                                        ])}
                                     >
                                         <Flex className="items-center justify-center text-center text-gray-dark my-2">
                                             <IconUpload className="w-12 h-auto mr-4" />
-                                            <Text className="font-bold">
-                                                Drop the files here.
+                                            <Text className="hidden lg:block font-bold">
+                                                Drop Files to Upload or{' '}
+                                                <Box
+                                                    as="span"
+                                                    className="underline"
+                                                >
+                                                    Click Here
+                                                </Box>
+                                            </Text>
+
+                                            <Text className="lg:hidden font-bold">
+                                                Tap Here to Take a Picture or
+                                                Upload Files
                                             </Text>
                                         </Flex>
                                     </Box>
                                 </Box>
                             </FormWrapper>
 
-                            {store.state.files && (
-                                <UploadsList className="mt-8" />
-                            )}
+                            <UploadsList className="mt-8" />
                         </Box>
 
                         {/* TODO: Add correct buttons here */}
@@ -1425,7 +1437,6 @@ const PIHPatientRequest = ({ store }) => {
                             complete submission of your request. Normal
                             processing time is 7-14 days after submission.
                         </Text>
-
                         <Box className="space-y-4">
                             <SectionHeading className="uppercase">
                                 Request(s) Summary
@@ -1538,15 +1549,61 @@ const PIHPatientRequest = ({ store }) => {
                             <SectionHeading className="uppercase">
                                 Uploaded Files
                             </SectionHeading>
-                            <UploadsList />
+
+                            <UploadsList isEditable={false} />
+
                             <Button variant="outline" className="flex-grow">
                                 Upload Additional Documentation
                             </Button>
                         </Box>
+
+                        <Box className="lg:hidden pt-8 border-t-2 border-gray-light">
+                            <Text className="mb-2">
+                                Sign in the box below to complete submission of
+                                your medical records request:
+                            </Text>
+
+                            <Box className="inline-block border">
+                                <SignatureCanvas
+                                    ref={canvasRef}
+                                    onEnd={() => {
+                                        canvasRef.current
+                                            .getTrimmedCanvas()
+                                            .toBlob(blob => {
+                                                store.dispatch({
+                                                    type: 'ADD_SIGNATURE',
+                                                    value: blob,
+                                                })
+                                            })
+
+                                        // store.dispatch({
+                                        //     type: 'ADD_SIGNATURE',
+                                        //     value: canvasRef.current
+                                        //         .getTrimmedCanvas()
+                                        //         .toDataURL('image/png'),
+                                        // })
+                                    }}
+                                    canvasProps={{
+                                        width: 500,
+                                        height: 200,
+                                    }}
+                                />
+                            </Box>
+
+                            {/* {store.state.signature && (
+                                <img
+                                    src={URL.createObjectURL(
+                                        store.state.signature
+                                    )}
+                                />
+                            )} */}
+                        </Box>
+
                         <ButtonWrapper>
                             <Button variant="outline" className="flex-grow">
                                 Cancel and Delete Request
                             </Button>
+
                             <Button variant="filled" className="flex-grow">
                                 Submit Request for Processing
                             </Button>
