@@ -36,11 +36,11 @@ const nextConfig = {
     //         '/pih/patient/request': {
     //             page: '/pih/patient/request',
     //         },
-    //         '/pih/thirdparty': {
-    //             page: '/pih/thirdparty',
+    //         '/pih/sendto': {
+    //             page: '/pih/sendto',
     //         },
-    //         '/pih/thirdparty/request': {
-    //             page: '/pih/thirdparty/request',
+    //         '/pih/sendto/request': {
+    //             page: '/pih/sendto/request',
     //         },
     //     }
     // },

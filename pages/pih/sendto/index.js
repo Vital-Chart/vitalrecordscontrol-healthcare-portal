@@ -3,7 +3,7 @@ import { Box, Button, Heading, Link, Text } from '@/components/core'
 import { Container, Layout } from '@/components/general'
 import { withStore } from '@/lib/store'
 
-const PIHThirdParty = ({ store }) => (
+const PIHSendTo = ({ store }) => (
     <Layout>
         <Container>
             <Box className="max-w-screen-md space-y-8">
@@ -114,7 +114,7 @@ const PIHThirdParty = ({ store }) => (
                     </Button>
                     <Button
                         as={Link}
-                        href="/pih/thirdparty/request"
+                        href="/pih/sendto/form"
                         variant="filled"
                         className="flex-grow text-center"
                     >
@@ -126,4 +126,4 @@ const PIHThirdParty = ({ store }) => (
     </Layout>
 )
 
-export default withStore(PIHThirdParty)
+export default withStore(PIHSendTo)

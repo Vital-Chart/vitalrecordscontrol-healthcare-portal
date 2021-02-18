@@ -69,7 +69,7 @@ const PIH = ({ store }) => (
 
                         <Button
                             as={Link}
-                            href="/pih/thirdparty"
+                            href="/pih/sendto"
                             variant="filledSecondary"
                             className="text-sm text-center"
                         >
