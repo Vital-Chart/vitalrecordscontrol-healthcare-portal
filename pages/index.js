@@ -10,34 +10,8 @@ const Home = ({ store }) => (
             <Link href="/pih/patient/request">
                 PIH - Patient - Request Form
             </Link>
-            <Link href="/pih/thirdparty">PIH - Third Party - Instructions</Link>
-            <Link href="/pih/thirdparty/request">
-                PIH - Third Party - Request Form
-            </Link>
-
-            {/* <div>Count: {store.state.count}</div>
-
-            <button
-                onClick={() =>
-                    store.dispatch({
-                        type: 'UPDATE_COUNT',
-                        value: store.state.count - 1,
-                    })
-                }
-            >
-                &ndash;
-            </button>
-
-            <button
-                onClick={() =>
-                    store.dispatch({
-                        type: 'UPDATE_COUNT',
-                        value: store.state.count + 1,
-                    })
-                }
-            >
-                +
-            </button> */}
+            <Link href="/pih/sendto">PIH - Send To - Instructions</Link>
+            <Link href="/pih/sendto/form">PIH - Send To - Request Form</Link>
         </Flex>
     </Layout>
 )
