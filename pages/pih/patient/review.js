@@ -15,7 +15,7 @@ const PIHPatientReview = ({ store }) => {
         if (!store.state.form.TRKNUM && !store.state.form.uploadedFiles) {
             router.push(`/${hospital}`)
         }
-    })
+    }, [])
 
     return <LayoutReview />
 }
