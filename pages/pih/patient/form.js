@@ -99,13 +99,13 @@ const PIHForm = ({ store }) => {
                     `Redirect to: ${router.pathname
                         .split('/')
                         .slice(0, -1)
-                        .join('/')}/review`
+                        .join('/')}/upload`
                 )
                 // router.push(
                 //     `${router.pathname
                 //         .split('/')
                 //         .splice(0, -1)
-                //         .join('/')}/review`
+                //         .join('/')}/upload`
                 // )
             }
         } catch (error) {
