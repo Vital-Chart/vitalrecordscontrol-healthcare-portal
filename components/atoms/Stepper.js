@@ -2,19 +2,17 @@ import { useRouter } from 'next/router'
 import cx from 'classnames'
 import { Box, Flex, Link } from '@/components/core'
 import { Container } from '@/components/general'
+
 import IconSlash from '@/icons/icon-slash.svg'
 
-export const Stepper = ({ className }) => {
+export const Stepper = ({ className, ...props }) => {
     const router = useRouter()
 
     const hospital = router.pathname.split('/')[1]
     const option = router.pathname.split('/')[2]
 
-    console.log({ hospital })
-    console.log({ option })
-
     return (
-        <Box className={cx('py-4 mb-4 bg-gray-lightest', className)}>
+        <Box className={cx('py-4 mb-4 bg-gray-lightest', className)} {...props}>
             <Container>
                 <Box as="nav" className="flex" aria-label="Breadcrumb">
                     <Box as="ol" className="flex items-center space-x-4">

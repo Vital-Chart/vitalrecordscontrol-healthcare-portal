@@ -1,11 +1,6 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import SignatureCanvas from 'react-signature-canvas'
-// const DynamicSignatureCanvas = dynamic(() => import('react-signature-canvas'), {
-//     ssr: false,
-// })
-// const SignatureCanvas = forwardRef((props, ref) => (
-//     <DynamicSignatureCanvas {...props} ref={ref} />
-// ))
 import { useStore } from '@/lib/store'
 import { isTouchDevice } from '@/lib/helpers'
 import { Layout, Container } from '@/components/general'
@@ -20,8 +15,20 @@ import {
 
 export const LayoutReview = ({ children }) => {
     const store = useStore()
+    const router = useRouter()
     const canvasRef = useRef(null)
     const hasTouch = isTouchDevice()
+
+    // TODO: Re-enable data checking
+    // useEffect(() => {
+    //     // Get hospital name from first directory after 'pages' root
+    //     const hospital = router.pathname.split('/')[1]
+
+    //     // Redirect to hospital landing page if no tracking number exists
+    //     if (!store.state.trackingNumbers && !store.state.uploadedFiles) {
+    //         router.push(`/${hospital}`)
+    //     }
+    // }, [])
 
     return (
         <Layout>
@@ -37,6 +44,7 @@ export const LayoutReview = ({ children }) => {
                         <Text className="leading-relaxed">
                             Please review your submission below for accuracy. If
                             there are any errors,{' '}
+                            {/* TODO: Update href using `router.pathname` */}
                             <Link
                                 href="/pih/patient/form"
                                 className="underline font-bold text-blue hover:text-black transition-colors"
@@ -62,6 +70,7 @@ export const LayoutReview = ({ children }) => {
                         </SectionHeading>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.trackingNumbers` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Tracking Number(s):
                             </Text>{' '}
@@ -76,6 +85,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Patient DOB:
                             </Text>{' '}
@@ -83,6 +93,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Dates of Service:{' '}
                             </Text>
@@ -90,6 +101,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Requested Information:{' '}
                             </Text>
@@ -98,6 +110,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Purpose of Request:{' '}
                             </Text>
@@ -105,6 +118,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Limitations:{' '}
                             </Text>
@@ -112,6 +126,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Phone:{' '}
                             </Text>
@@ -119,6 +134,7 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
+                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Email:{' '}
                             </Text>
@@ -139,6 +155,7 @@ export const LayoutReview = ({ children }) => {
                             at the facility.
                         </Text>
 
+                        {/* TODO: Update href using `router.pathname` */}
                         <Button
                             as={Link}
                             href="/pih/patient/form"
@@ -156,6 +173,7 @@ export const LayoutReview = ({ children }) => {
 
                         <UploadsList isEditable={false} />
 
+                        {/* TODO: Update href using `router.pathname` */}
                         <Button
                             as={Link}
                             href="/pih/patient/upload"
@@ -215,6 +233,7 @@ export const LayoutReview = ({ children }) => {
                             Cancel and Delete Request
                         </Button>
 
+                        {/* TODO: Make a call to the finish endpoint, then show errors or success message*/}
                         <Button variant="filled" className="flex-grow">
                             Submit Request for Processing
                         </Button>

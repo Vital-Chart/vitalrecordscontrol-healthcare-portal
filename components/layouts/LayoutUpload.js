@@ -1,8 +1,12 @@
-import { useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import { useForm } from 'react-hook-form'
+import cx from 'classnames'
 import { useDropzone } from 'react-dropzone'
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useStore } from '@/lib/store'
+import { createRequest } from '@/lib/api'
+import { isTouchDevice } from '@/lib/helpers'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
 import {
@@ -15,17 +19,19 @@ import {
 
 import IconUpload from '@/icons/icon-upload.svg'
 import IconClose from '@/icons/icon-close.svg'
-
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
+import IconLoading from '@/icons/icon-loading.svg'
 
 export const LayoutUpload = ({ children }) => {
+    const router = useRouter()
     const store = useStore()
 
-    const { register } = useForm({
-        defaultValues: store.state.form,
-    })
+    const [serverErrors, setServerErrors] = useState([])
+    const [isFetching, setIsFetching] = useState(false)
+
+    const hasTouch = isTouchDevice()
 
     const handleDrop = useCallback(droppedFiles => {
+        console.log({ droppedFiles })
         store.dispatch({
             type: 'ADD_FILES',
             value: droppedFiles,
@@ -37,13 +43,98 @@ export const LayoutUpload = ({ children }) => {
         accept: 'image/jpeg, image/png, image/tiff, .pdf',
     })
 
+    const handleSubmit = async () => {
+        setIsFetching(true)
+
+        try {
+            const {
+                trackingNumbers,
+                errorNumber,
+                inError,
+            } = await createRequest({
+                ...store.state.form,
+                files: store.state.newFiles,
+            })
+
+            console.log({ trackingNumbers, errorNumber, inError })
+
+            setIsFetching(false)
+
+            if (inError) {
+                setServerErrors(errorNumber)
+                setIsFetching(false)
+            } else {
+                store.dispatch({
+                    type: 'UPDATE_TRACKING_NUMBER',
+                    value: trackingNumbers,
+                })
+
+                setIsFetching(false)
+
+                // Redirect to next step
+                // console.log(
+                //     `Redirect to: ${router.pathname
+                //         .split('/')
+                //         .slice(0, -1)
+                //         .join('/')}/review`
+                // )
+                router.push(
+                    `${router.pathname
+                        .split('/')
+                        .slice(0, -1)
+                        .join('/')}/review`
+                )
+            }
+        } catch (error) {
+            // General server error
+            setServerErrors([100000])
+            setIsFetching(false)
+        }
+    }
+
+    // TODO: Re-enable data checking
+    // useEffect(() => {
+    //     // Get hospital name from first directory after 'pages' root
+    //     const hospital = router.pathname.split('/')[1]
+
+    //     // Redirect to hospital landing page if no tracking number exists
+    //     if (!store.state.trackingNumbers) {
+    //         router.push(`/${hospital}`)
+    //     }
+    // }, [router])
+
     return (
         <Layout>
             <Stepper />
+
             <Container>
                 <Box className="max-w-screen-md space-y-8 pb-8">
                     <PageHeading>Upload Authorization</PageHeading>
+
+                    {/* TODO: Update with correct trackingNumbers data */}
+                    <Box className="pb-8 border-b border-gray-light">
+                        <Text className="pb-4">
+                            Your request has been saved and assigned tracking
+                            number(s):{' '}
+                            <Text as="span" className="font-bold">
+                                81-196019
+                            </Text>
+                            .
+                        </Text>
+                        <Text className="pb-4">
+                            Please contact the following facility/facilities if
+                            you have any questions during this process:
+                        </Text>
+                        <Text className="pb-4">
+                            <Text as="span" className="font-bold">
+                                81-196019
+                            </Text>
+                            : Palomar Health Medical Records - (760) 480-7911
+                        </Text>
+                    </Box>
+
                     {children}
+
                     <Box>
                         <Text className="pb-4 leading-relaxed">
                             <Text as="span" className="font-bold">
@@ -145,6 +236,7 @@ export const LayoutUpload = ({ children }) => {
                             documentation needed for your request, please
                             contact us at the number above.
                         </Text>
+
                         <Text className="pb-4">To complete your request:</Text>
                         <Box as="ul" className="pl-8 pb-4 list-decimal">
                             <Box as="li" className="pb-2">
@@ -216,47 +308,66 @@ export const LayoutUpload = ({ children }) => {
 
                         <Box as="form">
                             <Box {...getRootProps()}>
-                                <input
-                                    name=""
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    ref={register({
-                                        required: true,
-                                    })}
-                                    {...getInputProps()}
-                                />
+                                <input name="files" {...getInputProps()} />
                                 <Box
-                                    className={
-                                        'w-full p-8 border border-gray-light cursor-pointer ' +
-                                        (isDragActive
-                                            ? 'bg-gray'
-                                            : 'bg-gray-lightest')
-                                    }
+                                    className={cx([
+                                        'w-full p-8 rounded bg-gray-lightest border border-gray-light cursor-pointer',
+                                        isDragActive
+                                            ? 'bg-gray-400'
+                                            : 'bg-gray-200',
+                                    ])}
                                 >
                                     <Flex className="items-center justify-center text-center text-gray-dark my-2">
                                         <IconUpload className="w-12 h-auto mr-4" />
+
                                         <Text className="font-bold">
-                                            Drop the files here.
+                                            {hasTouch ? (
+                                                <>
+                                                    Tap Here to Take a Picture
+                                                    or Upload Files
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Drop Files to Upload or{' '}
+                                                    <Box
+                                                        as="span"
+                                                        className="underline"
+                                                    >
+                                                        Click Here
+                                                    </Box>
+                                                </>
+                                            )}
                                         </Text>
                                     </Flex>
                                 </Box>
                             </Box>
                         </Box>
 
-                        {store.state.files && <UploadsList className="mt-8" />}
+                        <UploadsList className="mt-8" />
+
+                        {/* TODO: Handle showing server/upload errors */}
                     </Box>
 
-                    {/* TODO: Add correct buttons here */}
                     <ButtonWrapper>
-                        <Button variant="outline" className="flex-grow">
+                        {/* TODO: Send delete request call? Navigate back to hospital landing page */}
+                        <Button variant="outline" className="flex-1">
                             Cancel and Delete Request
                         </Button>
+
                         <Button
-                            as={Link}
-                            href="/pih/patient/review"
                             variant="filled"
-                            className="flex-grow text-center"
+                            disabled={isFetching}
+                            className={cx(
+                                'flex-1',
+                                isFetching && 'pointer-events-none'
+                            )}
+                            onClick={handleSubmit}
                         >
-                            Review and Submit Request
+                            {isFetching ? (
+                                <IconLoading className="w-6 text-gray-400 animate-spin" />
+                            ) : (
+                                <>Review and Submit Request</>
+                            )}
                         </Button>
                     </ButtonWrapper>
                 </Box>

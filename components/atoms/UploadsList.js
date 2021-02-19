@@ -21,8 +21,8 @@ export const UploadsList = ({ className, isEditable, ...props }) => {
                 {isEditable && <Box className="w-28 py-2 px-4" />}
             </Flex>
 
-            {store.state.files.length ? (
-                store.state.files.map(file => (
+            {store.state.newFiles.length ? (
+                store.state.newFiles.map(file => (
                     <Flex key={file.name}>
                         <Box className="flex-1 py-2 px-4">
                             <Text>{file.name}</Text>

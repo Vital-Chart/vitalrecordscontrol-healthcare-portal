@@ -7,6 +7,7 @@ import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
+import { states } from '@/lib/helpers'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
     Box,
@@ -30,8 +31,6 @@ import {
     ButtonWrapper,
     Stepper,
 } from '@/components/atoms'
-
-import { states } from '@/lib/helpers'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
@@ -60,12 +59,9 @@ const PIHForm = ({ store }) => {
     const watchDeliveryMethod = watch('DI_DM_DD', [])
 
     const handleChange = e => {
-        const formValues = getValues()
-
         store.dispatch({
             type: 'UPDATE_FORM',
-            name: e.target.name,
-            value: formValues[e.target.name],
+            value: getValues(),
         })
     }
 
@@ -76,12 +72,12 @@ const PIHForm = ({ store }) => {
 
         try {
             const {
-                trackingNumber,
+                trackingNumbers,
                 errorNumber,
                 inError,
-            } = await createRequest(data)
+            } = await createRequest(store.state.form)
 
-            console.log({ trackingNumber, errorNumber, inError })
+            // console.log({ trackingNumbers, errorNumber, inError })
 
             if (inError) {
                 setServerErrors(errorNumber)
@@ -89,30 +85,29 @@ const PIHForm = ({ store }) => {
             } else {
                 store.dispatch({
                     type: 'UPDATE_TRACKING_NUMBER',
-                    value: trackingNumber,
+                    value: trackingNumbers,
                 })
 
                 setIsFetching(false)
 
                 // Redirect to next step
-                console.log(
-                    `Redirect to: ${router.pathname
+                // console.log(
+                //     `Redirect to: ${router.pathname
+                //         .split('/')
+                //         .slice(0, -1)
+                //         .join('/')}/upload`
+                // )
+                router.push(
+                    `${router.pathname
                         .split('/')
                         .slice(0, -1)
                         .join('/')}/upload`
                 )
-                // router.push(
-                //     `${router.pathname
-                //         .split('/')
-                //         .splice(0, -1)
-                //         .join('/')}/upload`
-                // )
             }
         } catch (error) {
             // General server error
             setServerErrors([100000])
             setIsFetching(false)
-            console.log('catch (form)', error)
         }
     }
 
@@ -147,7 +142,11 @@ const PIHForm = ({ store }) => {
                         <Input
                             type="hidden"
                             name="TRKNUM"
-                            value={store.state.trackingNumber}
+                            value={
+                                Array.isArray(store.state.trackingNumbers)
+                                    ? store.state.trackingNumbers[0]
+                                    : '-1'
+                            }
                             ref={register}
                         />
 

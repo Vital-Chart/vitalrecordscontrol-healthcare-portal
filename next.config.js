@@ -6,10 +6,12 @@ const nextConfig = {
     env: {
         CREATE_UPDATE_REQUEST_ENDPOINT:
             'https://v2.abtroiplus.com/patientportalwebservicedev/PatientRequest/PersistPatientRequest',
+        COMPLETE_REQUEST_ENDPOINT:
+            'https://v2.abtroiplus.com/patientportalwebservicedev/PatientRequest/CompletePatientRequest',
         CREATE_FORM_ENDPOINT:
             'https://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/RenderForm',
         GET_FORM_ENDPOINT:
-            'http://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/DisplayForm',
+            'https://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/DisplayForm',
     },
     images: {
         deviceSizes: defaultImageSizes,
