@@ -5,15 +5,19 @@ import { LayoutUpload } from '@/components/layouts'
 import { Box, Text } from '@/components/core'
 
 const PIHPatientUpload = ({ store }) => {
+    // TODO: Move this to the layout component so it's reused on all upload pages
     // const router = useRouter()
+
     // useEffect(() => {
     //     // Get hospital name from first directory after 'pages' root
     //     const hospital = router.pathname.split('/')[1]
+
     //     // Redirect to hospital landing page if no tracking number exists
-    //     if (!store.state.form.TRKNUM) {
+    //     if (!store.state.trackingNumber) {
     //         router.push(`/${hospital}`)
     //     }
-    // })
+    // }, [])
+    // -----
 
     return (
         <LayoutUpload>

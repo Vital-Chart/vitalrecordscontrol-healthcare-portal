@@ -12,10 +12,11 @@ const PIHPatientReview = ({ store }) => {
     //     const hospital = router.pathname.split('/')[1]
 
     //     // Redirect to hospital landing page if no tracking number exists
-    //     if (!store.state.form.TRKNUM && !store.state.form.uploadedFiles) {
+    //     if (!store.state.trackingNumber && !store.state.uploadedFiles) {
     //         router.push(`/${hospital}`)
     //     }
     // }, [])
+    // -----
 
     return <LayoutReview />
 }
