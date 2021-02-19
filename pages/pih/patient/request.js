@@ -28,7 +28,6 @@ import {
     Link,
 } from '@/components/core'
 import {
-    FormWrapper,
     FormSection,
     SectionHeading,
     PageHeading,
@@ -180,7 +179,8 @@ const PIHPatientRequest = ({ store }) => {
                 {currentStep === 'request' && (
                     <Box>
                         <PageHeading>New Medical Records Request</PageHeading>
-                        <FormWrapper
+                        <Box
+                            as="form"
                             acceptCharset="UTF-8"
                             encType="multipart/form-data"
                             onSubmit={handleSubmit(onSubmit)}
@@ -1245,7 +1245,7 @@ const PIHPatientRequest = ({ store }) => {
                                     value="Continue"
                                 />
                             </ButtonWrapper>
-                        </FormWrapper>
+                        </Box>
                     </Box>
                 )}
 
@@ -1382,7 +1382,7 @@ const PIHPatientRequest = ({ store }) => {
                                 Upload Your Documentation Here
                             </SectionHeading>
 
-                            <FormWrapper>
+                            <Box as="form">
                                 <Box {...getRootProps()}>
                                     <input
                                         name="files"
@@ -1423,7 +1423,7 @@ const PIHPatientRequest = ({ store }) => {
                                         </Flex>
                                     </Box>
                                 </Box>
-                            </FormWrapper>
+                            </Box>
 
                             <UploadsList className="mt-8" />
                         </Box>

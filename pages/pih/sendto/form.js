@@ -14,8 +14,7 @@ import {
     Flex,
     Button,
 } from '@/components/core'
-import {
-    FormWrapper,
+import {,
     FormSection,
     SectionHeading,
     PageHeading,
@@ -107,7 +106,8 @@ const PIHSendToForm = ({ store }) => {
             <Container>
                 <Box>
                     <PageHeading>New Medical Records Request</PageHeading>
-                    <FormWrapper
+                    <Box
+                        as="form"
                         acceptCharset="UTF-8"
                         encType="multipart/form-data"
                         onSubmit={handleSubmit(onSubmit)}
@@ -1406,14 +1406,15 @@ const PIHSendToForm = ({ store }) => {
                             <Button variant="outline" className="flex-grow">
                                 Cancel
                             </Button>
-                            <Input
-                                variant="filled"
-                                className="flex-grow text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark"
+                            <Button
                                 type="submit"
-                                value="Continue"
-                            />
+                                variant="filled"
+                                className="flex-grow"
+                            >
+                                Continue
+                            </Button>
                         </ButtonWrapper>
-                    </FormWrapper>
+                    </Box>
                 </Box>
             </Container>
         </Layout>

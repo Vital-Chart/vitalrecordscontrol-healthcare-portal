@@ -6,7 +6,6 @@ import { useStore } from '@/lib/store'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
 import {
-    FormWrapper,
     SectionHeading,
     PageHeading,
     ButtonWrapper,
@@ -215,7 +214,7 @@ export const LayoutUpload = ({ children }) => {
                             Upload Your Documentation Here
                         </SectionHeading>
 
-                        <FormWrapper>
+                        <Box as="form">
                             <Box {...getRootProps()}>
                                 <input
                                     name=""
@@ -241,7 +240,7 @@ export const LayoutUpload = ({ children }) => {
                                     </Flex>
                                 </Box>
                             </Box>
-                        </FormWrapper>
+                        </Box>
 
                         {store.state.files && <UploadsList className="mt-8" />}
                     </Box>
