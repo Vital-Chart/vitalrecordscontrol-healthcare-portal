@@ -304,7 +304,9 @@ const PIHSendToForm = ({ store }) => {
                                                 showMonthDropdown
                                                 showYearDropdown
                                                 dropdownMode="select"
-                                                customInput={<Input />}
+                                                customInput={
+                                                    <Input className="w-full" />
+                                                }
                                             />
                                         )}
                                     />
@@ -379,7 +381,7 @@ const PIHSendToForm = ({ store }) => {
                                                 watchVisitOptions.includes(
                                                     'DR'
                                                 ) && (
-                                                    <Flex>
+                                                    <Flex className="space-x-4">
                                                         <Box>
                                                             <Label className="block mb-1">
                                                                 Service Start:
@@ -432,7 +434,7 @@ const PIHSendToForm = ({ store }) => {
                                                                         showYearDropdown
                                                                         dropdownMode="select"
                                                                         customInput={
-                                                                            <Input className="mr-4" />
+                                                                            <Input className="w-full mr-4" />
                                                                         }
                                                                     />
                                                                 )}
@@ -491,7 +493,7 @@ const PIHSendToForm = ({ store }) => {
                                                                         showYearDropdown
                                                                         dropdownMode="select"
                                                                         customInput={
-                                                                            <Input />
+                                                                            <Input className="w-full" />
                                                                         }
                                                                     />
                                                                 )}
@@ -905,7 +907,7 @@ const PIHSendToForm = ({ store }) => {
                                                 />
                                             )}
                                             children={handleClose => (
-                                                <Box className="px-8 py-4 relative">
+                                                <Box className="p-8 relative">
                                                     <button
                                                         onClick={handleClose}
                                                         className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"

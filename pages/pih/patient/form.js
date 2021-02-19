@@ -304,7 +304,9 @@ const PIHForm = ({ store }) => {
                                                 showMonthDropdown
                                                 showYearDropdown
                                                 dropdownMode="select"
-                                                customInput={<Input />}
+                                                customInput={
+                                                    <Input className="w-full" />
+                                                }
                                             />
                                         )}
                                     />
@@ -380,7 +382,7 @@ const PIHForm = ({ store }) => {
                                                 watchVisitOptions.includes(
                                                     'DR'
                                                 ) && (
-                                                    <Flex>
+                                                    <Flex className="space-x-4">
                                                         <Box>
                                                             <Label className="block mb-1">
                                                                 Service Start:
@@ -433,7 +435,7 @@ const PIHForm = ({ store }) => {
                                                                         showYearDropdown
                                                                         dropdownMode="select"
                                                                         customInput={
-                                                                            <Input className="mr-4" />
+                                                                            <Input className="w-full" />
                                                                         }
                                                                     />
                                                                 )}
@@ -492,7 +494,7 @@ const PIHForm = ({ store }) => {
                                                                         showYearDropdown
                                                                         dropdownMode="select"
                                                                         customInput={
-                                                                            <Input />
+                                                                            <Input className="w-full" />
                                                                         }
                                                                     />
                                                                 )}
@@ -884,7 +886,7 @@ const PIHForm = ({ store }) => {
                                                 />
                                             )}
                                             children={handleClose => (
-                                                <Box className="px-8 py-4 relative">
+                                                <Box className="p-8 relative">
                                                     <button
                                                         onClick={handleClose}
                                                         className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
@@ -931,7 +933,7 @@ const PIHForm = ({ store }) => {
                                     <Select
                                         name="YI_NOTICE_DD"
                                         id="YI_NOTICE_DD"
-                                        className="block mt-1"
+                                        className="block w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
@@ -957,6 +959,11 @@ const PIHForm = ({ store }) => {
                                             ref={register({
                                                 required:
                                                     'Please enter your phone number.',
+                                                pattern: {
+                                                    value: /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+                                                    message:
+                                                        'Please enter a valid phone number.',
+                                                },
                                             })}
                                         />
                                         {errors.YI_PN && (

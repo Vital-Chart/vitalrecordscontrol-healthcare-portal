@@ -226,8 +226,11 @@ const PIH = ({ store }) => (
             </Flex>
         </Box>
 
-        <Flex as={Container} className="flex-col md:flex-row pb-12">
-            <Box className="w-full md:w-2/3 py-8 md:pr-12 md:pb-0 leading-relaxed">
+        <Flex
+            as={Container}
+            className="w-full max-w-5xl mx-auto flex-wrap items-start pb-16"
+        >
+            <Box className="w-full max-w-2xl py-8 md:pr-12 md:pb-0 leading-relaxed">
                 <Heading as="h3" variant="h4" className="pb-4">
                     Important - Please Read!
                 </Heading>
@@ -259,7 +262,7 @@ const PIH = ({ store }) => (
                     records.
                 </Text>
             </Box>
-            <Box className="w-full md:w-1/3 py-8 px-12 bg-gray-lightest ">
+            <Box className="w-full max-w-md py-8 px-12 bg-gray-lightest ">
                 <Heading as="h3" variant="h4" className="pb-4">
                     Sample Texts
                 </Heading>

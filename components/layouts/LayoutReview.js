@@ -25,7 +25,7 @@ export const LayoutReview = ({ children }) => {
                             there are any errors,{' '}
                             <Link
                                 href="/pih/patient/form"
-                                className="underline text-blue hover:text-black transition-colors"
+                                className="underline font-bold text-blue hover:text-black transition-colors"
                             >
                                 please click here to correct them.
                             </Link>{' '}
