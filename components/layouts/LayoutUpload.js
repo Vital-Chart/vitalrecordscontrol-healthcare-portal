@@ -227,10 +227,10 @@ export const LayoutUpload = ({ children }) => {
                                 />
                                 <Box
                                     className={
-                                        'w-full p-8 bg-gray-lightest border border-gray-light ' +
+                                        'w-full p-8 border border-gray-light cursor-pointer ' +
                                         (isDragActive
-                                            ? 'bg-gray-400'
-                                            : 'bg-gray-200')
+                                            ? 'bg-gray'
+                                            : 'bg-gray-lightest')
                                     }
                                 >
                                     <Flex className="items-center justify-center text-center text-gray-dark my-2">
