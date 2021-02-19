@@ -14,7 +14,7 @@ import {
     Flex,
     Button,
 } from '@/components/core'
-import {,
+import {
     FormSection,
     SectionHeading,
     PageHeading,
