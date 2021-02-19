@@ -1,6 +1,12 @@
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+import cx from 'classnames'
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useForm, Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import { withStore } from '@/lib/store'
+import { createRequest } from '@/lib/api'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
     Box,
@@ -14,7 +20,6 @@ import {
     Button,
 } from '@/components/core'
 import {
-    FormWrapper,
     FormSection,
     SectionHeading,
     PageHeading,
@@ -30,11 +35,11 @@ import { states } from '@/lib/helpers'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
-
-import dynamic from 'next/dynamic'
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
+import IconLoading from '@/icons/icon-loading.svg'
 
 const PIHForm = ({ store }) => {
+    const router = useRouter()
+
     const {
         register,
         handleSubmit,
@@ -45,6 +50,9 @@ const PIHForm = ({ store }) => {
     } = useForm({
         defaultValues: store.state.form,
     })
+
+    const [serverErrors, setServerErrors] = useState([])
+    const [isFetching, setIsFetching] = useState(false)
 
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
@@ -64,41 +72,48 @@ const PIHForm = ({ store }) => {
     const onSubmit = async (data, e) => {
         e.preventDefault()
 
+        setIsFetching(true)
+
         try {
-            const res = await fetch(
-                process.env.CREATE_UPDATE_REQUEST_ENDPOINT,
-                {
-                    method: 'POST',
-                    body: createFormData(data),
-                }
-            )
+            const {
+                trackingNumber,
+                errorNumber,
+                inError,
+            } = await createRequest(data)
 
-            const json = await res.json()
+            console.log({ trackingNumber, errorNumber, inError })
 
-            console.log(json)
+            if (inError) {
+                setServerErrors(errorNumber)
+                setIsFetching(false)
+            } else {
+                store.dispatch({
+                    type: 'UPDATE_TRACKING_NUMBER',
+                    value: trackingNumber,
+                })
 
-            // Handle response
-        } catch (e) {
-            // Handle error
-        }
-    }
+                setIsFetching(false)
 
-    const createFormData = data => {
-        const formData = new FormData()
-
-        Object.keys(data).map(key => {
-            const value = data[key]
-            let fieldValue = value
-
-            // Create comma separated strings from array values
-            if (Array.isArray(value)) {
-                fieldValue = value.join()
+                // Redirect to next step
+                console.log(
+                    `Redirect to: ${router.pathname
+                        .split('/')
+                        .slice(0, -1)
+                        .join('/')}/review`
+                )
+                // router.push(
+                //     `${router.pathname
+                //         .split('/')
+                //         .splice(0, -1)
+                //         .join('/')}/review`
+                // )
             }
-
-            formData.append(key, fieldValue)
-        })
-
-        return formData
+        } catch (error) {
+            // General server error
+            setServerErrors([100000])
+            setIsFetching(false)
+            console.log('catch (form)', error)
+        }
     }
 
     return (
@@ -107,7 +122,12 @@ const PIHForm = ({ store }) => {
             <Container>
                 <Box>
                     <PageHeading>New Medical Records Request</PageHeading>
-                    <FormWrapper
+
+                    {/* TODO: Display general/server errors */}
+                    {/* https://docs.google.com/spreadsheets/d/1sF0eOAiIbYGjvKwiNx3VPiXUXVr3fvYuK3lxcB8JHOE/edit?ts=60257605#gid=1766959036 */}
+
+                    <Box
+                        as="form"
                         acceptCharset="UTF-8"
                         encType="multipart/form-data"
                         onSubmit={handleSubmit(onSubmit)}
@@ -126,14 +146,8 @@ const PIHForm = ({ store }) => {
                         />
                         <Input
                             type="hidden"
-                            name="SECSIG"
-                            value="TBD"
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
                             name="TRKNUM"
-                            value={-1}
+                            value={store.state.trackingNumber}
                             ref={register}
                         />
 
@@ -1341,17 +1355,24 @@ const PIHForm = ({ store }) => {
                         </FormSection>
 
                         <ButtonWrapper>
-                            <Button variant="outline" className="flex-grow">
+                            <Button variant="outline" className="flex-1">
                                 Cancel
                             </Button>
-                            <Input
-                                variant="filled"
-                                className="flex-grow text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark"
+
+                            <Button
                                 type="submit"
-                                value="Continue"
-                            />
+                                variant="filled"
+                                disabled={isFetching}
+                                className={cx("flex-1", isFetching && 'pointer-events-none')}
+                            >
+                                {isFetching ? (
+                                    <IconLoading className="w-6 text-gray-400 animate-spin" />
+                                ) : (
+                                    <>Continue</>
+                                )}
+                            </Button>
                         </ButtonWrapper>
-                    </FormWrapper>
+                    </Box>
                 </Box>
             </Container>
         </Layout>

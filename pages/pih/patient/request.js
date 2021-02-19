@@ -1586,13 +1586,14 @@ const PIHPatientRequest = ({ store }) => {
                                                 .getTrimmedCanvas()
                                                 .toBlob(blob => {
                                                     store.dispatch({
-                                                        type: 'ADD_SIGNATURE',
+                                                        type:
+                                                            'UPDATE_SIGNATURE',
                                                         value: blob,
                                                     })
                                                 })
 
                                             // store.dispatch({
-                                            //     type: 'ADD_SIGNATURE',
+                                            //     type: 'UPDATE_SIGNATURE',
                                             //     value: canvasRef.current
                                             //         .getTrimmedCanvas()
                                             //         .toDataURL('image/png'),
