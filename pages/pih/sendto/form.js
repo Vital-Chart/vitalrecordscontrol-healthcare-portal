@@ -1,5 +1,5 @@
 import { useForm, Controller } from 'react-hook-form'
-import MicroModal from 'react-micro-modal'
+import dynamic from 'next/dynamic'
 import DatePicker from 'react-datepicker'
 import { withStore } from '@/lib/store'
 import { Layout, Container, ScreenReader } from '@/components/general'
@@ -31,6 +31,8 @@ import { states } from '@/lib/helpers'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
+
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 
 const PIHSendToForm = ({ store }) => {
     const {
@@ -302,7 +304,9 @@ const PIHSendToForm = ({ store }) => {
                                                 showMonthDropdown
                                                 showYearDropdown
                                                 dropdownMode="select"
-                                                customInput={<Input />}
+                                                customInput={
+                                                    <Input className="w-full" />
+                                                }
                                             />
                                         )}
                                     />
@@ -377,7 +381,7 @@ const PIHSendToForm = ({ store }) => {
                                                 watchVisitOptions.includes(
                                                     'DR'
                                                 ) && (
-                                                    <Flex>
+                                                    <Flex className="space-x-4">
                                                         <Box>
                                                             <Label className="block mb-1">
                                                                 Service Start:
@@ -430,7 +434,7 @@ const PIHSendToForm = ({ store }) => {
                                                                         showYearDropdown
                                                                         dropdownMode="select"
                                                                         customInput={
-                                                                            <Input className="mr-4" />
+                                                                            <Input className="w-full mr-4" />
                                                                         }
                                                                     />
                                                                 )}
@@ -489,7 +493,7 @@ const PIHSendToForm = ({ store }) => {
                                                                         showYearDropdown
                                                                         dropdownMode="select"
                                                                         customInput={
-                                                                            <Input />
+                                                                            <Input className="w-full" />
                                                                         }
                                                                     />
                                                                 )}
@@ -895,65 +899,57 @@ const PIHSendToForm = ({ store }) => {
                                         <Label htmlFor="YI_NOTICE_DD">
                                             Preferred Notification Method
                                         </Label>
-                                        {/* <MicroModal
-                                                trigger={handleOpen => (
-                                                    <IconQuestion
-                                                        onClick={handleOpen}
-                                                        className="h-5 w-5 ml-2 text-blue cursor-pointer"
-                                                    />
-                                                )}
-                                                children={handleClose => (
-                                                    <Box className="px-8 py-4 relative">
-                                                        <button
+                                        <MicroModal
+                                            trigger={handleOpen => (
+                                                <IconQuestion
+                                                    onClick={handleOpen}
+                                                    className="h-5 w-5 ml-2 text-blue cursor-pointer"
+                                                />
+                                            )}
+                                            children={handleClose => (
+                                                <Box className="p-8 relative">
+                                                    <button
+                                                        onClick={handleClose}
+                                                        className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                                    >
+                                                        <IconClose
                                                             onClick={
                                                                 handleClose
                                                             }
-                                                            className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                                        >
-                                                            <IconClose
-                                                                onClick={
-                                                                    handleClose
-                                                                }
-                                                                className=""
-                                                            />
-                                                            <ScreenReader>
-                                                                Close
-                                                            </ScreenReader>
-                                                        </button>
+                                                            className=""
+                                                        />
+                                                        <ScreenReader>
+                                                            Close
+                                                        </ScreenReader>
+                                                    </button>
 
-                                                        <Box>
-                                                            <Text
-                                                                className="text-xl font-bold"
-                                                            >
-                                                                Preferred
-                                                                Notification
-                                                                Method
-                                                            </Text>
-                                                            <Text>
-                                                                This is the
-                                                                method by which
-                                                                you would like
-                                                                to receive
-                                                                automatic
-                                                                notifications of
-                                                                the progress of
-                                                                your request(s),
-                                                                as well as how
-                                                                you will receive
-                                                                password updates
-                                                                from this
-                                                                website. If we
-                                                                have specific
-                                                                questions about
-                                                                your request, we
-                                                                will call you at
-                                                                the phone number
-                                                                listed.
-                                                            </Text>
-                                                        </Box>
+                                                    <Box>
+                                                        <Text className="text-xl font-bold">
+                                                            Preferred
+                                                            Notification Method
+                                                        </Text>
+                                                        <Text>
+                                                            This is the method
+                                                            by which you would
+                                                            like to receive
+                                                            automatic
+                                                            notifications of the
+                                                            progress of your
+                                                            request(s), as well
+                                                            as how you will
+                                                            receive password
+                                                            updates from this
+                                                            website. If we have
+                                                            specific questions
+                                                            about your request,
+                                                            we will call you at
+                                                            the phone number
+                                                            listed.
+                                                        </Text>
                                                     </Box>
-                                                )}
-                                            /> */}
+                                                </Box>
+                                            )}
+                                        />
                                     </Flex>
                                     <Select
                                         name="YI_NOTICE_DD"

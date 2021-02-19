@@ -27,7 +27,10 @@ const PIHPatient = ({ store }) => (
                             </Text>
                             . Anyone else, including parents/guardians or other
                             third parties, should{' '}
-                            <Link href="/pih" className="text-blue underline">
+                            <Link
+                                href="/pih"
+                                className="underline font-bold text-blue hover:text-black transition-colors"
+                            >
                                 click here
                             </Link>{' '}
                             to view other options for submitting requests. Some
@@ -89,7 +92,10 @@ const PIHPatient = ({ store }) => (
                     </Box>
                     <Text>
                         If you are unable to complete the above, please refer to{' '}
-                        <Link href="/pih" className="text-blue underline">
+                        <Link
+                            href="/pih"
+                            className="underline font-bold text-blue hover:text-black transition-colors"
+                        >
                             this page
                         </Link>{' '}
                         to review other options for submitting your request.
@@ -106,7 +112,7 @@ const PIHPatient = ({ store }) => (
                     </Button>
                     <Button
                         as={Link}
-                        href="/pih/patient/request"
+                        href="/pih/patient/form"
                         variant="filled"
                         className="flex-grow text-center"
                     >

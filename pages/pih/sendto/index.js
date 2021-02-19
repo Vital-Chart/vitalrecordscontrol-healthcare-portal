@@ -1,7 +1,11 @@
-import { ButtonWrapper, PageHeading } from '@/components/atoms'
-import { Box, Button, Heading, Link, Text } from '@/components/core'
-import { Container, Layout } from '@/components/general'
+import dynamic from 'next/dynamic'
 import { withStore } from '@/lib/store'
+import { ButtonWrapper, PageHeading } from '@/components/atoms'
+import { Box, Button, Link, Text } from '@/components/core'
+import { Container, Layout, ScreenReader } from '@/components/general'
+import IconClose from '@/icons/icon-close.svg'
+
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 
 const PIHSendTo = ({ store }) => (
     <Layout>
@@ -28,7 +32,10 @@ const PIHSendTo = ({ store }) => (
                                 personal representatives)
                             </Text>{' '}
                             to request records. Third parties should{' '}
-                            <Link href="/pih" className="text-blue underline">
+                            <Link
+                                href="/pih"
+                                className="underline font-bold text-blue hover:text-black transition-colors"
+                            >
                                 click here
                             </Link>{' '}
                             to view other options for requesting medical
@@ -68,7 +75,82 @@ const PIHSendTo = ({ store }) => (
                             If you are not the patient, you will also need to
                             submit a legible image (picture or scanned) of proof
                             you are authorized to make medical decisions for the
-                            patient. Click here for examples.
+                            patient.{' '}
+                            <MicroModal
+                                trigger={handleOpen => (
+                                    <Box
+                                        as="button"
+                                        onClick={handleOpen}
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
+                                    >
+                                        Click here for examples.
+                                    </Box>
+                                )}
+                                children={handleClose => (
+                                    <Box className="p-8 relative">
+                                        <button
+                                            onClick={handleClose}
+                                            className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                        >
+                                            <IconClose
+                                                onClick={handleClose}
+                                                className=""
+                                            />
+                                            <ScreenReader>Close</ScreenReader>
+                                        </button>
+
+                                        <Box>
+                                            <Text className="text-xl font-bold">
+                                                Types of Supporting Documents
+                                            </Text>
+                                            <Text className="mb-4">
+                                                Acceptable forms of supporting
+                                                documentation are listed below.
+                                                However, the facility where the
+                                                records you are requesting are
+                                                located may have additional or
+                                                other requirements.
+                                            </Text>
+                                            <Box
+                                                as="ul"
+                                                className="list-disc pl-8 mb-4 text-sm"
+                                            >
+                                                <Box as="li">
+                                                    Power of Attorney for
+                                                    Healthcare if the patient is
+                                                    alive but unable to sign for
+                                                    themselves
+                                                </Box>
+                                                <Box as="li">
+                                                    Executor's Documents if the
+                                                    patient is deceased
+                                                </Box>
+                                                <Box as="li">
+                                                    A copy of the deceased
+                                                    patient's will
+                                                </Box>
+                                                <Box as="li">
+                                                    Court Documents identifying
+                                                    custodial parent
+                                                </Box>
+                                                <Box as="li">
+                                                    Birth Certificate
+                                                </Box>
+                                            </Box>
+                                            <Text>
+                                                Note: Please understand until we
+                                                have the opportunity to review
+                                                the request against the medical
+                                                records, we do not know if
+                                                additional documentation will be
+                                                required. You will be notified
+                                                if we need further
+                                                documentation.
+                                            </Text>
+                                        </Box>
+                                    </Box>
+                                )}
+                            />
                         </Box>
 
                         <Box as="li" className="pb-2">
@@ -97,7 +179,10 @@ const PIHSendTo = ({ store }) => (
                     </Box>
                     <Text>
                         If you are unable to complete the above, please refer to{' '}
-                        <Link href="/pih" className="text-blue underline">
+                        <Link
+                            href="/pih"
+                            className="underline font-bold text-blue hover:text-black transition-colors"
+                        >
                             this page
                         </Link>{' '}
                         to review other options for submitting your request.

@@ -1281,7 +1281,7 @@ const PIHPatientRequest = ({ store }) => {
                                     image of this{' '}
                                     <Link
                                         href="#"
-                                        className="underline text-blue"
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
                                     >
                                         authorization form
                                     </Link>
@@ -1297,7 +1297,10 @@ const PIHPatientRequest = ({ store }) => {
                                 are required and must be provided through the
                                 secure upload below.{' '}
                                 {/* TODO: Figure out the destination of this link */}
-                                <Link href="#" className="underline text-blue">
+                                <Link
+                                    href="#"
+                                    className="underline font-bold text-blue hover:text-black transition-colors"
+                                >
                                     Click here for examples.
                                 </Link>{' '}
                                 If you have any questions regarding the

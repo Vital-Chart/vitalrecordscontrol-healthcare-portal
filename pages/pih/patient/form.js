@@ -318,7 +318,9 @@ const PIHForm = ({ store }) => {
                                                 showMonthDropdown
                                                 showYearDropdown
                                                 dropdownMode="select"
-                                                customInput={<Input />}
+                                                customInput={
+                                                    <Input className="w-full" />
+                                                }
                                             />
                                         )}
                                     />
@@ -394,125 +396,149 @@ const PIHForm = ({ store }) => {
                                                 watchVisitOptions.includes(
                                                     'DR'
                                                 ) && (
-                                                    <Flex>
-                                                        <Box>
-                                                            <Label className="block mb-1">
-                                                                Service Start:
-                                                            </Label>
+                                                    <>
+                                                        <Flex className="space-x-4">
+                                                            <Box>
+                                                                <Label className="block mb-1">
+                                                                    Service
+                                                                    Start:
+                                                                </Label>
 
-                                                            <Controller
-                                                                control={
-                                                                    control
+                                                                <Controller
+                                                                    control={
+                                                                        control
+                                                                    }
+                                                                    name="VI_DR_SD"
+                                                                    rules={{
+                                                                        required: true,
+                                                                    }}
+                                                                    render={({
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value,
+                                                                    }) => (
+                                                                        <DatePicker
+                                                                            // https://reactdatepicker.com/#example-custom-header
+                                                                            onChange={date => {
+                                                                                onChange(
+                                                                                    date
+                                                                                )
+
+                                                                                store.dispatch(
+                                                                                    {
+                                                                                        type:
+                                                                                            'UPDATE_FORM',
+                                                                                        name:
+                                                                                            'VI_DR_SD',
+                                                                                        value: date,
+                                                                                    }
+                                                                                )
+                                                                            }}
+                                                                            onBlur={
+                                                                                onBlur
+                                                                            }
+                                                                            selected={
+                                                                                value
+                                                                                    ? new Date(
+                                                                                          value
+                                                                                      )
+                                                                                    : new Date()
+                                                                            }
+                                                                            maxDate={
+                                                                                new Date()
+                                                                            }
+                                                                            showMonthDropdown
+                                                                            showYearDropdown
+                                                                            dropdownMode="select"
+                                                                            customInput={
+                                                                                <Input className="w-full" />
+                                                                            }
+                                                                        />
+                                                                    )}
+                                                                />
+                                                            </Box>
+
+                                                            <Box>
+                                                                <Label className="block mb-1">
+                                                                    Service End:
+                                                                </Label>
+
+                                                                <Controller
+                                                                    control={
+                                                                        control
+                                                                    }
+                                                                    name="VI_DR_ED"
+                                                                    rules={{
+                                                                        required: true,
+                                                                        validate: {
+                                                                            dateRangeCheck: value =>
+                                                                                new Date(
+                                                                                    value
+                                                                                ) >
+                                                                                    new Date(
+                                                                                        getValues(
+                                                                                            'VI_DR_SD'
+                                                                                        )
+                                                                                    ) ||
+                                                                                'The Service End date you entered is before the Service Start date.',
+                                                                        },
+                                                                    }}
+                                                                    render={({
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value,
+                                                                    }) => (
+                                                                        <DatePicker
+                                                                            // https://reactdatepicker.com/#example-custom-header
+                                                                            onChange={date => {
+                                                                                onChange(
+                                                                                    date
+                                                                                )
+
+                                                                                store.dispatch(
+                                                                                    {
+                                                                                        type:
+                                                                                            'UPDATE_FORM',
+                                                                                        name:
+                                                                                            'VI_DR_ED',
+                                                                                        value: date,
+                                                                                    }
+                                                                                )
+                                                                            }}
+                                                                            onBlur={
+                                                                                onBlur
+                                                                            }
+                                                                            selected={
+                                                                                value
+                                                                                    ? new Date(
+                                                                                          value
+                                                                                      )
+                                                                                    : new Date()
+                                                                            }
+                                                                            maxDate={
+                                                                                new Date()
+                                                                            }
+                                                                            showMonthDropdown
+                                                                            showYearDropdown
+                                                                            dropdownMode="select"
+                                                                            customInput={
+                                                                                <Input className="w-full" />
+                                                                            }
+                                                                        />
+                                                                    )}
+                                                                />
+                                                            </Box>
+                                                        </Flex>
+                                                        {errors.VI_DR_ED && (
+                                                            <ErrorMessage
+                                                                message={
+                                                                    errors
+                                                                        .VI_DR_ED
+                                                                        .message
                                                                 }
-                                                                name="VI_DR_SD"
-                                                                rules={{
-                                                                    required: true,
-                                                                }}
-                                                                render={({
-                                                                    onChange,
-                                                                    onBlur,
-                                                                    value,
-                                                                }) => (
-                                                                    <DatePicker
-                                                                        // https://reactdatepicker.com/#example-custom-header
-                                                                        onChange={date => {
-                                                                            onChange(
-                                                                                date
-                                                                            )
-
-                                                                            store.dispatch(
-                                                                                {
-                                                                                    type:
-                                                                                        'UPDATE_FORM',
-                                                                                    name:
-                                                                                        'VI_DR_SD',
-                                                                                    value: date,
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        onBlur={
-                                                                            onBlur
-                                                                        }
-                                                                        selected={
-                                                                            value
-                                                                                ? new Date(
-                                                                                      value
-                                                                                  )
-                                                                                : new Date()
-                                                                        }
-                                                                        maxDate={
-                                                                            new Date()
-                                                                        }
-                                                                        showMonthDropdown
-                                                                        showYearDropdown
-                                                                        dropdownMode="select"
-                                                                        customInput={
-                                                                            <Input className="mr-4" />
-                                                                        }
-                                                                    />
-                                                                )}
                                                             />
-                                                        </Box>
-
-                                                        <Box>
-                                                            <Label className="block mb-1">
-                                                                Service End:
-                                                            </Label>
-
-                                                            <Controller
-                                                                control={
-                                                                    control
-                                                                }
-                                                                name="VI_DR_ED"
-                                                                rules={{
-                                                                    required: true,
-                                                                }}
-                                                                render={({
-                                                                    onChange,
-                                                                    onBlur,
-                                                                    value,
-                                                                }) => (
-                                                                    <DatePicker
-                                                                        // https://reactdatepicker.com/#example-custom-header
-                                                                        onChange={date => {
-                                                                            onChange(
-                                                                                date
-                                                                            )
-
-                                                                            store.dispatch(
-                                                                                {
-                                                                                    type:
-                                                                                        'UPDATE_FORM',
-                                                                                    name:
-                                                                                        'VI_DR_ED',
-                                                                                    value: date,
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        onBlur={
-                                                                            onBlur
-                                                                        }
-                                                                        selected={
-                                                                            value
-                                                                                ? new Date(
-                                                                                      value
-                                                                                  )
-                                                                                : new Date()
-                                                                        }
-                                                                        maxDate={
-                                                                            new Date()
-                                                                        }
-                                                                        showMonthDropdown
-                                                                        showYearDropdown
-                                                                        dropdownMode="select"
-                                                                        customInput={
-                                                                            <Input />
-                                                                        }
-                                                                    />
-                                                                )}
-                                                            />
-                                                        </Box>
-                                                    </Flex>
+                                                        )}
+                                                    </>
                                                 )}
                                         </Box>
                                     </Box>
@@ -898,7 +924,7 @@ const PIHForm = ({ store }) => {
                                                 />
                                             )}
                                             children={handleClose => (
-                                                <Box className="px-8 py-4 relative">
+                                                <Box className="p-8 relative">
                                                     <button
                                                         onClick={handleClose}
                                                         className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
@@ -945,7 +971,7 @@ const PIHForm = ({ store }) => {
                                     <Select
                                         name="YI_NOTICE_DD"
                                         id="YI_NOTICE_DD"
-                                        className="block mt-1"
+                                        className="block w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
@@ -971,6 +997,11 @@ const PIHForm = ({ store }) => {
                                             ref={register({
                                                 required:
                                                     'Please enter your phone number.',
+                                                pattern: {
+                                                    value: /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+                                                    message:
+                                                        'Please enter a valid phone number.',
+                                                },
                                             })}
                                         />
                                         {errors.YI_PN && (
@@ -1022,7 +1053,7 @@ const PIHForm = ({ store }) => {
                                             validate: {
                                                 phoneMatch: value =>
                                                     value ===
-                                                        getValues().YI_PN ||
+                                                        getValues('YI_PN') ||
                                                     'The phone numbers you entered do not match!',
                                             },
                                         })}
@@ -1070,7 +1101,7 @@ const PIHForm = ({ store }) => {
                                             validate: {
                                                 emailMatch: value =>
                                                     value ===
-                                                        getValues().YI_EM ||
+                                                        getValues('YI_EM') ||
                                                     'The email addresses you entered do not match.',
                                             },
                                         })}
@@ -1244,13 +1275,20 @@ const PIHForm = ({ store }) => {
                                                     <Select
                                                         name="DI_ST_DD"
                                                         id="DI_ST_DD"
-                                                        className="block mt-1 mr-4 mb-2"
+                                                        className="block mt-1 mr-4"
                                                         onChange={handleChange}
                                                         ref={register({
-                                                            required:
-                                                                'Please select a state.',
+                                                            validate: {
+                                                                stateCheck: value =>
+                                                                    value !==
+                                                                        'Select a state' ||
+                                                                    'Please select a state.',
+                                                            },
                                                         })}
                                                     >
+                                                        <option>
+                                                            Select a state
+                                                        </option>
                                                         {Object.keys(
                                                             states
                                                         ).map(key => (
@@ -1288,7 +1326,7 @@ const PIHForm = ({ store }) => {
                                                         })}
                                                     />
 
-                                                    {errors.DI_ST_DD && (
+                                                    {errors.DI_ZIP && (
                                                         <ErrorMessage
                                                             message={
                                                                 errors.DI_ZIP
@@ -1363,7 +1401,10 @@ const PIHForm = ({ store }) => {
                                 type="submit"
                                 variant="filled"
                                 disabled={isFetching}
-                                className={cx("flex-1", isFetching && 'pointer-events-none')}
+                                className={cx(
+                                    'flex-1',
+                                    isFetching && 'pointer-events-none'
+                                )}
                             >
                                 {isFetching ? (
                                     <IconLoading className="w-6 text-gray-400 animate-spin" />
