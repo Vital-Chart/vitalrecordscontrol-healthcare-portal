@@ -1450,6 +1450,7 @@ const PIHForm = ({ store }) => {
                         </FormSection>
 
                         <ButtonWrapper>
+                            {/* TODO: Go back to landing page */}
                             <Button variant="outline" className="flex-1">
                                 Cancel
                             </Button>

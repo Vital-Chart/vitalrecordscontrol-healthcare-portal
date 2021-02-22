@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
@@ -14,6 +14,7 @@ import {
     SectionHeading,
     PageHeading,
     ButtonWrapper,
+    ErrorMessage,
     UploadsList,
     Stepper,
 } from '@/components/atoms'
@@ -22,17 +23,45 @@ import IconUpload from '@/icons/icon-upload.svg'
 import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
+const FacilityList = () => {
+    const store = useStore()
+
+    return (
+        <>
+            {store?.state?.form?.FI_CB &&
+                store.state.form.FI_CB.map(facilityId => {
+                    return Object.keys(hospitals).map(hospitalKey => {
+                        return hospitals[hospitalKey].facilities.map(
+                            hospitalFacility => {
+                                if (hospitalFacility.id === facilityId) {
+                                    return (
+                                        <Text key={facilityId} className="pb-4">
+                                            <Text
+                                                as="span"
+                                                className="font-bold"
+                                            >
+                                                {hospitalFacility.name}
+                                            </Text>{' '}
+                                            - {hospitalFacility.phone}
+                                        </Text>
+                                    )
+                                }
+                            }
+                        )
+                    })
+                })}
+        </>
+    )
+}
+
 export const LayoutUpload = ({ children }) => {
     const router = useRouter()
     const store = useStore()
-
-    const [serverErrors, setServerErrors] = useState([])
+    const [errors, setErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
-
     const hasTouch = isTouchDevice()
 
     const handleDrop = useCallback(droppedFiles => {
-        console.log({ droppedFiles })
         store.dispatch({
             type: 'ADD_FILES',
             value: droppedFiles,
@@ -45,50 +74,52 @@ export const LayoutUpload = ({ children }) => {
     })
 
     const handleSubmit = async () => {
-        setIsFetching(true)
-
-        try {
-            const {
-                trackingNumbers,
-                errorNumber,
-                inError,
-            } = await createRequest({
-                ...store.state.form,
-                files: store.state.newFiles,
-            })
-
-            console.log({ trackingNumbers, errorNumber, inError })
-
-            setIsFetching(false)
-
-            if (inError) {
-                setServerErrors(errorNumber)
-                setIsFetching(false)
-            } else {
-                store.dispatch({
-                    type: 'UPDATE_UPLOADED_FILES',
-                })
-
-                setIsFetching(false)
-
+        if (store.state.newFiles.length === 0) {
+            if (store.state.uploadedFiles.length > 0) {
                 // Redirect to next step
-                console.log(
-                    `Redirect to: ${router.pathname
+                router.push(
+                    `${router.pathname
                         .split('/')
                         .slice(0, -1)
                         .join('/')}/review`
                 )
-                // router.push(
-                //     `${router.pathname
-                //         .split('/')
-                //         .slice(0, -1)
-                //         .join('/')}/review`
-                // )
+            } else {
+                // TODO: Create "no uploads added" error
+                setErrors([100000])
             }
-        } catch (error) {
-            // General server error
-            setServerErrors([100000])
-            setIsFetching(false)
+        } else {
+            setIsFetching(true)
+
+            try {
+                const { errorInformation, inError } = await createRequest({
+                    ...store.state.form,
+                    files: store.state.newFiles,
+                })
+
+                if (inError) {
+                    setErrors(errorNumber)
+                    setIsFetching(false)
+                } else {
+                    setErrors([])
+                    setIsFetching(false)
+
+                    store.dispatch({
+                        type: 'UPDATE_UPLOADED_FILES',
+                    })
+
+                    // Redirect to next step
+                    router.push(
+                        `${router.pathname
+                            .split('/')
+                            .slice(0, -1)
+                            .join('/')}/review`
+                    )
+                }
+            } catch (error) {
+                // General server error
+                setErrors([100000])
+                setIsFetching(false)
+            }
         }
     }
 
@@ -126,35 +157,7 @@ export const LayoutUpload = ({ children }) => {
                             you have any questions during this process:
                         </Text>
 
-                        {store.state.form.FI_CB.map(facilityId => {
-                            return Object.keys(hospitals).map(hospitalKey => {
-                                return hospitals[hospitalKey].facilities.map(
-                                    hospitalFacility => {
-                                        if (
-                                            hospitalFacility.id === facilityId
-                                        ) {
-                                            return (
-                                                <Text className="pb-4">
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        {hospitalFacility.name}
-                                                    </Text>{' '}
-                                                    - {hospitalFacility.phone}
-                                                </Text>
-                                            )
-                                        }
-                                    }
-                                )
-                            })
-                        })}
-                        {/* <Text className="pb-4">
-                            <Text as="span" className="font-bold">
-                                81-196019
-                            </Text>
-                            : Palomar Health Medical Records - (760) 480-7911
-                        </Text> */}
+                        <FacilityList />
                     </Box>
 
                     {children}
@@ -165,6 +168,7 @@ export const LayoutUpload = ({ children }) => {
                                 All requests for medical records require
                                 printing out, signing, and uploading an image of
                                 this{' '}
+                                {/* TODO: Update with correct auth form button */}
                                 <Link
                                     href="#"
                                     className="underline font-bold text-blue hover:text-black transition-colors"
@@ -265,6 +269,7 @@ export const LayoutUpload = ({ children }) => {
                         <Box as="ul" className="pl-8 pb-4 list-decimal">
                             <Box as="li" className="pb-2">
                                 Print out and sign this{' '}
+                                {/* TODO: Update with correct auth form button */}
                                 <Link
                                     href="#"
                                     className="underline font-bold text-blue hover:text-black transition-colors"
@@ -376,12 +381,20 @@ export const LayoutUpload = ({ children }) => {
                         <UploadsList className="mt-8" />
 
                         {/* TODO: Handle showing server/upload errors */}
+                        {errors.length > 0 && (
+                            <ErrorMessage
+                                message="There are errors on the page..."
+                                className="mt-4 pb-0"
+                            />
+                        )}
                     </Box>
 
                     <ButtonWrapper>
+                        {/* TODO: Going to have to do something different (should go back a step, not actual browser back) */}
                         <Button onClick={() => router.back()} variant="outline">
                             Go Back
                         </Button>
+
                         {/* TODO: Send delete request call? Navigate back to hospital landing page */}
                         <Button variant="outline">
                             Cancel and Delete Request

@@ -2,32 +2,6 @@ import cx from 'classnames'
 import { Box, Flex, Text } from '@/components/core'
 import { useStore } from '@/lib/store'
 
-const UploadItem = ({ file, isEditable, hideRemove, handleRemove }) => (
-    <Flex>
-        <Box className="flex-1 py-2 px-4">
-            <Text>{file.name}</Text>
-        </Box>
-
-        <Box className="w-32 py-2 px-4">
-            <Text>
-                {file.size >= 1000000
-                    ? `${(file.size / 1000000).toFixed(1)} MB`
-                    : `${Math.round(file.size / 1000)} KB`}
-            </Text>
-        </Box>
-
-        {isEditable && (
-            <Box className="w-28 py-2 px-4 text-right">
-                {!hideRemove && (
-                    <Box as="button" onClick={handleRemove}>
-                        Remove
-                    </Box>
-                )}
-            </Box>
-        )}
-    </Flex>
-)
-
 export const UploadsList = ({ className, isEditable, ...props }) => {
     const store = useStore()
 
@@ -48,31 +22,41 @@ export const UploadsList = ({ className, isEditable, ...props }) => {
             </Flex>
 
             {store.state.uploadedFiles.length || store.state.newFiles.length ? (
-                <>
-                    {store.state.uploadedFiles.map(file => (
-                        <UploadItem
-                            key={file.name}
-                            file={file}
-                            isEditable={isEditable}
-                            hideRemove={true}
-                        />
-                    ))}
+                [...store.state.uploadedFiles, ...store.state.newFiles].map(
+                    file => (
+                        <Flex key={file.name}>
+                            <Box className="flex-1 py-2 px-4">
+                                <Text>{file.name}</Text>
+                            </Box>
 
-                    {store.state.newFiles.map(file => (
-                        <UploadItem
-                            key={file.name}
-                            file={file}
-                            isEditable={isEditable}
-                            hideRemove={!isEditable}
-                            handleRemove={() => {
-                                store.dispatch({
-                                    type: 'REMOVE_FILE',
-                                    value: file.name,
-                                })
-                            }}
-                        />
-                    ))}
-                </>
+                            <Box className="w-32 py-2 px-4">
+                                <Text>
+                                    {file.size >= 1000000
+                                        ? `${(file.size / 1000000).toFixed(
+                                              1
+                                          )} MB`
+                                        : `${Math.round(file.size / 1000)} KB`}
+                                </Text>
+                            </Box>
+
+                            {isEditable && (
+                                <Box className="w-28 py-2 px-4 text-right">
+                                    <Box
+                                        as="button"
+                                        onClick={() => {
+                                            store.dispatch({
+                                                type: 'REMOVE_FILE',
+                                                value: file.name,
+                                            })
+                                        }}
+                                    >
+                                        Remove
+                                    </Box>
+                                </Box>
+                            )}
+                        </Flex>
+                    )
+                )
             ) : (
                 <Box className="py-2 px-4">
                     <Text className="text-sm">
