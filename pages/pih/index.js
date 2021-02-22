@@ -3,9 +3,8 @@ import { useRoute } from '@/lib/route.js'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
 import { PageHeading, Info } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
-import IconCheck from '@/icons/icon-check.svg'
 
-const PIH = ({ store }) => {
+const PIH = () => {
     const { hospital } = useRoute()
     return (
         <Layout>

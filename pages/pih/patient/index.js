@@ -20,8 +20,11 @@ const PIHPatient = ({ store }) => {
                             Please read the important notes below before
                             continuing to use this system:
                         </Text>
-                        <Box as="ol" className="pl-8 pb-2 list-decimal">
-                            <Box as="li" className="pb-2">
+                        <Box
+                            as="ol"
+                            className="pl-8 pb-2 space-y-2 list-decimal"
+                        >
+                            <Box as="li">
                                 <Text as="span" className="font-bold">
                                     This option is for patients or parties with
                                     the power to make decisions on behalf of a
@@ -53,7 +56,7 @@ const PIHPatient = ({ store }) => {
                                 to fill out the correct form to submit your
                                 request.**
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 In order to protect your privacy and comply with
                                 federal and state regulations, we need a copy of
                                 your driver's license or other government-issued
@@ -65,15 +68,18 @@ const PIHPatient = ({ store }) => {
                                     request being canceled.
                                 </Text>
                             </Box>
-                            <Box as="ul" className="pl-8 pb-2 list-disc">
-                                <Box as="li" className="pb-2">
+                            <Box
+                                as="ul"
+                                className="pl-8 pb-2 space-y-2 list-disc"
+                            >
+                                <Box as="li">
                                     If you are on a mobile device (e.g.
                                     smartphone/tablet), you will need to
                                     electronically sign an authorization form
                                     and submit a picture of yourself holding
                                     your government-issued ID.
                                 </Box>
-                                <Box as="li" className="pb-2">
+                                <Box as="li">
                                     If you are on a non-mobile device (e.g.
                                     desktop/laptop computer) you will need to
                                     print, manually sign, and upload a scanned
@@ -81,7 +87,7 @@ const PIHPatient = ({ store }) => {
                                     your government-issued ID.
                                 </Box>
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 Information requested through this system must
                                 exactly match hospital records. Typographic
                                 errors, such as patient name misspelling or
@@ -95,7 +101,7 @@ const PIHPatient = ({ store }) => {
                                 Pathology Slides) may incur additional charges,
                                 which will be displayed if selected.
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 If you request records from multiple facilities,
                                 you will get ONE tracking number for each
                                 facility, as each facility processes records

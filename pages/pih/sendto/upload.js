@@ -18,6 +18,7 @@ const PIHSendToUpload = ({ store }) => {
                     any questions during this process:
                 </Text>
                 <Text className="pb-4">
+                    {/* TODO: Get facility name/info from store */}
                     <Text as="span" className="font-bold">
                         81-196019
                     </Text>
