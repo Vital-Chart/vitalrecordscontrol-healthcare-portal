@@ -1,7 +1,8 @@
-import { useRoute } from '@/lib/route'
 import cx from 'classnames'
+import { useRoute } from '@/lib/route'
 import { Box, Flex, Link, Text } from '@/components/core'
 import { Container } from '@/components/general'
+import { StepperLink } from '@/components/atoms'
 
 import IconSlash from '@/icons/icon-slash.svg'
 
@@ -15,24 +16,24 @@ export const Stepper = ({ className, ...props }) => {
                     <Box as="ol" className="flex items-center space-x-4">
                         <Box as="li">
                             <Box>
-                                <Link
+                                <StepperLink
                                     href={`/${hospital}/${option}/form`}
-                                    className="text-sm text-center sm:text-left text-gray"
+                                    className="text-sm text-center sm:text-left"
                                 >
                                     Request Information
-                                </Link>
+                                </StepperLink>
                             </Box>
                         </Box>
                         <Box as="li">
                             <Flex className="items-center">
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
                                 {canUploadAuth ? (
-                                    <Link
+                                    <StepperLink
                                         href={`/${hospital}/${option}/upload`}
-                                        className="ml-4 text-sm text-center sm:text-left text-gray"
+                                        className="ml-4 text-sm text-center sm:text-left"
                                     >
                                         Provide Authorization Information
-                                    </Link>
+                                    </StepperLink>
                                 ) : (
                                     <Text className="ml-4 text-sm text-center sm:text-left text-gray">
                                         Provide Authorization Information
@@ -44,12 +45,12 @@ export const Stepper = ({ className, ...props }) => {
                             <Flex className="items-center">
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
                                 {canSubmit ? (
-                                    <Link
+                                    <StepperLink
                                         href={`/${hospital}/${option}/review`}
-                                        className="ml-4 text-sm text-center sm:text-left text-gray"
+                                        className="ml-4 text-sm text-center sm:text-left"
                                     >
                                         Review & Submit
-                                    </Link>
+                                    </StepperLink>
                                 ) : (
                                     <Text className="ml-4 text-sm text-center sm:text-left text-gray">
                                         Review & Submit
