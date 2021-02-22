@@ -23,14 +23,12 @@ export default async function handler(req, res) {
         payload = payload.slice(0, -2)
     }
 
-    // console.log({ payload })
-
     const hmac = crypto
         .createHmac('sha256', 'portal-test')
         .update(payload)
         .digest('hex')
 
-    // console.log({ hmac })
+    // console.log({ payload, hmac })
 
     return res.status(200).json({ hmac })
 }

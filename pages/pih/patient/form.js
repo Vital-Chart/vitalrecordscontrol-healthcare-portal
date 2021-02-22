@@ -77,7 +77,7 @@ const PIHForm = ({ store }) => {
                 inError,
             } = await createRequest(store.state.form)
 
-            // console.log({ trackingNumbers, errorNumber, inError })
+            console.log({ trackingNumbers, errorNumber, inError })
 
             if (inError) {
                 setServerErrors(errorNumber)
@@ -166,6 +166,9 @@ const PIHForm = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full mb-2"
                                         onChange={handleChange}
+                                        disabled={Array.isArray(
+                                            store.state.trackingNumbers
+                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -177,6 +180,9 @@ const PIHForm = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full mb-2"
                                         onChange={handleChange}
+                                        disabled={Array.isArray(
+                                            store.state.trackingNumbers
+                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -188,6 +194,9 @@ const PIHForm = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full"
                                         onChange={handleChange}
+                                        disabled={Array.isArray(
+                                            store.state.trackingNumbers
+                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -299,12 +308,12 @@ const PIHForm = ({ store }) => {
                                                 // https://reactdatepicker.com/#example-custom-header
                                                 onChange={date => {
                                                     onChange(date)
+                                                    handleChange()
 
-                                                    store.dispatch({
-                                                        type: 'UPDATE_FORM',
-                                                        name: 'PI_DOB',
-                                                        value: date,
-                                                    })
+                                                    // store.dispatch({
+                                                    //     type: 'UPDATE_FORM',
+                                                    //     value: getValues(),
+                                                    // })
                                                 }}
                                                 onBlur={onBlur}
                                                 selected={
@@ -313,7 +322,7 @@ const PIHForm = ({ store }) => {
                                                         : null
                                                 }
                                                 maxDate={new Date()}
-                                                dateFormat="MMMM d, yyyy"
+                                                // dateFormat="MMMM d, yyyy"
                                                 showMonthDropdown
                                                 showYearDropdown
                                                 dropdownMode="select"
@@ -422,16 +431,15 @@ const PIHForm = ({ store }) => {
                                                                                 onChange(
                                                                                     date
                                                                                 )
+                                                                                handleChange()
 
-                                                                                store.dispatch(
-                                                                                    {
-                                                                                        type:
-                                                                                            'UPDATE_FORM',
-                                                                                        name:
-                                                                                            'VI_DR_SD',
-                                                                                        value: date,
-                                                                                    }
-                                                                                )
+                                                                                // store.dispatch(
+                                                                                //     {
+                                                                                //         type:
+                                                                                //             'UPDATE_FORM',
+                                                                                //         value: getValues(),
+                                                                                //     }
+                                                                                // )
                                                                             }}
                                                                             onBlur={
                                                                                 onBlur
@@ -493,16 +501,15 @@ const PIHForm = ({ store }) => {
                                                                                 onChange(
                                                                                     date
                                                                                 )
+                                                                                handleChange()
 
-                                                                                store.dispatch(
-                                                                                    {
-                                                                                        type:
-                                                                                            'UPDATE_FORM',
-                                                                                        name:
-                                                                                            'VI_DR_ED',
-                                                                                        value: date,
-                                                                                    }
-                                                                                )
+                                                                                // store.dispatch(
+                                                                                //     {
+                                                                                //         type:
+                                                                                //             'UPDATE_FORM',
+                                                                                //         value: getValues(),
+                                                                                //     }
+                                                                                // )
                                                                             }}
                                                                             onBlur={
                                                                                 onBlur

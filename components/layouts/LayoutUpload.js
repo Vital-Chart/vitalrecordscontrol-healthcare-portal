@@ -7,6 +7,7 @@ const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { isTouchDevice } from '@/lib/helpers'
+import hospitals from '@/lib/hospitals'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
 import {
@@ -65,25 +66,24 @@ export const LayoutUpload = ({ children }) => {
                 setIsFetching(false)
             } else {
                 store.dispatch({
-                    type: 'UPDATE_TRACKING_NUMBER',
-                    value: trackingNumbers,
+                    type: 'UPDATE_UPLOADED_FILES',
                 })
 
                 setIsFetching(false)
 
                 // Redirect to next step
-                // console.log(
-                //     `Redirect to: ${router.pathname
-                //         .split('/')
-                //         .slice(0, -1)
-                //         .join('/')}/review`
-                // )
-                router.push(
-                    `${router.pathname
+                console.log(
+                    `Redirect to: ${router.pathname
                         .split('/')
                         .slice(0, -1)
                         .join('/')}/review`
                 )
+                // router.push(
+                //     `${router.pathname
+                //         .split('/')
+                //         .slice(0, -1)
+                //         .join('/')}/review`
+                // )
             }
         } catch (error) {
             // General server error
@@ -111,26 +111,50 @@ export const LayoutUpload = ({ children }) => {
                 <Box className="max-w-screen-md space-y-8 pb-8">
                     <PageHeading>Provide Authorization Information</PageHeading>
 
-                    {/* TODO: Update with correct trackingNumbers data */}
                     <Box className="pb-8 border-b border-gray-light">
                         <Text className="pb-4">
                             Your request has been saved and assigned tracking
                             number:{' '}
                             <Text as="span" className="font-bold">
-                                81-196019
+                                {store.state.trackingNumbers[0]}
                             </Text>
                             .
                         </Text>
+
                         <Text className="pb-4">
                             Please contact the following facility/facilities if
                             you have any questions during this process:
                         </Text>
-                        <Text className="pb-4">
+
+                        {store.state.form.FI_CB.map(facilityId => {
+                            return Object.keys(hospitals).map(hospitalKey => {
+                                return hospitals[hospitalKey].facilities.map(
+                                    hospitalFacility => {
+                                        if (
+                                            hospitalFacility.id === facilityId
+                                        ) {
+                                            return (
+                                                <Text className="pb-4">
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        {hospitalFacility.name}
+                                                    </Text>{' '}
+                                                    - {hospitalFacility.phone}
+                                                </Text>
+                                            )
+                                        }
+                                    }
+                                )
+                            })
+                        })}
+                        {/* <Text className="pb-4">
                             <Text as="span" className="font-bold">
                                 81-196019
                             </Text>
                             : Palomar Health Medical Records - (760) 480-7911
-                        </Text>
+                        </Text> */}
                     </Box>
 
                     {children}
