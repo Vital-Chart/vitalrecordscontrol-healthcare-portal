@@ -20,7 +20,7 @@ const PIHSendTo = ({ store }) => (
                         before continuing to use this system:
                     </Text>
                     <Box as="ol" className="pl-8 pb-2 list-decimal">
-                        <Box as="li" className="pb-2">
+                        <Box as="li">
                             This website is designed for{' '}
                             <Text as="span" className="font-bold">
                                 patients
@@ -41,7 +41,7 @@ const PIHSendTo = ({ store }) => (
                             to view other options for requesting medical
                             records.
                         </Box>
-                        <Box as="li" className="pb-2">
+                        <Box as="li">
                             In order to protect the patient's privacy and comply
                             with federal and state regulations, we need a copy
                             of your driver's license or other government-issued
@@ -55,15 +55,15 @@ const PIHSendTo = ({ store }) => (
                                 canceled.
                             </Text>
                         </Box>
-                        <Box as="ul" className="pl-8 pb-2 list-disc">
-                            <Box as="li" className="pb-2">
+                        <Box as="ul" className="pl-8 space-y-2 list-disc">
+                            <Box as="li">
                                 If you are on a mobile device (e.g.
                                 smartphone/tablet), you will need to
                                 electronically sign an authorization form and
                                 submit a picture of yourself holding your
                                 government-issued ID.
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 If you are on a non-mobile device (e.g.
                                 desktop/laptop computer) you will need to print,
                                 manually sign, and upload a scanned copy of an
@@ -71,7 +71,7 @@ const PIHSendTo = ({ store }) => (
                                 government-issued ID.
                             </Box>
                         </Box>
-                        <Box as="li" className="pb-2">
+                        <Box as="li">
                             If you are not the patient, you will also need to
                             submit a legible image (picture or scanned) of proof
                             you are authorized to make medical decisions for the
@@ -153,7 +153,7 @@ const PIHSendTo = ({ store }) => (
                             />
                         </Box>
 
-                        <Box as="li" className="pb-2">
+                        <Box as="li">
                             Information requested through this system must
                             exactly match hospital records. Typographic errors,
                             such as patient name misspelling or incorrect dates
@@ -167,7 +167,7 @@ const PIHSendTo = ({ store }) => (
                             Pathology Slides) may incur additional charges,
                             which will be displayed if selected.
                         </Box>
-                        <Box as="li" className="pb-2">
+                        <Box as="li">
                             If you request records from multiple facilities, you
                             will get ONE tracking number for each facility, as
                             each facility processes records separately.{' '}

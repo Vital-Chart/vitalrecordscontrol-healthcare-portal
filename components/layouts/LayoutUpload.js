@@ -126,6 +126,7 @@ export const LayoutUpload = ({ children }) => {
                             you have any questions during this process:
                         </Text>
                         <Text className="pb-4">
+                            {/* TODO: Get facility name/info from store */}
                             <Text as="span" className="font-bold">
                                 81-196019
                             </Text>
@@ -238,8 +239,11 @@ export const LayoutUpload = ({ children }) => {
                         </Text>
 
                         <Text className="pb-4">To complete your request:</Text>
-                        <Box as="ul" className="pl-8 pb-4 list-decimal">
-                            <Box as="li" className="pb-2">
+                        <Box
+                            as="ul"
+                            className="pl-8 pb-4 space-y-2 list-decimal"
+                        >
+                            <Box as="li">
                                 Print out and sign this{' '}
                                 <Link
                                     href="#"
@@ -250,19 +254,19 @@ export const LayoutUpload = ({ children }) => {
                                 along with a copy of a government-issued picture
                                 ID,
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 Scan or photograph all pages of the form along
                                 with your government ID,
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 If requesting on behalf of a patient, scan or
                                 photograph all pages of the additional required
                                 documentation,
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 Upload all photos/scans in the area below, and
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 Click{' '}
                                 <Text as="span" className="font-bold">
                                     Continue
@@ -275,8 +279,8 @@ export const LayoutUpload = ({ children }) => {
                             Please note the following:
                         </Text>
 
-                        <Box as="ul" className="pl-8 pb-4 list-disc">
-                            <Box as="li" className="pb-2">
+                        <Box as="ul" className="pl-8 space-y-2 list-disc">
+                            <Box as="li">
                                 If you are unable to submit the required
                                 images/documentation at this time, you may
                                 return to this screen by entering your tracking
@@ -289,18 +293,18 @@ export const LayoutUpload = ({ children }) => {
                                     canceled.
                                 </Text>
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 The files you upload must have PDF, JPG/JPEG,
                                 TIF/TIFF, or PNG as their extension.
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 Uploaded files must be less than 10 MB in size.
                                 If your files are too large, consult your
                                 device's documentation for instructions on
                                 lowering the resolution and/or color depth and
                                 compressing the file.
                             </Box>
-                            <Box as="li" className="pb-2">
+                            <Box as="li">
                                 This site will automatically log you out if you
                                 are inactive or switch away from your browser to
                                 another app for 10 minutes.
