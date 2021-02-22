@@ -109,13 +109,13 @@ export const LayoutUpload = ({ children }) => {
 
             <Container>
                 <Box className="max-w-screen-md space-y-8 pb-8">
-                    <PageHeading>Upload Authorization</PageHeading>
+                    <PageHeading>Provide Authorization Information</PageHeading>
 
                     {/* TODO: Update with correct trackingNumbers data */}
                     <Box className="pb-8 border-b border-gray-light">
                         <Text className="pb-4">
                             Your request has been saved and assigned tracking
-                            number(s):{' '}
+                            number:{' '}
                             <Text as="span" className="font-bold">
                                 81-196019
                             </Text>
@@ -240,8 +240,15 @@ export const LayoutUpload = ({ children }) => {
                         <Text className="pb-4">To complete your request:</Text>
                         <Box as="ul" className="pl-8 pb-4 list-decimal">
                             <Box as="li" className="pb-2">
-                                Print out and sign this authorization form along
-                                with a copy of a government-issued picture ID,
+                                Print out and sign this{' '}
+                                <Link
+                                    href="#"
+                                    className="underline font-bold text-blue hover:text-black transition-colors"
+                                >
+                                    authorization form
+                                </Link>{' '}
+                                along with a copy of a government-issued picture
+                                ID,
                             </Box>
                             <Box as="li" className="pb-2">
                                 Scan or photograph all pages of the form along
@@ -302,9 +309,7 @@ export const LayoutUpload = ({ children }) => {
                     </Box>
 
                     <Box>
-                        <SectionHeading>
-                            Upload Your Documentation Here
-                        </SectionHeading>
+                        <SectionHeading>Your Upload Area</SectionHeading>
 
                         <Box as="form">
                             <Box {...getRootProps()}>
@@ -328,13 +333,14 @@ export const LayoutUpload = ({ children }) => {
                                                 </>
                                             ) : (
                                                 <>
-                                                    Drop Files to Upload or{' '}
+                                                    Drag files or{' '}
                                                     <Box
                                                         as="span"
                                                         className="underline"
                                                     >
-                                                        Click Here
-                                                    </Box>
+                                                        click here
+                                                    </Box>{' '}
+                                                    to upload.
                                                 </>
                                             )}
                                         </Text>
@@ -349,8 +355,11 @@ export const LayoutUpload = ({ children }) => {
                     </Box>
 
                     <ButtonWrapper>
+                        <Button onClick={() => router.back()} variant="outline">
+                            Go Back
+                        </Button>
                         {/* TODO: Send delete request call? Navigate back to hospital landing page */}
-                        <Button variant="outline" className="flex-1">
+                        <Button variant="outline">
                             Cancel and Delete Request
                         </Button>
 
@@ -358,7 +367,7 @@ export const LayoutUpload = ({ children }) => {
                             variant="filled"
                             disabled={isFetching}
                             className={cx(
-                                'flex-1',
+                                'flex-grow',
                                 isFetching && 'pointer-events-none'
                             )}
                             onClick={handleSubmit}

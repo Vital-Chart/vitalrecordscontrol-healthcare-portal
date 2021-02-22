@@ -151,8 +151,8 @@ export const LayoutReview = ({ children }) => {
                             <Text as="span" className="block text-sm font-bold">
                                 Delivery Method for CDs/Slides:{' '}
                             </Text>
-                            TRIMSNet e-Request Website Pick up CDs and/or slides
-                            at the facility.
+                            VitalChart &reg; Virtual ROI Portal. Pick up CDs
+                            and/or slides at the facility.
                         </Text>
 
                         {/* TODO: Update href using `router.pathname` */}
@@ -229,7 +229,10 @@ export const LayoutReview = ({ children }) => {
                     )}
 
                     <ButtonWrapper>
-                        <Button variant="outline" className="flex-grow">
+                        <Button onClick={() => router.back()} variant="outline">
+                            Go Back
+                        </Button>
+                        <Button variant="outline">
                             Cancel and Delete Request
                         </Button>
 

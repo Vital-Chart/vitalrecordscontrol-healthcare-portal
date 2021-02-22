@@ -201,12 +201,12 @@ const PIHForm = ({ store }) => {
                                 </CheckboxWrapper>
                             </Box>
 
-                            {watchFacilityCheckboxes.length > 1 && (
+                            {/* {watchFacilityCheckboxes.length > 1 && (
                                 <Alert
                                     primaryAlertText="You have selected more than one facility."
                                     secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
                                 />
-                            )}
+                            )} */}
 
                             {watchFacilityCheckboxes.length > 0 && (
                                 <Alert
@@ -911,6 +911,28 @@ const PIHForm = ({ store }) => {
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
                                 <Box className="mb-4">
+                                    <Label htmlFor="YI_REL_DD">
+                                        Relationship to Patient
+                                    </Label>
+                                    <Select
+                                        name="YI_REL_DD"
+                                        id="YI_REL_DD"
+                                        className="block mt-1"
+                                        onChange={handleChange}
+                                        ref={register({ required: true })}
+                                    >
+                                        <option value="SELF">Self</option>
+                                        <option value="PG">
+                                            Parent/Guardian
+                                        </option>
+                                        <option value="CON">Conservator</option>
+                                        <option value="PR">
+                                            Personal Representative
+                                        </option>
+                                        <option value="OT">Other</option>
+                                    </Select>
+                                </Box>
+                                <Box className="mb-4">
                                     <Flex className="items-center">
                                         <Label htmlFor="YI_NOTICE_DD">
                                             Preferred Notification Method
@@ -1119,6 +1141,15 @@ const PIHForm = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
                             <Box>
+                                <Info
+                                    secondaryText="Medical records will be delivered
+                                    via this website in Adobe PDF
+                                    format. A notification will be sent
+                                    when the records are ready for
+                                    download, and they will be available
+                                    for 30 days."
+                                    className="my-4"
+                                />
                                 <Box>
                                     <Text className="mb-4">
                                         Radiology Images are saved to CD.
@@ -1154,18 +1185,6 @@ const PIHForm = ({ store }) => {
                                         />
                                     )}
                                 </Box>
-
-                                {watchDeliveryMethod.includes('DL') && (
-                                    <Info
-                                        secondaryText="Medical records will be delivered
-                                    via this website in Adobe PDF
-                                    format. A notification will be sent
-                                    when the records are ready for
-                                    download, and they will be available
-                                    for 30 days."
-                                        className="my-6"
-                                    />
-                                )}
 
                                 {watchDeliveryMethod.includes('PS') && (
                                     <>
@@ -1356,37 +1375,69 @@ const PIHForm = ({ store }) => {
                                     </Text>
                                 </Box>
 
-                                {watchFacilityCheckboxes.includes(
-                                    'P7202-1'
-                                ) && (
-                                    <Text className="mb-2">
-                                        <Text as="span" className="font-bold">
-                                            PIH Health Hospital - Downey:
-                                        </Text>{' '}
-                                        (562) 904-5166 x26177
-                                    </Text>
-                                )}
+                                {watchDeliveryMethod.includes('PU') && (
+                                    <>
+                                        {watchFacilityCheckboxes.includes(
+                                            'P7202-1'
+                                        ) && (
+                                            <Box className="mb-4">
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    PIH Health Hospital - Downey
+                                                </Text>
+                                                <Text>
+                                                    11500 Brookshire Avenue
+                                                </Text>
+                                                <Text>Downey, CA 90241</Text>
+                                                <Text>
+                                                    (562) 904-5166 x26177
+                                                </Text>
+                                            </Box>
+                                        )}
 
-                                {watchFacilityCheckboxes.includes(
-                                    'P7201-1'
-                                ) && (
-                                    <Text className="mb-2">
-                                        <Text as="span" className="font-bold">
-                                            PIH Health Hospital - Whittier:
-                                        </Text>{' '}
-                                        (562) 698-0811 x13685
-                                    </Text>
-                                )}
+                                        {watchFacilityCheckboxes.includes(
+                                            'P7201-1'
+                                        ) && (
+                                            <Box className="mb-4">
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    PIH Health Hospital -
+                                                    Whittier
+                                                </Text>
+                                                <Text>
+                                                    12401 Washington Blvd
+                                                </Text>
+                                                <Text>Whittier, CA 90602</Text>
+                                                <Text>
+                                                    (562) 698-0811 x13685
+                                                </Text>
+                                            </Box>
+                                        )}
 
-                                {watchFacilityCheckboxes.includes(
-                                    'P7203-1'
-                                ) && (
-                                    <Text className="mb-2">
-                                        <Text as="span" className="font-bold">
-                                            PIH Health Physicians:
-                                        </Text>{' '}
-                                        (562) 698-0811 x13858
-                                    </Text>
+                                        {watchFacilityCheckboxes.includes(
+                                            'P7203-1'
+                                        ) && (
+                                            <Box className="mb-4">
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    PIH Health Physicians
+                                                </Text>
+                                                <Text>
+                                                    12401 Washington Blvd
+                                                </Text>
+                                                <Text>Whittier, CA 90602</Text>
+                                                <Text>
+                                                    (562) 698-0811 x13858
+                                                </Text>
+                                            </Box>
+                                        )}
+                                    </>
                                 )}
                             </Box>
                         </FormSection>
