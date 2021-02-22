@@ -1,10 +1,30 @@
+import { useRouter } from 'next/router'
 import cx from 'classnames'
 import { useRoute } from '@/lib/route'
 import { Box, Flex, Link, Text } from '@/components/core'
 import { Container } from '@/components/general'
-import { StepperLink } from '@/components/atoms'
 
 import IconSlash from '@/icons/icon-slash.svg'
+
+const StepperLink = ({ children, href, className, ...props }) => {
+    const router = useRouter()
+
+    return (
+        <Link
+            href={href}
+            className={cx(
+                router.pathname === href
+                    ? 'font-bold text-black transition-colors'
+                    : 'text-gray',
+                'hover:text-black',
+                className
+            )}
+            {...props}
+        >
+            {children}
+        </Link>
+    )
+}
 
 export const Stepper = ({ className, ...props }) => {
     const { hospital, option, canUploadAuth, canSubmit } = useRoute()
