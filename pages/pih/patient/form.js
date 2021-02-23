@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
+import * as dayjs from 'dayjs'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-import { useForm, Controller } from 'react-hook-form'
-import DatePicker from 'react-datepicker'
+import { useForm } from 'react-hook-form'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { states } from '@/lib/helpers'
@@ -220,10 +220,8 @@ const PIHForm = ({ store }) => {
 
                             {watchFacilityCheckboxes.length > 0 && (
                                 <Alert
-                                    primaryAlertText="Once you hit 'Continue' below, you cannot change which
-                    facilities you are requesting from."
-                                    secondaryAlertText="Please double-check to make sure you select the correct
-                    facility or facilities."
+                                    primaryAlertText="Once you hit 'Continue' below, you cannot change which facilities you are requesting from."
+                                    secondaryAlertText="Please double-check to make sure you select the correct facility or facilities."
                                 />
                             )}
                         </FormSection>
@@ -290,48 +288,22 @@ const PIHForm = ({ store }) => {
                                         ref={register}
                                     />
                                 </Box>
-                                <Box as="fieldset" className="mb-4">
-                                    <Box as="legend">Patient Date of Birth</Box>
 
-                                    <Controller
-                                        control={control}
+                                <Box className="mb-4">
+                                    <Label htmlFor="PI_DOB">
+                                        Patient Date of Birth
+                                    </Label>
+                                    <Input
+                                        type="date"
                                         name="PI_DOB"
-                                        rules={{
+                                        id="PI_DOB"
+                                        className="w-full mt-1"
+                                        max={dayjs().format('YYYY-MM-DD')}
+                                        onChange={handleChange}
+                                        ref={register({
                                             required:
                                                 "Please enter the patient's date of birth.",
-                                        }}
-                                        render={({
-                                            onChange,
-                                            onBlur,
-                                            value,
-                                        }) => (
-                                            <DatePicker
-                                                // https://reactdatepicker.com/#example-custom-header
-                                                onChange={date => {
-                                                    onChange(date)
-                                                    handleChange()
-
-                                                    // store.dispatch({
-                                                    //     type: 'UPDATE_FORM',
-                                                    //     value: getValues(),
-                                                    // })
-                                                }}
-                                                onBlur={onBlur}
-                                                selected={
-                                                    value
-                                                        ? new Date(value)
-                                                        : null
-                                                }
-                                                maxDate={new Date()}
-                                                // dateFormat="MMMM d, yyyy"
-                                                showMonthDropdown
-                                                showYearDropdown
-                                                dropdownMode="select"
-                                                customInput={
-                                                    <Input className="w-full" />
-                                                }
-                                            />
-                                        )}
+                                        })}
                                     />
 
                                     {errors.PI_DOB && (
@@ -340,6 +312,7 @@ const PIHForm = ({ store }) => {
                                         />
                                     )}
                                 </Box>
+
                                 <Box className="mb-4">
                                     <Label htmlFor="PI_PHYCL">
                                         Physician/Clinic (Optional)
@@ -408,134 +381,71 @@ const PIHForm = ({ store }) => {
                                                     <>
                                                         <Flex className="space-x-4">
                                                             <Box>
-                                                                <Label className="block mb-1">
+                                                                <Label
+                                                                    htmlFor="VI_DR_SD"
+                                                                    className="block mb-1"
+                                                                >
                                                                     Service
                                                                     Start:
                                                                 </Label>
-
-                                                                <Controller
-                                                                    control={
-                                                                        control
-                                                                    }
+                                                                <Input
+                                                                    type="date"
                                                                     name="VI_DR_SD"
-                                                                    rules={{
-                                                                        required: true,
-                                                                    }}
-                                                                    render={({
-                                                                        onChange,
-                                                                        onBlur,
-                                                                        value,
-                                                                    }) => (
-                                                                        <DatePicker
-                                                                            // https://reactdatepicker.com/#example-custom-header
-                                                                            onChange={date => {
-                                                                                onChange(
-                                                                                    date
-                                                                                )
-                                                                                handleChange()
-
-                                                                                // store.dispatch(
-                                                                                //     {
-                                                                                //         type:
-                                                                                //             'UPDATE_FORM',
-                                                                                //         value: getValues(),
-                                                                                //     }
-                                                                                // )
-                                                                            }}
-                                                                            onBlur={
-                                                                                onBlur
-                                                                            }
-                                                                            selected={
-                                                                                value
-                                                                                    ? new Date(
-                                                                                          value
-                                                                                      )
-                                                                                    : new Date()
-                                                                            }
-                                                                            maxDate={
-                                                                                new Date()
-                                                                            }
-                                                                            showMonthDropdown
-                                                                            showYearDropdown
-                                                                            dropdownMode="select"
-                                                                            customInput={
-                                                                                <Input className="w-full" />
-                                                                            }
-                                                                        />
+                                                                    id="VI_DR_SD"
+                                                                    className="w-full"
+                                                                    max={dayjs().format(
+                                                                        'YYYY-MM-DD'
+                                                                    )}
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    ref={register(
+                                                                        {
+                                                                            required: true,
+                                                                        }
                                                                     )}
                                                                 />
                                                             </Box>
 
                                                             <Box>
-                                                                <Label className="block mb-1">
+                                                                <Label
+                                                                    htmlFor="VI_DR_ED"
+                                                                    className="block mb-1"
+                                                                >
                                                                     Service End:
                                                                 </Label>
-
-                                                                <Controller
-                                                                    control={
-                                                                        control
-                                                                    }
+                                                                <Input
+                                                                    type="date"
                                                                     name="VI_DR_ED"
-                                                                    rules={{
-                                                                        required: true,
-                                                                        validate: {
-                                                                            dateRangeCheck: value =>
-                                                                                new Date(
-                                                                                    value
-                                                                                ) >
+                                                                    id="VI_DR_ED"
+                                                                    className="w-full"
+                                                                    max={dayjs().format(
+                                                                        'YYYY-MM-DD'
+                                                                    )}
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    ref={register(
+                                                                        {
+                                                                            required: true,
+                                                                            validate: {
+                                                                                dateRangeCheck: value =>
                                                                                     new Date(
-                                                                                        getValues(
-                                                                                            'VI_DR_SD'
-                                                                                        )
-                                                                                    ) ||
-                                                                                'The Service End date you entered is before the Service Start date.',
-                                                                        },
-                                                                    }}
-                                                                    render={({
-                                                                        onChange,
-                                                                        onBlur,
-                                                                        value,
-                                                                    }) => (
-                                                                        <DatePicker
-                                                                            // https://reactdatepicker.com/#example-custom-header
-                                                                            onChange={date => {
-                                                                                onChange(
-                                                                                    date
-                                                                                )
-                                                                                handleChange()
-
-                                                                                // store.dispatch(
-                                                                                //     {
-                                                                                //         type:
-                                                                                //             'UPDATE_FORM',
-                                                                                //         value: getValues(),
-                                                                                //     }
-                                                                                // )
-                                                                            }}
-                                                                            onBlur={
-                                                                                onBlur
-                                                                            }
-                                                                            selected={
-                                                                                value
-                                                                                    ? new Date(
-                                                                                          value
-                                                                                      )
-                                                                                    : new Date()
-                                                                            }
-                                                                            maxDate={
-                                                                                new Date()
-                                                                            }
-                                                                            showMonthDropdown
-                                                                            showYearDropdown
-                                                                            dropdownMode="select"
-                                                                            customInput={
-                                                                                <Input className="w-full" />
-                                                                            }
-                                                                        />
+                                                                                        value
+                                                                                    ) >
+                                                                                        new Date(
+                                                                                            getValues(
+                                                                                                'VI_DR_SD'
+                                                                                            )
+                                                                                        ) ||
+                                                                                    'The Service End date you entered is before the Service Start date.',
+                                                                            },
+                                                                        }
                                                                     )}
                                                                 />
                                                             </Box>
                                                         </Flex>
+
                                                         {errors.VI_DR_ED && (
                                                             <ErrorMessage
                                                                 message={
@@ -1183,11 +1093,11 @@ const PIHForm = ({ store }) => {
                                     <>
                                         <Info
                                             secondaryText="Radiology Images are saved to CD.
-                                    Radiology Images and Pathology
-                                    Slides can be either picked up by
-                                    you at the facility, or delivered to
-                                    you via US Mail. Please select an
-                                    option below."
+                                                        Radiology Images and Pathology
+                                                        Slides can be either picked up by
+                                                        you at the facility, or delivered to
+                                                        you via US Mail. Please select an
+                                                        option below."
                                             className="my-4"
                                         />
 

@@ -1,6 +1,5 @@
 import { useForm, Controller } from 'react-hook-form'
 import dynamic from 'next/dynamic'
-import DatePicker from 'react-datepicker'
 import { withStore } from '@/lib/store'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
@@ -270,7 +269,7 @@ const PIHSendToForm = ({ store }) => {
                                 <Box as="fieldset" className="mb-4">
                                     <Box as="legend">Patient Date of Birth</Box>
 
-                                    <Controller
+                                    {/* <Controller
                                         control={control}
                                         name="PI_DOB"
                                         rules={{
@@ -309,7 +308,7 @@ const PIHSendToForm = ({ store }) => {
                                                 }
                                             />
                                         )}
-                                    />
+                                    /> */}
                                     {errors.PI_DOB && (
                                         <ErrorMessage
                                             message={errors.PI_DOB.message}
@@ -387,7 +386,7 @@ const PIHSendToForm = ({ store }) => {
                                                                 Service Start:
                                                             </Label>
 
-                                                            <Controller
+                                                            {/* <Controller
                                                                 control={
                                                                     control
                                                                 }
@@ -438,7 +437,7 @@ const PIHSendToForm = ({ store }) => {
                                                                         }
                                                                     />
                                                                 )}
-                                                            />
+                                                            /> */}
                                                         </Box>
 
                                                         <Box>
@@ -446,7 +445,7 @@ const PIHSendToForm = ({ store }) => {
                                                                 Service End:
                                                             </Label>
 
-                                                            <Controller
+                                                            {/* <Controller
                                                                 control={
                                                                     control
                                                                 }
@@ -497,7 +496,7 @@ const PIHSendToForm = ({ store }) => {
                                                                         }
                                                                     />
                                                                 )}
-                                                            />
+                                                            /> */}
                                                         </Box>
                                                     </Flex>
                                                 )}

@@ -1,3 +1,5 @@
+const fs = require('fs')
+const formidable = require('formidable')
 const FormData = require('form-data')
 const crypto = require('crypto')
 
@@ -14,35 +16,56 @@ const createFormData = data => {
     const formData = new FormData()
 
     Object.keys(data).map(key => {
-        const value = data[key]
-        let fieldValue = value
-
-        // Create comma separated strings from array values
-        if (Array.isArray(value)) {
-            fieldValue = value.join()
+        if (key.includes('file')) {
+            formData.append(key, fs.createReadStream(data[key].path))
+        } else {
+            formData.append(key, data[key])
         }
-
-        formData.append(key, fieldValue)
     })
 
     return formData
 }
 
-export default async function handler(req, res) {
-    const { body } = req
+function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+        const form = new formidable.IncomingForm({
+            keepExtensions: true,
+            multiples: true,
+        })
 
-    const hmac = generateHmac(body)
+        form.parse(req, (err, fields, files) => {
+            if (err) return reject({ isError: true, error })
+            resolve({ fields, files })
+        })
+    })
+}
+
+export default async function handler(req, res) {
+    const { fields, files } = await runMiddleware(req)
+    // const { fields, files } = await new Promise((resolve, reject) => {
+    //     const form = new formidable.IncomingForm({ keepExtensions: true, multiples: true })
+
+    //     form.parse(req, (err, fields, files) => {
+    //         if (err) return reject({ isError: true, error })
+    //         resolve({ fields, files })
+    //     })
+    // })
+
+    const hmac = generateHmac(fields)
 
     const formData = createFormData({
-        ...body,
+        ...fields,
+        ...files,
         SECSIG: hmac,
     })
+
+    console.log(formData)
 
     try {
         const response = await fetch(
             process.env.CREATE_UPDATE_REQUEST_ENDPOINT,
             {
-                method: 'POST',
+                method: 'post',
                 body: formData,
             }
         )
@@ -50,8 +73,15 @@ export default async function handler(req, res) {
         const json = await response.json()
 
         return res.status(200).json(json)
-    } catch (e) {
+    } catch (error) {
         // General server error
+        console.log(error)
         return res.status(500).json({ errorNumber: [100000] })
     }
+}
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
 }

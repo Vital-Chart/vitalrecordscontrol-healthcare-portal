@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useRef, forwardRef } from 'react'
 import dynamic from 'next/dynamic'
 import { useForm, Controller } from 'react-hook-form'
 import MicroModal from 'react-micro-modal'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import { useDropzone } from 'react-dropzone'
 import SignatureCanvas from 'react-signature-canvas'
 // const DynamicSignatureCanvas = dynamic(() => import('react-signature-canvas'), {
@@ -351,7 +351,7 @@ const PIHPatientRequest = ({ store }) => {
                                             Patient Date of Birth
                                         </Box>
 
-                                        <Controller
+                                        {/* <Controller
                                             control={control}
                                             name="PI_DOB"
                                             rules={{
@@ -388,7 +388,7 @@ const PIHPatientRequest = ({ store }) => {
                                                     customInput={<Input />}
                                                 />
                                             )}
-                                        />
+                                        /> */}
                                         {/*
                                         {errors.PI_DOB && (
                                             <ErrorMessage
@@ -472,7 +472,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                     Start:
                                                                 </Label>
 
-                                                                <Controller
+                                                                {/* <Controller
                                                                     control={
                                                                         control
                                                                     }
@@ -523,7 +523,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                             }
                                                                         />
                                                                     )}
-                                                                />
+                                                                /> */}
                                                             </Box>
 
                                                             <Box>
@@ -531,7 +531,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                     Service End:
                                                                 </Label>
 
-                                                                <Controller
+                                                                {/* <Controller
                                                                     control={
                                                                         control
                                                                     }
@@ -582,7 +582,7 @@ const PIHPatientRequest = ({ store }) => {
                                                                             }
                                                                         />
                                                                     )}
-                                                                />
+                                                                /> */}
                                                             </Box>
                                                         </Flex>
                                                     )}

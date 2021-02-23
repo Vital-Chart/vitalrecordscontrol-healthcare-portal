@@ -3,6 +3,8 @@ import { Box, Flex } from '@/components/core'
 import IconAlert from '@/icons/icon-alert.svg'
 
 export const ErrorMessage = ({ className, message }) => (
+    // TODO: We should avoid adding spacing around components,
+    // because the spacing depends on the context they are used
     <Box className={cx('py-2', className)}>
         <Flex>
             <Box className="flex-shrink-0">

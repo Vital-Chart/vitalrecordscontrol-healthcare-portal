@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import cx from 'classnames'
+import * as dayjs from 'dayjs'
 import SignatureCanvas from 'react-signature-canvas'
 import { useStore } from '@/lib/store'
 import { finishRequest } from '@/lib/api'
-import { isTouchDevice } from '@/lib/helpers'
+import { isTouchDevice, formatPhoneNumber } from '@/lib/helpers'
 import { Layout, Container } from '@/components/general'
 import { Box, Text, Button, Link } from '@/components/core'
 import {
@@ -17,6 +18,58 @@ import {
 } from '@/components/atoms'
 
 import IconLoading from '@/icons/icon-loading.svg'
+import { info } from 'autoprefixer'
+
+function displayDatesOfService(store) {
+    const { form } = store.state
+
+    switch (form.VI_OPT) {
+        case 'MR':
+            return 'Most recent visit'
+        case 'ALL':
+            return 'All visits'
+        case 'DR':
+            const startDate = dayjs(form.VI_DR_SD).format('MM/DD/YYYY')
+            const endDate = dayjs(form.VI_DR_ED).format('MM/DD/YYYY')
+            return `${startDate} - ${endDate}`
+        default:
+            return null
+    }
+}
+
+function displayRequestedInformation(store) {
+    const { form } = store.state
+
+    const info = form.RI_CB.map(checkbox => {
+        switch (checkbox) {
+            case 'MR':
+                return 'Medical Records'
+            case 'IB':
+                return 'Itemized Billing'
+            case 'RI':
+                return 'Radiology Images'
+            case 'PS':
+                return 'Pathology Slides'
+            default:
+                return null
+        }
+    })
+
+    return info.join(', ')
+}
+
+function displayDeliveryMethod(store) {
+    const { form } = store.state
+
+    switch (form.DI_DM_DD) {
+        case 'PS':
+            return 'Postal Service - Mail'
+        case 'PU':
+            return 'Pick Up'
+        default:
+            return null
+    }
+}
 
 export const LayoutReview = ({ children }) => {
     const store = useStore()
@@ -66,6 +119,8 @@ export const LayoutReview = ({ children }) => {
     //     }
     // }, [])
 
+    if (typeof window === 'undefined') return null
+
     return (
         <Layout>
             <Stepper />
@@ -106,11 +161,10 @@ export const LayoutReview = ({ children }) => {
                         </SectionHeading>
 
                         <Text>
-                            {/* TODO: Show real data using `store.state.trackingNumbers` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Tracking Number(s):
                             </Text>{' '}
-                            67-192171, 68-150595, 69-156512
+                            {store.state.trackingNumbers.join(', ')}
                         </Text>
 
                         <Text>
@@ -121,74 +175,68 @@ export const LayoutReview = ({ children }) => {
                         </Text>
 
                         <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
                             <Text as="span" className="block text-sm font-bold">
                                 Patient DOB:
                             </Text>{' '}
-                            3/3/1977
-                        </Text>
-
-                        <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
-                            <Text as="span" className="block text-sm font-bold">
-                                Dates of Service:{' '}
-                            </Text>
-                            Most recent visit
-                        </Text>
-
-                        <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
-                            <Text as="span" className="block text-sm font-bold">
-                                Requested Information:{' '}
-                            </Text>
-                            Medical Records: PERTINENT; Itemized Billing;
-                            Radiology Images; Pathology Slides
-                        </Text>
-
-                        <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
-                            <Text as="span" className="block text-sm font-bold">
-                                Purpose of Request:{' '}
-                            </Text>
-                            test
-                        </Text>
-
-                        <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
-                            <Text as="span" className="block text-sm font-bold">
-                                Limitations:{' '}
-                            </Text>
-                            None
-                        </Text>
-
-                        <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
-                            <Text as="span" className="block text-sm font-bold">
-                                Phone:{' '}
-                            </Text>
-                            (858) 254-8585
-                        </Text>
-
-                        <Text>
-                            {/* TODO: Show real data using `store.state.form` */}
-                            <Text as="span" className="block text-sm font-bold">
-                                Email:{' '}
-                            </Text>
-                            dwhite@abtvault.com
+                            {dayjs(store.state.form.PI_DOB).format(
+                                'MM/DD/YYYY'
+                            )}
                         </Text>
 
                         <Text>
                             <Text as="span" className="block text-sm font-bold">
-                                Delivery Method for Records:{' '}
-                            </Text>
+                                Dates of Service:
+                            </Text>{' '}
+                            {displayDatesOfService(store)}
                         </Text>
 
                         <Text>
                             <Text as="span" className="block text-sm font-bold">
-                                Delivery Method for CDs/Slides:{' '}
-                            </Text>
-                            VitalChart &reg; Virtual ROI Portal. Pick up CDs
-                            and/or slides at the facility.
+                                Requested Information:
+                            </Text>{' '}
+                            {displayRequestedInformation(store)}
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Purpose of Request:
+                            </Text>{' '}
+                            {store.state.form.PR_PUR}
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Limitations:
+                            </Text>{' '}
+                            {store.state.form?.PR_LIM || 'None'}
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Phone:
+                            </Text>{' '}
+                            {formatPhoneNumber(store.state.form.YI_PN)}
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Email:
+                            </Text>{' '}
+                            {store.state.form.YI_EM}
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Delivery Method for Records:
+                            </Text>{' '}
+                            VitalChart &reg; Virtual ROI Portal
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Delivery Method for CDs/Slides:
+                            </Text>{' '}
+                            {displayDeliveryMethod(store)}
                         </Text>
 
                         {/* TODO: Update href using `router.pathname` */}
