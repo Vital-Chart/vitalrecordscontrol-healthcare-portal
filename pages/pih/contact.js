@@ -1,7 +1,6 @@
 import { LayoutContact } from '@/components/layouts'
-import hospital from '@/lib/hospitals'
 
-const Contact = () => {
-    return <LayoutContact hospital={hospital.pih} />
+const PIHContact = () => {
+    return <LayoutContact />
 }
-export default Contact
+export default PIHContact

@@ -1,5 +1,4 @@
-import { useState, useCallback } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect, useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 import { useDropzone } from 'react-dropzone'
@@ -7,6 +6,7 @@ const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useStore } from '@/lib/store'
 import { createRequest, createAuthForm } from '@/lib/api'
 import { isTouchDevice } from '@/lib/helpers'
+import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
@@ -55,8 +55,9 @@ const FacilityList = () => {
 }
 
 export const LayoutUpload = ({ children }) => {
-    const router = useRouter()
     const store = useStore()
+    const { getStep, goToStep, hasUploadAccess } = useNavigation()
+
     const [errors, setErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const hasTouch = isTouchDevice()
@@ -77,12 +78,7 @@ export const LayoutUpload = ({ children }) => {
         if (store.state.newFiles.length === 0) {
             if (store.state.uploadedFiles.length > 0) {
                 // Redirect to next step
-                router.push(
-                    `${router.pathname
-                        .split('/')
-                        .slice(0, -1)
-                        .join('/')}/review`
-                )
+                goToStep('review')
             } else {
                 // TODO: Create "no uploads added" error
                 setErrors([100000])
@@ -108,12 +104,7 @@ export const LayoutUpload = ({ children }) => {
                     })
 
                     // Redirect to next step
-                    router.push(
-                        `${router.pathname
-                            .split('/')
-                            .slice(0, -1)
-                            .join('/')}/review`
-                    )
+                    goToStep('review')
                 }
             } catch (error) {
                 // General server error
@@ -160,16 +151,14 @@ export const LayoutUpload = ({ children }) => {
         }
     }
 
-    // TODO: Re-enable data checking
-    // useEffect(() => {
-    //     // Get hospital name from first directory after 'pages' root
-    //     const hospital = router.pathname.split('/')[1]
+    // Redirect to form step if no tracking number exists
+    useEffect(() => {
+        if (!hasUploadAccess) goToStep('form')
+    }, [hasUploadAccess])
 
-    //     // Redirect to hospital landing page if no tracking number exists
-    //     if (!store.state.trackingNumbers) {
-    //         router.push(`/${hospital}`)
-    //     }
-    // }, [router])
+    if (typeof window === 'undefined' || !hasUploadAccess) {
+        return null
+    }
 
     return (
         <Layout>
@@ -428,8 +417,11 @@ export const LayoutUpload = ({ children }) => {
                     </Box>
 
                     <ButtonWrapper>
-                        {/* TODO: Going to have to do something different (should go back a step, not actual browser back) */}
-                        <Button onClick={() => router.back()} variant="outline">
+                        <Button
+                            as={Link}
+                            href={getStep('form')}
+                            variant="outline"
+                        >
                             Go Back
                         </Button>
 

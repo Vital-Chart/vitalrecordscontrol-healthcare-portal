@@ -1,11 +1,12 @@
 import { withStore } from '@/lib/store'
-import { useRoute } from '@/lib/route'
+import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
 const PIHPatient = ({ store }) => {
-    const { hospital, option } = useRoute()
+    const { getLandingPage, getStep } = useNavigation()
+
     return (
         <Layout>
             <Container>
@@ -13,6 +14,7 @@ const PIHPatient = ({ store }) => {
                     <PageHeading>
                         Information for Submitting Requests
                     </PageHeading>
+
                     <Box>
                         <Text className="pb-4 leading-relaxed">
                             This website allows you to request copies of your
@@ -20,6 +22,7 @@ const PIHPatient = ({ store }) => {
                             Please read the important notes below before
                             continuing to use this system:
                         </Text>
+
                         <Box
                             as="ol"
                             className="pl-8 pb-2 space-y-2 list-decimal"
@@ -48,7 +51,7 @@ const PIHPatient = ({ store }) => {
                                 insurance company, or other),{' '}
                                 {/* TODO: Update this link to use router */}
                                 <Link
-                                    href="/pih/sendto/"
+                                    href={`${getLandingPage()}/sendto`}
                                     className="underline font-bold text-blue hover:text-black transition-colors"
                                 >
                                     click here
@@ -105,22 +108,24 @@ const PIHPatient = ({ store }) => {
                                 If you request records from multiple facilities,
                                 you will get ONE tracking number for each
                                 facility, as each facility processes records
-                                separately.{' '}
+                                separately.
                             </Box>
                         </Box>
                     </Box>
+
                     <ButtonWrapper>
                         <Button
                             as={Link}
-                            href={`/${hospital}`}
+                            href={getLandingPage()}
                             variant="outline"
                             className="flex-grow text-center"
                         >
                             Back
                         </Button>
+
                         <Button
                             as={Link}
-                            href={`/${hospital}/${option}/form`}
+                            href={getStep('form')}
                             variant="filled"
                             className="flex-grow text-center"
                         >

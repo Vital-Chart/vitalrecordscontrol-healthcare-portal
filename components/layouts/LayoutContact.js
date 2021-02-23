@@ -1,10 +1,15 @@
-import { useRouter } from 'next/router'
+import useNavigation from '@/lib/useNavigation'
+import hospitals from '@/lib/hospitals'
 import { Layout, Container } from '@/components/general'
 import { Box, Text, Button, Link } from '@/components/core'
 import { PageHeading } from '@/components/atoms'
 
-export const LayoutContact = ({ hospital }) => {
-    const router = useRouter()
+export const LayoutContact = () => {
+    const { hospital: hospitalSlug, goBack } = useNavigation()
+    const hospital = hospitals[hospitalSlug]
+
+    // Return 404 if doesn't exist
+    // if (!hospital) return <Error status="404" />
 
     return (
         <Layout>
@@ -26,7 +31,7 @@ export const LayoutContact = ({ hospital }) => {
                         }
 
                         return (
-                            <Box>
+                            <Box key={facility.id}>
                                 <Text className="font-bold">
                                     {facility.name}
                                 </Text>
@@ -37,11 +42,7 @@ export const LayoutContact = ({ hospital }) => {
                         )
                     })}
 
-                    <Button
-                        onClick={() => router.back()}
-                        href="/pih/patient/form"
-                        variant="filled"
-                    >
+                    <Button onClick={() => goBack()} variant="filled">
                         Go Back
                     </Button>
                 </Box>

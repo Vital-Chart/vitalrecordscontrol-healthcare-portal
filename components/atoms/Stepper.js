@@ -1,19 +1,18 @@
-import { useRouter } from 'next/router'
+import useNavigation from '@/lib/useNavigation'
 import cx from 'classnames'
-import { useRoute } from '@/lib/route'
 import { Box, Flex, Link, Text } from '@/components/core'
 import { Container } from '@/components/general'
 
 import IconSlash from '@/icons/icon-slash.svg'
 
 const StepperLink = ({ children, href, className, ...props }) => {
-    const router = useRouter()
+    const { pathname } = useNavigation()
 
     return (
         <Link
             href={href}
             className={cx(
-                router.pathname === href
+                pathname === href
                     ? 'font-bold text-black transition-colors'
                     : 'text-gray',
                 'hover:text-black',
@@ -27,7 +26,7 @@ const StepperLink = ({ children, href, className, ...props }) => {
 }
 
 export const Stepper = ({ className, ...props }) => {
-    const { hospital, option, canUploadAuth, canSubmit } = useRoute()
+    const { getStep, hasUploadAccess, hasSubmitAccess } = useNavigation()
 
     return (
         <Box className={cx('py-4 mb-4 bg-gray-lightest', className)} {...props}>
@@ -37,7 +36,7 @@ export const Stepper = ({ className, ...props }) => {
                         <Box as="li">
                             <Box>
                                 <StepperLink
-                                    href={`/${hospital}/${option}/form`}
+                                    href={getStep('form')}
                                     className="text-sm text-center sm:text-left"
                                 >
                                     Request Information
@@ -47,9 +46,9 @@ export const Stepper = ({ className, ...props }) => {
                         <Box as="li">
                             <Flex className="items-center">
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
-                                {canUploadAuth ? (
+                                {hasUploadAccess ? (
                                     <StepperLink
-                                        href={`/${hospital}/${option}/upload`}
+                                        href={getStep('upload')}
                                         className="ml-4 text-sm text-center sm:text-left"
                                     >
                                         Provide Authorization Information
@@ -64,9 +63,9 @@ export const Stepper = ({ className, ...props }) => {
                         <Box as="li">
                             <Flex className="items-center">
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
-                                {canSubmit ? (
+                                {hasSubmitAccess ? (
                                     <StepperLink
-                                        href={`/${hospital}/${option}/review`}
+                                        href={getStep('review')}
                                         className="ml-4 text-sm text-center sm:text-left"
                                     >
                                         Review & Submit

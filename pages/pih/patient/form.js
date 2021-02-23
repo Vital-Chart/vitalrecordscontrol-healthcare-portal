@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 import * as dayjs from 'dayjs'
@@ -8,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { states } from '@/lib/helpers'
+import useNavigation from '@/lib/useNavigation'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
     Box,
@@ -38,7 +38,7 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const PIHForm = ({ store }) => {
-    const router = useRouter()
+    const { getLandingPage, goToStep, getContactPage } = useNavigation()
 
     const {
         register,
@@ -78,7 +78,7 @@ const PIHForm = ({ store }) => {
                 inError,
             } = await createRequest(store.state.form)
 
-            console.log({ trackingNumbers, errorNumber, inError })
+            // console.log({ trackingNumbers, errorNumber, inError })
 
             if (inError) {
                 setServerErrors(errorNumber)
@@ -92,18 +92,7 @@ const PIHForm = ({ store }) => {
                 setIsFetching(false)
 
                 // Redirect to next step
-                // console.log(
-                //     `Redirect to: ${router.pathname
-                //         .split('/')
-                //         .slice(0, -1)
-                //         .join('/')}/upload`
-                // )
-                router.push(
-                    `${router.pathname
-                        .split('/')
-                        .slice(0, -1)
-                        .join('/')}/upload`
-                )
+                gotToStep('upload')
             }
         } catch (error) {
             // General server error
@@ -1086,7 +1075,7 @@ const PIHForm = ({ store }) => {
                                     <Box as="li">
                                         Please{' '}
                                         <Link
-                                            href="/pih/contact"
+                                            href={getContactPage()}
                                             className="underline font-bold text-blue hover:text-black transition-colors"
                                         >
                                             contact us
@@ -1382,8 +1371,12 @@ const PIHForm = ({ store }) => {
                         </FormSection>
 
                         <ButtonWrapper>
-                            {/* TODO: Go back to landing page */}
-                            <Button variant="outline" className="flex-1">
+                            <Button
+                                as={Link}
+                                href={getLandingPage()}
+                                variant="outline"
+                                className="flex-1"
+                            >
                                 Cancel
                             </Button>
 

@@ -1,11 +1,12 @@
 import { withStore } from '@/lib/store'
-import { useRoute } from '@/lib/route.js'
+import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
 import { PageHeading, Info } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
 const PIH = () => {
-    const { hospital } = useRoute()
+    const { getLandingPage } = useNavigation()
+
     return (
         <Layout>
             <Container>
@@ -13,10 +14,7 @@ const PIH = () => {
                     Order Your Medical Records Online
                 </PageHeading>
                 <Flex className="justify-center mb-6">
-                    <Info
-                        secondaryText="NOTICE: This site is for Patient or Patient Directed Use
-                    Only. Fees for processing medical records requests are non-refundable."
-                    />
+                    <Info secondaryText="NOTICE: This site is for Patient or Patient Directed Use Only. Fees for processing medical records requests are non-refundable." />
                 </Flex>
 
                 <Flex className="max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
@@ -45,7 +43,7 @@ const PIH = () => {
 
                             <Button
                                 as={Link}
-                                href={`/${hospital}/patient`}
+                                href={`${getLandingPage()}/patient`}
                                 variant="filled"
                                 className="text-sm text-center"
                             >
@@ -53,6 +51,7 @@ const PIH = () => {
                             </Button>
                         </Flex>
                     </Flex>
+
                     <Flex className="flex-1 border-t-8 border-secondary">
                         <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                             <Box className="pb-8">
@@ -78,7 +77,7 @@ const PIH = () => {
 
                             <Button
                                 as={Link}
-                                href={`/${hospital}/sendto`}
+                                href={`${getLandingPage()}/sendto`}
                                 variant="filledSecondary"
                                 className="text-sm text-center"
                             >

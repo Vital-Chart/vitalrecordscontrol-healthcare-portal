@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect, useState, useRef } from 'react'
 import cx from 'classnames'
 import * as dayjs from 'dayjs'
 import SignatureCanvas from 'react-signature-canvas'
 import { useStore } from '@/lib/store'
 import { finishRequest } from '@/lib/api'
 import { isTouchDevice, formatPhoneNumber } from '@/lib/helpers'
+import useNavigation from '@/lib/useNavigation'
 import { Layout, Container } from '@/components/general'
 import { Box, Text, Button, Link } from '@/components/core'
 import {
@@ -72,7 +72,12 @@ function displayDeliveryMethod(store) {
 
 export const LayoutReview = ({ children }) => {
     const store = useStore()
-    const router = useRouter()
+    const {
+        getStep,
+        goToStep,
+        hasUploadAccess,
+        hasSubmitAccess,
+    } = useNavigation()
     const canvasRef = useRef(null)
     const [errors, setErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -107,18 +112,15 @@ export const LayoutReview = ({ children }) => {
         }
     }
 
-    // TODO: Re-enable data checking
-    // useEffect(() => {
-    //     // Get hospital name from first directory after 'pages' root
-    //     const hospital = router.pathname.split('/')[1]
+    // Redirect to form/upload step if no tracking number/uploads exist
+    useEffect(() => {
+        if (!hasUploadAccess) goToStep('form')
+        if (!hasSubmitAccess) goToStep('upload')
+    }, [hasUploadAccess, hasSubmitAccess])
 
-    //     // Redirect to hospital landing page if no tracking number exists
-    //     if (!store.state.trackingNumbers && !store.state.uploadedFiles) {
-    //         router.push(`/${hospital}`)
-    //     }
-    // }, [])
-
-    if (typeof window === 'undefined') return null
+    if (typeof window === 'undefined' || !hasUploadAccess || !hasSubmitAccess) {
+        return null
+    }
 
     return (
         <Layout>
@@ -134,9 +136,8 @@ export const LayoutReview = ({ children }) => {
                         <Text className="leading-relaxed">
                             Please review your submission below for accuracy. If
                             there are any errors,{' '}
-                            {/* TODO: Update href using `router.pathname` */}
                             <Link
-                                href="/pih/patient/form"
+                                href={getStep('form')}
                                 className="underline font-bold text-blue hover:text-black transition-colors"
                             >
                                 please click here to correct them.
@@ -238,10 +239,9 @@ export const LayoutReview = ({ children }) => {
                             {displayDeliveryMethod(store)}
                         </Text>
 
-                        {/* TODO: Update href using `router.pathname` */}
                         <Button
                             as={Link}
-                            href="/pih/patient/form"
+                            href={getStep('form')}
                             variant="outline"
                             className="inline-block"
                         >
@@ -256,10 +256,9 @@ export const LayoutReview = ({ children }) => {
 
                         <UploadsList isEditable={false} />
 
-                        {/* TODO: Update href using `router.pathname` */}
                         <Button
                             as={Link}
-                            href="/pih/patient/upload"
+                            href={getStep('upload')}
                             variant="outline"
                             className="inline-block"
                         >
@@ -338,8 +337,11 @@ export const LayoutReview = ({ children }) => {
                     )}
 
                     <ButtonWrapper>
-                        {/* TODO: Going to have to do something different (should go back a step, not actual browser back) */}
-                        <Button onClick={() => router.back()} variant="outline">
+                        <Button
+                            as={Link}
+                            href={getStep('upload')}
+                            variant="outline"
+                        >
                             Go Back
                         </Button>
 
