@@ -58,7 +58,7 @@ export const LayoutUpload = ({ children }) => {
     const store = useStore()
     const { getStep, goToStep, hasUploadAccess } = useNavigation()
 
-    const [errors, setErrors] = useState([])
+    const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const hasTouch = isTouchDevice()
 
@@ -81,22 +81,22 @@ export const LayoutUpload = ({ children }) => {
                 goToStep('review')
             } else {
                 // TODO: Create "no uploads added" error
-                setErrors([100000])
+                setServerErrors([100000])
             }
         } else {
             setIsFetching(true)
 
             try {
-                const { errorInformation, inError } = await createRequest({
+                const { inError, errorInformation } = await createRequest({
                     ...store.state.form,
                     files: store.state.newFiles,
                 })
 
                 if (inError) {
-                    setErrors(errorNumber)
+                    setServerErrors(errorInformation.errorNumber)
                     setIsFetching(false)
                 } else {
-                    setErrors([])
+                    setServerErrors([])
                     setIsFetching(false)
 
                     store.dispatch({
@@ -108,7 +108,7 @@ export const LayoutUpload = ({ children }) => {
                 }
             } catch (error) {
                 // General server error
-                setErrors([100000])
+                setServerErrors([100000])
                 setIsFetching(false)
             }
         }
@@ -123,18 +123,18 @@ export const LayoutUpload = ({ children }) => {
         }
 
         try {
-            const { FormURI, inError, errorNumber } = await createAuthForm(
+            const { FormURI, inError, errorInformation } = await createAuthForm(
                 store.state.trackingNumbers[0],
                 store.state.form
             )
 
-            console.log({ FormURI, inError, errorNumber })
+            // console.log({ FormURI, inError, errorInformation })
 
             if (inError) {
-                setErrors(errorNumber)
+                setServerErrors(errorInformation.errorNumber)
                 // setIsFetching(false)
             } else {
-                setErrors([])
+                setServerErrors([])
                 // setIsFetching(false)
 
                 store.dispatch({
@@ -146,7 +146,7 @@ export const LayoutUpload = ({ children }) => {
             }
         } catch (error) {
             // General server error
-            setErrors([100000])
+            setServerErrors([100000])
             // setIsFetching(false)
         }
     }
@@ -171,9 +171,9 @@ export const LayoutUpload = ({ children }) => {
                     <Box className="pb-8 border-b border-gray-light">
                         <Text className="pb-4">
                             Your request has been saved and assigned tracking
-                            number:{' '}
+                            number(s):{' '}
                             <Text as="span" className="font-bold">
-                                {store.state.trackingNumbers[0]}
+                                {store.state.trackingNumbers.join(', ')}
                             </Text>
                             .
                         </Text>
@@ -408,7 +408,7 @@ export const LayoutUpload = ({ children }) => {
                         <UploadsList className="mt-8" />
 
                         {/* TODO: Handle showing server/upload errors */}
-                        {errors.length > 0 && (
+                        {serverErrors.length > 0 && (
                             <ErrorMessage
                                 message="There are errors on the page..."
                                 className="mt-4 pb-0"

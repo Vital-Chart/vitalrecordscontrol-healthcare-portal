@@ -73,8 +73,10 @@ function displayDeliveryMethod(store) {
 export const LayoutReview = ({ children }) => {
     const store = useStore()
     const {
+        hospital,
         getStep,
         goToStep,
+        goToSuccessPage,
         hasUploadAccess,
         hasSubmitAccess,
     } = useNavigation()
@@ -87,15 +89,13 @@ export const LayoutReview = ({ children }) => {
         setIsFetching(true)
 
         try {
-            const response = await finishRequest({
+            const { inError, errorInformation } = await finishRequest({
                 ...store.state.form,
                 esig: store.state.signature,
             })
 
-            // console.log({ response })
-
             if (inError) {
-                setServerErrors(errorNumber)
+                setServerErrors(errorInformation.errorNumber)
                 setIsFetching(false)
             } else {
                 setServerErrors([])
@@ -103,7 +103,10 @@ export const LayoutReview = ({ children }) => {
 
                 // TODO: Update `store` with value to denote request has been sent,
                 // or just wipe state and redirect to success page?
-                console.log(`Show request finished message`)
+                store.dispatch({
+                    type: 'UPDATE_SUCCESS',
+                    value: hospital,
+                })
             }
         } catch (error) {
             // General server error
@@ -113,10 +116,12 @@ export const LayoutReview = ({ children }) => {
     }
 
     // Redirect to form/upload step if no tracking number/uploads exist
+    // or there is success data
     useEffect(() => {
-        if (!hasUploadAccess) goToStep('form')
-        if (!hasSubmitAccess) goToStep('upload')
-    }, [hasUploadAccess, hasSubmitAccess])
+        if (store.state.success) goToSuccessPage()
+        else if (!hasUploadAccess) goToStep('form')
+        else if (!hasSubmitAccess) goToStep('upload')
+    }, [store, hasUploadAccess, hasSubmitAccess])
 
     if (typeof window === 'undefined' || !hasUploadAccess || !hasSubmitAccess) {
         return null

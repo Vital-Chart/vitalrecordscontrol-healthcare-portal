@@ -92,7 +92,7 @@ const PIHForm = ({ store }) => {
                 setIsFetching(false)
 
                 // Redirect to next step
-                gotToStep('upload')
+                goToStep('upload')
             }
         } catch (error) {
             // General server error
