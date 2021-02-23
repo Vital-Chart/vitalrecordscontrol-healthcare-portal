@@ -1139,244 +1139,280 @@ const PIHForm = ({ store }) => {
                                                 />
                                             )}
                                         </Box>
-                                    </>
-                                )}
+                                        {watchDeliveryMethod.includes('PS') && (
+                                            <Box className="mb-4">
+                                                <Text className="mb-4">
+                                                    Radiology CDs and/or
+                                                    Pathology Slides will be
+                                                    mailed to the address you
+                                                    enter below via the US
+                                                    Postal Service. The
+                                                    department will contact you
+                                                    if additional information is
+                                                    required.
+                                                </Text>
 
-                                {watchDeliveryMethod.includes('PS') && (
-                                    <Box className="mb-4">
-                                        <Text className="mb-4">
-                                            Radiology CDs and/or Pathology
-                                            Slides will be mailed to the address
-                                            you enter below via the US Postal
-                                            Service. The department will contact
-                                            you if additional information is
-                                            required.
-                                        </Text>
-
-                                        <Label htmlFor="DI_NM">Name</Label>
-                                        <Input
-                                            type="text"
-                                            name="DI_NM"
-                                            id="DI_NM"
-                                            className="w-full mt-1 mb-2"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter a name.',
-                                            })}
-                                        />
-
-                                        {errors.DI_NM && (
-                                            <ErrorMessage
-                                                message={errors.DI_NM.message}
-                                            />
-                                        )}
-
-                                        <Label htmlFor="DI_ATN">
-                                            Attention
-                                        </Label>
-                                        <Input
-                                            type="text"
-                                            name="DI_ATN"
-                                            id="DI_ATN"
-                                            className="w-full mt-1 mb-2"
-                                            onChange={handleChange}
-                                            ref={register}
-                                        />
-
-                                        <Label htmlFor="DI_ADDR1">
-                                            Address
-                                        </Label>
-                                        <Input
-                                            type="text"
-                                            name="DI_ADDR1"
-                                            id="DI_ADDR1"
-                                            className="w-full mt-1  mb-2"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter an address.',
-                                            })}
-                                        />
-
-                                        {errors.DI_ADDR1 && (
-                                            <ErrorMessage
-                                                message={
-                                                    errors.DI_ADDR1.message
-                                                }
-                                            />
-                                        )}
-
-                                        <Label htmlFor="DI_ADDR2">
-                                            Address Line 2
-                                        </Label>
-                                        <Input
-                                            type="text"
-                                            name="DI_ADDR2"
-                                            id="DI_ADDR2"
-                                            className="w-full mt-1  mb-2"
-                                            onChange={handleChange}
-                                            ref={register}
-                                        />
-
-                                        <Label htmlFor="DI_CITY">City</Label>
-                                        <Input
-                                            type="text"
-                                            name="DI_CITY"
-                                            id="DI_CITY"
-                                            className="w-full mt-1 mb-2"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter a city.',
-                                            })}
-                                        />
-
-                                        {errors.DI_CITY && (
-                                            <ErrorMessage
-                                                message={errors.DI_CITY.message}
-                                            />
-                                        )}
-                                        <Flex>
-                                            <Box>
-                                                <Label htmlFor="DI_ST_DD">
-                                                    State
-                                                </Label>
-                                                <Select
-                                                    name="DI_ST_DD"
-                                                    id="DI_ST_DD"
-                                                    className="block mt-1 mr-4"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        validate: {
-                                                            stateCheck: value =>
-                                                                value !==
-                                                                    'Select a state' ||
-                                                                'Please select a state.',
-                                                        },
-                                                    })}
-                                                >
-                                                    <option>
-                                                        Select a state
-                                                    </option>
-                                                    {Object.keys(states).map(
-                                                        key => (
-                                                            <option
-                                                                value={key}
-                                                                key={key}
-                                                            >
-                                                                {states[key]}
-                                                            </option>
-                                                        )
-                                                    )}
-                                                </Select>
-
-                                                {errors.DI_ST_DD && (
-                                                    <ErrorMessage
-                                                        message={
-                                                            errors.DI_ST_DD
-                                                                .message
-                                                        }
-                                                    />
-                                                )}
-                                            </Box>
-                                            <Box>
-                                                <Label htmlFor="DI_ZIP">
-                                                    Zip
+                                                <Label htmlFor="DI_NM">
+                                                    Name
                                                 </Label>
                                                 <Input
                                                     type="text"
-                                                    name="DI_ZIP"
-                                                    id="DI_ZIP"
-                                                    className="w-full mt-1"
+                                                    name="DI_NM"
+                                                    id="DI_NM"
+                                                    className="w-full mt-1 mb-2"
                                                     onChange={handleChange}
                                                     ref={register({
                                                         required:
-                                                            'Please enter a zip code.',
+                                                            'Please enter a name.',
                                                     })}
                                                 />
 
-                                                {errors.DI_ZIP && (
+                                                {errors.DI_NM && (
                                                     <ErrorMessage
                                                         message={
-                                                            errors.DI_ZIP
+                                                            errors.DI_NM.message
+                                                        }
+                                                    />
+                                                )}
+
+                                                <Label htmlFor="DI_ATN">
+                                                    Attention
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="DI_ATN"
+                                                    id="DI_ATN"
+                                                    className="w-full mt-1 mb-2"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
+
+                                                <Label htmlFor="DI_ADDR1">
+                                                    Address
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="DI_ADDR1"
+                                                    id="DI_ADDR1"
+                                                    className="w-full mt-1  mb-2"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        required:
+                                                            'Please enter an address.',
+                                                    })}
+                                                />
+
+                                                {errors.DI_ADDR1 && (
+                                                    <ErrorMessage
+                                                        message={
+                                                            errors.DI_ADDR1
                                                                 .message
                                                         }
                                                     />
                                                 )}
-                                            </Box>
-                                        </Flex>
-                                    </Box>
-                                )}
-                                {watchDeliveryMethod.includes('PU') && (
-                                    <Box className="mb-4 space-y-4">
-                                        <Text>
-                                            Once available, Radiology Images
-                                            and/or Pathology Slides can be
-                                            picked up from the facility or
-                                            facilities listed below.
-                                        </Text>
-                                        {watchFacilityCheckboxes.includes(
-                                            'P7202-1'
-                                        ) && (
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    PIH Health Hospital - Downey
-                                                </Text>
-                                                <Text>
-                                                    11500 Brookshire Avenue
-                                                </Text>
-                                                <Text>Downey, CA 90241</Text>
-                                                <Text>
-                                                    (562) 904-5166 x26177
-                                                </Text>
-                                            </Box>
-                                        )}
 
-                                        {watchFacilityCheckboxes.includes(
-                                            'P7201-1'
-                                        ) && (
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    PIH Health Hospital -
-                                                    Whittier
-                                                </Text>
-                                                <Text>
-                                                    12401 Washington Blvd
-                                                </Text>
-                                                <Text>Whittier, CA 90602</Text>
-                                                <Text>
-                                                    (562) 698-0811 x13685
-                                                </Text>
-                                            </Box>
-                                        )}
+                                                <Label htmlFor="DI_ADDR2">
+                                                    Address Line 2
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="DI_ADDR2"
+                                                    id="DI_ADDR2"
+                                                    className="w-full mt-1  mb-2"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
 
-                                        {watchFacilityCheckboxes.includes(
-                                            'P7203-1'
-                                        ) && (
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    PIH Health Physicians
-                                                </Text>
-                                                <Text>
-                                                    12401 Washington Blvd
-                                                </Text>
-                                                <Text>Whittier, CA 90602</Text>
-                                                <Text>
-                                                    (562) 698-0811 x13858
-                                                </Text>
+                                                <Label htmlFor="DI_CITY">
+                                                    City
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="DI_CITY"
+                                                    id="DI_CITY"
+                                                    className="w-full mt-1 mb-2"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        required:
+                                                            'Please enter a city.',
+                                                    })}
+                                                />
+
+                                                {errors.DI_CITY && (
+                                                    <ErrorMessage
+                                                        message={
+                                                            errors.DI_CITY
+                                                                .message
+                                                        }
+                                                    />
+                                                )}
+                                                <Flex>
+                                                    <Box>
+                                                        <Label htmlFor="DI_ST_DD">
+                                                            State
+                                                        </Label>
+                                                        <Select
+                                                            name="DI_ST_DD"
+                                                            id="DI_ST_DD"
+                                                            className="block mt-1 mr-4"
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            ref={register({
+                                                                validate: {
+                                                                    stateCheck: value =>
+                                                                        value !==
+                                                                            'Select a state' ||
+                                                                        'Please select a state.',
+                                                                },
+                                                            })}
+                                                        >
+                                                            <option>
+                                                                Select a state
+                                                            </option>
+                                                            {Object.keys(
+                                                                states
+                                                            ).map(key => (
+                                                                <option
+                                                                    value={key}
+                                                                    key={key}
+                                                                >
+                                                                    {
+                                                                        states[
+                                                                            key
+                                                                        ]
+                                                                    }
+                                                                </option>
+                                                            ))}
+                                                        </Select>
+
+                                                        {errors.DI_ST_DD && (
+                                                            <ErrorMessage
+                                                                message={
+                                                                    errors
+                                                                        .DI_ST_DD
+                                                                        .message
+                                                                }
+                                                            />
+                                                        )}
+                                                    </Box>
+                                                    <Box>
+                                                        <Label htmlFor="DI_ZIP">
+                                                            Zip
+                                                        </Label>
+                                                        <Input
+                                                            type="text"
+                                                            name="DI_ZIP"
+                                                            id="DI_ZIP"
+                                                            className="w-full mt-1"
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            ref={register({
+                                                                required:
+                                                                    'Please enter a zip code.',
+                                                            })}
+                                                        />
+
+                                                        {errors.DI_ZIP && (
+                                                            <ErrorMessage
+                                                                message={
+                                                                    errors
+                                                                        .DI_ZIP
+                                                                        .message
+                                                                }
+                                                            />
+                                                        )}
+                                                    </Box>
+                                                </Flex>
                                             </Box>
                                         )}
-                                    </Box>
+                                        {watchDeliveryMethod.includes('PU') && (
+                                            <Box className="mb-4 space-y-4">
+                                                <Text>
+                                                    Once available, Radiology
+                                                    Images and/or Pathology
+                                                    Slides can be picked up from
+                                                    the facility or facilities
+                                                    listed below.
+                                                </Text>
+                                                {watchFacilityCheckboxes.includes(
+                                                    'P7202-1'
+                                                ) && (
+                                                    <Box>
+                                                        <Text
+                                                            as="span"
+                                                            className="font-bold"
+                                                        >
+                                                            PIH Health Hospital
+                                                            - Downey
+                                                        </Text>
+                                                        <Text>
+                                                            11500 Brookshire
+                                                            Avenue
+                                                        </Text>
+                                                        <Text>
+                                                            Downey, CA 90241
+                                                        </Text>
+                                                        <Text>
+                                                            (562) 904-5166
+                                                            x26177
+                                                        </Text>
+                                                    </Box>
+                                                )}
+
+                                                {watchFacilityCheckboxes.includes(
+                                                    'P7201-1'
+                                                ) && (
+                                                    <Box>
+                                                        <Text
+                                                            as="span"
+                                                            className="font-bold"
+                                                        >
+                                                            PIH Health Hospital
+                                                            - Whittier
+                                                        </Text>
+                                                        <Text>
+                                                            12401 Washington
+                                                            Blvd
+                                                        </Text>
+                                                        <Text>
+                                                            Whittier, CA 90602
+                                                        </Text>
+                                                        <Text>
+                                                            (562) 698-0811
+                                                            x13685
+                                                        </Text>
+                                                    </Box>
+                                                )}
+
+                                                {watchFacilityCheckboxes.includes(
+                                                    'P7203-1'
+                                                ) && (
+                                                    <Box>
+                                                        <Text
+                                                            as="span"
+                                                            className="font-bold"
+                                                        >
+                                                            PIH Health
+                                                            Physicians
+                                                        </Text>
+                                                        <Text>
+                                                            12401 Washington
+                                                            Blvd
+                                                        </Text>
+                                                        <Text>
+                                                            Whittier, CA 90602
+                                                        </Text>
+                                                        <Text>
+                                                            (562) 698-0811
+                                                            x13858
+                                                        </Text>
+                                                    </Box>
+                                                )}
+                                            </Box>
+                                        )}
+                                    </>
                                 )}
                             </Box>
                         </FormSection>
