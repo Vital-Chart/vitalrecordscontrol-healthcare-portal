@@ -18,18 +18,18 @@ const Home = ({ store }) => (
                     PIH - Patient - Review & Submit
                 </Link>
             </Flex>
-            <Flex className="flex-col">
+            {/* <Flex className="flex-col">
                 <Link href="/pih/sendto">PIH - Send To - Instructions</Link>
                 <Link href="/pih/sendto/form">
                     PIH - Send To - Request Form
                 </Link>
                 <Link href="/pih/sendto/upload">
-                    PIH - Patient - Upload Authorization
+                    PIH - Send To - Upload Authorization
                 </Link>
                 <Link href="/pih/sendto/review">
-                    PIH - Patient - Review & Submit
+                    PIH - Send To - Review & Submit
                 </Link>
-            </Flex>
+            </Flex> */}
         </Flex>
     </Layout>
 )
