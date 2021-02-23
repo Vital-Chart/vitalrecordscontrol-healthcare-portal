@@ -134,6 +134,7 @@ export const Checkbox = forwardRef(
                     // __variantKey="forms.checkbox"
                     className={cx(
                         'rounded gray-light:ring-offset-0',
+                        { 'opacity-50': props.disabled },
                         className
                     )}
                     {...props}
