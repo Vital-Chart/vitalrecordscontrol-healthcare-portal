@@ -155,6 +155,12 @@ const PIHForm = ({ store }) => {
                             <SectionHeading>
                                 Facility / Facilities
                             </SectionHeading>
+                            {Array.isArray(store.state.trackingNumbers) && (
+                                <Alert
+                                    primaryAlertText="Your request has been initiated. You cannot change facilities for this request."
+                                    secondaryAlertText="If you'd like to request records from a different facility, please start a new request."
+                                />
+                            )}
                             <Box>
                                 <Box as="legend" className="mb-2">
                                     Please select the facility or facilities
@@ -211,19 +217,21 @@ const PIHForm = ({ store }) => {
                                 </CheckboxWrapper>
                             </Box>
 
-                            {watchFacilityCheckboxes.length > 1 && (
-                                <Alert
-                                    primaryAlertText="You have selected more than one facility."
-                                    secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
-                                />
-                            )}
-
-                            {watchFacilityCheckboxes.length > 0 && (
-                                <Alert
-                                    primaryAlertText="Once you hit 'Continue' below, you cannot change which
+                            {watchFacilityCheckboxes.length > 0 &&
+                                !Array.isArray(store.state.trackingNumbers) && (
+                                    <Alert
+                                        primaryAlertText="Once you hit 'Continue' below, you cannot change which
                     facilities you are requesting from."
-                                    secondaryAlertText="Please double-check to make sure you select the correct
+                                        secondaryAlertText="Please double-check to make sure you select the correct
                     facility or facilities."
+                                    />
+                                )}
+
+                            {watchFacilityCheckboxes.length > 1 && (
+                                <Info
+                                    primaryText="You have selected more than one facility."
+                                    secondaryText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
+                                    className="my-4"
                                 />
                             )}
                         </FormSection>
