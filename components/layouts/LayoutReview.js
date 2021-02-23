@@ -18,7 +18,6 @@ import {
 } from '@/components/atoms'
 
 import IconLoading from '@/icons/icon-loading.svg'
-import { info } from 'autoprefixer'
 
 function displayDatesOfService(store) {
     const { form } = store.state
