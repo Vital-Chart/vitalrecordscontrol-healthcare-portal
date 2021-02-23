@@ -79,7 +79,7 @@ export const LayoutReview = ({ children }) => {
         hasSubmitAccess,
     } = useNavigation()
     const canvasRef = useRef(null)
-    const [errors, setErrors] = useState([])
+    const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const hasTouch = isTouchDevice()
 
@@ -92,13 +92,13 @@ export const LayoutReview = ({ children }) => {
                 esig: store.state.signature,
             })
 
-            console.log({ response })
+            // console.log({ response })
 
             if (inError) {
-                setErrors(errorNumber)
+                setServerErrors(errorNumber)
                 setIsFetching(false)
             } else {
-                setErrors([])
+                setServerErrors([])
                 setIsFetching(false)
 
                 // TODO: Update `store` with value to denote request has been sent,
@@ -107,7 +107,7 @@ export const LayoutReview = ({ children }) => {
             }
         } catch (error) {
             // General server error
-            setErrors([100000])
+            setServerErrors([100000])
             setIsFetching(false)
         }
     }
@@ -327,7 +327,7 @@ export const LayoutReview = ({ children }) => {
                             )} */}
 
                             {/* TODO: Handle showing server/upload/finish errors */}
-                            {errors.length > 0 && (
+                            {serverErrors.length > 0 && (
                                 <ErrorMessage
                                     message="There are errors on the page..."
                                     className="mt-4 pb-0"
