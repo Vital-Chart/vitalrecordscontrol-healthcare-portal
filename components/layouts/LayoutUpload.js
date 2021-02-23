@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { useDropzone } from 'react-dropzone'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useStore } from '@/lib/store'
-import { createRequest } from '@/lib/api'
+import { createRequest, createAuthForm } from '@/lib/api'
 import { isTouchDevice } from '@/lib/helpers'
 import hospitals from '@/lib/hospitals'
 import { Layout, Container, ScreenReader } from '@/components/general'
@@ -123,6 +123,43 @@ export const LayoutUpload = ({ children }) => {
         }
     }
 
+    const handleAuthForm = async () => {
+        // setIsFetching(true)
+
+        if (store.state.authForm) {
+            window.open(store.state.authForm, '_blank')
+            return
+        }
+
+        try {
+            const { FormURI, inError, errorNumber } = await createAuthForm(
+                store.state.trackingNumbers[0],
+                store.state.form
+            )
+
+            console.log({ FormURI, inError, errorNumber })
+
+            if (inError) {
+                setErrors(errorNumber)
+                // setIsFetching(false)
+            } else {
+                setErrors([])
+                // setIsFetching(false)
+
+                store.dispatch({
+                    type: 'UPDATE_AUTH_FORM',
+                    value: FormURI,
+                })
+
+                window.open(FormURI, '_blank')
+            }
+        } catch (error) {
+            // General server error
+            setErrors([100000])
+            // setIsFetching(false)
+        }
+    }
+
     // TODO: Re-enable data checking
     // useEffect(() => {
     //     // Get hospital name from first directory after 'pages' root
@@ -168,13 +205,12 @@ export const LayoutUpload = ({ children }) => {
                                 All requests for medical records require
                                 printing out, signing, and uploading an image of
                                 this{' '}
-                                {/* TODO: Update with correct auth form button */}
-                                <Link
-                                    href="#"
+                                <Button
                                     className="underline font-bold text-blue hover:text-black transition-colors"
+                                    onClick={handleAuthForm}
                                 >
                                     authorization form
-                                </Link>
+                                </Button>
                                 .
                             </Text>{' '}
                             Note that your driver's license or other government
@@ -272,13 +308,12 @@ export const LayoutUpload = ({ children }) => {
                         >
                             <Box as="li">
                                 Print out and sign this{' '}
-                                {/* TODO: Update with correct auth form button */}
-                                <Link
-                                    href="#"
+                                <Button
                                     className="underline font-bold text-blue hover:text-black transition-colors"
+                                    onClick={handleAuthForm}
                                 >
                                     authorization form
-                                </Link>{' '}
+                                </Button>{' '}
                                 along with a copy of a government-issued picture
                                 ID,
                             </Box>
