@@ -1,10 +1,9 @@
-import { withStore } from '@/lib/store'
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
 import { PageHeading, Info } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
-const PIH = () => {
+const HospitalLanding = () => {
     const { getLandingPage } = useNavigation()
 
     return (
@@ -310,4 +309,4 @@ const PIH = () => {
     )
 }
 
-export default withStore(PIH)
+export default HospitalLanding
