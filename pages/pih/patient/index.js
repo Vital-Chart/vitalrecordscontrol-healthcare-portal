@@ -4,10 +4,9 @@ import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
 import { Layout, Container, ScreenReader } from '@/components/general'
-
 import IconClose from '@/icons/icon-close.svg'
 
-const PatientInstructions = () => {
+const Instructions = () => {
     const { getLandingPage, getStep } = useNavigation()
 
     return (
@@ -227,4 +226,4 @@ const PatientInstructions = () => {
     )
 }
 
-export default PatientInstructions
+export default Instructions

@@ -3,7 +3,7 @@ import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
 import { PageHeading, Info } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
-const HospitalLanding = () => {
+const Hospital = () => {
     const { getLandingPage } = useNavigation()
 
     return (
@@ -312,4 +312,4 @@ const HospitalLanding = () => {
     )
 }
 
-export default HospitalLanding
+export default Hospital

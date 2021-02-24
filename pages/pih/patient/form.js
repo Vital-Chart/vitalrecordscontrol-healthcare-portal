@@ -38,7 +38,7 @@ import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
-const PatientForm = ({ store }) => {
+const Form = ({ store }) => {
     const { getLandingPage, goToStep, getContactPage } = useNavigation()
 
     const {
@@ -71,6 +71,7 @@ const PatientForm = ({ store }) => {
         e.preventDefault()
 
         setIsFetching(true)
+        setServerErrors([])
 
         try {
             const {
@@ -1464,4 +1465,4 @@ const PatientForm = ({ store }) => {
     )
 }
 
-export default withStore(PatientForm)
+export default withStore(Form)

@@ -87,6 +87,7 @@ export const LayoutReview = ({ children }) => {
 
     const handleSubmit = async () => {
         setIsFetching(true)
+        setServerErrors([])
 
         try {
             const { inError, errorInformation } = await finishRequest({
@@ -100,7 +101,6 @@ export const LayoutReview = ({ children }) => {
                 )
                 setIsFetching(false)
             } else {
-                setServerErrors([])
                 setIsFetching(false)
 
                 store.dispatch({

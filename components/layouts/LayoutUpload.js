@@ -75,6 +75,8 @@ export const LayoutUpload = ({ children }) => {
     })
 
     const handleSubmit = async () => {
+        setServerErrors([])
+
         if (store.state.newFiles.length === 0) {
             if (store.state.uploadedFiles.length > 0) {
                 // Redirect to next step
@@ -96,7 +98,6 @@ export const LayoutUpload = ({ children }) => {
                     setServerErrors(errorInformation.errorNumber)
                     setIsFetching(false)
                 } else {
-                    setServerErrors([])
                     setIsFetching(false)
 
                     store.dispatch({

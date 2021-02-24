@@ -1,5 +1,5 @@
 import { LayoutUpload } from '@/components/layouts'
 
-const PatientUpload = () => <LayoutUpload />
+const Upload = () => <LayoutUpload />
 
-export default PatientUpload
+export default Upload
