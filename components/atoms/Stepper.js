@@ -43,6 +43,7 @@ export const Stepper = ({ className, ...props }) => {
                                 </StepperLink>
                             </Box>
                         </Box>
+
                         <Box as="li">
                             <Flex className="items-center">
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
@@ -60,6 +61,7 @@ export const Stepper = ({ className, ...props }) => {
                                 )}
                             </Flex>
                         </Box>
+
                         <Box as="li">
                             <Flex className="items-center">
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />

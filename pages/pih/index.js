@@ -12,6 +12,7 @@ const HospitalLanding = () => {
                 <PageHeading className="text-center mb-6">
                     Order Your Medical Records Online
                 </PageHeading>
+
                 <Flex className="justify-center mb-6">
                     <Info secondaryText="NOTICE: This site is for Patient or Patient Directed Use Only. Fees for processing medical records requests are non-refundable." />
                 </Flex>
@@ -33,6 +34,7 @@ const HospitalLanding = () => {
                                     </Text>
                                     Quick Release to You
                                 </Heading>
+
                                 <Text className="text-center">
                                     Your request is processed within 48 hours*,
                                     and your records will be available for
@@ -67,6 +69,7 @@ const HospitalLanding = () => {
                                     </Text>
                                     Release to Third-Party
                                 </Heading>
+
                                 <Text className="text-center">
                                     Your request is processed within 5-7 days*,
                                     and your records are delivered to a

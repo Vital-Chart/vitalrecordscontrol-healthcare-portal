@@ -95,14 +95,14 @@ export const LayoutReview = ({ children }) => {
             })
 
             if (inError) {
-                setServerErrors(errorInformation.errorNumber)
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
                 setIsFetching(false)
             } else {
                 setServerErrors([])
                 setIsFetching(false)
 
-                // TODO: Update `store` with value to denote request has been sent,
-                // or just wipe state and redirect to success page?
                 store.dispatch({
                     type: 'UPDATE_SUCCESS',
                     value: hospital,

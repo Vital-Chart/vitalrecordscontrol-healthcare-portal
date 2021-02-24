@@ -131,10 +131,10 @@ export const LayoutUpload = ({ children }) => {
                 store.state.form
             )
 
-            // console.log({ FormURI, inError, errorInformation })
-
             if (inError) {
-                setServerErrors(errorInformation.errorNumber)
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
                 // setIsFetching(false)
             } else {
                 setServerErrors([])
@@ -229,10 +229,7 @@ export const LayoutUpload = ({ children }) => {
                                             onClick={handleClose}
                                             className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
                                         >
-                                            <IconClose
-                                                onClick={handleClose}
-                                                className=""
-                                            />
+                                            <IconClose onClick={handleClose} />
                                             <ScreenReader>Close</ScreenReader>
                                         </button>
 
@@ -429,7 +426,14 @@ export const LayoutUpload = ({ children }) => {
                         </Button>
 
                         {/* TODO: Send delete request call? Navigate back to hospital landing page */}
-                        <Button variant="outline">
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                store.dispatch({
+                                    type: 'RESET_REQUEST',
+                                })
+                            }}
+                        >
                             Cancel and Delete Request
                         </Button>
 
