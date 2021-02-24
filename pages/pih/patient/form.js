@@ -31,6 +31,7 @@ import {
     ErrorMessage,
     ButtonWrapper,
     Stepper,
+    ServerErrorList,
 } from '@/components/atoms'
 
 import IconQuestion from '@/icons/icon-question.svg'
@@ -1428,6 +1429,11 @@ const PIHForm = ({ store }) => {
                                 )}
                             </Box>
                         </FormSection>
+
+                        {/* <ServerErrorList
+                            className="my-4"
+                            errors={[100000, 100001]}
+                        /> */}
 
                         <ButtonWrapper className="pb-8">
                             <Button
