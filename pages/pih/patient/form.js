@@ -74,14 +74,14 @@ const PIHForm = ({ store }) => {
         try {
             const {
                 trackingNumbers,
-                errorNumber,
+                errorInformation,
                 inError,
             } = await createRequest(store.state.form)
 
-            // console.log({ trackingNumbers, errorNumber, inError })
-
             if (inError) {
-                setServerErrors(errorNumber)
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
                 setIsFetching(false)
             } else {
                 store.dispatch({

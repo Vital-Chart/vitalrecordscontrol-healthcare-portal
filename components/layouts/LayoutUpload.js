@@ -114,11 +114,14 @@ export const LayoutUpload = ({ children }) => {
         }
     }
 
-    const handleAuthForm = async () => {
+    const getAuthForm = async () => {
         // setIsFetching(true)
 
-        if (store.state.authForm) {
-            window.open(store.state.authForm, '_blank')
+        if (
+            store.state.authForm &&
+            store.state.authForm.expires < new Date().getTime()
+        ) {
+            window.open(store.state.authForm.url, '_blank')
             return
         }
 
@@ -196,7 +199,7 @@ export const LayoutUpload = ({ children }) => {
                                 this{' '}
                                 <Button
                                     className="underline font-bold text-blue hover:text-black transition-colors"
-                                    onClick={handleAuthForm}
+                                    onClick={getAuthForm}
                                 >
                                     authorization form
                                 </Button>
@@ -299,7 +302,7 @@ export const LayoutUpload = ({ children }) => {
                                 Print out and sign this{' '}
                                 <Button
                                     className="underline font-bold text-blue hover:text-black transition-colors"
-                                    onClick={handleAuthForm}
+                                    onClick={getAuthForm}
                                 >
                                     authorization form
                                 </Button>{' '}
