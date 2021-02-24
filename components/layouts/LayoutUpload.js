@@ -95,7 +95,10 @@ export const LayoutUpload = ({ children }) => {
                 })
 
                 if (inError) {
-                    setServerErrors(errorInformation.errorNumber)
+                    setServerErrors(
+                        errorInformation.map(error => error.errorNumber)
+                    )
+
                     setIsFetching(false)
                 } else {
                     setIsFetching(false)
