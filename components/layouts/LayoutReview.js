@@ -12,7 +12,7 @@ import {
     SectionHeading,
     PageHeading,
     ButtonWrapper,
-    ErrorMessage,
+    ServerErrorList,
     UploadsList,
     Stepper,
 } from '@/components/atoms'
@@ -332,16 +332,10 @@ export const LayoutReview = ({ children }) => {
                                     )}
                                 />
                             )} */}
-
-                            {/* TODO: Handle showing server/upload/finish errors */}
-                            {serverErrors.length > 0 && (
-                                <ErrorMessage
-                                    message="There are errors on the page..."
-                                    className="mt-4 pb-0"
-                                />
-                            )}
                         </Box>
                     )}
+
+                    <ServerErrorList className="my-4" errors={serverErrors} />
 
                     <ButtonWrapper className="pb-8">
                         <Button

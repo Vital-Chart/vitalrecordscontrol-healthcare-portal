@@ -14,7 +14,7 @@ import {
     SectionHeading,
     PageHeading,
     ButtonWrapper,
-    ErrorMessage,
+    ServerErrorList,
     UploadsList,
     Stepper,
 } from '@/components/atoms'
@@ -66,6 +66,8 @@ export const LayoutUpload = ({ children }) => {
     const hasTouch = isTouchDevice()
 
     const handleDrop = useCallback(droppedFiles => {
+        setServerErrors([])
+
         store.dispatch({
             type: 'ADD_FILES',
             value: droppedFiles,
@@ -417,15 +419,9 @@ export const LayoutUpload = ({ children }) => {
                         </Box>
 
                         <UploadsList className="mt-8" />
-
-                        {/* TODO: Handle showing server/upload errors */}
-                        {serverErrors.length > 0 && (
-                            <ErrorMessage
-                                message="There are errors on the page..."
-                                className="mt-4 pb-0"
-                            />
-                        )}
                     </Box>
+
+                    <ServerErrorList className="my-4" errors={serverErrors} />
 
                     <ButtonWrapper className="pb-8">
                         <Button

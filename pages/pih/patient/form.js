@@ -61,6 +61,8 @@ const Form = ({ store }) => {
     const watchDeliveryMethod = watch('DI_DM_DD', [])
 
     const handleChange = e => {
+        setServerErrors([])
+
         store.dispatch({
             type: 'UPDATE_FORM',
             value: getValues(),
@@ -70,8 +72,8 @@ const Form = ({ store }) => {
     const onSubmit = async (data, e) => {
         e.preventDefault()
 
-        setIsFetching(true)
         setServerErrors([])
+        setIsFetching(true)
 
         try {
             const {
@@ -1429,10 +1431,10 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        {/* <ServerErrorList
+                        <ServerErrorList
                             className="my-4"
-                            errors={[100000, 100001]}
-                        /> */}
+                            errors={serverErrors}
+                        />
 
                         <ButtonWrapper className="pb-8">
                             <Button
