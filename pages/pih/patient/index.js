@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-import { withStore } from '@/lib/store'
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
@@ -8,7 +7,7 @@ import { Layout, Container, ScreenReader } from '@/components/general'
 
 import IconClose from '@/icons/icon-close.svg'
 
-const PIHPatient = ({ store }) => {
+const PatientInstructions = () => {
     const { getLandingPage, getStep } = useNavigation()
 
     return (
@@ -52,7 +51,6 @@ const PIHPatient = ({ store }) => {
                                 </Text>{' '}
                                 (e.g., healthcare provider, attorney, an
                                 insurance company, or other),{' '}
-                                {/* TODO: Update this link to use router */}
                                 <Link
                                     href={`${getLandingPage()}/sendto`}
                                     className="underline font-bold text-blue hover:text-black transition-colors"
@@ -229,4 +227,4 @@ const PIHPatient = ({ store }) => {
     )
 }
 
-export default withStore(PIHPatient)
+export default PatientInstructions

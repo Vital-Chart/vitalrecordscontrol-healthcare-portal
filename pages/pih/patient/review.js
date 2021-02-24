@@ -1,5 +1,5 @@
 import { LayoutReview } from '@/components/layouts'
 
-const PIHPatientReview = () => <LayoutReview />
+const PatientReview = () => <LayoutReview />
 
-export default PIHPatientReview
+export default PatientReview

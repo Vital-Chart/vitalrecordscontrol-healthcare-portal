@@ -1,5 +1,5 @@
 import { LayoutUpload } from '@/components/layouts'
 
-const PIHPatientUpload = () => <LayoutUpload />
+const PatientUpload = () => <LayoutUpload />
 
-export default PIHPatientUpload
+export default PatientUpload

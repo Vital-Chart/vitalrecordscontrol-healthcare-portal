@@ -1,6 +1,6 @@
 import { LayoutContact } from '@/components/layouts'
 
-const PIHContact = () => {
+const Contact = () => {
     return <LayoutContact />
 }
-export default PIHContact
+export default Contact
