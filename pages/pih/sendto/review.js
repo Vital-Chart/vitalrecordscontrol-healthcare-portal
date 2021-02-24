@@ -1,8 +1,5 @@
-import { withStore } from '@/lib/store'
 import { LayoutReview } from '@/components/layouts'
 
-const PIHSendToReview = ({ store }) => {
-    return <LayoutReview />
-}
+const Review = () => <LayoutReview />
 
-export default withStore(PIHSendToReview)
+export default Review

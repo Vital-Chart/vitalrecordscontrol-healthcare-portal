@@ -120,7 +120,7 @@ export const LayoutUpload = ({ children }) => {
 
         if (
             store.state.authForm &&
-            store.state.authForm.expires < new Date().getTime()
+            store.state.authForm.expires > new Date().getTime()
         ) {
             window.open(store.state.authForm.url, '_blank')
             return
@@ -128,7 +128,7 @@ export const LayoutUpload = ({ children }) => {
 
         try {
             const { FormURI, inError, errorInformation } = await createAuthForm(
-                store.state.trackingNumbers[0],
+                store.state.trackingNumbers[0].TrackingNumberID,
                 store.state.form
             )
 
@@ -179,7 +179,9 @@ export const LayoutUpload = ({ children }) => {
                             Your request has been saved and assigned tracking
                             number(s):{' '}
                             <Text as="span" className="font-bold">
-                                {store.state.trackingNumbers.join(', ')}
+                                {store.state.trackingNumbers
+                                    .map(number => number.TrackingNumberID)
+                                    .join(', ')}
                             </Text>
                             .
                         </Text>
@@ -428,7 +430,6 @@ export const LayoutUpload = ({ children }) => {
                             Go Back
                         </Button>
 
-                        {/* TODO: Send delete request call? Navigate back to hospital landing page */}
                         <Button
                             variant="outline"
                             onClick={() => {

@@ -139,6 +139,7 @@ const Form = ({ store }) => {
                             value={
                                 Array.isArray(store.state.trackingNumbers)
                                     ? store.state.trackingNumbers[0]
+                                          .TrackingNumberID
                                     : '-1'
                             }
                             ref={register}
@@ -1082,11 +1083,12 @@ const Form = ({ store }) => {
                                         records are ready for download, and they
                                         will be available for 30 days.
                                     </Box>
+
                                     <Box as="li">
                                         Normal processing time is 5 business
                                         days from time of receipt.
                                     </Box>
-                                    {/* TODO: Update route to pull from store/auth routing */}
+
                                     <Box as="li">
                                         Please{' '}
                                         <Link

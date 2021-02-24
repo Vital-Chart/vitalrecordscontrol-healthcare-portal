@@ -169,7 +169,9 @@ export const LayoutReview = ({ children }) => {
                             <Text as="span" className="block text-sm font-bold">
                                 Tracking Number(s):
                             </Text>{' '}
-                            {store.state.trackingNumbers.join(', ')}
+                            {store.state.trackingNumbers
+                                .map(number => number.TrackingNumberID)
+                                .join(', ')}
                         </Text>
 
                         <Text>
@@ -350,8 +352,14 @@ export const LayoutReview = ({ children }) => {
                             Go Back
                         </Button>
 
-                        {/* TODO: Send delete request call? Navigate back to hospital landing page */}
-                        <Button variant="outline">
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                store.dispatch({
+                                    type: 'RESET_REQUEST',
+                                })
+                            }}
+                        >
                             Cancel and Delete Request
                         </Button>
 
