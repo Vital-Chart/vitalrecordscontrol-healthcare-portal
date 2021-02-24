@@ -1,8 +1,12 @@
+import dynamic from 'next/dynamic'
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { withStore } from '@/lib/store'
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
-import { Layout, Container } from '@/components/general'
+import { Layout, Container, ScreenReader } from '@/components/general'
+
+import IconClose from '@/icons/icon-close.svg'
 
 const PIHPatient = ({ store }) => {
     const { getLandingPage, getStep } = useNavigation()
@@ -12,7 +16,7 @@ const PIHPatient = ({ store }) => {
             <Container>
                 <Box className="max-w-screen-md space-y-8">
                     <PageHeading className="pt-4">
-                        Information for Submitting Requests
+                        Instructions for Quick Release to You
                     </PageHeading>
 
                     <Box>
@@ -33,9 +37,8 @@ const PIHPatient = ({ store }) => {
                                     the power to make decisions on behalf of a
                                     patient
                                 </Text>{' '}
-                                (e.g., parents, guardians, personal
-                                representatives) to request records to be
-                                electronically delivered to{' '}
+                                (e.g., parents, guardians) to request records to
+                                be electronically delivered to{' '}
                                 <Text as="span" className="font-bold">
                                     YOU
                                 </Text>
@@ -89,6 +92,94 @@ const PIHPatient = ({ store }) => {
                                     copy of an authorization form as well as
                                     your government-issued ID.
                                 </Box>
+                            </Box>
+                            <Box as="li">
+                                If you are not the patient, you will also need
+                                to submit a legible image (picture or scanned)
+                                of proof you are authorized to make medical
+                                decisions for the patient.{' '}
+                                <MicroModal
+                                    trigger={handleOpen => (
+                                        <Box
+                                            as="button"
+                                            onClick={handleOpen}
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                        >
+                                            Click here for examples.
+                                        </Box>
+                                    )}
+                                    children={handleClose => (
+                                        <Box className="p-8 relative">
+                                            <button
+                                                onClick={handleClose}
+                                                className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                            >
+                                                <IconClose
+                                                    onClick={handleClose}
+                                                    className=""
+                                                />
+                                                <ScreenReader>
+                                                    Close
+                                                </ScreenReader>
+                                            </button>
+
+                                            <Box>
+                                                <Text className="text-xl font-bold">
+                                                    Types of Supporting
+                                                    Documents
+                                                </Text>
+                                                <Text className="mb-4">
+                                                    Acceptable forms of
+                                                    supporting documentation are
+                                                    listed below. However, the
+                                                    facility where the records
+                                                    you are requesting are
+                                                    located may have additional
+                                                    or other requirements.
+                                                </Text>
+                                                <Box
+                                                    as="ul"
+                                                    className="list-disc pl-8 mb-4 text-sm"
+                                                >
+                                                    <Box as="li">
+                                                        Power of Attorney for
+                                                        Healthcare if the
+                                                        patient is alive but
+                                                        unable to sign for
+                                                        themselves
+                                                    </Box>
+                                                    <Box as="li">
+                                                        Executor's Documents if
+                                                        the patient is deceased
+                                                    </Box>
+                                                    <Box as="li">
+                                                        A copy of the deceased
+                                                        patient's will
+                                                    </Box>
+                                                    <Box as="li">
+                                                        Court Documents
+                                                        identifying custodial
+                                                        parent
+                                                    </Box>
+                                                    <Box as="li">
+                                                        Birth Certificate
+                                                    </Box>
+                                                </Box>
+                                                <Text>
+                                                    Note: Please understand
+                                                    until we have the
+                                                    opportunity to review the
+                                                    request against the medical
+                                                    records, we do not know if
+                                                    additional documentation
+                                                    will be required. You will
+                                                    be notified if we need
+                                                    further documentation.
+                                                </Text>
+                                            </Box>
+                                        </Box>
+                                    )}
+                                />
                             </Box>
                             <Box as="li">
                                 Information requested through this system must

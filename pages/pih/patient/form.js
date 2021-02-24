@@ -855,10 +855,6 @@ const PIHForm = ({ store }) => {
                                             Parent/Guardian
                                         </option>
                                         <option value="CON">Conservator</option>
-                                        <option value="PR">
-                                            Personal Representative
-                                        </option>
-                                        <option value="OT">Other</option>
                                     </Select>
                                 </Box>
                                 <Box className="mb-4">
