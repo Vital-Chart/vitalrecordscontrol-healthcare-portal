@@ -31,6 +31,7 @@ import {
     ErrorMessage,
     ButtonWrapper,
     Stepper,
+    ServerErrorList,
 } from '@/components/atoms'
 
 import IconQuestion from '@/icons/icon-question.svg'
@@ -103,10 +104,12 @@ const PatientForm = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper />
+            <Stepper className="mb-4" />
             <Container>
                 <Box>
-                    <PageHeading>New Medical Records Request</PageHeading>
+                    <PageHeading className="pt-4">
+                        New Medical Records Request
+                    </PageHeading>
 
                     {/* TODO: Display general/server errors */}
                     {/* https://docs.google.com/spreadsheets/d/1sF0eOAiIbYGjvKwiNx3VPiXUXVr3fvYuK3lxcB8JHOE/edit?ts=60257605#gid=1766959036 */}
@@ -146,6 +149,7 @@ const PatientForm = ({ store }) => {
                             </SectionHeading>
                             {Array.isArray(store.state.trackingNumbers) && (
                                 <Alert
+                                    className="my-4"
                                     primaryAlertText="Your request has been initiated. You cannot change facilities for this request."
                                     secondaryAlertText="If you'd like to request records from a different facility, please start a new request."
                                 />
@@ -200,6 +204,7 @@ const PatientForm = ({ store }) => {
                                     />
                                     {errors.FI_CB && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.FI_CB.message}
                                         />
                                     )}
@@ -209,6 +214,7 @@ const PatientForm = ({ store }) => {
                             {watchFacilityCheckboxes.length > 0 &&
                                 !Array.isArray(store.state.trackingNumbers) && (
                                     <Alert
+                                        className="my-4"
                                         primaryAlertText="Once you hit 'Continue' below, you cannot change which facilities you are requesting from."
                                         secondaryAlertText="Please double-check to make sure you select the correct facility or facilities."
                                     />
@@ -244,6 +250,7 @@ const PatientForm = ({ store }) => {
                                         />
                                         {errors.PI_PFN && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={errors.PI_PFN.message}
                                             />
                                         )}
@@ -266,6 +273,7 @@ const PatientForm = ({ store }) => {
                                         />
                                         {errors.PI_PLN && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={errors.PI_PLN.message}
                                             />
                                         )}
@@ -305,6 +313,7 @@ const PatientForm = ({ store }) => {
 
                                     {errors.PI_DOB && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.PI_DOB.message}
                                         />
                                     )}
@@ -365,6 +374,7 @@ const PatientForm = ({ store }) => {
                                             />
                                             {errors.VI_OPT && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.VI_OPT.message
                                                     }
@@ -445,6 +455,7 @@ const PatientForm = ({ store }) => {
 
                                                         {errors.VI_DR_ED && (
                                                             <ErrorMessage
+                                                                className="my-2"
                                                                 message={
                                                                     errors
                                                                         .VI_DR_ED
@@ -482,6 +493,7 @@ const PatientForm = ({ store }) => {
 
                                         {errors.RI_MR_OPT && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={
                                                     errors.RI_MR_OPT.message
                                                 }
@@ -702,6 +714,7 @@ const PatientForm = ({ store }) => {
 
                                     {errors.RI_CB && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.RI_CB.message}
                                         />
                                     )}
@@ -802,6 +815,7 @@ const PatientForm = ({ store }) => {
                                     />
                                     {errors.PR_PUR && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.PR_PUR.message}
                                         />
                                     )}
@@ -841,10 +855,6 @@ const PatientForm = ({ store }) => {
                                             Parent/Guardian
                                         </option>
                                         <option value="CON">Conservator</option>
-                                        <option value="PR">
-                                            Personal Representative
-                                        </option>
-                                        <option value="OT">Other</option>
                                     </Select>
                                 </Box>
                                 <Box className="mb-4">
@@ -942,6 +952,7 @@ const PatientForm = ({ store }) => {
                                         />
                                         {errors.YI_PN && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={errors.YI_PN.message}
                                             />
                                         )}
@@ -996,6 +1007,7 @@ const PatientForm = ({ store }) => {
                                     />
                                     {errors.YI_PHC && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.YI_PHC.message}
                                         />
                                     )}
@@ -1016,6 +1028,7 @@ const PatientForm = ({ store }) => {
                                     />
                                     {errors.YI_EM && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.YI_EM.message}
                                         />
                                     )}
@@ -1044,6 +1057,7 @@ const PatientForm = ({ store }) => {
                                     />
                                     {errors.YI_EMC && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.YI_EMC.message}
                                         />
                                     )}
@@ -1122,6 +1136,7 @@ const PatientForm = ({ store }) => {
                                             </Select>
                                             {errors.DI_DM_DD && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.DI_DM_DD.message
                                                     }
@@ -1158,6 +1173,7 @@ const PatientForm = ({ store }) => {
 
                                                 {errors.DI_NM && (
                                                     <ErrorMessage
+                                                        className="my-2"
                                                         message={
                                                             errors.DI_NM.message
                                                         }
@@ -1193,6 +1209,7 @@ const PatientForm = ({ store }) => {
 
                                                 {errors.DI_ADDR1 && (
                                                     <ErrorMessage
+                                                        className="my-2"
                                                         message={
                                                             errors.DI_ADDR1
                                                                 .message
@@ -1229,6 +1246,7 @@ const PatientForm = ({ store }) => {
 
                                                 {errors.DI_CITY && (
                                                     <ErrorMessage
+                                                        className="my-2"
                                                         message={
                                                             errors.DI_CITY
                                                                 .message
@@ -1277,6 +1295,7 @@ const PatientForm = ({ store }) => {
 
                                                         {errors.DI_ST_DD && (
                                                             <ErrorMessage
+                                                                className="my-2"
                                                                 message={
                                                                     errors
                                                                         .DI_ST_DD
@@ -1305,6 +1324,7 @@ const PatientForm = ({ store }) => {
 
                                                         {errors.DI_ZIP && (
                                                             <ErrorMessage
+                                                                className="my-2"
                                                                 message={
                                                                     errors
                                                                         .DI_ZIP
@@ -1406,7 +1426,12 @@ const PatientForm = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <ButtonWrapper>
+                        {/* <ServerErrorList
+                            className="my-4"
+                            errors={[100000, 100001]}
+                        /> */}
+
+                        <ButtonWrapper className="pb-8">
                             <Button
                                 as={Link}
                                 href={getLandingPage()}

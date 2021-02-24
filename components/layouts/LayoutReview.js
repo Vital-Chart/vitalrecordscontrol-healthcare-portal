@@ -129,12 +129,12 @@ export const LayoutReview = ({ children }) => {
 
     return (
         <Layout>
-            <Stepper />
+            <Stepper className="mb-4" />
 
             <Container>
                 <Box className="max-w-screen-md space-y-8 pb-8">
                     <Box>
-                        <PageHeading className="mb-8">
+                        <PageHeading className="pt-4 mb-8">
                             Review & Submit
                         </PageHeading>
 
@@ -341,7 +341,7 @@ export const LayoutReview = ({ children }) => {
                         </Box>
                     )}
 
-                    <ButtonWrapper>
+                    <ButtonWrapper className="pb-8">
                         <Button
                             as={Link}
                             href={getStep('upload')}

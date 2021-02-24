@@ -15,7 +15,7 @@ export const LayoutContact = () => {
         <Layout>
             <Container>
                 <Box className="max-w-screen-md space-y-8 pb-12">
-                    <PageHeading>
+                    <PageHeading className="pt-4">
                         Contact Information for {hospital.name}
                     </PageHeading>
 

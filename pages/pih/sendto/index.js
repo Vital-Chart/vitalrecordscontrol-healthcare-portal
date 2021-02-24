@@ -1,17 +1,19 @@
 import dynamic from 'next/dynamic'
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { withStore } from '@/lib/store'
 import { ButtonWrapper, PageHeading } from '@/components/atoms'
 import { Box, Button, Link, Text } from '@/components/core'
 import { Container, Layout, ScreenReader } from '@/components/general'
-import IconClose from '@/icons/icon-close.svg'
 
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
+import IconClose from '@/icons/icon-close.svg'
 
 const PIHSendTo = ({ store }) => (
     <Layout>
         <Container>
             <Box className="max-w-screen-md space-y-8">
-                <PageHeading>Information for Submitting Requests</PageHeading>
+                <PageHeading className="pt-4">
+                    Instructions for Release to Third Party
+                </PageHeading>
                 <Box>
                     <Text className="pb-4 leading-relaxed">
                         This website allows you to submit requests for copies of
@@ -28,8 +30,7 @@ const PIHSendTo = ({ store }) => (
                             or{' '}
                             <Text as="span" className="font-bold">
                                 parties with the power to make decisions on
-                                behalf of a patient (e.g. parents, guardians,
-                                personal representatives)
+                                behalf of a patient (e.g. parents, guardians)
                             </Text>{' '}
                             to request records. Third parties should{' '}
                             <Link
@@ -188,7 +189,7 @@ const PIHSendTo = ({ store }) => (
                         to review other options for submitting your request.
                     </Text>
                 </Box>
-                <ButtonWrapper>
+                <ButtonWrapper className="pb-8">
                     <Button
                         as={Link}
                         href="/pih/"

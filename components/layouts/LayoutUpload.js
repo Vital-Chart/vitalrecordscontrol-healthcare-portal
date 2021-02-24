@@ -165,11 +165,13 @@ export const LayoutUpload = ({ children }) => {
 
     return (
         <Layout>
-            <Stepper />
+            <Stepper className="mb-4" />
 
             <Container>
                 <Box className="max-w-screen-md space-y-8 pb-8">
-                    <PageHeading>Provide Authorization Information</PageHeading>
+                    <PageHeading className="pt-4">
+                        Provide Authorization Information
+                    </PageHeading>
 
                     <Box className="pb-8 border-b border-gray-light">
                         <Text className="pb-4">
@@ -416,7 +418,7 @@ export const LayoutUpload = ({ children }) => {
                         )}
                     </Box>
 
-                    <ButtonWrapper>
+                    <ButtonWrapper className="pb-8">
                         <Button
                             as={Link}
                             href={getStep('form')}

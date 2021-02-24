@@ -101,10 +101,12 @@ const PIHSendToForm = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper />
+            <Stepper className="mb-4" />
             <Container>
                 <Box>
-                    <PageHeading>New Medical Records Request</PageHeading>
+                    <PageHeading className="pt-4">
+                        New Medical Records Request
+                    </PageHeading>
                     <Box
                         as="form"
                         acceptCharset="UTF-8"
@@ -181,6 +183,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.FI_CB && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.FI_CB.message}
                                         />
                                     )}
@@ -189,6 +192,7 @@ const PIHSendToForm = ({ store }) => {
 
                             {watchFacilityCheckboxes.length > 1 && (
                                 <Alert
+                                    className="my-4"
                                     primaryAlertText="You have selected more than one facility."
                                     secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
                                 />
@@ -196,6 +200,7 @@ const PIHSendToForm = ({ store }) => {
 
                             {watchFacilityCheckboxes.length > 0 && (
                                 <Alert
+                                    className="my-4"
                                     primaryAlertText="Once you hit 'Continue' below, you cannot change which
                     facilities you are requesting from."
                                     secondaryAlertText="Please double-check to make sure you select the correct
@@ -225,6 +230,7 @@ const PIHSendToForm = ({ store }) => {
                                         />
                                         {errors.PI_PFN && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={errors.PI_PFN.message}
                                             />
                                         )}
@@ -247,6 +253,7 @@ const PIHSendToForm = ({ store }) => {
                                         />
                                         {errors.PI_PLN && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={errors.PI_PLN.message}
                                             />
                                         )}
@@ -311,6 +318,7 @@ const PIHSendToForm = ({ store }) => {
                                     /> */}
                                     {errors.PI_DOB && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.PI_DOB.message}
                                         />
                                     )}
@@ -370,6 +378,7 @@ const PIHSendToForm = ({ store }) => {
                                             />
                                             {errors.VI_OPT && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.VI_OPT.message
                                                     }
@@ -528,6 +537,7 @@ const PIHSendToForm = ({ store }) => {
 
                                         {errors.RI_MR_OPT && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={
                                                     errors.RI_MR_OPT.message
                                                 }
@@ -748,6 +758,7 @@ const PIHSendToForm = ({ store }) => {
 
                                     {errors.RI_CB && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.RI_CB.message}
                                         />
                                     )}
@@ -848,6 +859,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.PR_PUR && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.PR_PUR.message}
                                         />
                                     )}
@@ -887,10 +899,6 @@ const PIHSendToForm = ({ store }) => {
                                             Parent/Guardian
                                         </option>
                                         <option value="CON">Conservator</option>
-                                        <option value="PR">
-                                            Personal Representative
-                                        </option>
-                                        <option value="OT">Other</option>
                                     </Select>
                                 </Box>
                                 <Box className="mb-4">
@@ -983,6 +991,7 @@ const PIHSendToForm = ({ store }) => {
                                         />
                                         {errors.YI_PN && (
                                             <ErrorMessage
+                                                className="my-2"
                                                 message={errors.YI_PN.message}
                                             />
                                         )}
@@ -1037,6 +1046,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.YI_PHC && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.YI_PHC.message}
                                         />
                                     )}
@@ -1057,6 +1067,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.YI_EM && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.YI_EM.message}
                                         />
                                     )}
@@ -1085,6 +1096,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.YI_EMC && (
                                         <ErrorMessage
+                                            className="my-2"
                                             message={errors.YI_EMC.message}
                                         />
                                     )}
@@ -1131,6 +1143,7 @@ const PIHSendToForm = ({ store }) => {
                                             </Select>
                                             {errors.DI_REC_DD && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.DI_REC_DD.message
                                                     }
@@ -1163,6 +1176,7 @@ const PIHSendToForm = ({ store }) => {
                                             </Select>
                                             {errors.DI_DM_DD && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.DI_DM_DD.message
                                                     }
@@ -1208,6 +1222,7 @@ const PIHSendToForm = ({ store }) => {
 
                                             {errors.DI_NM && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.DI_NM.message
                                                     }
@@ -1243,6 +1258,7 @@ const PIHSendToForm = ({ store }) => {
 
                                             {errors.DI_ADDR1 && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.DI_ADDR1.message
                                                     }
@@ -1278,6 +1294,7 @@ const PIHSendToForm = ({ store }) => {
 
                                             {errors.DI_CITY && (
                                                 <ErrorMessage
+                                                    className="my-2"
                                                     message={
                                                         errors.DI_CITY.message
                                                     }
@@ -1312,6 +1329,7 @@ const PIHSendToForm = ({ store }) => {
 
                                                     {errors.DI_ST_DD && (
                                                         <ErrorMessage
+                                                            className="my-2"
                                                             message={
                                                                 errors.DI_ST_DD
                                                                     .message
@@ -1337,6 +1355,7 @@ const PIHSendToForm = ({ store }) => {
 
                                                     {errors.DI_ST_DD && (
                                                         <ErrorMessage
+                                                            className="my-2"
                                                             message={
                                                                 errors.DI_ZIP
                                                                     .message
@@ -1401,7 +1420,7 @@ const PIHSendToForm = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <ButtonWrapper>
+                        <ButtonWrapper className="pb-8">
                             <Button variant="outline" className="flex-grow">
                                 Cancel
                             </Button>

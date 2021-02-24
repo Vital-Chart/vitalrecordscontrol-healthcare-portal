@@ -20,12 +20,14 @@ export const Header = () => {
     return (
         <Box as="header" className="bg-black mb-20">
             <Flex as={Container} className="relative">
-                <Link
-                    href={getLandingPage()}
-                    className="block absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow"
-                >
-                    <Image src={hospitals[hospitalSlug].logo} />
-                </Link>
+                {hospitals[hospitalSlug] && (
+                    <Link
+                        href={getLandingPage()}
+                        className="block absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow"
+                    >
+                        <Image src={hospitals[hospitalSlug].logo} />
+                    </Link>
+                )}
 
                 <Flex className="flex-col ml-auto py-4 text-xs text-white text-right">
                     <Link href="/">VitalChart® Virtual ROI Portal</Link>
