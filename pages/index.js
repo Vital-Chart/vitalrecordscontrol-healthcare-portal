@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Box, Link, Flex, Image } from '@/components/core'
 import { Container, Footer, ScreenReader } from '@/components/general'
+import hospitals from '@/lib/hospitals'
 
 const Home = () => (
     <>
@@ -15,9 +16,12 @@ const Home = () => (
         <Flex className="flex-col min-h-screen">
             <Box as="header" className="bg-black mb-20">
                 <Flex as={Container} className="relative">
-                    <Box className="block absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow">
-                        <Image src="/images/pih-logo.png" />
-                    </Box>
+                    <Link
+                        href="/pih"
+                        className="block absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow"
+                    >
+                        <Image src={hospitals['pih'].logo} />
+                    </Link>
 
                     <Flex className="flex-col ml-auto py-4 text-xs text-white text-right">
                         <Link href="/">VitalChart® Virtual ROI Portal</Link>
