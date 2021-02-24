@@ -29,7 +29,7 @@ export const Stepper = ({ className, ...props }) => {
     const { getStep, hasUploadAccess, hasSubmitAccess } = useNavigation()
 
     return (
-        <Box className={cx('py-4 mb-4 bg-gray-lightest', className)} {...props}>
+        <Box className={cx('py-4 bg-gray-lightest', className)} {...props}>
             <Container>
                 <Box as="nav" className="flex" aria-label="Breadcrumb">
                     <Box as="ol" className="flex items-center space-x-4">

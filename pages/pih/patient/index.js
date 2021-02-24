@@ -11,7 +11,7 @@ const PIHPatient = ({ store }) => {
         <Layout>
             <Container>
                 <Box className="max-w-screen-md space-y-8">
-                    <PageHeading>
+                    <PageHeading className="pt-4">
                         Information for Submitting Requests
                     </PageHeading>
 
@@ -113,7 +113,7 @@ const PIHPatient = ({ store }) => {
                         </Box>
                     </Box>
 
-                    <ButtonWrapper>
+                    <ButtonWrapper className="pb-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

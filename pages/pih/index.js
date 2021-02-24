@@ -10,7 +10,7 @@ const PIH = () => {
     return (
         <Layout>
             <Container>
-                <PageHeading className="text-center mb-6">
+                <PageHeading className="text-center pt-4 mb-6">
                     Order Your Medical Records Online
                 </PageHeading>
                 <Flex className="justify-center mb-6">

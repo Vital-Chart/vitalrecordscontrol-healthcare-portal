@@ -11,7 +11,9 @@ const PIHSendTo = ({ store }) => (
     <Layout>
         <Container>
             <Box className="max-w-screen-md space-y-8">
-                <PageHeading>Information for Submitting Requests</PageHeading>
+                <PageHeading className="pt-4">
+                    Information for Submitting Requests
+                </PageHeading>
                 <Box>
                     <Text className="pb-4 leading-relaxed">
                         This website allows you to submit requests for copies of
@@ -188,7 +190,7 @@ const PIHSendTo = ({ store }) => (
                         to review other options for submitting your request.
                     </Text>
                 </Box>
-                <ButtonWrapper>
+                <ButtonWrapper className="pb-8">
                     <Button
                         as={Link}
                         href="/pih/"
