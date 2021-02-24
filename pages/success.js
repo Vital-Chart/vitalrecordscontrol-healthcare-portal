@@ -7,7 +7,6 @@ import { PageHeading } from '@/components/atoms'
 
 const FacilityList = () => {
     const store = useStore()
-
     return (
         <>
             {store?.state?.success?.facilities &&
@@ -16,6 +15,8 @@ const FacilityList = () => {
                         store.state.success.hospital
                     ].facilities.map(hospitalFacility => {
                         if (hospitalFacility.id === facilityId) {
+                            // TODO: Show tracking number with facility
+                            // const trackingNumber = store.state.success.trackingNumbers.find(number => number.FacilityID === facilityId)
                             return (
                                 <Text key={facilityId} className="pb-4">
                                     <Text as="span" className="font-bold">
@@ -62,7 +63,9 @@ export const Success = () => {
                         <Text className="pb-4">
                             Reference Tracking number(s):{' '}
                             <Text as="span" className="font-bold">
-                                {store.state.success.trackingNumbers.join(', ')}
+                                {store.state.success.trackingNumbers
+                                    .map(number => number.TrackingNumberID)
+                                    .join(', ')}
                             </Text>
                         </Text>
 

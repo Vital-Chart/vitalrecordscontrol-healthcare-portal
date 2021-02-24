@@ -34,6 +34,9 @@ const FacilityList = () => {
                         return hospitals[hospitalKey].facilities.map(
                             hospitalFacility => {
                                 if (hospitalFacility.id === facilityId) {
+                                    // TODO: Show tracking number with facility
+                                    // const trackingNumber = store.state.trackingNumbers.find(number => number.FacilityID === facilityId)
+
                                     return (
                                         <Text key={facilityId} className="pb-4">
                                             <Text
