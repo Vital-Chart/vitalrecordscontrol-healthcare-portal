@@ -39,7 +39,7 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const { getLandingPage, goToStep, getContactPage } = useNavigation()
+    const { getLandingPage, goToStep, getContactPage, option } = useNavigation()
 
     const {
         register,
@@ -110,12 +110,17 @@ const Form = ({ store }) => {
             <Stepper className="mb-4" />
             <Container>
                 <Box>
-                    <Box className="pt-4">
-                        <Text className="text-base md:text-lg font-normal text-gray-dark">
-                            Quick Release to You
+                    <PageHeading className="pt-4">
+                        <Text
+                            as="span"
+                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                        >
+                            {option === 'patient'
+                                ? 'Quick Release to You '
+                                : 'Release to Third-Party '}
                         </Text>
-                        <PageHeading>New Medical Records Request</PageHeading>
-                    </Box>
+                        New Medical Records Request
+                    </PageHeading>
 
                     {/* TODO: Display general/server errors */}
                     {/* https://docs.google.com/spreadsheets/d/1sF0eOAiIbYGjvKwiNx3VPiXUXVr3fvYuK3lxcB8JHOE/edit?ts=60257605#gid=1766959036 */}

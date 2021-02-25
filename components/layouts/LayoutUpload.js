@@ -59,7 +59,7 @@ const FacilityList = () => {
 
 export const LayoutUpload = ({ children }) => {
     const store = useStore()
-    const { getStep, goToStep, hasUploadAccess } = useNavigation()
+    const { getStep, goToStep, hasUploadAccess, option } = useNavigation()
 
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -179,6 +179,14 @@ export const LayoutUpload = ({ children }) => {
             <Container>
                 <Box className="max-w-screen-md space-y-8 pb-8">
                     <PageHeading className="pt-4">
+                        <Text
+                            as="span"
+                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                        >
+                            {option === 'patient'
+                                ? 'Quick Release to You '
+                                : 'Release to Third-Party '}
+                        </Text>
                         Provide Authorization Information
                     </PageHeading>
 

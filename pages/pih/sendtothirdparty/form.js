@@ -24,8 +24,8 @@ import {
     ButtonWrapper,
     Stepper,
 } from '@/components/atoms'
-
 import { states } from '@/lib/helpers'
+import useNavigation from '@/lib/useNavigation'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
@@ -33,6 +33,7 @@ import IconClose from '@/icons/icon-close.svg'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 
 const PIHSendToForm = ({ store }) => {
+    const { getLandingPage, goToStep, getContactPage, option } = useNavigation()
     const {
         register,
         handleSubmit,
@@ -104,12 +105,18 @@ const PIHSendToForm = ({ store }) => {
             <Stepper className="mb-4" />
             <Container>
                 <Box>
-                    <Box className="pt-4">
-                        <Text className="text-base md:text-lg font-normal text-gray-dark">
-                            Release to Third-Party
+                    <PageHeading className="pt-4">
+                        <Text
+                            as="span"
+                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                        >
+                            {option === 'patient'
+                                ? 'Quick Release to You '
+                                : 'Release to Third-Party '}
                         </Text>
-                        <PageHeading>New Medical Records Request</PageHeading>
-                    </Box>
+                        New Medical Records Request
+                    </PageHeading>
+
                     <Box
                         as="form"
                         acceptCharset="UTF-8"
