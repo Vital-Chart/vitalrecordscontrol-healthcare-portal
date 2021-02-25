@@ -6,7 +6,7 @@ const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useForm } from 'react-hook-form'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
-import { states } from '@/lib/helpers'
+import { regexPatterns, states } from '@/lib/helpers'
 import useNavigation from '@/lib/useNavigation'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
@@ -311,15 +311,20 @@ const Form = ({ store }) => {
                                         Patient Date of Birth
                                     </Label>
                                     <Input
-                                        type="date"
+                                        type="text"
                                         name="PI_DOB"
                                         id="PI_DOB"
                                         className="w-full mt-1"
-                                        max={dayjs().format('YYYY-MM-DD')}
+                                        placeholder="MM/DD/YYYY"
                                         onChange={handleChange}
                                         ref={register({
                                             required:
                                                 "Please enter the patient's date of birth.",
+                                            pattern: {
+                                                value: regexPatterns.date,
+                                                message:
+                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                            },
                                         })}
                                     />
 
@@ -408,19 +413,23 @@ const Form = ({ store }) => {
                                                                     Start:
                                                                 </Label>
                                                                 <Input
-                                                                    type="date"
+                                                                    type="text"
                                                                     name="VI_DR_SD"
                                                                     id="VI_DR_SD"
                                                                     className="w-full"
-                                                                    max={dayjs().format(
-                                                                        'YYYY-MM-DD'
-                                                                    )}
+                                                                    placeholder="MM/DD/YYYY"
                                                                     onChange={
                                                                         handleChange
                                                                     }
                                                                     ref={register(
                                                                         {
                                                                             required: true,
+                                                                            pattern: {
+                                                                                value:
+                                                                                    regexPatterns.date,
+                                                                                message:
+                                                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                                                            },
                                                                         }
                                                                     )}
                                                                 />
@@ -434,19 +443,23 @@ const Form = ({ store }) => {
                                                                     Service End:
                                                                 </Label>
                                                                 <Input
-                                                                    type="date"
+                                                                    type="text"
                                                                     name="VI_DR_ED"
                                                                     id="VI_DR_ED"
                                                                     className="w-full"
-                                                                    max={dayjs().format(
-                                                                        'YYYY-MM-DD'
-                                                                    )}
+                                                                    placeholder="MM/DD/YYYY"
                                                                     onChange={
                                                                         handleChange
                                                                     }
                                                                     ref={register(
                                                                         {
                                                                             required: true,
+                                                                            pattern: {
+                                                                                value:
+                                                                                    regexPatterns.date,
+                                                                                message:
+                                                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                                                            },
                                                                             validate: {
                                                                                 dateRangeCheck: value =>
                                                                                     new Date(
@@ -876,14 +889,18 @@ const Form = ({ store }) => {
                                         </Label>
                                         <MicroModal
                                             trigger={handleOpen => (
-                                                <IconQuestion
+                                                <Button
+                                                    // as="button"
+                                                    // type="button"
                                                     onClick={handleOpen}
-                                                    className="h-5 w-5 ml-2 text-blue cursor-pointer"
-                                                />
+                                                    className="ml-2"
+                                                >
+                                                    <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
+                                                </Button>
                                             )}
                                             children={handleClose => (
                                                 <Box className="p-8 relative">
-                                                    <button
+                                                    <Button
                                                         onClick={handleClose}
                                                         className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
                                                     >
@@ -896,13 +913,14 @@ const Form = ({ store }) => {
                                                         <ScreenReader>
                                                             Close
                                                         </ScreenReader>
-                                                    </button>
+                                                    </Button>
 
                                                     <Box>
                                                         <Text className="text-xl font-bold">
                                                             Preferred
                                                             Notification Method
                                                         </Text>
+
                                                         <Text>
                                                             This is the method
                                                             by which you would
@@ -926,6 +944,7 @@ const Form = ({ store }) => {
                                             )}
                                         />
                                     </Flex>
+
                                     <Select
                                         name="YI_NOTICE_DD"
                                         id="YI_NOTICE_DD"
@@ -940,6 +959,7 @@ const Form = ({ store }) => {
                                         <option value="email">Email</option>
                                     </Select>
                                 </Box>
+
                                 <Flex className="flex-col sm:flex-row sm:mb-4">
                                     <Box className="mr-4 mb-4 sm:mb-0">
                                         <Label htmlFor="YI_PN">
@@ -956,7 +976,7 @@ const Form = ({ store }) => {
                                                 required:
                                                     'Please enter your phone number.',
                                                 pattern: {
-                                                    value: /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+                                                    value: regexPatterns.phone,
                                                     message:
                                                         'Please enter a valid phone number.',
                                                 },
