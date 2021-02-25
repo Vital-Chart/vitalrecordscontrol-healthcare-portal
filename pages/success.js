@@ -1,5 +1,6 @@
-import cx from 'classnames'
+import { useEffect } from 'react'
 import { useStore } from '@/lib/store'
+import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
 import { Layout, Container } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
@@ -34,13 +35,16 @@ const FacilityList = () => {
 
 export const Success = () => {
     const store = useStore()
+    const { goTo } = useNavigation()
 
-    if (typeof window === 'undefined' || !store?.state?.success) {
+    if (typeof window === 'undefined') {
         return null
     }
 
-    // Return 404 if no success data
-    // if (!store?.state?.success) return <Error status="404" />
+    if (!store.state.success) {
+        goTo('/')
+        return null
+    }
 
     return (
         <Layout>
