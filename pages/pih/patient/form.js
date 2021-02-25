@@ -216,7 +216,7 @@ const Form = ({ store }) => {
                                     />
                                     {errors.FI_CB && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.FI_CB.message}
                                         />
                                     )}
@@ -262,7 +262,7 @@ const Form = ({ store }) => {
                                         />
                                         {errors.PI_PFN && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={errors.PI_PFN.message}
                                             />
                                         )}
@@ -285,7 +285,7 @@ const Form = ({ store }) => {
                                         />
                                         {errors.PI_PLN && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={errors.PI_PLN.message}
                                             />
                                         )}
@@ -330,7 +330,7 @@ const Form = ({ store }) => {
 
                                     {errors.PI_DOB && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.PI_DOB.message}
                                         />
                                     )}
@@ -391,7 +391,7 @@ const Form = ({ store }) => {
                                             />
                                             {errors.VI_OPT && (
                                                 <ErrorMessage
-                                                    className="my-2"
+                                                    className="mt-2"
                                                     message={
                                                         errors.VI_OPT.message
                                                     }
@@ -480,7 +480,7 @@ const Form = ({ store }) => {
 
                                                         {errors.VI_DR_ED && (
                                                             <ErrorMessage
-                                                                className="my-2"
+                                                                className="mt-2"
                                                                 message={
                                                                     errors
                                                                         .VI_DR_ED
@@ -518,7 +518,7 @@ const Form = ({ store }) => {
 
                                         {errors.RI_MR_OPT && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={
                                                     errors.RI_MR_OPT.message
                                                 }
@@ -739,7 +739,7 @@ const Form = ({ store }) => {
 
                                     {errors.RI_CB && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.RI_CB.message}
                                         />
                                     )}
@@ -840,7 +840,7 @@ const Form = ({ store }) => {
                                     />
                                     {errors.PR_PUR && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.PR_PUR.message}
                                         />
                                     )}
@@ -890,8 +890,6 @@ const Form = ({ store }) => {
                                         <MicroModal
                                             trigger={handleOpen => (
                                                 <Button
-                                                    // as="button"
-                                                    // type="button"
                                                     onClick={handleOpen}
                                                     className="ml-2"
                                                 >
@@ -960,8 +958,8 @@ const Form = ({ store }) => {
                                     </Select>
                                 </Box>
 
-                                <Flex className="flex-col sm:flex-row sm:mb-4">
-                                    <Box className="mr-4 mb-4 sm:mb-0">
+                                <Flex className="flex-col sm:flex-row">
+                                    <Box className="mb-4 sm:mr-4">
                                         <Label htmlFor="YI_PN">
                                             Phone Number
                                         </Label>
@@ -984,12 +982,12 @@ const Form = ({ store }) => {
                                         />
                                         {errors.YI_PN && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={errors.YI_PN.message}
                                             />
                                         )}
                                     </Box>
-                                    <Box>
+                                    <Box className="mb-4">
                                         <Label htmlFor="YI_PHT_DD">Type</Label>
                                         <Select
                                             name="YI_PHT_DD"
@@ -1039,7 +1037,7 @@ const Form = ({ store }) => {
                                     />
                                     {errors.YI_PHC && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.YI_PHC.message}
                                         />
                                     )}
@@ -1060,7 +1058,7 @@ const Form = ({ store }) => {
                                     />
                                     {errors.YI_EM && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.YI_EM.message}
                                         />
                                     )}
@@ -1089,7 +1087,7 @@ const Form = ({ store }) => {
                                     />
                                     {errors.YI_EMC && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.YI_EMC.message}
                                         />
                                     )}
@@ -1169,7 +1167,7 @@ const Form = ({ store }) => {
                                             </Select>
                                             {errors.DI_DM_DD && (
                                                 <ErrorMessage
-                                                    className="my-2"
+                                                    className="mt-2"
                                                     message={
                                                         errors.DI_DM_DD.message
                                                     }
@@ -1188,104 +1186,114 @@ const Form = ({ store }) => {
                                                     if additional information is
                                                     required.
                                                 </Text>
-
-                                                <Label htmlFor="DI_NM">
-                                                    Name
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_NM"
-                                                    id="DI_NM"
-                                                    className="w-full mt-1 mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter a name.',
-                                                    })}
-                                                />
-
-                                                {errors.DI_NM && (
-                                                    <ErrorMessage
-                                                        className="my-2"
-                                                        message={
-                                                            errors.DI_NM.message
-                                                        }
+                                                <Box className="mb-4">
+                                                    <Label htmlFor="DI_NM">
+                                                        Name
+                                                    </Label>
+                                                    <Input
+                                                        type="text"
+                                                        name="DI_NM"
+                                                        id="DI_NM"
+                                                        className="w-full mt-1 mb-2"
+                                                        onChange={handleChange}
+                                                        ref={register({
+                                                            required:
+                                                                'Please enter a name.',
+                                                        })}
                                                     />
-                                                )}
 
-                                                <Label htmlFor="DI_ATN">
-                                                    Attention
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_ATN"
-                                                    id="DI_ATN"
-                                                    className="w-full mt-1 mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
+                                                    {errors.DI_NM && (
+                                                        <ErrorMessage
+                                                            className="mt-2"
+                                                            message={
+                                                                errors.DI_NM
+                                                                    .message
+                                                            }
+                                                        />
+                                                    )}
+                                                </Box>
 
-                                                <Label htmlFor="DI_ADDR1">
-                                                    Address
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_ADDR1"
-                                                    id="DI_ADDR1"
-                                                    className="w-full mt-1  mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter an address.',
-                                                    })}
-                                                />
-
-                                                {errors.DI_ADDR1 && (
-                                                    <ErrorMessage
-                                                        className="my-2"
-                                                        message={
-                                                            errors.DI_ADDR1
-                                                                .message
-                                                        }
+                                                <Box className="mb-4">
+                                                    <Label htmlFor="DI_ATN">
+                                                        Attention
+                                                    </Label>
+                                                    <Input
+                                                        type="text"
+                                                        name="DI_ATN"
+                                                        id="DI_ATN"
+                                                        className="w-full mt-1 mb-2"
+                                                        onChange={handleChange}
+                                                        ref={register}
                                                     />
-                                                )}
+                                                </Box>
 
-                                                <Label htmlFor="DI_ADDR2">
-                                                    Address Line 2
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_ADDR2"
-                                                    id="DI_ADDR2"
-                                                    className="w-full mt-1  mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-
-                                                <Label htmlFor="DI_CITY">
-                                                    City
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_CITY"
-                                                    id="DI_CITY"
-                                                    className="w-full mt-1 mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter a city.',
-                                                    })}
-                                                />
-
-                                                {errors.DI_CITY && (
-                                                    <ErrorMessage
-                                                        className="my-2"
-                                                        message={
-                                                            errors.DI_CITY
-                                                                .message
-                                                        }
+                                                <Box className="mb-4">
+                                                    <Label htmlFor="DI_ADDR1">
+                                                        Address
+                                                    </Label>
+                                                    <Input
+                                                        type="text"
+                                                        name="DI_ADDR1"
+                                                        id="DI_ADDR1"
+                                                        className="w-full mt-1  mb-2"
+                                                        onChange={handleChange}
+                                                        ref={register({
+                                                            required:
+                                                                'Please enter an address.',
+                                                        })}
                                                     />
-                                                )}
+
+                                                    {errors.DI_ADDR1 && (
+                                                        <ErrorMessage
+                                                            className="mt-2"
+                                                            message={
+                                                                errors.DI_ADDR1
+                                                                    .message
+                                                            }
+                                                        />
+                                                    )}
+                                                </Box>
+
+                                                <Box className="mb-4">
+                                                    <Label htmlFor="DI_ADDR2">
+                                                        Address Line 2
+                                                    </Label>
+                                                    <Input
+                                                        type="text"
+                                                        name="DI_ADDR2"
+                                                        id="DI_ADDR2"
+                                                        className="w-full mt-1  mb-2"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                </Box>
+
+                                                <Box className="mb-4">
+                                                    <Label htmlFor="DI_CITY">
+                                                        City
+                                                    </Label>
+                                                    <Input
+                                                        type="text"
+                                                        name="DI_CITY"
+                                                        id="DI_CITY"
+                                                        className="w-full mt-1 mb-2"
+                                                        onChange={handleChange}
+                                                        ref={register({
+                                                            required:
+                                                                'Please enter a city.',
+                                                        })}
+                                                    />
+
+                                                    {errors.DI_CITY && (
+                                                        <ErrorMessage
+                                                            className="mt-2"
+                                                            message={
+                                                                errors.DI_CITY
+                                                                    .message
+                                                            }
+                                                        />
+                                                    )}
+                                                </Box>
                                                 <Flex>
                                                     <Box>
                                                         <Label htmlFor="DI_ST_DD">
@@ -1328,7 +1336,7 @@ const Form = ({ store }) => {
 
                                                         {errors.DI_ST_DD && (
                                                             <ErrorMessage
-                                                                className="my-2"
+                                                                className="mt-2"
                                                                 message={
                                                                     errors
                                                                         .DI_ST_DD
@@ -1357,7 +1365,7 @@ const Form = ({ store }) => {
 
                                                         {errors.DI_ZIP && (
                                                             <ErrorMessage
-                                                                className="my-2"
+                                                                className="mt-2"
                                                                 message={
                                                                     errors
                                                                         .DI_ZIP
