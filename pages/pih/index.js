@@ -79,7 +79,7 @@ const Hospital = () => {
 
                             <Button
                                 as={Link}
-                                href={`${getLandingPage()}/sendto`}
+                                href={`${getLandingPage()}/sendtothirdparty`}
                                 variant="filledSecondary"
                                 className="text-sm text-center"
                             >

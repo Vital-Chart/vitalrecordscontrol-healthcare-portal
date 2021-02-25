@@ -1,6 +1,13 @@
-import { useForm, Controller } from 'react-hook-form'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
+import cx from 'classnames'
+import * as dayjs from 'dayjs'
+const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
+import { useForm } from 'react-hook-form'
 import { withStore } from '@/lib/store'
+import { createRequest } from '@/lib/api'
+import { regexPatterns, states } from '@/lib/helpers'
+import useNavigation from '@/lib/useNavigation'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
     Box,
@@ -12,6 +19,7 @@ import {
     Input,
     Flex,
     Button,
+    Link,
 } from '@/components/core'
 import {
     FormSection,
@@ -23,17 +31,16 @@ import {
     ErrorMessage,
     ButtonWrapper,
     Stepper,
+    ServerErrorList,
 } from '@/components/atoms'
-import { states } from '@/lib/helpers'
-import useNavigation from '@/lib/useNavigation'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
+import IconLoading from '@/icons/icon-loading.svg'
 
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-
-const PIHSendToForm = ({ store }) => {
+const Form = ({ store }) => {
     const { getLandingPage, goToStep, getContactPage, option } = useNavigation()
+
     const {
         register,
         handleSubmit,
@@ -45,59 +52,57 @@ const PIHSendToForm = ({ store }) => {
         defaultValues: store.state.form,
     })
 
+    const [serverErrors, setServerErrors] = useState([])
+    const [isFetching, setIsFetching] = useState(false)
+
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
     const watchDeliveryMethod = watch('DI_DM_DD', [])
 
     const handleChange = e => {
-        const formValues = getValues()
+        setServerErrors([])
 
         store.dispatch({
             type: 'UPDATE_FORM',
-            name: e.target.name,
-            value: formValues[e.target.name],
+            value: getValues(),
         })
     }
 
     const onSubmit = async (data, e) => {
         e.preventDefault()
 
+        setServerErrors([])
+        setIsFetching(true)
+
         try {
-            const res = await fetch(
-                process.env.CREATE_UPDATE_REQUEST_ENDPOINT,
-                {
-                    method: 'POST',
-                    body: createFormData(data),
-                }
-            )
+            const {
+                trackingNumbers,
+                errorInformation,
+                inError,
+            } = await createRequest(store.state.form)
 
-            const json = await res.json()
+            if (inError) {
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
+                setIsFetching(false)
+            } else {
+                store.dispatch({
+                    type: 'UPDATE_TRACKING_NUMBER',
+                    value: trackingNumbers,
+                })
 
-            console.log(json)
+                setIsFetching(false)
 
-            // Handle response
-        } catch (e) {
-            // Handle error
-        }
-    }
-
-    const createFormData = data => {
-        const formData = new FormData()
-
-        Object.keys(data).map(key => {
-            const value = data[key]
-            let fieldValue = value
-
-            // Create comma separated strings from array values
-            if (Array.isArray(value)) {
-                fieldValue = value.join()
+                // Redirect to next step
+                goToStep('upload')
             }
-
-            formData.append(key, fieldValue)
-        })
-
-        return formData
+        } catch (error) {
+            // General server error
+            setServerErrors([100000])
+            setIsFetching(false)
+        }
     }
 
     return (
@@ -117,6 +122,9 @@ const PIHSendToForm = ({ store }) => {
                         New Medical Records Request
                     </PageHeading>
 
+                    {/* TODO: Display general/server errors */}
+                    {/* https://docs.google.com/spreadsheets/d/1sF0eOAiIbYGjvKwiNx3VPiXUXVr3fvYuK3lxcB8JHOE/edit?ts=60257605#gid=1766959036 */}
+
                     <Box
                         as="form"
                         acceptCharset="UTF-8"
@@ -132,19 +140,18 @@ const PIHSendToForm = ({ store }) => {
                         <Input
                             type="hidden"
                             name="FTYPE"
-                            value="PAT"
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
-                            name="SECSIG"
-                            value="TBD"
+                            value="3RD"
                             ref={register}
                         />
                         <Input
                             type="hidden"
                             name="TRKNUM"
-                            value={-1}
+                            value={
+                                Array.isArray(store.state.trackingNumbers)
+                                    ? store.state.trackingNumbers[0]
+                                          .TrackingNumberID
+                                    : '-1'
+                            }
                             ref={register}
                         />
 
@@ -152,6 +159,13 @@ const PIHSendToForm = ({ store }) => {
                             <SectionHeading>
                                 Facility / Facilities
                             </SectionHeading>
+                            {Array.isArray(store.state.trackingNumbers) && (
+                                <Alert
+                                    className="my-4"
+                                    primaryAlertText="Your request has been initiated. You cannot change facilities for this request."
+                                    secondaryAlertText="If you'd like to request records from a different facility, please start a new request."
+                                />
+                            )}
                             <Box>
                                 <Box as="legend" className="mb-2">
                                     Please select the facility or facilities
@@ -164,6 +178,9 @@ const PIHSendToForm = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full mb-2"
                                         onChange={handleChange}
+                                        disabled={Array.isArray(
+                                            store.state.trackingNumbers
+                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -175,6 +192,9 @@ const PIHSendToForm = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full mb-2"
                                         onChange={handleChange}
+                                        disabled={Array.isArray(
+                                            store.state.trackingNumbers
+                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -186,6 +206,9 @@ const PIHSendToForm = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full"
                                         onChange={handleChange}
+                                        disabled={Array.isArray(
+                                            store.state.trackingNumbers
+                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -193,28 +216,27 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.FI_CB && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.FI_CB.message}
                                         />
                                     )}
                                 </CheckboxWrapper>
                             </Box>
 
-                            {watchFacilityCheckboxes.length > 1 && (
-                                <Alert
-                                    className="my-4"
-                                    primaryAlertText="You have selected more than one facility."
-                                    secondaryAlertText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
-                                />
-                            )}
+                            {watchFacilityCheckboxes.length > 0 &&
+                                !Array.isArray(store.state.trackingNumbers) && (
+                                    <Alert
+                                        className="my-4"
+                                        primaryAlertText="Once you hit 'Continue' below, you cannot change which facilities you are requesting from."
+                                        secondaryAlertText="Please double-check to make sure you select the correct facility or facilities."
+                                    />
+                                )}
 
-                            {watchFacilityCheckboxes.length > 0 && (
-                                <Alert
+                            {watchFacilityCheckboxes.length > 1 && (
+                                <Info
+                                    primaryText="You have selected more than one facility."
+                                    secondaryText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
                                     className="my-4"
-                                    primaryAlertText="Once you hit 'Continue' below, you cannot change which
-                    facilities you are requesting from."
-                                    secondaryAlertText="Please double-check to make sure you select the correct
-                    facility or facilities."
                                 />
                             )}
                         </FormSection>
@@ -240,7 +262,7 @@ const PIHSendToForm = ({ store }) => {
                                         />
                                         {errors.PI_PFN && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={errors.PI_PFN.message}
                                             />
                                         )}
@@ -263,7 +285,7 @@ const PIHSendToForm = ({ store }) => {
                                         />
                                         {errors.PI_PLN && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={errors.PI_PLN.message}
                                             />
                                         )}
@@ -283,56 +305,37 @@ const PIHSendToForm = ({ store }) => {
                                         ref={register}
                                     />
                                 </Box>
-                                <Box as="fieldset" className="mb-4">
-                                    <Box as="legend">Patient Date of Birth</Box>
 
-                                    {/* <Controller
-                                        control={control}
+                                <Box className="mb-4">
+                                    <Label htmlFor="PI_DOB">
+                                        Patient Date of Birth
+                                    </Label>
+                                    <Input
+                                        type="text"
                                         name="PI_DOB"
-                                        rules={{
+                                        id="PI_DOB"
+                                        className="w-full mt-1"
+                                        placeholder="MM/DD/YYYY"
+                                        onChange={handleChange}
+                                        ref={register({
                                             required:
                                                 "Please enter the patient's date of birth.",
-                                        }}
-                                        render={({
-                                            onChange,
-                                            onBlur,
-                                            value,
-                                        }) => (
-                                            <DatePicker
-                                                // https://reactdatepicker.com/#example-custom-header
-                                                onChange={date => {
-                                                    onChange(date)
+                                            pattern: {
+                                                value: regexPatterns.date,
+                                                message:
+                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                            },
+                                        })}
+                                    />
 
-                                                    store.dispatch({
-                                                        type: 'UPDATE_FORM',
-                                                        name: 'PI_DOB',
-                                                        value: date,
-                                                    })
-                                                }}
-                                                onBlur={onBlur}
-                                                selected={
-                                                    value
-                                                        ? new Date(value)
-                                                        : null
-                                                }
-                                                maxDate={new Date()}
-                                                dateFormat="MMMM d, yyyy"
-                                                showMonthDropdown
-                                                showYearDropdown
-                                                dropdownMode="select"
-                                                customInput={
-                                                    <Input className="w-full" />
-                                                }
-                                            />
-                                        )}
-                                    /> */}
                                     {errors.PI_DOB && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.PI_DOB.message}
                                         />
                                     )}
                                 </Box>
+
                                 <Box className="mb-4">
                                     <Label htmlFor="PI_PHYCL">
                                         Physician/Clinic (Optional)
@@ -388,7 +391,7 @@ const PIHSendToForm = ({ store }) => {
                                             />
                                             {errors.VI_OPT && (
                                                 <ErrorMessage
-                                                    className="my-2"
+                                                    className="mt-2"
                                                     message={
                                                         errors.VI_OPT.message
                                                     }
@@ -399,125 +402,87 @@ const PIHSendToForm = ({ store }) => {
                                                 watchVisitOptions.includes(
                                                     'DR'
                                                 ) && (
-                                                    <Flex className="space-x-4">
-                                                        <Box>
-                                                            <Label className="block mb-1">
-                                                                Service Start:
-                                                            </Label>
+                                                    <>
+                                                        <Flex className="space-x-4">
+                                                            <Box>
+                                                                <Label
+                                                                    htmlFor="VI_DR_SD"
+                                                                    className="block mb-1"
+                                                                >
+                                                                    Service
+                                                                    Start:
+                                                                </Label>
+                                                                <Input
+                                                                    type="text"
+                                                                    name="VI_DR_SD"
+                                                                    id="VI_DR_SD"
+                                                                    className="w-full"
+                                                                    placeholder="MM/DD/YYYY"
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    ref={register(
+                                                                        {
+                                                                            required: true,
+                                                                        }
+                                                                    )}
+                                                                />
+                                                            </Box>
 
-                                                            {/* <Controller
-                                                                control={
-                                                                    control
+                                                            <Box>
+                                                                <Label
+                                                                    htmlFor="VI_DR_ED"
+                                                                    className="block mb-1"
+                                                                >
+                                                                    Service End:
+                                                                </Label>
+                                                                <Input
+                                                                    type="text"
+                                                                    name="VI_DR_ED"
+                                                                    id="VI_DR_ED"
+                                                                    className="w-full"
+                                                                    placeholder="MM/DD/YYYY"
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    ref={register(
+                                                                        {
+                                                                            required: true,
+                                                                            pattern: {
+                                                                                value:
+                                                                                    regexPatterns.date,
+                                                                                message:
+                                                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                                                            },
+                                                                            validate: {
+                                                                                dateRangeCheck: value =>
+                                                                                    new Date(
+                                                                                        value
+                                                                                    ) >
+                                                                                        new Date(
+                                                                                            getValues(
+                                                                                                'VI_DR_SD'
+                                                                                            )
+                                                                                        ) ||
+                                                                                    'The Service End date you entered is before the Service Start date.',
+                                                                            },
+                                                                        }
+                                                                    )}
+                                                                />
+                                                            </Box>
+                                                        </Flex>
+
+                                                        {errors.VI_DR_ED && (
+                                                            <ErrorMessage
+                                                                className="mt-2"
+                                                                message={
+                                                                    errors
+                                                                        .VI_DR_ED
+                                                                        .message
                                                                 }
-                                                                name="VI_DR_SD"
-                                                                rules={{
-                                                                    required: true,
-                                                                }}
-                                                                render={({
-                                                                    onChange,
-                                                                    onBlur,
-                                                                    value,
-                                                                }) => (
-                                                                    <DatePicker
-                                                                        // https://reactdatepicker.com/#example-custom-header
-                                                                        onChange={date => {
-                                                                            onChange(
-                                                                                date
-                                                                            )
-
-                                                                            store.dispatch(
-                                                                                {
-                                                                                    type:
-                                                                                        'UPDATE_FORM',
-                                                                                    name:
-                                                                                        'VI_DR_SD',
-                                                                                    value: date,
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        onBlur={
-                                                                            onBlur
-                                                                        }
-                                                                        selected={
-                                                                            value
-                                                                                ? new Date(
-                                                                                      value
-                                                                                  )
-                                                                                : new Date()
-                                                                        }
-                                                                        maxDate={
-                                                                            new Date()
-                                                                        }
-                                                                        showMonthDropdown
-                                                                        showYearDropdown
-                                                                        dropdownMode="select"
-                                                                        customInput={
-                                                                            <Input className="w-full mr-4" />
-                                                                        }
-                                                                    />
-                                                                )}
-                                                            /> */}
-                                                        </Box>
-
-                                                        <Box>
-                                                            <Label className="block mb-1">
-                                                                Service End:
-                                                            </Label>
-
-                                                            {/* <Controller
-                                                                control={
-                                                                    control
-                                                                }
-                                                                name="VI_DR_ED"
-                                                                rules={{
-                                                                    required: true,
-                                                                }}
-                                                                render={({
-                                                                    onChange,
-                                                                    onBlur,
-                                                                    value,
-                                                                }) => (
-                                                                    <DatePicker
-                                                                        // https://reactdatepicker.com/#example-custom-header
-                                                                        onChange={date => {
-                                                                            onChange(
-                                                                                date
-                                                                            )
-
-                                                                            store.dispatch(
-                                                                                {
-                                                                                    type:
-                                                                                        'UPDATE_FORM',
-                                                                                    name:
-                                                                                        'VI_DR_ED',
-                                                                                    value: date,
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        onBlur={
-                                                                            onBlur
-                                                                        }
-                                                                        selected={
-                                                                            value
-                                                                                ? new Date(
-                                                                                      value
-                                                                                  )
-                                                                                : new Date()
-                                                                        }
-                                                                        maxDate={
-                                                                            new Date()
-                                                                        }
-                                                                        showMonthDropdown
-                                                                        showYearDropdown
-                                                                        dropdownMode="select"
-                                                                        customInput={
-                                                                            <Input className="w-full" />
-                                                                        }
-                                                                    />
-                                                                )}
-                                                            /> */}
-                                                        </Box>
-                                                    </Flex>
+                                                            />
+                                                        )}
+                                                    </>
                                                 )}
                                         </Box>
                                     </Box>
@@ -547,7 +512,7 @@ const PIHSendToForm = ({ store }) => {
 
                                         {errors.RI_MR_OPT && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={
                                                     errors.RI_MR_OPT.message
                                                 }
@@ -768,7 +733,7 @@ const PIHSendToForm = ({ store }) => {
 
                                     {errors.RI_CB && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.RI_CB.message}
                                         />
                                     )}
@@ -869,7 +834,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.PR_PUR && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.PR_PUR.message}
                                         />
                                     )}
@@ -918,14 +883,16 @@ const PIHSendToForm = ({ store }) => {
                                         </Label>
                                         <MicroModal
                                             trigger={handleOpen => (
-                                                <IconQuestion
+                                                <Button
                                                     onClick={handleOpen}
-                                                    className="h-5 w-5 ml-2 text-blue cursor-pointer"
-                                                />
+                                                    className="ml-2"
+                                                >
+                                                    <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
+                                                </Button>
                                             )}
                                             children={handleClose => (
                                                 <Box className="p-8 relative">
-                                                    <button
+                                                    <Button
                                                         onClick={handleClose}
                                                         className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
                                                     >
@@ -938,13 +905,14 @@ const PIHSendToForm = ({ store }) => {
                                                         <ScreenReader>
                                                             Close
                                                         </ScreenReader>
-                                                    </button>
+                                                    </Button>
 
                                                     <Box>
                                                         <Text className="text-xl font-bold">
                                                             Preferred
                                                             Notification Method
                                                         </Text>
+
                                                         <Text>
                                                             This is the method
                                                             by which you would
@@ -968,10 +936,11 @@ const PIHSendToForm = ({ store }) => {
                                             )}
                                         />
                                     </Flex>
+
                                     <Select
                                         name="YI_NOTICE_DD"
                                         id="YI_NOTICE_DD"
-                                        className="block mt-1"
+                                        className="block w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
@@ -982,8 +951,9 @@ const PIHSendToForm = ({ store }) => {
                                         <option value="email">Email</option>
                                     </Select>
                                 </Box>
-                                <Flex className="flex-col sm:flex-row sm:mb-4">
-                                    <Box className="mr-4 mb-4 sm:mb-0">
+
+                                <Flex className="flex-col sm:flex-row">
+                                    <Box className="mb-4 sm:mr-4">
                                         <Label htmlFor="YI_PN">
                                             Phone Number
                                         </Label>
@@ -997,16 +967,21 @@ const PIHSendToForm = ({ store }) => {
                                             ref={register({
                                                 required:
                                                     'Please enter your phone number.',
+                                                pattern: {
+                                                    value: regexPatterns.phone,
+                                                    message:
+                                                        'Please enter a valid phone number.',
+                                                },
                                             })}
                                         />
                                         {errors.YI_PN && (
                                             <ErrorMessage
-                                                className="my-2"
+                                                className="mt-2"
                                                 message={errors.YI_PN.message}
                                             />
                                         )}
                                     </Box>
-                                    <Box>
+                                    <Box className="mb-4">
                                         <Label htmlFor="YI_PHT_DD">Type</Label>
                                         <Select
                                             name="YI_PHT_DD"
@@ -1049,14 +1024,14 @@ const PIHSendToForm = ({ store }) => {
                                             validate: {
                                                 phoneMatch: value =>
                                                     value ===
-                                                        getValues().YI_PN ||
+                                                        getValues('YI_PN') ||
                                                     'The phone numbers you entered do not match!',
                                             },
                                         })}
                                     />
                                     {errors.YI_PHC && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.YI_PHC.message}
                                         />
                                     )}
@@ -1077,7 +1052,7 @@ const PIHSendToForm = ({ store }) => {
                                     />
                                     {errors.YI_EM && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.YI_EM.message}
                                         />
                                     )}
@@ -1099,14 +1074,14 @@ const PIHSendToForm = ({ store }) => {
                                             validate: {
                                                 emailMatch: value =>
                                                     value ===
-                                                        getValues().YI_EM ||
+                                                        getValues('YI_EM') ||
                                                     'The email addresses you entered do not match.',
                                             },
                                         })}
                                     />
                                     {errors.YI_EMC && (
                                         <ErrorMessage
-                                            className="my-2"
+                                            className="mt-2"
                                             message={errors.YI_EMC.message}
                                         />
                                     )}
@@ -1119,126 +1094,129 @@ const PIHSendToForm = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
                             <Box>
-                                <Box className="mb-4">
-                                    <Flex>
-                                        <Box className="mr-4">
-                                            <Label htmlFor="DI_REC_DD">
-                                                Recipient
-                                            </Label>
-                                            <Select
-                                                name="DI_REC_DD"
-                                                id="DI_REC_DD"
-                                                className="block mt-1"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select a recipient.',
-                                                })}
-                                            >
-                                                <option value="SELF">
-                                                    Self
-                                                </option>
-                                                <option value="HP">
-                                                    Healthcare Provider
-                                                </option>
-                                                <option value="ATY">
-                                                    Attorney
-                                                </option>
-                                                <option value="INS">
-                                                    Insurance Company
-                                                </option>
-                                                <option value="OTHER">
-                                                    Other
-                                                </option>
-                                            </Select>
-                                            {errors.DI_REC_DD && (
-                                                <ErrorMessage
-                                                    className="my-2"
-                                                    message={
-                                                        errors.DI_REC_DD.message
-                                                    }
-                                                />
-                                            )}
-                                        </Box>
-                                        <Box>
-                                            <Label htmlFor="DI_DM_DD">
-                                                Records Delivery Method
-                                            </Label>
-                                            <Select
-                                                name="DI_DM_DD"
-                                                id="DI_DM_DD"
-                                                className="block mt-1"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select a delivery method.',
-                                                })}
-                                            >
-                                                <option value="DL">
-                                                    Download
-                                                </option>
-                                                <option value="PS">
-                                                    Postal Service - Mail
-                                                </option>
-                                                <option value="PU">
-                                                    Pick Up
-                                                </option>
-                                            </Select>
-                                            {errors.DI_DM_DD && (
-                                                <ErrorMessage
-                                                    className="my-2"
-                                                    message={
-                                                        errors.DI_DM_DD.message
-                                                    }
-                                                />
-                                            )}
-                                        </Box>
-                                    </Flex>
+                                <Box
+                                    as="ul"
+                                    className="pl-8 space-y-2 list-disc"
+                                >
+                                    <Box as="li">
+                                        Medical records will be delivered via
+                                        this website in Adobe PDF format. A
+                                        notification will be sent when the
+                                        records are ready for download, and they
+                                        will be available for 30 days.
+                                    </Box>
+
+                                    <Box as="li">
+                                        Normal processing time is 5 business
+                                        days from time of receipt.
+                                    </Box>
+
+                                    <Box as="li">
+                                        Please{' '}
+                                        <Link
+                                            href={getContactPage()}
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                        >
+                                            contact us
+                                        </Link>{' '}
+                                        if you have any questions.
+                                    </Box>
                                 </Box>
 
-                                {watchDeliveryMethod.includes('DL') && (
-                                    <Info
-                                        secondaryText="Medical records will be delivered
-                                    via this website in Adobe PDF
-                                    format. A notification will be sent
-                                    when the records are ready for
-                                    download, and they will be available
-                                    for 30 days."
-                                        className="my-6"
-                                    />
-                                )}
-
-                                {watchDeliveryMethod.includes('PS') && (
+                                {watchRequestedInformation.some(i =>
+                                    ['RI', 'PS'].includes(i)
+                                ) && (
                                     <>
-                                        <Box className="mb-4">
-                                            <Text className="mb-4">
-                                                Radiology CDs and / or Pathology
-                                                slides will be delivered to the
-                                                following address:
-                                            </Text>
+                                        <Info
+                                            secondaryText="Radiology Images are saved to CD.
+                                                        Radiology Images and Pathology
+                                                        Slides will be delivered
+                                                        via US Mail to the
+                                                        address you enter below via the
+                                                        US Postal Service. The
+                                                        department will contact you if
+                                                        additional information is
+                                                        required."
+                                            className="my-4"
+                                        />
+                                        <Input
+                                            type="hidden"
+                                            name="DI_DM_DD"
+                                            value="PS"
+                                        />
 
-                                            <Label htmlFor="DI_NM">Name</Label>
-                                            <Input
-                                                type="text"
-                                                name="DI_NM"
-                                                id="DI_NM"
-                                                className="w-full mt-1 mb-2"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please enter a name.',
-                                                })}
-                                            />
-
-                                            {errors.DI_NM && (
-                                                <ErrorMessage
-                                                    className="my-2"
-                                                    message={
-                                                        errors.DI_NM.message
-                                                    }
+                                        <Flex className="flex-col sm:flex-row">
+                                            <Box className="mr-4 mb-4">
+                                                <Label htmlFor="DI_REC_DD">
+                                                    Recipient
+                                                </Label>
+                                                <Select
+                                                    name="DI_REC_DD"
+                                                    id="DI_REC_DD"
+                                                    className="block mt-1 mb-2 sm:mr-4"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        validate: {
+                                                            stateCheck: value =>
+                                                                value !==
+                                                                    'Select a recipient' ||
+                                                                'Please select a recipient.',
+                                                        },
+                                                    })}
+                                                >
+                                                    <option>
+                                                        Select a recipient
+                                                    </option>
+                                                    <option value="HP">
+                                                        Healthcare Provider
+                                                    </option>
+                                                    <option value="ATY">
+                                                        Attorney
+                                                    </option>
+                                                    <option value="INS">
+                                                        Insurance Company
+                                                    </option>
+                                                    <option value="OTHER">
+                                                        Other
+                                                    </option>
+                                                </Select>
+                                                {errors.DI_REC_DD && (
+                                                    <ErrorMessage
+                                                        className="mt-2"
+                                                        message={
+                                                            errors.DI_REC_DD
+                                                                .message
+                                                        }
+                                                    />
+                                                )}
+                                            </Box>
+                                            <Box className="flex-grow mb-4">
+                                                <Label htmlFor="DI_NM">
+                                                    Name
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="DI_NM"
+                                                    id="DI_NM"
+                                                    className="w-full mt-1"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        required:
+                                                            'Please enter a name.',
+                                                    })}
                                                 />
-                                            )}
+                                                {errors.DI_NM && (
+                                                    <ErrorMessage
+                                                        className="mt-2"
+                                                        message={
+                                                            errors.DI_NM.message
+                                                        }
+                                                    />
+                                                )}
+                                            </Box>
+                                        </Flex>
 
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ATN">
                                                 Attention
                                             </Label>
@@ -1250,7 +1228,9 @@ const PIHSendToForm = ({ store }) => {
                                                 onChange={handleChange}
                                                 ref={register}
                                             />
+                                        </Box>
 
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ADDR1">
                                                 Address
                                             </Label>
@@ -1258,23 +1238,24 @@ const PIHSendToForm = ({ store }) => {
                                                 type="text"
                                                 name="DI_ADDR1"
                                                 id="DI_ADDR1"
-                                                className="w-full mt-1  mb-2"
+                                                className="w-full mt-1 mb-2"
                                                 onChange={handleChange}
                                                 ref={register({
                                                     required:
                                                         'Please enter an address.',
                                                 })}
                                             />
-
                                             {errors.DI_ADDR1 && (
                                                 <ErrorMessage
-                                                    className="my-2"
+                                                    className="mt-2"
                                                     message={
                                                         errors.DI_ADDR1.message
                                                     }
                                                 />
                                             )}
+                                        </Box>
 
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ADDR2">
                                                 Address Line 2
                                             </Label>
@@ -1286,7 +1267,9 @@ const PIHSendToForm = ({ store }) => {
                                                 onChange={handleChange}
                                                 ref={register}
                                             />
+                                        </Box>
 
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_CITY">
                                                 City
                                             </Label>
@@ -1304,142 +1287,119 @@ const PIHSendToForm = ({ store }) => {
 
                                             {errors.DI_CITY && (
                                                 <ErrorMessage
-                                                    className="my-2"
+                                                    className="mt-2"
                                                     message={
                                                         errors.DI_CITY.message
                                                     }
                                                 />
                                             )}
-                                            <Flex>
-                                                <Box>
-                                                    <Label htmlFor="DI_ST_DD">
-                                                        State
-                                                    </Label>
-                                                    <Select
-                                                        name="DI_ST_DD"
-                                                        id="DI_ST_DD"
-                                                        className="block mt-1 mr-4 mb-2"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            required:
+                                        </Box>
+
+                                        <Flex>
+                                            <Box>
+                                                <Label htmlFor="DI_ST_DD">
+                                                    State
+                                                </Label>
+                                                <Select
+                                                    name="DI_ST_DD"
+                                                    id="DI_ST_DD"
+                                                    className="block mt-1 mr-4"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        validate: {
+                                                            stateCheck: value =>
+                                                                value !==
+                                                                    'Select a state' ||
                                                                 'Please select a state.',
-                                                        })}
-                                                    >
-                                                        {Object.keys(
-                                                            states
-                                                        ).map(key => (
+                                                        },
+                                                    })}
+                                                >
+                                                    <option>
+                                                        Select a state
+                                                    </option>
+                                                    {Object.keys(states).map(
+                                                        key => (
                                                             <option
                                                                 value={key}
                                                                 key={key}
                                                             >
                                                                 {states[key]}
                                                             </option>
-                                                        ))}
-                                                    </Select>
-
-                                                    {errors.DI_ST_DD && (
-                                                        <ErrorMessage
-                                                            className="my-2"
-                                                            message={
-                                                                errors.DI_ST_DD
-                                                                    .message
-                                                            }
-                                                        />
+                                                        )
                                                     )}
-                                                </Box>
-                                                <Box>
-                                                    <Label htmlFor="DI_ZIP">
-                                                        Zip
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_ZIP"
-                                                        id="DI_ZIP"
-                                                        className="w-full mt-1"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            required:
-                                                                'Please enter a zip code.',
-                                                        })}
+                                                </Select>
+
+                                                {errors.DI_ST_DD && (
+                                                    <ErrorMessage
+                                                        className="mt-2"
+                                                        message={
+                                                            errors.DI_ST_DD
+                                                                .message
+                                                        }
                                                     />
+                                                )}
+                                            </Box>
+                                            <Box>
+                                                <Label htmlFor="DI_ZIP">
+                                                    Zip
+                                                </Label>
+                                                <Input
+                                                    type="text"
+                                                    name="DI_ZIP"
+                                                    id="DI_ZIP"
+                                                    className="w-full mt-1"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        required:
+                                                            'Please enter a zip code.',
+                                                    })}
+                                                />
 
-                                                    {errors.DI_ST_DD && (
-                                                        <ErrorMessage
-                                                            className="my-2"
-                                                            message={
-                                                                errors.DI_ZIP
-                                                                    .message
-                                                            }
-                                                        />
-                                                    )}
-                                                </Box>
-                                            </Flex>
-                                        </Box>
-                                        <Info
-                                            secondaryText="Radiology CDs and/or Pathology
-                                        Slides will be mailed to the
-                                        address above via the US Postal
-                                        Service. The department will
-                                        contact you if additional
-                                        information is required."
-                                            className="my-6"
-                                        />
+                                                {errors.DI_ZIP && (
+                                                    <ErrorMessage
+                                                        className="mt-2"
+                                                        message={
+                                                            errors.DI_ZIP
+                                                                .message
+                                                        }
+                                                    />
+                                                )}
+                                            </Box>
+                                        </Flex>
                                     </>
-                                )}
-
-                                <Box>
-                                    <Text className="mb-4">
-                                        Normal processing time is 5 business
-                                        days from time of receipt. Please
-                                        contact us if you have any questions.
-                                    </Text>
-                                </Box>
-
-                                {watchFacilityCheckboxes.includes(
-                                    'P7202-1'
-                                ) && (
-                                    <Text className="mb-2">
-                                        <Text as="span" className="font-bold">
-                                            PIH Health Hospital - Downey:
-                                        </Text>{' '}
-                                        (562) 904-5166 x26177
-                                    </Text>
-                                )}
-
-                                {watchFacilityCheckboxes.includes(
-                                    'P7201-1'
-                                ) && (
-                                    <Text className="mb-2">
-                                        <Text as="span" className="font-bold">
-                                            PIH Health Hospital - Whittier:
-                                        </Text>{' '}
-                                        (562) 698-0811 x13685
-                                    </Text>
-                                )}
-
-                                {watchFacilityCheckboxes.includes(
-                                    'P7203-1'
-                                ) && (
-                                    <Text className="mb-2">
-                                        <Text as="span" className="font-bold">
-                                            PIH Health Physicians:
-                                        </Text>{' '}
-                                        (562) 698-0811 x13858
-                                    </Text>
                                 )}
                             </Box>
                         </FormSection>
 
+                        <ServerErrorList
+                            className="my-4"
+                            errors={serverErrors}
+                        />
+
                         <ButtonWrapper className="pb-8">
-                            <Button variant="outline" className="flex-grow">
+                            <Button
+                                as={Link}
+                                href={getLandingPage()}
+                                variant="outline"
+                                className="flex-1"
+                            >
                                 Cancel
                             </Button>
+
                             <Button
                                 type="submit"
                                 variant="filled"
-                                className="flex-grow"
+                                disabled={isFetching}
+                                className={cx(
+                                    'flex-1',
+                                    isFetching && 'pointer-events-none'
+                                )}
                             >
-                                Continue
+                                {isFetching ? (
+                                    <IconLoading className="w-6 text-gray-400 animate-spin" />
+                                ) : (
+                                    <>Continue</>
+                                )}
                             </Button>
                         </ButtonWrapper>
                     </Box>
@@ -1449,4 +1409,4 @@ const PIHSendToForm = ({ store }) => {
     )
 }
 
-export default withStore(PIHSendToForm)
+export default withStore(Form)
