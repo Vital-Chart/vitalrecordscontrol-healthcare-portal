@@ -59,7 +59,13 @@ const FacilityList = () => {
 
 export const LayoutUpload = ({ children }) => {
     const store = useStore()
-    const { getStep, goToStep, hasUploadAccess, option } = useNavigation()
+    const {
+        getStepPage,
+        goToLandingPage,
+        goToStep,
+        hasUploadAccess,
+        option,
+    } = useNavigation()
 
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -165,7 +171,7 @@ export const LayoutUpload = ({ children }) => {
 
     // Redirect to form step if no tracking number exists
     useEffect(() => {
-        if (!hasUploadAccess) goToStep('form')
+        if (!hasUploadAccess) goToLandingPage()
     }, [hasUploadAccess])
 
     if (typeof window === 'undefined' || !hasUploadAccess) {
@@ -434,7 +440,7 @@ export const LayoutUpload = ({ children }) => {
                     <ButtonWrapper className="pb-8">
                         <Button
                             as={Link}
-                            href={getStep('form')}
+                            href={getStepPage('form')}
                             variant="outline"
                         >
                             Go Back

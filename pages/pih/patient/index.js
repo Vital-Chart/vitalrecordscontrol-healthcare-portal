@@ -7,7 +7,7 @@ import { Layout, Container, ScreenReader } from '@/components/general'
 import IconClose from '@/icons/icon-close.svg'
 
 const Instructions = () => {
-    const { getLandingPage, getStep } = useNavigation()
+    const { getLandingPage, getStepPage } = useNavigation()
 
     return (
         <Layout>
@@ -213,7 +213,7 @@ const Instructions = () => {
 
                         <Button
                             as={Link}
-                            href={getStep('form')}
+                            href={getStepPage('form')}
                             variant="filled"
                             className="flex-grow text-center"
                         >

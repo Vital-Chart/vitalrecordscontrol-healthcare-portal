@@ -74,10 +74,9 @@ export const LayoutReview = ({ children }) => {
     const store = useStore()
     const {
         hospital,
-        getStep,
-        goToStep,
+        getStepPage,
+        goToLandingPage,
         goToSuccessPage,
-        hasUploadAccess,
         hasSubmitAccess,
         option,
     } = useNavigation()
@@ -116,15 +115,14 @@ export const LayoutReview = ({ children }) => {
         }
     }
 
-    // Redirect to form/upload step if no tracking number/uploads exist
+    // Redirect to landing page if no tracking number/uploads exist
     // or there is success data
     useEffect(() => {
         if (store.state.success) goToSuccessPage()
-        else if (!hasUploadAccess) goToStep('form')
-        else if (!hasSubmitAccess) goToStep('upload')
-    }, [store, hasUploadAccess, hasSubmitAccess])
+        else if (!hasSubmitAccess) goToLandingPage()
+    }, [store, hasSubmitAccess])
 
-    if (typeof window === 'undefined' || !hasUploadAccess || !hasSubmitAccess) {
+    if (typeof window === 'undefined' || !hasSubmitAccess) {
         return null
     }
 
@@ -151,7 +149,7 @@ export const LayoutReview = ({ children }) => {
                             Please review your submission below for accuracy. If
                             there are any errors,{' '}
                             <Link
-                                href={getStep('form')}
+                                href={getStepPage('form')}
                                 className="underline font-bold text-blue hover:text-black transition-colors"
                             >
                                 please click here to correct them.
@@ -257,7 +255,7 @@ export const LayoutReview = ({ children }) => {
 
                         <Button
                             as={Link}
-                            href={getStep('form')}
+                            href={getStepPage('form')}
                             variant="outline"
                             className="inline-block"
                         >
@@ -274,7 +272,7 @@ export const LayoutReview = ({ children }) => {
 
                         <Button
                             as={Link}
-                            href={getStep('upload')}
+                            href={getStepPage('upload')}
                             variant="outline"
                             className="inline-block"
                         >
@@ -349,7 +347,7 @@ export const LayoutReview = ({ children }) => {
                     <ButtonWrapper className="pb-8">
                         <Button
                             as={Link}
-                            href={getStep('upload')}
+                            href={getStepPage('upload')}
                             variant="outline"
                         >
                             Go Back

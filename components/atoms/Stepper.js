@@ -26,7 +26,7 @@ const StepperLink = ({ children, href, className, ...props }) => {
 }
 
 export const Stepper = ({ className, ...props }) => {
-    const { getStep, hasUploadAccess, hasSubmitAccess } = useNavigation()
+    const { getStepPage, hasUploadAccess, hasSubmitAccess } = useNavigation()
 
     return (
         <Box className={cx('py-4 bg-gray-lightest', className)} {...props}>
@@ -36,7 +36,7 @@ export const Stepper = ({ className, ...props }) => {
                         <Box as="li">
                             <Box>
                                 <StepperLink
-                                    href={getStep('form')}
+                                    href={getStepPage('form')}
                                     className="text-sm text-center sm:text-left"
                                 >
                                     Request Information
@@ -49,7 +49,7 @@ export const Stepper = ({ className, ...props }) => {
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
                                 {hasUploadAccess ? (
                                     <StepperLink
-                                        href={getStep('upload')}
+                                        href={getStepPage('upload')}
                                         className="ml-4 text-sm text-center sm:text-left"
                                     >
                                         Provide Authorization Information
@@ -67,7 +67,7 @@ export const Stepper = ({ className, ...props }) => {
                                 <IconSlash className="flex-shrink-0 h-5 w-5 text-gray-light" />
                                 {hasSubmitAccess ? (
                                     <StepperLink
-                                        href={getStep('review')}
+                                        href={getStepPage('review')}
                                         className="ml-4 text-sm text-center sm:text-left"
                                     >
                                         Review & Submit
