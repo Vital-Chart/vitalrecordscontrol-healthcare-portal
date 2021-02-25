@@ -2,6 +2,17 @@ import cx from 'classnames'
 import { Box, Flex, Text } from '@/components/core'
 import IconAlert from '@/icons/icon-alert.svg'
 
+const errorMessages = {
+    100000: '100000: Please try again.',
+    100001: '100001: Please try again.',
+    100002: '100002: Please try again.',
+    100003: '100003: Please try again.',
+    100004: '100004: Please try again.',
+    100005: '100005: Please try again.',
+    100006: '100006: Please try again.',
+    100007: '100007: Please try again.',
+}
+
 export const ServerErrorList = ({ className, errors }) => {
     if (!errors.length) return null
 
@@ -21,9 +32,9 @@ export const ServerErrorList = ({ className, errors }) => {
                         There was a problem processing your request.
                     </Text>
 
-                    {errors.map(error => (
-                        <Text className="text-sm">
-                            There was an error: {error}
+                    {errors.map(errorCode => (
+                        <Text className="text-sm mb-4">
+                            {errorMessages[errorCode]}
                         </Text>
                     ))}
                 </Box>

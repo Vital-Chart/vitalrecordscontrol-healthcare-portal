@@ -39,7 +39,7 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const { getLandingPage, goToStep, getContactPage } = useNavigation()
+    const { getLandingPage, goToStep, getContactPage, option } = useNavigation()
 
     const {
         register,
@@ -111,6 +111,14 @@ const Form = ({ store }) => {
             <Container>
                 <Box>
                     <PageHeading className="pt-4">
+                        <Text
+                            as="span"
+                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                        >
+                            {option === 'patient'
+                                ? 'Quick Release to You '
+                                : 'Release to Third-Party '}
+                        </Text>
                         New Medical Records Request
                     </PageHeading>
 

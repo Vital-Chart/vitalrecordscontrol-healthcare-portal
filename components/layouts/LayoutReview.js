@@ -79,6 +79,7 @@ export const LayoutReview = ({ children }) => {
         goToSuccessPage,
         hasUploadAccess,
         hasSubmitAccess,
+        option,
     } = useNavigation()
     const canvasRef = useRef(null)
     const [serverErrors, setServerErrors] = useState([])
@@ -135,6 +136,14 @@ export const LayoutReview = ({ children }) => {
                 <Box className="max-w-screen-md space-y-8 pb-8">
                     <Box>
                         <PageHeading className="pt-4 mb-8">
+                            <Text
+                                as="span"
+                                className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                            >
+                                {option === 'patient'
+                                    ? 'Quick Release to You '
+                                    : 'Release to Third-Party '}
+                            </Text>
                             Review & Submit
                         </PageHeading>
 
