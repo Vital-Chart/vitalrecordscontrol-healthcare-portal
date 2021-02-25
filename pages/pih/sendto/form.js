@@ -104,9 +104,12 @@ const PIHSendToForm = ({ store }) => {
             <Stepper className="mb-4" />
             <Container>
                 <Box>
-                    <PageHeading className="pt-4">
-                        New Medical Records Request
-                    </PageHeading>
+                    <Box className="pt-4">
+                        <Text className="text-base md:text-lg font-normal text-gray-dark">
+                            Release to Third-Party
+                        </Text>
+                        <PageHeading>New Medical Records Request</PageHeading>
+                    </Box>
                     <Box
                         as="form"
                         acceptCharset="UTF-8"

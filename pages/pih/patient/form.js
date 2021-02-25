@@ -110,9 +110,12 @@ const Form = ({ store }) => {
             <Stepper className="mb-4" />
             <Container>
                 <Box>
-                    <PageHeading className="pt-4">
-                        New Medical Records Request
-                    </PageHeading>
+                    <Box className="pt-4">
+                        <Text className="text-base md:text-lg font-normal text-gray-dark">
+                            Quick Release to You
+                        </Text>
+                        <PageHeading>New Medical Records Request</PageHeading>
+                    </Box>
 
                     {/* TODO: Display general/server errors */}
                     {/* https://docs.google.com/spreadsheets/d/1sF0eOAiIbYGjvKwiNx3VPiXUXVr3fvYuK3lxcB8JHOE/edit?ts=60257605#gid=1766959036 */}
