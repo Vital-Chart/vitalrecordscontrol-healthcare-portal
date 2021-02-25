@@ -311,42 +311,56 @@ export const LayoutUpload = ({ children }) => {
                             contact us at the number above.
                         </Text>
 
-                        <Text className="pb-4">To complete your request:</Text>
-                        <Box
-                            as="ul"
-                            className="pl-8 pb-4 space-y-2 list-decimal"
-                        >
-                            <Box as="li">
-                                Print out and sign this{' '}
-                                <Button
-                                    className="underline font-bold text-blue hover:text-black transition-colors"
-                                    onClick={getAuthForm}
+                        {hasTouch ? (
+                            <Text className="pb-4">
+                                All requests for medical records require
+                                uploading an image of you holding your driver's
+                                license or other government-issued
+                                identification.
+                            </Text>
+                        ) : (
+                            <>
+                                <Text className="pb-4">
+                                    To complete your request:
+                                </Text>
+                                <Box
+                                    as="ul"
+                                    className="pl-8 pb-4 space-y-2 list-decimal"
                                 >
-                                    authorization form
-                                </Button>{' '}
-                                along with a copy of a government-issued picture
-                                ID,
-                            </Box>
-                            <Box as="li">
-                                Scan or photograph all pages of the form along
-                                with your government ID,
-                            </Box>
-                            <Box as="li">
-                                If requesting on behalf of a patient, scan or
-                                photograph all pages of the additional required
-                                documentation,
-                            </Box>
-                            <Box as="li">
-                                Upload all photos/scans in the area below, and
-                            </Box>
-                            <Box as="li">
-                                Click{' '}
-                                <Text as="span" className="font-bold">
-                                    Continue
-                                </Text>{' '}
-                                below.
-                            </Box>
-                        </Box>
+                                    <Box as="li">
+                                        Print out and sign this{' '}
+                                        <Button
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                            onClick={getAuthForm}
+                                        >
+                                            authorization form
+                                        </Button>{' '}
+                                        along with a copy of a government-issued
+                                        picture ID,
+                                    </Box>
+                                    <Box as="li">
+                                        Scan or photograph all pages of the form
+                                        along with your government ID,
+                                    </Box>
+                                    <Box as="li">
+                                        If requesting on behalf of a patient,
+                                        scan or photograph all pages of the
+                                        additional required documentation,
+                                    </Box>
+                                    <Box as="li">
+                                        Upload all photos/scans in the area
+                                        below, and
+                                    </Box>
+                                    <Box as="li">
+                                        Click{' '}
+                                        <Text as="span" className="font-bold">
+                                            Continue
+                                        </Text>{' '}
+                                        below.
+                                    </Box>
+                                </Box>
+                            </>
+                        )}
 
                         <Text className="pb-4 font-bold">
                             Please note the following:
