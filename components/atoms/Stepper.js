@@ -32,7 +32,7 @@ export const Stepper = ({ className, ...props }) => {
         <Box className={cx('py-4 bg-gray-lightest', className)} {...props}>
             <Container>
                 <Box as="nav" className="flex" aria-label="Breadcrumb">
-                    <Box as="ol" className="flex items-center space-x-4">
+                    <Box as="ol" className="flex items-center space-x-2">
                         <Box as="li">
                             <Box>
                                 <StepperLink
@@ -50,12 +50,12 @@ export const Stepper = ({ className, ...props }) => {
                                 {hasUploadAccess ? (
                                     <StepperLink
                                         href={getStepPage('upload')}
-                                        className="ml-4 text-sm text-center sm:text-left"
+                                        className="ml-2 text-sm text-center sm:text-left"
                                     >
                                         Provide Authorization Information
                                     </StepperLink>
                                 ) : (
-                                    <Text className="ml-4 text-sm text-center sm:text-left text-gray">
+                                    <Text className="ml-2 text-sm text-center sm:text-left text-gray">
                                         Provide Authorization Information
                                     </Text>
                                 )}
@@ -68,12 +68,12 @@ export const Stepper = ({ className, ...props }) => {
                                 {hasSubmitAccess ? (
                                     <StepperLink
                                         href={getStepPage('review')}
-                                        className="ml-4 text-sm text-center sm:text-left"
+                                        className="ml-2 text-sm text-center sm:text-left"
                                     >
                                         Review & Submit
                                     </StepperLink>
                                 ) : (
-                                    <Text className="ml-4 text-sm text-center sm:text-left text-gray">
+                                    <Text className="ml-2 text-sm text-center sm:text-left text-gray">
                                         Review & Submit
                                     </Text>
                                 )}
