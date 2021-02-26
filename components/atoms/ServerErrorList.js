@@ -3,14 +3,15 @@ import { Box, Flex, Text } from '@/components/core'
 import IconAlert from '@/icons/icon-alert.svg'
 
 const errorMessages = {
-    100000: '100000: Please try again.',
-    100001: '100001: Please try again.',
-    100002: '100002: Please try again.',
-    100003: '100003: Please try again.',
-    100004: '100004: Please try again.',
-    100005: '100005: Please try again.',
-    100006: '100006: Please try again.',
-    100007: '100007: Please try again.',
+    100000: '100000: General server error',
+    100001: '100001: Invalid Tracking number provided',
+    100002: '100002: A class of error reflecting a data validation failure.  For example, a combo box value was not found in spec',
+    100003: '100003: Problem encountered downloading one of more the supplied files',
+    100004: '100004: Invalid signature',
+    100005: '100005: Invalid file name given',
+    100006: '100006: No Tracking Number Information and No Facility Information supplied',
+    100007: '100007: Invalid file name given',
+    100007: '100008: Tracking Number ID not found',
 }
 
 export const ServerErrorList = ({ className, errors }) => {
