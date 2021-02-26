@@ -12,7 +12,7 @@ const errorMessages = {
     100005: '100005: Invalid file name given',
     100006: '100006: No tracking number information and no facility information supplied',
     100007: '100007: Invalid file name given',
-    100008: '100008: Tracking number ID not found',
+    10000: '100008: Tracking number ID not found',
 }
 
 export const ServerErrorList = ({ className, errors }) => {
@@ -29,17 +29,17 @@ export const ServerErrorList = ({ className, errors }) => {
                 <Box className="flex-shrink-0">
                     <IconAlert className="h-5 w-5 text-red-dark" />
                 </Box>
-                <Box className="ml-2">
+                <Flex className="flex-col gap-2 ml-2">
                     <Text className="font-bold text-sm text-red-dark">
                         There was a problem processing your request.
                     </Text>
 
                     {errors.map(errorCode => (
-                        <Text className="text-sm mb-4">
+                        <Text className="text-sm">
                             {errorMessages[errorCode]}
                         </Text>
                     ))}
-                </Box>
+                </Flex>
             </Flex>
         </Box>
     )

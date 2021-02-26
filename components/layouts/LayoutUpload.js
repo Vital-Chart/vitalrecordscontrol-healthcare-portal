@@ -60,6 +60,7 @@ const FacilityList = () => {
 export const LayoutUpload = ({ children }) => {
     const store = useStore()
     const {
+        getLandingPage,
         getStepPage,
         goToLandingPage,
         goToStep,
@@ -130,8 +131,6 @@ export const LayoutUpload = ({ children }) => {
     }
 
     const getAuthForm = async () => {
-        // setIsFetching(true)
-
         if (
             store.state.authForm &&
             store.state.authForm.expires > new Date().getTime()
@@ -150,10 +149,8 @@ export const LayoutUpload = ({ children }) => {
                 setServerErrors(
                     errorInformation.map(error => error.errorNumber)
                 )
-                // setIsFetching(false)
             } else {
                 setServerErrors([])
-                // setIsFetching(false)
 
                 store.dispatch({
                     type: 'UPDATE_AUTH_FORM',
@@ -465,6 +462,7 @@ export const LayoutUpload = ({ children }) => {
                             onClick={() => {
                                 store.dispatch({
                                     type: 'RESET_REQUEST',
+                                    redirect: getLandingPage(),
                                 })
                             }}
                         >

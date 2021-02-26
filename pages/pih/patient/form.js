@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
-import * as dayjs from 'dayjs'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useForm } from 'react-hook-form'
 import { withStore } from '@/lib/store'
@@ -39,16 +38,9 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const { getLandingPage, goToStep, getContactPage, option } = useNavigation()
+    const { getLandingPage, goToStep, getContactPage } = useNavigation()
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        getValues,
-        errors,
-        control,
-    } = useForm({
+    const { register, handleSubmit, watch, getValues, errors } = useForm({
         defaultValues: store.state.form,
     })
 
@@ -115,15 +107,10 @@ const Form = ({ store }) => {
                             as="span"
                             className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
                         >
-                            {option === 'patient'
-                                ? 'Quick Release to You '
-                                : 'Release to Third-Party '}
-                        </Text>
+                            Quick Release to You
+                        </Text>{' '}
                         New Medical Records Request
                     </PageHeading>
-
-                    {/* TODO: Display general/server errors */}
-                    {/* https://docs.google.com/spreadsheets/d/1sF0eOAiIbYGjvKwiNx3VPiXUXVr3fvYuK3lxcB8JHOE/edit?ts=60257605#gid=1766959036 */}
 
                     <Box
                         as="form"

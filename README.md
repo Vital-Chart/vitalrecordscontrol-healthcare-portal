@@ -25,6 +25,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [Tailwind CSS](https://tailwindcss.com)
 - [react-hook-forms](https://react-hook-form.com)
 - [react-dropzone](https://react-dropzone.js.org)
-- [dayjs](https://day.js.org/en/)
 - [form-data](https://www.npmjs.com/package/form-data) - Remove if we don't use API routes
-- [formidable](https://www.npmjs.com/package/formidable) - Remove if we don't use API routes
