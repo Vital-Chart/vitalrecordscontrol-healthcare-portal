@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
 import cx from 'classnames'
-import * as dayjs from 'dayjs'
 import SignatureCanvas from 'react-signature-canvas'
 import { useStore } from '@/lib/store'
 import { finishRequest } from '@/lib/api'
@@ -28,9 +27,7 @@ function displayDatesOfService(store) {
         case 'ALL':
             return 'All visits'
         case 'DR':
-            const startDate = dayjs(form.VI_DR_SD).format('MM/DD/YYYY')
-            const endDate = dayjs(form.VI_DR_ED).format('MM/DD/YYYY')
-            return `${startDate} - ${endDate}`
+            return `${form.VI_DR_SD} - ${form.VI_DR_ED}`
         default:
             return null
     }
@@ -74,6 +71,7 @@ export const LayoutReview = ({ children }) => {
     const store = useStore()
     const {
         hospital,
+        getLandingPage,
         getStepPage,
         goToLandingPage,
         goToSuccessPage,
@@ -115,8 +113,7 @@ export const LayoutReview = ({ children }) => {
         }
     }
 
-    // Redirect to landing page if no tracking number/uploads exist
-    // or there is success data
+    // Redirect to landing page if no submit access or there is success data
     useEffect(() => {
         if (store.state.success) goToSuccessPage()
         else if (!hasSubmitAccess) goToLandingPage()
@@ -192,9 +189,7 @@ export const LayoutReview = ({ children }) => {
                             <Text as="span" className="block text-sm font-bold">
                                 Patient DOB:
                             </Text>{' '}
-                            {dayjs(store.state.form.PI_DOB).format(
-                                'MM/DD/YYYY'
-                            )}
+                            {store.state.form.PI_DOB}
                         </Text>
 
                         <Text>
@@ -358,6 +353,7 @@ export const LayoutReview = ({ children }) => {
                             onClick={() => {
                                 store.dispatch({
                                     type: 'RESET_REQUEST',
+                                    redirect: getLandingPage(),
                                 })
                             }}
                         >
