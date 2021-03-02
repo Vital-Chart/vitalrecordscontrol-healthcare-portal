@@ -208,7 +208,7 @@ const Instructions = () => {
                             as={Link}
                             href={getLandingPage()}
                             variant="outline"
-                            className="flex-grow text-center"
+                            className="flex-grow m-2 text-center"
                         >
                             Back
                         </Button>
@@ -216,7 +216,7 @@ const Instructions = () => {
                             as={Link}
                             href={getStep('form')}
                             variant="filled"
-                            className="flex-grow text-center"
+                            className="flex-grow m-2 text-center"
                         >
                             Continue
                         </Button>

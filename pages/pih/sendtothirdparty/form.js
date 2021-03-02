@@ -1367,7 +1367,7 @@ const Form = ({ store }) => {
                                 as={Link}
                                 href={getLandingPage()}
                                 variant="outline"
-                                className="flex-1"
+                                className="flex-grow m-2 text-center"
                             >
                                 Cancel
                             </Button>
@@ -1377,7 +1377,7 @@ const Form = ({ store }) => {
                                 variant="filled"
                                 disabled={isFetching}
                                 className={cx(
-                                    'flex-1',
+                                    'flex-grow m-2 text-center',
                                     isFetching && 'pointer-events-none'
                                 )}
                             >
