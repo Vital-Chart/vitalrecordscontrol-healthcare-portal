@@ -47,11 +47,6 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
-    const watchFacilityCheckboxes = watch('FI_CB', [])
-    const watchRequestedInformation = watch('RI_CB', [])
-    const watchVisitOptions = watch('VI_OPT', [])
-    const watchDeliveryMethod = watch('DI_DM_DD', [])
-
     const handleChange = e => {
         setServerErrors([])
 
@@ -462,10 +457,7 @@ const Form = ({ store }) => {
                                             message={errors.RI_CB.message}
                                         />
                                     )}
-                                    <Info
-                                        secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
-                                        className="mt-4"
-                                    />
+
                                     <Box className="mt-4">
                                         <Text className="text-sm font-bold mb-2">
                                             The following information will not
@@ -544,7 +536,7 @@ const Form = ({ store }) => {
                                         />
                                     )}
                                 </Box>
-                                <Box>
+                                {/* <Box>
                                     <Label htmlFor="PR_LIM">
                                         Limitations (Optional):
                                     </Label>
@@ -556,7 +548,7 @@ const Form = ({ store }) => {
                                         onChange={handleChange}
                                         ref={register}
                                     />
-                                </Box>
+                                </Box> */}
                             </Box>
                         </FormSection>
 
@@ -791,379 +783,128 @@ const Form = ({ store }) => {
                                         />
                                     )}
                                 </Box>
-                            </Box>
-                        </FormSection>
 
-                        <FormSection>
-                            <SectionHeading>
-                                Delivery Information
-                            </SectionHeading>
-                            <Box>
-                                <Box
-                                    as="ul"
-                                    className="pl-8 space-y-2 list-disc"
-                                >
-                                    <Box as="li">
-                                        Medical records will be delivered via
-                                        this website in Adobe PDF format. A
-                                        notification will be sent when the
-                                        records are ready for download, and they
-                                        will be available for 30 days.
-                                    </Box>
+                                <Box className="mb-4">
+                                    <Label htmlFor="DI_ADDR1">Address</Label>
+                                    <Input
+                                        type="text"
+                                        name="DI_ADDR1"
+                                        id="DI_ADDR1"
+                                        className="w-full mt-1  mb-2"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please enter an address.',
+                                        })}
+                                    />
 
-                                    <Box as="li">
-                                        Normal processing time is 5 business
-                                        days from time of receipt.
-                                    </Box>
-
-                                    <Box as="li">
-                                        Please{' '}
-                                        <Link
-                                            href={getContactPage()}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                        >
-                                            contact us
-                                        </Link>{' '}
-                                        if you have any questions.
-                                    </Box>
+                                    {errors.DI_ADDR1 && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.DI_ADDR1.message}
+                                        />
+                                    )}
                                 </Box>
 
-                                {watchRequestedInformation.some(i =>
-                                    ['RI', 'PS'].includes(i)
-                                ) && (
-                                    <>
-                                        <Info
-                                            secondaryText="Radiology Images are saved to CD.
-                                                        Radiology Images and Pathology
-                                                        Slides can be either picked up by
-                                                        you at the facility, or delivered to
-                                                        you via US Mail. Please select an
-                                                        option below."
-                                            className="my-4"
+                                <Box className="mb-4">
+                                    <Label htmlFor="DI_ADDR2">
+                                        Address Line 2
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        name="DI_ADDR2"
+                                        id="DI_ADDR2"
+                                        className="w-full mt-1  mb-2"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
+                                </Box>
+
+                                <Box className="mb-4">
+                                    <Label htmlFor="DI_CITY">City</Label>
+                                    <Input
+                                        type="text"
+                                        name="DI_CITY"
+                                        id="DI_CITY"
+                                        className="w-full mt-1 mb-2"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required: 'Please enter a city.',
+                                        })}
+                                    />
+
+                                    {errors.DI_CITY && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.DI_CITY.message}
+                                        />
+                                    )}
+                                </Box>
+                                <Flex className="mb-6">
+                                    <Box>
+                                        <Label htmlFor="DI_ST_DD">State</Label>
+                                        <Select
+                                            name="DI_ST_DD"
+                                            id="DI_ST_DD"
+                                            className="block mt-1 mr-4"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                validate: {
+                                                    stateCheck: value =>
+                                                        value !==
+                                                            'Select a state' ||
+                                                        'Please select a state.',
+                                                },
+                                            })}
+                                        >
+                                            <option>Select a state</option>
+                                            {Object.keys(states).map(key => (
+                                                <option value={key} key={key}>
+                                                    {states[key]}
+                                                </option>
+                                            ))}
+                                        </Select>
+
+                                        {errors.DI_ST_DD && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_ST_DD.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                    <Box>
+                                        <Label htmlFor="DI_ZIP">Zip</Label>
+                                        <Input
+                                            type="text"
+                                            name="DI_ZIP"
+                                            id="DI_ZIP"
+                                            className="w-full mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please enter a zip code.',
+                                            })}
                                         />
 
-                                        <Box className="mb-4">
-                                            <Label htmlFor="DI_DM_DD">
-                                                CD Delivery Method
-                                            </Label>
-                                            <Select
-                                                name="DI_DM_DD"
-                                                id="DI_DM_DD"
-                                                className="block mt-1"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select a delivery method.',
-                                                })}
-                                            >
-                                                {/* <option value="DL">Download</option> */}
-                                                <option value="PS">
-                                                    Postal Service - Mail
-                                                </option>
-                                                <option value="PU">
-                                                    Pick Up
-                                                </option>
-                                            </Select>
-                                            {errors.DI_DM_DD && (
-                                                <ErrorMessage
-                                                    className="mt-2"
-                                                    message={
-                                                        errors.DI_DM_DD.message
-                                                    }
-                                                />
-                                            )}
-                                        </Box>
-                                        {watchDeliveryMethod.includes('PS') && (
-                                            <Box className="mb-4">
-                                                <Text className="mb-4">
-                                                    Radiology CDs and/or
-                                                    Pathology Slides will be
-                                                    mailed to the address you
-                                                    enter below via the US
-                                                    Postal Service. The
-                                                    department will contact you
-                                                    if additional information is
-                                                    required.
-                                                </Text>
-                                                <Box className="mb-4">
-                                                    <Label htmlFor="DI_NM">
-                                                        Name
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_NM"
-                                                        id="DI_NM"
-                                                        className="w-full mt-1 mb-2"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            required:
-                                                                'Please enter a name.',
-                                                        })}
-                                                    />
-
-                                                    {errors.DI_NM && (
-                                                        <ErrorMessage
-                                                            className="mt-2"
-                                                            message={
-                                                                errors.DI_NM
-                                                                    .message
-                                                            }
-                                                        />
-                                                    )}
-                                                </Box>
-
-                                                <Box className="mb-4">
-                                                    <Label htmlFor="DI_ATN">
-                                                        Attention
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_ATN"
-                                                        id="DI_ATN"
-                                                        className="w-full mt-1 mb-2"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                </Box>
-
-                                                <Box className="mb-4">
-                                                    <Label htmlFor="DI_ADDR1">
-                                                        Address
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_ADDR1"
-                                                        id="DI_ADDR1"
-                                                        className="w-full mt-1  mb-2"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            required:
-                                                                'Please enter an address.',
-                                                        })}
-                                                    />
-
-                                                    {errors.DI_ADDR1 && (
-                                                        <ErrorMessage
-                                                            className="mt-2"
-                                                            message={
-                                                                errors.DI_ADDR1
-                                                                    .message
-                                                            }
-                                                        />
-                                                    )}
-                                                </Box>
-
-                                                <Box className="mb-4">
-                                                    <Label htmlFor="DI_ADDR2">
-                                                        Address Line 2
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_ADDR2"
-                                                        id="DI_ADDR2"
-                                                        className="w-full mt-1  mb-2"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                </Box>
-
-                                                <Box className="mb-4">
-                                                    <Label htmlFor="DI_CITY">
-                                                        City
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_CITY"
-                                                        id="DI_CITY"
-                                                        className="w-full mt-1 mb-2"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            required:
-                                                                'Please enter a city.',
-                                                        })}
-                                                    />
-
-                                                    {errors.DI_CITY && (
-                                                        <ErrorMessage
-                                                            className="mt-2"
-                                                            message={
-                                                                errors.DI_CITY
-                                                                    .message
-                                                            }
-                                                        />
-                                                    )}
-                                                </Box>
-                                                <Flex>
-                                                    <Box>
-                                                        <Label htmlFor="DI_ST_DD">
-                                                            State
-                                                        </Label>
-                                                        <Select
-                                                            name="DI_ST_DD"
-                                                            id="DI_ST_DD"
-                                                            className="block mt-1 mr-4"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register({
-                                                                validate: {
-                                                                    stateCheck: value =>
-                                                                        value !==
-                                                                            'Select a state' ||
-                                                                        'Please select a state.',
-                                                                },
-                                                            })}
-                                                        >
-                                                            <option>
-                                                                Select a state
-                                                            </option>
-                                                            {Object.keys(
-                                                                states
-                                                            ).map(key => (
-                                                                <option
-                                                                    value={key}
-                                                                    key={key}
-                                                                >
-                                                                    {
-                                                                        states[
-                                                                            key
-                                                                        ]
-                                                                    }
-                                                                </option>
-                                                            ))}
-                                                        </Select>
-
-                                                        {errors.DI_ST_DD && (
-                                                            <ErrorMessage
-                                                                className="mt-2"
-                                                                message={
-                                                                    errors
-                                                                        .DI_ST_DD
-                                                                        .message
-                                                                }
-                                                            />
-                                                        )}
-                                                    </Box>
-                                                    <Box>
-                                                        <Label htmlFor="DI_ZIP">
-                                                            Zip
-                                                        </Label>
-                                                        <Input
-                                                            type="text"
-                                                            name="DI_ZIP"
-                                                            id="DI_ZIP"
-                                                            className="w-full mt-1"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            ref={register({
-                                                                required:
-                                                                    'Please enter a zip code.',
-                                                            })}
-                                                        />
-
-                                                        {errors.DI_ZIP && (
-                                                            <ErrorMessage
-                                                                className="mt-2"
-                                                                message={
-                                                                    errors
-                                                                        .DI_ZIP
-                                                                        .message
-                                                                }
-                                                            />
-                                                        )}
-                                                    </Box>
-                                                </Flex>
-                                            </Box>
+                                        {errors.DI_ZIP && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={errors.DI_ZIP.message}
+                                            />
                                         )}
-                                        {watchDeliveryMethod.includes('PU') && (
-                                            <Box className="mb-4 space-y-4">
-                                                <Text>
-                                                    Once available, Radiology
-                                                    Images and/or Pathology
-                                                    Slides can be picked up from
-                                                    the facility or facilities
-                                                    listed below.
-                                                </Text>
-                                                {watchFacilityCheckboxes.includes(
-                                                    'P7202-1'
-                                                ) && (
-                                                    <Box>
-                                                        <Text
-                                                            as="span"
-                                                            className="font-bold"
-                                                        >
-                                                            PIH Health Hospital
-                                                            - Downey
-                                                        </Text>
-                                                        <Text>
-                                                            11500 Brookshire
-                                                            Avenue
-                                                        </Text>
-                                                        <Text>
-                                                            Downey, CA 90241
-                                                        </Text>
-                                                        <Text>
-                                                            (562) 904-5166
-                                                            x26177
-                                                        </Text>
-                                                    </Box>
-                                                )}
-
-                                                {watchFacilityCheckboxes.includes(
-                                                    'P7201-1'
-                                                ) && (
-                                                    <Box>
-                                                        <Text
-                                                            as="span"
-                                                            className="font-bold"
-                                                        >
-                                                            PIH Health Hospital
-                                                            - Whittier
-                                                        </Text>
-                                                        <Text>
-                                                            12401 Washington
-                                                            Blvd
-                                                        </Text>
-                                                        <Text>
-                                                            Whittier, CA 90602
-                                                        </Text>
-                                                        <Text>
-                                                            (562) 698-0811
-                                                            x13685
-                                                        </Text>
-                                                    </Box>
-                                                )}
-
-                                                {watchFacilityCheckboxes.includes(
-                                                    'P7203-1'
-                                                ) && (
-                                                    <Box>
-                                                        <Text
-                                                            as="span"
-                                                            className="font-bold"
-                                                        >
-                                                            PIH Health
-                                                            Physicians
-                                                        </Text>
-                                                        <Text>
-                                                            12401 Washington
-                                                            Blvd
-                                                        </Text>
-                                                        <Text>
-                                                            Whittier, CA 90602
-                                                        </Text>
-                                                        <Text>
-                                                            (562) 698-0811
-                                                            x13858
-                                                        </Text>
-                                                    </Box>
-                                                )}
-                                            </Box>
-                                        )}
-                                    </>
-                                )}
+                                    </Box>
+                                </Flex>
                             </Box>
+                            <Info
+                                primaryText="Medical records will be delivered via this
+                                website in Adobe PDF format."
+                                secondaryText="A notification
+                                    will be sent when the records are ready for
+                                    download, and they will be available for 30
+                                    days."
+                            />
                         </FormSection>
 
                         <ServerErrorList
