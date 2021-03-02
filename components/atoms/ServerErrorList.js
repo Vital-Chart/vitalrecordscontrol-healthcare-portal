@@ -35,7 +35,7 @@ export const ServerErrorList = ({ className, errors }) => {
                     </Text>
 
                     {errors.map(errorCode => (
-                        <Text className="text-sm">
+                        <Text key={errorCode} className="text-sm">
                             {errorMessages[errorCode]}
                         </Text>
                     ))}

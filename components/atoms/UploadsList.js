@@ -26,7 +26,10 @@ export const UploadsList = ({ className, isEditable, ...props }) => {
                     file => (
                         <Flex key={file.name}>
                             <Box className="flex-1 py-2 px-4">
-                                <Text>{file.name}</Text>
+                                <Text>
+                                    {file.name}
+                                    {file.isNew && ` (new)`}
+                                </Text>
                             </Box>
 
                             <Box className="w-32 py-2 px-4">
