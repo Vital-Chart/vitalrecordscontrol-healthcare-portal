@@ -12,11 +12,13 @@ export const Footer = () => (
                     <Image src="/images/vrc-logo.png" />
                 </Link>
             </Box>
+
             <Box>
                 <Text className="pb-2 text-sm text-center md:text-right text-white">
                     &copy;{new Date().getFullYear()} Vital Records Control. All
                     Rights Reserved.
                 </Text>
+
                 <Link
                     href="https://vitalrecordscontrol.com/privacy-policy/"
                     className="block underline text-sm text-center md:text-right text-white"

@@ -2,7 +2,7 @@
   "name": "vitalrecordscontrol-healthcare-portal",
   "private": true,
   "version": "0.1.0",
-  "description": "Simple Focus Next.js starter.",
+  "description": "Next.js app for VitalChart Virtual ROI Portal.",
   "author": "Simple Focus <dev@simplefocus.com>",
   "scripts": {
     "dev": "next dev",
@@ -19,15 +19,18 @@
     "@tailwindcss/forms": "^0.2.1",
     "autoprefixer": "^10.0.2",
     "classnames": "^2.2.6",
+    "form-data": "^4.0.0",
+    "formidable": "^1.2.2",
     "next": "^10.0.1",
     "polished": "^4.0.4",
     "postcss": "^8.1.9",
     "react": "^17.0.1",
-    "react-datepicker": "^3.4.1",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.3.1",
     "react-hook-form": "^6.15.1",
     "react-micro-modal": "^2.0.2",
+    "react-signature-canvas": "^1.0.3",
+    "react-use": "^17.1.1",
     "tailwindcss": "^2.0.1"
   },
   "devDependencies": {

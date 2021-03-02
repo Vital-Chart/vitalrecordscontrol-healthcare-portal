@@ -1,29 +1,6 @@
-import { Box, Text } from '@/components/core'
-import { PageHeading } from '@/components/atoms'
-import { Layout, Container } from '@/components/general'
-import { PIH as hospital } from '@/lib/hospitals'
+import { LayoutContact } from '@/components/layouts'
 
-const Contact = () => (
-    <Layout>
-        <Container>
-            <Box className="max-w-screen-md space-y-8 pb-12">
-                <PageHeading>
-                    Contact Information for {hospital.name}
-                </PageHeading>
-
-                {hospital.contact.map(facility => (
-                    <Box>
-                        <Text className="font-bold">
-                            {facility.facilityName}
-                        </Text>
-                        <Text>{facility.address1}</Text>
-                        <Text>{facility.address2}</Text>
-                        <Text>{facility.phone}</Text>
-                    </Box>
-                ))}
-            </Box>
-        </Container>
-    </Layout>
-)
-
+const Contact = () => {
+    return <LayoutContact />
+}
 export default Contact

@@ -1,11 +1,11 @@
 import cx from 'classnames'
-import { Box, Flex } from '@/components/core'
+import { Box, Flex, Text } from '@/components/core'
 import IconAlert from '@/icons/icon-alert.svg'
 
 export const Alert = ({ className, primaryAlertText, secondaryAlertText }) => (
     <Box
         className={cx(
-            'rounded-md bg-secondary-lightest my-4 p-4 border-l-4 border-secondary',
+            'rounded-md bg-secondary-lightest p-4 border-l-4 border-secondary',
             className
         )}
     >
@@ -14,12 +14,13 @@ export const Alert = ({ className, primaryAlertText, secondaryAlertText }) => (
                 <IconAlert className="h-5 w-5 text-secondary-dark" />
             </Box>
             <Box className="ml-3">
-                <p className="text-sm text-secondary-darkest font-bold">
+                <Text className="text-sm text-secondary-darkest font-bold">
                     {primaryAlertText}
-                </p>
-                <p className="text-sm text-secondary-darkest">
+                </Text>
+
+                <Text className="text-sm text-secondary-darkest">
                     {secondaryAlertText}
-                </p>
+                </Text>
             </Box>
         </Flex>
     </Box>

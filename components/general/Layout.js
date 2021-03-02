@@ -1,33 +1,53 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
+import { useIdle } from 'react-use'
+import useNavigation from '@/lib/useNavigation'
+import { useStore } from '@/lib/store'
 import { Flex } from '@/components/core'
 import { Footer, Header, ScreenReader } from '@/components/general'
 
-export const Layout = ({ children }) => (
-    <>
-        <Head>
-            <title>VitalChart® Virtual ROI Portal</title>
-        </Head>
+export const Layout = ({ children }) => {
+    const store = useStore()
+    const { getLandingPage, isStepPage } = useNavigation()
+    const isIdle = useIdle(60e4) // 10 minutes
 
-        <ScreenReader as="a" href="#content">
-            Skip to content
-        </ScreenReader>
+    // Clear data and redirect if user is idle to long
+    useEffect(() => {
+        if (isIdle && isStepPage) {
+            store.dispatch({
+                type: 'RESET_REQUEST',
+                redirect: getLandingPage(),
+            })
+        }
+    }, [isIdle])
 
-        <Flex className="flex-col min-h-screen">
-            <Header />
+    return (
+        <>
+            <Head>
+                <title>VitalChart® Virtual ROI Portal</title>
+            </Head>
 
-            <Flex
-                as="main"
-                id="content"
-                role="main"
-                className="flex-1 flex-col"
-            >
-                {children}
+            <ScreenReader as="a" href="#content">
+                Skip to content
+            </ScreenReader>
+
+            <Flex className="flex-col min-h-screen">
+                <Header />
+
+                <Flex
+                    as="main"
+                    id="content"
+                    role="main"
+                    className="flex-1 flex-col"
+                >
+                    {children}
+                </Flex>
+
+                <Footer />
             </Flex>
-
-            <Footer />
-        </Flex>
-    </>
-)
+        </>
+    )
+}
 
 Layout.defaultProps = {}
 

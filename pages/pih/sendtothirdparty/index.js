@@ -14,56 +14,46 @@ const Instructions = () => {
             <Container>
                 <Box className="max-w-screen-md space-y-8">
                     <PageHeading className="pt-4">
-                        Instructions for Quick Release to You
+                        Instructions for Release to Third Party
                     </PageHeading>
-
                     <Box>
                         <Text className="pb-4 leading-relaxed">
-                            This website allows you to request copies of your
-                            medical record and to retrieve it electronically.
-                            Please read the important notes below before
-                            continuing to use this system:
+                            This website allows you to submit requests for
+                            copies of a patient's medical records to be sent to
+                            yourself or to someone else. Please read the
+                            important notes below before continuing to use this
+                            system:
                         </Text>
-
-                        <Box
-                            as="ol"
-                            className="pl-8 pb-2 space-y-2 list-decimal"
-                        >
+                        <Box as="ol" className="pl-8 pb-2 list-decimal">
                             <Box as="li">
+                                This website is designed for{' '}
                                 <Text as="span" className="font-bold">
-                                    This option is for patients or parties with
-                                    the power to make decisions on behalf of a
-                                    patient
+                                    patients
                                 </Text>{' '}
-                                (e.g., parents, guardians) to request records to
-                                be electronically delivered to{' '}
+                                or{' '}
                                 <Text as="span" className="font-bold">
-                                    YOU
-                                </Text>
-                                . Some materials, such as Radiology Imaging CDs
-                                or Pathology Slides, require being sent via the
-                                U.S. Postal service or require pick-up. **Note:
-                                If you are a patient requesting records to be
-                                delivered to a{' '}
-                                <Text as="span" className="font-bold">
-                                    THIRD-PARTY
+                                    parties with the power to make decisions on
+                                    behalf of a patient (e.g. parents,
+                                    guardians)
                                 </Text>{' '}
-                                (e.g., healthcare provider, attorney, an
-                                insurance company, or other),{' '}
+                                to request records. Third parties should{' '}
                                 <Link
-                                    href={`${getLandingPage()}/sendto`}
+                                    href="/pih"
                                     className="underline font-bold text-blue hover:text-black transition-colors"
                                 >
                                     click here
                                 </Link>{' '}
-                                to fill out the correct form to submit your
-                                request.**
+                                to view other options for requesting medical
+                                records.
                             </Box>
                             <Box as="li">
-                                In order to protect your privacy and comply with
-                                federal and state regulations, we need a copy of
-                                your driver's license or other government-issued
-                                ID before we can release your records.{' '}
+                                In order to protect the patient's privacy and
+                                comply with federal and state regulations, we
+                                need a copy of your driver's license or other
+                                government-issued ID as well as proof you are
+                                authorized to make medical decisions for the
+                                patient (if you are not the patient) before we
+                                can release records.{' '}
                                 <Text as="span" className="font-bold">
                                     Failure to upload all required documents
                                     through this system within 72 hours after
@@ -71,10 +61,7 @@ const Instructions = () => {
                                     request being canceled.
                                 </Text>
                             </Box>
-                            <Box
-                                as="ul"
-                                className="pl-8 pb-2 space-y-2 list-disc"
-                            >
+                            <Box as="ul" className="pl-8 space-y-2 list-disc">
                                 <Box as="li">
                                     If you are on a mobile device (e.g.
                                     smartphone/tablet), you will need to
@@ -178,6 +165,7 @@ const Instructions = () => {
                                     )}
                                 />
                             </Box>
+
                             <Box as="li">
                                 Information requested through this system must
                                 exactly match hospital records. Typographic
@@ -196,11 +184,25 @@ const Instructions = () => {
                                 If you request records from multiple facilities,
                                 you will get ONE tracking number for each
                                 facility, as each facility processes records
-                                separately.
+                                separately.{' '}
+                                <Text as="span" className="font-bold">
+                                    You will receive separate notifications and
+                                    records from each facility.
+                                </Text>
                             </Box>
                         </Box>
+                        <Text>
+                            If you are unable to complete the above, please
+                            refer to{' '}
+                            <Link
+                                href="/pih"
+                                className="underline font-bold text-blue hover:text-black transition-colors"
+                            >
+                                this page
+                            </Link>{' '}
+                            to review other options for submitting your request.
+                        </Text>
                     </Box>
-
                     <ButtonWrapper className="pb-8">
                         <Button
                             as={Link}
@@ -210,7 +212,6 @@ const Instructions = () => {
                         >
                             Back
                         </Button>
-
                         <Button
                             as={Link}
                             href={getStepPage('form')}

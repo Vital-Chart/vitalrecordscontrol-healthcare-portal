@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { Box, Flex } from '@/components/core'
+import { Box, Flex, Text } from '@/components/core'
 import IconInfo from '@/icons/icon-info.svg'
 
 export const Info = ({ className, primaryText, secondaryText }) => (
@@ -8,9 +8,10 @@ export const Info = ({ className, primaryText, secondaryText }) => (
             <Box className="flex-shrink-0">
                 <IconInfo className="h-5 w-5 text-blue" />
             </Box>
+
             <Box className="ml-3">
-                <p className="text-sm font-bold">{primaryText}</p>
-                <p className="text-sm">{secondaryText}</p>
+                <Text className="text-sm font-bold">{primaryText}</Text>
+                <Text className="text-sm">{secondaryText}</Text>
             </Box>
         </Flex>
     </Box>

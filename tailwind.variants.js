@@ -17,7 +17,8 @@ export default {
         compact: 'uppercase text-sm tracking-wide',
     },
     buttons: {
-        DEFAULT: 'px-6 py-3 rounded transition-colors',
+        DEFAULT:
+            'inline-flex items-center justify-center px-6 py-3 rounded transition-colors',
         filled:
             'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark',
         filledSecondary:

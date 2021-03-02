@@ -23,6 +23,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - [Next.js](https://nextjs.org)
 - [Tailwind CSS](https://tailwindcss.com)
-- [react-datepicker](https://reactdatepicker.com)
 - [react-hook-forms](https://react-hook-form.com)
 - [react-dropzone](https://react-dropzone.js.org)
+- [form-data](https://www.npmjs.com/package/form-data) - Remove if we don't use API routes
