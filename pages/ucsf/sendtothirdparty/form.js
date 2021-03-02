@@ -812,11 +812,11 @@ const Form = ({ store }) => {
                                 </Box>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="DI_ADDR1">Address</Label>
+                                    <Label htmlFor="YI_ADDR1">Address</Label>
                                     <Input
                                         type="text"
-                                        name="DI_ADDR1"
-                                        id="DI_ADDR1"
+                                        name="YI_ADDR1"
+                                        id="YI_ADDR1"
                                         className="w-full mt-1  mb-2"
                                         onChange={handleChange}
                                         ref={register({
@@ -825,22 +825,22 @@ const Form = ({ store }) => {
                                         })}
                                     />
 
-                                    {errors.DI_ADDR1 && (
+                                    {errors.YI_ADDR1 && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.DI_ADDR1.message}
+                                            message={errors.YI_ADDR1.message}
                                         />
                                     )}
                                 </Box>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="DI_ADDR2">
+                                    <Label htmlFor="YI_ADDR2">
                                         Address Line 2
                                     </Label>
                                     <Input
                                         type="text"
-                                        name="DI_ADDR2"
-                                        id="DI_ADDR2"
+                                        name="YI_ADDR2"
+                                        id="YI_ADDR2"
                                         className="w-full mt-1  mb-2"
                                         onChange={handleChange}
                                         ref={register}
@@ -848,11 +848,11 @@ const Form = ({ store }) => {
                                 </Box>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="DI_CITY">City</Label>
+                                    <Label htmlFor="YI_CITY">City</Label>
                                     <Input
                                         type="text"
-                                        name="DI_CITY"
-                                        id="DI_CITY"
+                                        name="YI_CITY"
+                                        id="YI_CITY"
                                         className="w-full mt-1 mb-2"
                                         onChange={handleChange}
                                         ref={register({
@@ -860,19 +860,19 @@ const Form = ({ store }) => {
                                         })}
                                     />
 
-                                    {errors.DI_CITY && (
+                                    {errors.YI_CITY && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.DI_CITY.message}
+                                            message={errors.YI_CITY.message}
                                         />
                                     )}
                                 </Box>
                                 <Flex className="mb-6">
                                     <Box>
-                                        <Label htmlFor="DI_ST_DD">State</Label>
+                                        <Label htmlFor="YI_ST_DD">State</Label>
                                         <Select
-                                            name="DI_ST_DD"
-                                            id="DI_ST_DD"
+                                            name="YI_ST_DD"
+                                            id="YI_ST_DD"
                                             className="block mt-1 mr-4"
                                             onChange={handleChange}
                                             ref={register({
@@ -892,21 +892,21 @@ const Form = ({ store }) => {
                                             ))}
                                         </Select>
 
-                                        {errors.DI_ST_DD && (
+                                        {errors.YI_ST_DD && (
                                             <ErrorMessage
                                                 className="mt-2"
                                                 message={
-                                                    errors.DI_ST_DD.message
+                                                    errors.YI_ST_DD.message
                                                 }
                                             />
                                         )}
                                     </Box>
                                     <Box>
-                                        <Label htmlFor="DI_ZIP">Zip</Label>
+                                        <Label htmlFor="YI_ZIP">Zip</Label>
                                         <Input
                                             type="text"
-                                            name="DI_ZIP"
-                                            id="DI_ZIP"
+                                            name="YI_ZIP"
+                                            id="YI_ZIP"
                                             className="w-full mt-1"
                                             onChange={handleChange}
                                             ref={register({
@@ -915,10 +915,10 @@ const Form = ({ store }) => {
                                             })}
                                         />
 
-                                        {errors.DI_ZIP && (
+                                        {errors.YI_ZIP && (
                                             <ErrorMessage
                                                 className="mt-2"
-                                                message={errors.DI_ZIP.message}
+                                                message={errors.YI_ZIP.message}
                                             />
                                         )}
                                     </Box>
