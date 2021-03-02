@@ -15,7 +15,7 @@ const StepperLink = ({ children, href, className, ...props }) => {
                 pathname === href
                     ? 'font-bold text-black transition-colors'
                     : 'text-gray',
-                'hover:text-black',
+                'text-sm text-center sm:text-left hover:text-black',
                 className
             )}
             {...props}
@@ -34,14 +34,11 @@ export const Stepper = ({ className, ...props }) => {
                 <Box as="nav" className="flex" aria-label="Breadcrumb">
                     <Box as="ol" className="flex items-center space-x-2">
                         <Box as="li">
-                            <Box>
-                                <StepperLink
-                                    href={getStepPage('form')}
-                                    className="text-sm text-center sm:text-left"
-                                >
+                            <Flex className="items-center">
+                                <StepperLink href={getStepPage('form')}>
                                     Request Information
                                 </StepperLink>
-                            </Box>
+                            </Flex>
                         </Box>
 
                         <Box as="li">
@@ -50,7 +47,7 @@ export const Stepper = ({ className, ...props }) => {
                                 {hasUploadAccess ? (
                                     <StepperLink
                                         href={getStepPage('upload')}
-                                        className="ml-2 text-sm text-center sm:text-left"
+                                        className="ml-2"
                                     >
                                         Provide Authorization Information
                                     </StepperLink>
@@ -68,7 +65,7 @@ export const Stepper = ({ className, ...props }) => {
                                 {hasSubmitAccess ? (
                                     <StepperLink
                                         href={getStepPage('review')}
-                                        className="ml-2 text-sm text-center sm:text-left"
+                                        className="ml-2"
                                     >
                                         Review & Submit
                                     </StepperLink>
