@@ -13,9 +13,12 @@ export const Header = () => {
                 {hospitals[hospital] && (
                     <Link
                         href={getLandingPage()}
-                        className="block absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow"
+                        className="block absolute top-0 left-6 sm:left-8 p-6 bg-white shadow"
                     >
-                        <Image src={hospitals[hospital].logo} />
+                        <Image
+                            className="h-16 w-auto"
+                            src={hospitals[hospital].logo}
+                        />
                     </Link>
                 )}
 
