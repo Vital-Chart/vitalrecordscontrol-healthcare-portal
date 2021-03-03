@@ -291,13 +291,7 @@ const Hospital = () => {
                             Your Medical Records are ready!
                         </Text>
                         <Text className="w-full text-sm">
-                            Go to{' '}
-                            <Link
-                                href="https://abt.trimsnet.net/patient/landing/stros"
-                                className="text-blue"
-                            >
-                                https://myroiplus.com
-                            </Link>
+                            Go to https://myroiplus.com
                         </Text>
                         <Text className="text-sm">
                             Account #: xxxxxx PIN #: xxxx
