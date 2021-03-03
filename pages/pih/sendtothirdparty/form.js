@@ -931,8 +931,8 @@ const Form = ({ store }) => {
                                         ref={register({ required: true })}
                                     >
                                         <option value="text">
-                                            Text Message (Standard messaging
-                                            rates may apply.)
+                                            Text Message (Standard rates may
+                                            apply.)
                                         </option>
                                         <option value="email">Email</option>
                                     </Select>
