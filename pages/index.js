@@ -27,36 +27,11 @@ const Home = () => (
                 role="main"
                 className="flex-1 flex-col"
             >
-                <Container className="flex-col space-y-6">
-                    <Flex className="flex-col">
+                <Container>
+                    <Flex className="flex-col space-y-2">
                         <Link href="/pih">PIH - Landing Page</Link>
-                        <Link href="/pih/patient">
-                            PIH - Patient - Instructions
-                        </Link>
-                        <Link href="/pih/patient/form">
-                            PIH - Patient - Request Form
-                        </Link>
-                        <Link href="/pih/sendtothirdparty">
-                            PIH - Send To - Instructions
-                        </Link>
-                        <Link href="/pih/sendtothirdparty/form">
-                            PIH - Send To - Request Form
-                        </Link>
-                    </Flex>
-                    <Flex className="flex-col">
                         <Link href="/ucsf">UCSF - Landing Page</Link>
-                        <Link href="/ucsf/patient">
-                            UCSF - Patient - Instructions
-                        </Link>
-                        <Link href="/ucsf/patient/form">
-                            UCSF - Patient - Request Form
-                        </Link>
-                        <Link href="/ucsf/sendtothirdparty">
-                            UCSF - Send To - Instructions
-                        </Link>
-                        <Link href="/ucsf/sendtothirdparty/form">
-                            UCSF - Send To - Request Form
-                        </Link>
+                        <Link href="/benioff">Benioff - Landing Page</Link>
                     </Flex>
                 </Container>
             </Flex>
