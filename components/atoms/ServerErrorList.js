@@ -12,7 +12,8 @@ const errorMessages = {
     100005: '100005: Invalid file name given',
     100006: '100006: No tracking number information and no facility information supplied',
     100007: '100007: Invalid file name given',
-    10000: '100008: Tracking number ID not found',
+    100008: '100008: Tracking number ID not found',
+    100009: '100009: This request requires uploading authorization documents. Please re-read the instructions above, and try again once you have uploaded documents.',
 }
 
 export const ServerErrorList = ({ className, errors }) => {

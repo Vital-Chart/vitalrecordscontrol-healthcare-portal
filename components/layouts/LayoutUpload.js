@@ -94,8 +94,7 @@ export const LayoutUpload = ({ children }) => {
                 // Redirect to next step
                 goToStep('review')
             } else {
-                // TODO: Create "no uploads added" error
-                setServerErrors([100000])
+                setServerErrors([100009])
             }
         } else {
             setIsFetching(true)
