@@ -10,6 +10,7 @@ export const Header = () => {
         getLandingPage,
         getContactPage,
         isLandingPage,
+        isSuccessPage,
     } = useNavigation()
 
     console.log({ isLandingPage })
@@ -38,14 +39,16 @@ export const Header = () => {
                     <Flex
                         className={cx(
                             'py-6',
-                            isLandingPage && 'justify-center'
+                            isLandingPage || (isSuccessPage && 'justify-center')
                         )}
                     >
                         <Link href={getLandingPage()}>
                             <Image
                                 className={cx(
                                     'w-auto',
-                                    isLandingPage ? 'h-24' : 'h-20'
+                                    isLandingPage || isSuccessPage
+                                        ? 'h-24'
+                                        : 'h-20'
                                 )}
                                 src={hospitals[hospital].logo}
                             />
