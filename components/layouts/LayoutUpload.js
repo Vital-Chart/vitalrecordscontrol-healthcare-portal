@@ -94,7 +94,7 @@ export const LayoutUpload = ({ children }) => {
                 // Redirect to next step
                 goToStep('review')
             } else {
-                setServerErrors([100009])
+                setServerErrors([100010])
             }
         } else {
             setIsFetching(true)
