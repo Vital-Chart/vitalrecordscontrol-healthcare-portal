@@ -204,7 +204,7 @@ export const LayoutUpload = ({ children }) => {
                             </Text>
                             .
                         </Text>
-                        {store?.state?.form?.FI_CB.length > 1 && (
+                        {Array.isArray(store?.state?.form?.FI_CB) && (
                             <>
                                 <Text className="pb-4">
                                     Please contact the following

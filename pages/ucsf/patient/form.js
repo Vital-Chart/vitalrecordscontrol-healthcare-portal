@@ -141,7 +141,7 @@ const Form = ({ store }) => {
                         <Input
                             type="hidden"
                             name="FI_CB"
-                            value={['P7100-1']}
+                            value="P7100-1"
                             ref={register}
                         />
 
