@@ -13,8 +13,6 @@ export const Header = () => {
         isSuccessPage,
     } = useNavigation()
 
-    console.log({ isLandingPage })
-
     return (
         <Box as="header">
             <Box className="bg-black">
@@ -39,7 +37,8 @@ export const Header = () => {
                     <Flex
                         className={cx(
                             'py-6',
-                            isLandingPage || (isSuccessPage && 'justify-center')
+                            !!(isLandingPage || isSuccessPage) &&
+                                'justify-center'
                         )}
                     >
                         <Link href={getLandingPage()}>
