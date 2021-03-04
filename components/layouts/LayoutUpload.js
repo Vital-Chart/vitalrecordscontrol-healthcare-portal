@@ -193,7 +193,7 @@ export const LayoutUpload = ({ children }) => {
                         Provide Authorization Information
                     </PageHeading>
 
-                    <Box className="pb-8 border-b border-gray-light">
+                    <Box className="pb-4 border-b border-gray-light">
                         <Text className="pb-4">
                             Your request has been saved and assigned tracking
                             number(s):{' '}
@@ -204,13 +204,17 @@ export const LayoutUpload = ({ children }) => {
                             </Text>
                             .
                         </Text>
+                        {store?.state?.form?.FI_CB.length > 1 && (
+                            <>
+                                <Text className="pb-4">
+                                    Please contact the following
+                                    facility/facilities if you have any
+                                    questions during this process:
+                                </Text>
 
-                        <Text className="pb-4">
-                            Please contact the following facility/facilities if
-                            you have any questions during this process:
-                        </Text>
-
-                        <FacilityList />
+                                <FacilityList />
+                            </>
+                        )}
                     </Box>
 
                     {children}
