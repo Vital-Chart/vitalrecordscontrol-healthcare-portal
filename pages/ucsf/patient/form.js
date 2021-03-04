@@ -47,6 +47,8 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
+    const watchRequestedInformation = watch('RI_CB', [])
+
     const handleChange = e => {
         setServerErrors([])
 
@@ -139,7 +141,7 @@ const Form = ({ store }) => {
                         <Input
                             type="hidden"
                             name="FI_CB"
-                            value="P7100-1"
+                            value={['P7100-1']}
                             ref={register}
                         />
 
@@ -432,24 +434,35 @@ const Form = ({ store }) => {
                                             })}
                                         />
                                     </CheckboxWrapper>
-
-                                    <Box className="mt-4">
-                                        <Label htmlFor="RI_CB_OR">
-                                            Specify Other Records:
-                                        </Label>
-                                        <Box
-                                            as="textarea"
-                                            name="RI_CB_OR"
-                                            id="RI_CB_OR"
-                                            className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded"
-                                            placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter the purpose of this request.',
-                                            })}
-                                        />
-                                    </Box>
+                                    {watchRequestedInformation.includes(
+                                        'OR'
+                                    ) && (
+                                        <Box className="mt-4">
+                                            <Label htmlFor="RI_CB_OR">
+                                                Specify Other Records:
+                                            </Label>
+                                            <Box
+                                                as="textarea"
+                                                name="RI_CB_OR"
+                                                id="RI_CB_OR"
+                                                className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded"
+                                                placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please specify the records you would like released.',
+                                                })}
+                                            />
+                                            {errors.RI_CB_OR && (
+                                                <ErrorMessage
+                                                    className="mt-2"
+                                                    message={
+                                                        errors.RI_CB_OR.message
+                                                    }
+                                                />
+                                            )}
+                                        </Box>
+                                    )}
 
                                     {errors.RI_CB && (
                                         <ErrorMessage

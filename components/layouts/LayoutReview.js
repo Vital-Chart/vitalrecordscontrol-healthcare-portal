@@ -245,7 +245,7 @@ export const LayoutReview = ({ children }) => {
                             <Text as="span" className="block text-sm font-bold">
                                 Delivery Method for CDs/Slides:
                             </Text>{' '}
-                            {displayDeliveryMethod(store)}
+                            {displayDeliveryMethod(store) || 'No Delivery'}
                         </Text>
 
                         <Button
