@@ -19,7 +19,6 @@ const Custom404 = () => {
 
                     <Button
                         onClick={goBack}
-                        href="/pih"
                         variant="filled"
                         className="inline-block"
                     >

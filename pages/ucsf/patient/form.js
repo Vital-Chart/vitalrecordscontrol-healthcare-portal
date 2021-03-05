@@ -138,10 +138,11 @@ const Form = ({ store }) => {
                             }
                             ref={register}
                         />
-                        <Input
-                            type="hidden"
+                        <Checkbox
+                            className="hidden"
                             name="FI_CB"
                             value="P7100-1"
+                            checked
                             ref={register}
                         />
 

@@ -25,11 +25,14 @@ import IconLoading from '@/icons/icon-loading.svg'
 
 const FacilityList = () => {
     const store = useStore()
-
+    const facilities =
+        store?.state?.form?.FI_CB && Array.isArray(store.state.form.FI_CB)
+            ? store.state.form.FI_CB
+            : [store.state.form.FI_CB]
     return (
         <>
-            {store?.state?.form?.FI_CB &&
-                store.state.form.FI_CB.map(facilityId => {
+            {facilities &&
+                facilities.map(facilityId => {
                     return Object.keys(hospitals).map(hospitalKey => {
                         return hospitals[hospitalKey].facilities.map(
                             hospitalFacility => {
@@ -203,17 +206,13 @@ export const LayoutUpload = ({ children }) => {
                             </Text>
                             .
                         </Text>
-                        {Array.isArray(store?.state?.form?.FI_CB) && (
-                            <>
-                                <Text className="pb-4">
-                                    Please contact the following
-                                    facility/facilities if you have any
-                                    questions during this process:
-                                </Text>
 
-                                <FacilityList />
-                            </>
-                        )}
+                        <Text className="pb-4">
+                            Please contact the following facility/facilities if
+                            you have any questions during this process:
+                        </Text>
+
+                        <FacilityList />
                     </Box>
 
                     {children}
