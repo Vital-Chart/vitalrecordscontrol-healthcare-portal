@@ -134,7 +134,7 @@ const Form = ({ store }) => {
                                 Array.isArray(store.state.trackingNumbers)
                                     ? store.state.trackingNumbers[0]
                                           .TrackingNumberID
-                                    : '-1'
+                                    : ''
                             }
                             ref={register}
                         />
