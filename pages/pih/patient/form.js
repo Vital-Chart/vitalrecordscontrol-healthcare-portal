@@ -451,7 +451,7 @@ const Form = ({ store }) => {
                                                                                 dateRangeCheck: value =>
                                                                                     new Date(
                                                                                         value
-                                                                                    ) >
+                                                                                    ) >=
                                                                                         new Date(
                                                                                             getValues(
                                                                                                 'VI_DR_SD'
@@ -938,7 +938,8 @@ const Form = ({ store }) => {
                                         ref={register({ required: true })}
                                     >
                                         <option value="text">
-                                            Text Message (Standard rates may apply.)
+                                            Text Message (Standard rates may
+                                            apply.)
                                         </option>
                                         <option value="email">Email</option>
                                     </Select>

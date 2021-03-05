@@ -319,7 +319,7 @@ const Form = ({ store }) => {
                                                             dateRangeCheck: value =>
                                                                 new Date(
                                                                     value
-                                                                ) >
+                                                                ) >=
                                                                     new Date(
                                                                         getValues(
                                                                             'VI_DR_SD'
@@ -815,7 +815,7 @@ const Form = ({ store }) => {
                                     {errors.YI_ADDR1 && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.DI_ADDR1.message}
+                                            message={errors.YI_ADDR1.message}
                                         />
                                     )}
                                 </Box>

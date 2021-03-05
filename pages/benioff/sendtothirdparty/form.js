@@ -319,7 +319,7 @@ const Form = ({ store }) => {
                                                             dateRangeCheck: value =>
                                                                 new Date(
                                                                     value
-                                                                ) >
+                                                                ) >=
                                                                     new Date(
                                                                         getValues(
                                                                             'VI_DR_SD'
