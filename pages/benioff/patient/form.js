@@ -144,12 +144,6 @@ const Form = ({ store }) => {
                             value="P7105-1"
                             ref={register}
                         />
-                        <Checkbox
-                            className="hidden"
-                            name="FI_CB"
-                            value=""
-                            ref={register}
-                        />
 
                         <FormSection>
                             <SectionHeading>Patient Information</SectionHeading>
