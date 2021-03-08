@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
     let payload = [...fields['FI_CB'].split(','), fields['TRKNUM']].join(':')
 
-    if (fields['TRKNUM'] === '-1') {
+    if (fields['TRKNUM'] === '') {
         payload = payload.slice(0, -2)
     }
 
