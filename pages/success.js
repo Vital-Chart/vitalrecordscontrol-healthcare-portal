@@ -16,14 +16,16 @@ const FacilityList = () => {
                         store.state.success.hospital
                     ].facilities.map(hospitalFacility => {
                         if (hospitalFacility.id === facilityId) {
-                            // TODO: Show tracking number with facility
-                            // const trackingNumber = store.state.success.trackingNumbers.find(number => number.FacilityID === facilityId)
+                            const trackingNumber = store.state.success.trackingNumbers.find(
+                                number => number.FacilityID === facilityId
+                            )
                             return (
                                 <Text key={facilityId} className="pb-4">
                                     <Text as="span" className="font-bold">
-                                        {hospitalFacility.name}
+                                        {trackingNumber.TrackingNumberID}:
                                     </Text>{' '}
-                                    - {hospitalFacility.phone}
+                                    {hospitalFacility.name} -{' '}
+                                    {hospitalFacility.phone}
                                 </Text>
                             )
                         }
@@ -74,8 +76,11 @@ export const Success = () => {
                         </Text>
 
                         <Text className="pb-4">
-                            Please contact the following facility/facilities if
-                            you have any questions:
+                            Please contact the following{' '}
+                            {store.state.success.trackingNumbers.length === 1
+                                ? 'facility'
+                                : 'facilities'}{' '}
+                            if you have any questions during this process:
                         </Text>
 
                         <FacilityList />
