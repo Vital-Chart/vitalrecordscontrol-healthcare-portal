@@ -197,7 +197,7 @@ const Form = ({ store }) => {
                                 </Flex>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="PI_PON">
+                                    <Label htmlFor="PI_PON" className="italic">
                                         Other Patient Names (Optional)
                                     </Label>
                                     <Input
@@ -241,7 +241,10 @@ const Form = ({ store }) => {
                                 </Box>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="PI_PHYCL">
+                                    <Label
+                                        htmlFor="PI_PHYCL"
+                                        className="italic"
+                                    >
                                         Physician/Clinic (Optional)
                                     </Label>
                                     <Input
@@ -550,19 +553,6 @@ const Form = ({ store }) => {
                                         />
                                     )}
                                 </Box>
-                                {/* <Box>
-                                    <Label htmlFor="PR_LIM">
-                                        Limitations (Optional):
-                                    </Label>
-                                    <Box
-                                        as="textarea"
-                                        name="PR_LIM"
-                                        id="PR_LIM"
-                                        className="block w-full mt-1 sm:text-sm border-gray-dark rounded"
-                                        onChange={handleChange}
-                                        ref={register}
-                                    />
-                                </Box> */}
                             </Box>
                         </FormSection>
 

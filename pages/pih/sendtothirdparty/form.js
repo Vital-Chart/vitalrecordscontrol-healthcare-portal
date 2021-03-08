@@ -279,7 +279,7 @@ const Form = ({ store }) => {
                                 </Flex>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="PI_PON">
+                                    <Label htmlFor="PI_PON" className="italic">
                                         Other Patient Names (Optional)
                                     </Label>
                                     <Input
@@ -323,7 +323,10 @@ const Form = ({ store }) => {
                                 </Box>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="PI_PHYCL">
+                                    <Label
+                                        htmlFor="PI_PHYCL"
+                                        className="italic"
+                                    >
                                         Physician/Clinic (Optional)
                                     </Label>
                                     <Input
@@ -826,7 +829,7 @@ const Form = ({ store }) => {
                                     )}
                                 </Box>
                                 <Box>
-                                    <Label htmlFor="PR_LIM">
+                                    <Label htmlFor="PR_LIM" className="italic">
                                         Limitations (Optional):
                                     </Label>
                                     <Box
