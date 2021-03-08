@@ -25,6 +25,8 @@ import IconLoading from '@/icons/icon-loading.svg'
 
 const FacilityList = () => {
     const store = useStore()
+    const { hospital } = useNavigation()
+
     const facilities =
         store?.state?.form?.FI_CB && Array.isArray(store.state.form.FI_CB)
             ? store.state.form.FI_CB
@@ -33,34 +35,21 @@ const FacilityList = () => {
         <>
             {facilities &&
                 facilities.map(facilityId => {
-                    return Object.keys(hospitals).map(hospitalKey => {
-                        return hospitals[hospitalKey].facilities.map(
-                            hospitalFacility => {
-                                if (hospitalFacility.id === facilityId) {
-                                    const trackingNumber = store.state.trackingNumbers.find(
-                                        number =>
-                                            number.FacilityID === facilityId
-                                    )
+                    const facility = hospitals[hospital].facilities.find(
+                        x => x.id === facilityId
+                    )
+                    const trackingNumber = store.state.trackingNumbers.find(
+                        number => number.FacilityID === facilityId
+                    )
 
-                                    return (
-                                        <Text key={facilityId} className="pb-4">
-                                            <Text
-                                                as="span"
-                                                className="font-bold"
-                                            >
-                                                {
-                                                    trackingNumber.TrackingNumberID
-                                                }
-                                                :
-                                            </Text>{' '}
-                                            {hospitalFacility.name} -{' '}
-                                            {hospitalFacility.phone}
-                                        </Text>
-                                    )
-                                }
-                            }
-                        )
-                    })
+                    return (
+                        <Text key={facilityId} className="pb-4">
+                            <Text as="span" className="font-bold">
+                                {trackingNumber.TrackingNumberID}:
+                            </Text>{' '}
+                            {facility.name} - {facility.phone}
+                        </Text>
+                    )
                 })}
         </>
     )

@@ -8,28 +8,30 @@ import { PageHeading } from '@/components/atoms'
 
 const FacilityList = () => {
     const store = useStore()
+    const { hospital } = useNavigation()
+
+    const facilities =
+        store?.state?.success?.facilities && store.state.success.facilities
+
     return (
         <>
-            {store?.state?.success?.facilities &&
-                store.state.success.facilities.map(facilityId => {
-                    return hospitals[
-                        store.state.success.hospital
-                    ].facilities.map(hospitalFacility => {
-                        if (hospitalFacility.id === facilityId) {
-                            const trackingNumber = store.state.success.trackingNumbers.find(
-                                number => number.FacilityID === facilityId
-                            )
-                            return (
-                                <Text key={facilityId} className="pb-4">
-                                    <Text as="span" className="font-bold">
-                                        {trackingNumber.TrackingNumberID}:
-                                    </Text>{' '}
-                                    {hospitalFacility.name} -{' '}
-                                    {hospitalFacility.phone}
-                                </Text>
-                            )
-                        }
-                    })
+            {facilities &&
+                facilities.map(facilityId => {
+                    const facility = hospitals[hospital].facilities.find(
+                        x => x.id === facilityId
+                    )
+                    const trackingNumber = store.state.success.trackingNumbers.find(
+                        number => number.FacilityID === facilityId
+                    )
+
+                    return (
+                        <Text key={facilityId} className="pb-4">
+                            <Text as="span" className="font-bold">
+                                {trackingNumber.TrackingNumberID}:
+                            </Text>{' '}
+                            {facility.name} - {facility.phone}
+                        </Text>
+                    )
                 })}
         </>
     )
