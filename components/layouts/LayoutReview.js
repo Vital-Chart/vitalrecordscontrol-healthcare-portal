@@ -36,7 +36,10 @@ function displayDatesOfService(store) {
 function displayRequestedInformation(store) {
     const { form } = store.state
 
-    const info = form.RI_CB.map(checkbox => {
+    const requestedInfo =
+        form.RI_CB && Array.isArray(form.RI_CB) ? form.RI_CB : [form.RI_CB]
+
+    const info = requestedInfo.map(checkbox => {
         switch (checkbox) {
             case 'MR':
                 return 'Medical Records'
@@ -46,6 +49,16 @@ function displayRequestedInformation(store) {
                 return 'Radiology Images'
             case 'PS':
                 return 'Pathology Slides'
+            case 'ERV':
+                return 'Emergency Room Visit'
+            case 'EHR':
+                return 'Entire Hospital Record'
+            case 'BR':
+                return 'Billing Records'
+            case 'RI':
+                return 'Radiology Images (only)'
+            case 'OR':
+                return 'Other Records'
             default:
                 return null
         }
