@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
 import { useStore } from '@/lib/store'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
 import { Layout, Container } from '@/components/general'
-import { Box, Text, Flex, Button, Link } from '@/components/core'
+import { Box, Text } from '@/components/core'
 import { PageHeading } from '@/components/atoms'
 
 const FacilityList = () => {

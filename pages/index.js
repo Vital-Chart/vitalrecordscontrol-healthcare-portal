@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Box, Link, Flex, Image } from '@/components/core'
+import { Box, Link, Flex } from '@/components/core'
 import { Container, Footer, ScreenReader } from '@/components/general'
 
 const Home = () => (
