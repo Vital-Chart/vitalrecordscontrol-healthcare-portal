@@ -556,7 +556,7 @@ const Form = ({ store }) => {
                                                             'Please select the items you would like released.',
                                                     })}
                                                 />
-                                                <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
+                                                <Flex className="pl-8 flex-col md:flex-row">
                                                     <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="Emergency/Urgent Care Physician Report"
@@ -598,8 +598,6 @@ const Form = ({ store }) => {
                                                             }
                                                             ref={register}
                                                         />
-                                                    </CheckboxWrapper>
-                                                    <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="History and Physical Report"
                                                             labelClassName="w-full"
@@ -620,6 +618,8 @@ const Form = ({ store }) => {
                                                             }
                                                             ref={register}
                                                         />
+                                                    </CheckboxWrapper>
+                                                    <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="Pathology Report"
                                                             labelClassName="w-full"
@@ -640,8 +640,7 @@ const Form = ({ store }) => {
                                                             }
                                                             ref={register}
                                                         />
-                                                    </CheckboxWrapper>
-                                                    <CheckboxWrapper className="w-full">
+
                                                         <Checkbox
                                                             label="Discharge Summary Report"
                                                             labelClassName="w-full"
@@ -683,7 +682,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                     </CheckboxWrapper>
-                                                </Box>
+                                                </Flex>
                                             </Box>
                                         )}
 

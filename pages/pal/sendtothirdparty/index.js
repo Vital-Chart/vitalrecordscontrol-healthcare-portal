@@ -34,7 +34,7 @@ const Instructions = () => {
                                 <Text as="span" className="font-bold">
                                     parties with the power to make decisions on
                                     behalf of a patient (e.g. parents,
-                                    guardians, personal representatives)
+                                    guardians)
                                 </Text>{' '}
                                 to request records. Third parties should{' '}
                                 <Link
@@ -182,11 +182,9 @@ const Instructions = () => {
                             </Box>
                             <Box as="li">
                                 If you request records from multiple facilities,
-                                <Text as="span" className="font-bold">
-                                    you will get ONE tracking number for each
-                                    facility
-                                </Text>
-                                , as each facility processes records separately.{' '}
+                                you will get ONE tracking number for each
+                                facility, as each facility processes records
+                                separately.{' '}
                                 <Text as="span" className="font-bold">
                                     You will receive separate notifications and
                                     records from each facility.

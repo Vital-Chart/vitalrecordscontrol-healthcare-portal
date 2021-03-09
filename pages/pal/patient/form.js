@@ -48,6 +48,7 @@ const Form = ({ store }) => {
     const [isFetching, setIsFetching] = useState(false)
 
     const watchRequestedInformation = watch('RI_CB', [])
+    const watchVisitOptions = watch('VI_OPT', [])
 
     const handleChange = e => {
         setServerErrors([])
@@ -118,7 +119,7 @@ const Form = ({ store }) => {
                         <Input
                             type="hidden"
                             name="CLNT"
-                            value="UCSF"
+                            value="PAL"
                             ref={register}
                         />
                         <Input
@@ -141,7 +142,7 @@ const Form = ({ store }) => {
                         <Input
                             type="hidden"
                             name="FI_CB"
-                            value="P7100-1"
+                            value="P7150-1"
                             ref={register}
                         />
 
@@ -262,87 +263,142 @@ const Form = ({ store }) => {
                                             Please select the visits/admissions
                                             you would like released:
                                         </Box>
-                                        <Input
-                                            type="hidden"
-                                            name="VI_OPT"
-                                            value="DR"
-                                            ref={register}
-                                        />
-
-                                        <Flex className="space-x-4">
-                                            <Box>
-                                                <Label
-                                                    htmlFor="VI_DR_SD"
-                                                    className="block mb-1"
-                                                >
-                                                    Service Start:
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="VI_DR_SD"
-                                                    id="VI_DR_SD"
-                                                    className="w-full"
-                                                    placeholder="MM/DD/YYYY"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required: true,
-                                                        pattern: {
-                                                            value:
-                                                                regexPatterns.date,
-                                                            message:
-                                                                'Please enter a valid date (MM/DD/YYYY).',
-                                                        },
-                                                    })}
-                                                />
-                                            </Box>
-
-                                            <Box>
-                                                <Label
-                                                    htmlFor="VI_DR_ED"
-                                                    className="block mb-1"
-                                                >
-                                                    Service End:
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="VI_DR_ED"
-                                                    id="VI_DR_ED"
-                                                    className="w-full"
-                                                    placeholder="MM/DD/YYYY"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required: true,
-                                                        pattern: {
-                                                            value:
-                                                                regexPatterns.date,
-                                                            message:
-                                                                'Please enter a valid date (MM/DD/YYYY).',
-                                                        },
-                                                        validate: {
-                                                            dateRangeCheck: value =>
-                                                                new Date(
-                                                                    value
-                                                                ) >=
-                                                                    new Date(
-                                                                        getValues(
-                                                                            'VI_DR_SD'
-                                                                        )
-                                                                    ) ||
-                                                                'The Service End date you entered is before the Service Start date.',
-                                                        },
-                                                    })}
-                                                />
-                                            </Box>
-                                        </Flex>
-
-                                        {errors.VI_DR_ED && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.VI_DR_ED.message
-                                                }
+                                        <Box className="ml-4">
+                                            <Radio
+                                                label="Most recent"
+                                                labelClassName="w-full"
+                                                name="VI_OPT"
+                                                value="MR"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select which records you would like released.',
+                                                })}
                                             />
-                                        )}
+                                            <Radio
+                                                label="All"
+                                                labelClassName="w-full"
+                                                name="VI_OPT"
+                                                value="ALL"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select which records you would like released.',
+                                                })}
+                                            />
+                                            <Radio
+                                                label="In a date range"
+                                                labelClassName="w-full"
+                                                name="VI_OPT"
+                                                value="DR"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select which records you would like released.',
+                                                })}
+                                            />
+                                            {errors.VI_OPT && (
+                                                <ErrorMessage
+                                                    className="mt-2"
+                                                    message={
+                                                        errors.VI_OPT.message
+                                                    }
+                                                />
+                                            )}
+
+                                            {watchVisitOptions &&
+                                                watchVisitOptions.includes(
+                                                    'DR'
+                                                ) && (
+                                                    <>
+                                                        <Flex className="space-x-4">
+                                                            <Box>
+                                                                <Label
+                                                                    htmlFor="VI_DR_SD"
+                                                                    className="block mb-1"
+                                                                >
+                                                                    Service
+                                                                    Start:
+                                                                </Label>
+                                                                <Input
+                                                                    type="text"
+                                                                    name="VI_DR_SD"
+                                                                    id="VI_DR_SD"
+                                                                    className="w-full"
+                                                                    placeholder="MM/DD/YYYY"
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    ref={register(
+                                                                        {
+                                                                            required: true,
+                                                                            pattern: {
+                                                                                value:
+                                                                                    regexPatterns.date,
+                                                                                message:
+                                                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                                                            },
+                                                                        }
+                                                                    )}
+                                                                />
+                                                            </Box>
+
+                                                            <Box>
+                                                                <Label
+                                                                    htmlFor="VI_DR_ED"
+                                                                    className="block mb-1"
+                                                                >
+                                                                    Service End:
+                                                                </Label>
+                                                                <Input
+                                                                    type="text"
+                                                                    name="VI_DR_ED"
+                                                                    id="VI_DR_ED"
+                                                                    className="w-full"
+                                                                    placeholder="MM/DD/YYYY"
+                                                                    onChange={
+                                                                        handleChange
+                                                                    }
+                                                                    ref={register(
+                                                                        {
+                                                                            required: true,
+                                                                            pattern: {
+                                                                                value:
+                                                                                    regexPatterns.date,
+                                                                                message:
+                                                                                    'Please enter a valid date (MM/DD/YYYY).',
+                                                                            },
+                                                                            validate: {
+                                                                                dateRangeCheck: value =>
+                                                                                    new Date(
+                                                                                        value
+                                                                                    ) >=
+                                                                                        new Date(
+                                                                                            getValues(
+                                                                                                'VI_DR_SD'
+                                                                                            )
+                                                                                        ) ||
+                                                                                    'The Service End date you entered is before the Service Start date.',
+                                                                            },
+                                                                        }
+                                                                    )}
+                                                                />
+                                                            </Box>
+                                                        </Flex>
+
+                                                        {errors.VI_DR_ED && (
+                                                            <ErrorMessage
+                                                                className="mt-2"
+                                                                message={
+                                                                    errors
+                                                                        .VI_DR_ED
+                                                                        .message
+                                                                }
+                                                            />
+                                                        )}
+                                                    </>
+                                                )}
+                                        </Box>
                                     </Box>
                                 </Box>
                             </Box>
@@ -357,115 +413,165 @@ const Form = ({ store }) => {
                                     </Box>
                                     <CheckboxWrapper>
                                         <Checkbox
-                                            label="Emergency Room Visit"
+                                            label="Medical Records"
                                             labelClassName="w-full"
                                             name="RI_CB"
-                                            value="ERV"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        >
-                                            (i.e. ED provider notes, radiology
-                                            reports, lab and diagnostic,
-                                            consults and procedure notes)
-                                        </Checkbox>
-                                        <Checkbox
-                                            label="Entire Hospital Record"
-                                            labelClassName="w-full"
-                                            name="RI_CB"
-                                            value="EHR"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        >
-                                            (i.e. History and physical, consult,
-                                            operative report, discharge summary,
-                                            lab, radiology reports, nursing
-                                            notes, progress notes)
-                                        </Checkbox>
-                                        <Checkbox
-                                            label="Clinic or Office Visit"
-                                            labelClassName="w-full"
-                                            name="RI_CB"
-                                            value="COV"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        >
-                                            (i.e. Progress notes, office notes,
-                                            procedure notes, operative notes,
-                                            lab, diagnostic and radiology
-                                            reports)
-                                        </Checkbox>
-                                        <Checkbox
-                                            label="Billing Records"
-                                            labelClassName="w-full"
-                                            name="RI_CB"
-                                            value="BR"
+                                            value="MR"
                                             onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please select the items you would like released.',
                                             })}
                                         />
-                                        <Checkbox
-                                            label="Radiology Images (only)"
-                                            labelClassName="w-full"
-                                            name="RI_CB"
-                                            value="RI"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        />
-                                        <Checkbox
-                                            label="Other Records"
-                                            labelClassName="w-full"
-                                            name="RI_CB"
-                                            value="OR"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        />
-                                    </CheckboxWrapper>
-                                    {watchRequestedInformation.includes(
-                                        'OR'
-                                    ) && (
-                                        <Box className="mt-4">
-                                            <Label htmlFor="RI_CB_OR">
-                                                Specify Other Records:
-                                            </Label>
-                                            <Box
-                                                as="textarea"
-                                                name="RI_CB_OR"
-                                                id="RI_CB_OR"
-                                                className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded"
-                                                placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
+
+                                        {errors.RI_MR_OPT && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.RI_MR_OPT.message
+                                                }
+                                            />
+                                        )}
+
+                                        <Box className="ml-4">
+                                            <Radio
+                                                label="Pertinent Information (Discharge Summary, History and Physical, Consultation, ER Reports, Labs, Radiology Reports, EKGs, Pathology Reports)"
+                                                labelClassName="w-full"
+                                                name="RI_MR_OPT"
+                                                value="PI"
                                                 onChange={handleChange}
                                                 ref={register({
                                                     required:
-                                                        'Please specify the records you would like released.',
+                                                        'Please select the items you would like released.',
                                                 })}
                                             />
-                                            {errors.RI_CB_OR && (
-                                                <ErrorMessage
-                                                    className="mt-2"
-                                                    message={
-                                                        errors.RI_CB_OR.message
-                                                    }
-                                                />
-                                            )}
+                                            <Radio
+                                                label="All health information pertaining to my medical history, mental or physical condition and treatment received, including records received from other healthcare providers. A reasonable clerical and reproduction processing fee is applicable."
+                                                labelClassName="w-full"
+                                                name="RI_MR_OPT"
+                                                value="AHI"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select the items you would like released.',
+                                                })}
+                                            />
+                                            <Radio
+                                                label="Only the following records or types of health information included in the following dates of service:"
+                                                labelClassName="w-full"
+                                                name="RI_MR_OPT"
+                                                value="FR"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please select the items you would like released.',
+                                                })}
+                                            />
+                                            <Flex className="pl-8 flex-col md:flex-row">
+                                                <CheckboxWrapper className="w-full">
+                                                    <Checkbox
+                                                        label="Emergency/Urgent Care Physician Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="EUR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Consultation Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="CR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Laboratory Reports"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="LR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Newborn Record"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="NR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="History and Physical Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="HPR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Operative Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="OR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                </CheckboxWrapper>
+                                                <CheckboxWrapper className="w-full">
+                                                    <Checkbox
+                                                        label="Pathology Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="PR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Immunization Record"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="IR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+
+                                                    <Checkbox
+                                                        label="Discharge Summary Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="DSR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Anesthesia Records"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="AR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Radiology Report"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="RR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Checkbox
+                                                        label="Therapy Records"
+                                                        labelClassName="w-full"
+                                                        name="RI_MR_FR_CB"
+                                                        value="TR"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                </CheckboxWrapper>
+                                            </Flex>
                                         </Box>
-                                    )}
+                                    </CheckboxWrapper>
 
                                     {errors.RI_CB && (
                                         <ErrorMessage
@@ -551,6 +657,19 @@ const Form = ({ store }) => {
                                             message={errors.PR_PUR.message}
                                         />
                                     )}
+                                </Box>
+                                <Box>
+                                    <Label htmlFor="PR_LIM" className="italic">
+                                        Limitations (Optional):
+                                    </Label>
+                                    <Box
+                                        as="textarea"
+                                        name="PR_LIM"
+                                        id="PR_LIM"
+                                        className="block w-full mt-1 sm:text-sm border-gray-dark rounded"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
                                 </Box>
                             </Box>
                         </FormSection>
@@ -737,7 +856,9 @@ const Form = ({ store }) => {
                                     )}
                                 </Box>
                                 <Box className="mb-4">
-                                    <Label htmlFor="YI_EM">Email Address</Label>
+                                    <Label htmlFor="YI_EM" className="italic">
+                                        Email Address (Optional)
+                                    </Label>
                                     <Input
                                         type="email"
                                         name="YI_EM"
@@ -745,171 +866,53 @@ const Form = ({ store }) => {
                                         autoComplete="email"
                                         className="w-full mt-1"
                                         onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please enter your email address.',
-                                        })}
-                                    />
-                                    {errors.YI_EM && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_EM.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_EMC">
-                                        Retype Email Address
-                                    </Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EMC"
-                                        id="YI_EMC"
-                                        autoComplete="email"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please confirm your email address.',
-                                            validate: {
-                                                emailMatch: value =>
-                                                    value ===
-                                                        getValues('YI_EM') ||
-                                                    'The email addresses you entered do not match.',
-                                            },
-                                        })}
-                                    />
-                                    {errors.YI_EMC && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_EMC.message}
-                                        />
-                                    )}
-                                </Box>
-
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_ADDR1">Address</Label>
-                                    <Input
-                                        type="text"
-                                        name="YI_ADDR1"
-                                        id="YI_ADDR1"
-                                        className="w-full mt-1  mb-2"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please enter an address.',
-                                        })}
-                                    />
-
-                                    {errors.YI_ADDR1 && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_ADDR1.message}
-                                        />
-                                    )}
-                                </Box>
-
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_ADDR2">
-                                        Address Line 2
-                                    </Label>
-                                    <Input
-                                        type="text"
-                                        name="YI_ADDR2"
-                                        id="YI_ADDR2"
-                                        className="w-full mt-1  mb-2"
-                                        onChange={handleChange}
                                         ref={register}
                                     />
                                 </Box>
-
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_CITY">City</Label>
-                                    <Input
-                                        type="text"
-                                        name="YI_CITY"
-                                        id="YI_CITY"
-                                        className="w-full mt-1 mb-2"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required: 'Please enter a city.',
-                                        })}
-                                    />
-
-                                    {errors.YI_CITY && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_CITY.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Flex className="mb-6">
-                                    <Box>
-                                        <Label htmlFor="YI_ST_DD">State</Label>
-                                        <Select
-                                            name="YI_ST_DD"
-                                            id="YI_ST_DD"
-                                            className="block mt-1 mr-4"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                validate: {
-                                                    stateCheck: value =>
-                                                        value !==
-                                                            'Select a state' ||
-                                                        'Please select a state.',
-                                                },
-                                            })}
-                                        >
-                                            <option>Select a state</option>
-                                            {Object.keys(states).map(key => (
-                                                <option value={key} key={key}>
-                                                    {states[key]}
-                                                </option>
-                                            ))}
-                                        </Select>
-
-                                        {errors.YI_ST_DD && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_ST_DD.message
-                                                }
-                                            />
-                                        )}
-                                    </Box>
-                                    <Box>
-                                        <Label htmlFor="YI_ZIP">Zip</Label>
-                                        <Input
-                                            type="text"
-                                            name="YI_ZIP"
-                                            id="YI_ZIP"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter a zip code.',
-                                            })}
-                                        />
-
-                                        {errors.YI_ZIP && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={errors.YI_ZIP.message}
-                                            />
-                                        )}
-                                    </Box>
-                                </Flex>
                             </Box>
-                            <Info
-                                primaryText="Medical records will be delivered via this
-                                website in Adobe PDF format."
-                                secondaryText="A notification
-                                    will be sent when the records are ready for
-                                    download, and they will be available for 30
-                                    days."
-                            />
                         </FormSection>
 
+                        <FormSection>
+                            <SectionHeading>
+                                Delivery Information
+                            </SectionHeading>
+                            <Box
+                                as="ul"
+                                className="pl-8 pb-4 space-y-2 list-disc"
+                            >
+                                <Box as="li">
+                                    Medical records will be delivered via this
+                                    website in Adobe PDF format. A notification
+                                    will be sent when the records are ready for
+                                    download, and they will be available for 30
+                                    days.
+                                </Box>
+
+                                <Box as="li">
+                                    Normal processing time is 5 business days
+                                    from time of receipt.
+                                </Box>
+
+                                <Box as="li">
+                                    Please{' '}
+                                    <Link
+                                        href={getContactPage()}
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
+                                    >
+                                        contact us
+                                    </Link>{' '}
+                                    if you have any questions.
+                                </Box>
+                            </Box>
+                            <Box>
+                                <Text>
+                                    <Text as="span" className="font-bold">
+                                        Palomar Health Medical Records
+                                    </Text>
+                                    : (760) 480-7911
+                                </Text>
+                            </Box>
+                        </FormSection>
                         <ServerErrorList
                             className="my-4"
                             errors={serverErrors}

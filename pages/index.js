@@ -32,6 +32,7 @@ const Home = () => (
                         <Link href="/pih">PIH - Landing Page</Link>
                         <Link href="/ucsf">UCSF - Landing Page</Link>
                         <Link href="/benioff">Benioff - Landing Page</Link>
+                        <Link href="/pal">Palomar - Landing Page</Link>
                     </Flex>
                 </Container>
             </Flex>

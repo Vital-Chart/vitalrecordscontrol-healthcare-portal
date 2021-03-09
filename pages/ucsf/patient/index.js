@@ -1,10 +1,7 @@
-import dynamic from 'next/dynamic'
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
-import { Layout, Container, ScreenReader } from '@/components/general'
-import IconClose from '@/icons/icon-close.svg'
+import { Layout, Container } from '@/components/general'
 
 const Instructions = () => {
     const { getLandingPage, getStepPage } = useNavigation()
