@@ -42,7 +42,7 @@ function displayRequestedInformation(store) {
     const info = requestedInfo.map(checkbox => {
         switch (checkbox) {
             case 'MR':
-                return 'Medical Records'
+                return getMedicalRecordsString(store)
             case 'IB':
                 return 'Itemized Billing'
             case 'RI':
@@ -53,6 +53,8 @@ function displayRequestedInformation(store) {
                 return 'Emergency Room Visit'
             case 'EHR':
                 return 'Entire Hospital Record'
+            case 'COV':
+                return 'Clinic or Office Visit'
             case 'BR':
                 return 'Billing Records'
             case 'RI':
@@ -64,7 +66,82 @@ function displayRequestedInformation(store) {
         }
     })
 
-    return info.join(', ')
+    return info.join('; ')
+}
+
+function getMedicalRecordsString(store) {
+    const { form } = store.state
+
+    switch (form.RI_MR_OPT) {
+        case 'PI':
+            return 'Medical Records: Pertinent Information'
+        case 'AHI':
+            return 'Medical Records: All health information'
+        case 'FR':
+            return getFollowingRecordsString(store)
+        default:
+            return 'Medical Records'
+    }
+}
+
+function getFollowingRecordsString(store) {
+    const { form } = store.state
+
+    const records = form.RI_MR_FR_CB.map(checkbox => {
+        switch (checkbox) {
+            case 'EUR':
+                return 'Emergency/Urgent Care Physician Report'
+            case 'HPR':
+                return 'History and Physical Report'
+            case 'DSR':
+                return 'Discharge Summary Report'
+            case 'CR':
+                return 'Consultation Report'
+            case 'OR':
+                return 'Operative Report'
+            case 'AR':
+                return 'Anesthesia Records'
+            case 'LR':
+                return 'Laboratory Reports'
+            case 'PR':
+                return 'Pathology Report'
+            case 'RR':
+                return 'Radiology Report'
+            case 'NR':
+                return 'Newborn Record'
+            case 'IR':
+                return 'Immunization Record'
+            case 'TR':
+                return 'Therapy Records'
+            default:
+                return null
+        }
+    })
+
+    return 'Medical Records: Only the following records - ' + records.join(', ')
+}
+
+function displayAuthorizedInformation(store) {
+    const { form } = store.state
+
+    const info = form.RI_MR_AI_CB.map(checkbox => {
+        switch (checkbox) {
+            case 'IPD':
+                return 'Information pertaining to drug and alcohol abuse, diagnosis, or treatment'
+            case 'IPM':
+                return 'Information pertaining to mental health diagnosis or treatment'
+            case 'HIV':
+                return 'HIV/AIDS test results'
+            case 'GTI':
+                return 'Genetic testing information'
+            case 'WCI':
+                return "Worker's Comp information"
+            default:
+                return null
+        }
+    })
+
+    return (info && info.join('; ')) || 'None selected'
 }
 
 function displayDeliveryMethod(store) {
@@ -217,6 +294,13 @@ export const LayoutReview = ({ children }) => {
                                 Requested Information:
                             </Text>{' '}
                             {displayRequestedInformation(store)}
+                        </Text>
+
+                        <Text>
+                            <Text as="span" className="block text-sm font-bold">
+                                Authorized Information:
+                            </Text>{' '}
+                            {displayAuthorizedInformation(store)}
                         </Text>
 
                         <Text>
