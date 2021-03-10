@@ -31,10 +31,7 @@ export const Layout = ({ children }) => {
                 Skip to content
             </ScreenReader>
 
-            <Flex
-                className="flex-col min-h-screen"
-                style={{ flex: (1, 1, 'auto') }}
-            >
+            <Flex className="flex-col min-h-screen">
                 <Header />
 
                 <Flex
@@ -42,6 +39,7 @@ export const Layout = ({ children }) => {
                     id="content"
                     role="main"
                     className="flex-1 flex-col"
+                    style={{ flex: (1, 1, 'auto') }}
                 >
                     {children}
                 </Flex>
