@@ -53,7 +53,7 @@ export const Radio = forwardRef(
             {label ? (
                 <Label
                     className={cx(
-                        'inline-flex items-center mb-2',
+                        'inline-flex items-start mb-2',
                         labelClassName
                     )}
                 >

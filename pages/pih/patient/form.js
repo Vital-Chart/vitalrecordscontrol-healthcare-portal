@@ -146,13 +146,7 @@ const Form = ({ store }) => {
                             <SectionHeading>
                                 Facility / Facilities
                             </SectionHeading>
-                            {Array.isArray(store.state.trackingNumbers) && (
-                                <Alert
-                                    className="my-4"
-                                    primaryAlertText="Your request has been initiated. You cannot change facilities for this request."
-                                    secondaryAlertText="If you'd like to request records from a different facility, please start a new request."
-                                />
-                            )}
+
                             <Box>
                                 <Box as="legend" className="mb-2">
                                     Please select the facility or facilities
@@ -165,9 +159,6 @@ const Form = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full mb-2"
                                         onChange={handleChange}
-                                        disabled={Array.isArray(
-                                            store.state.trackingNumbers
-                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -179,9 +170,6 @@ const Form = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full mb-2"
                                         onChange={handleChange}
-                                        disabled={Array.isArray(
-                                            store.state.trackingNumbers
-                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -193,9 +181,6 @@ const Form = ({ store }) => {
                                         name="FI_CB"
                                         labelClassName="w-full"
                                         onChange={handleChange}
-                                        disabled={Array.isArray(
-                                            store.state.trackingNumbers
-                                        )}
                                         ref={register({
                                             required:
                                                 'Please select at least one facility.',
@@ -209,15 +194,6 @@ const Form = ({ store }) => {
                                     )}
                                 </CheckboxWrapper>
                             </Box>
-
-                            {watchFacilityCheckboxes.length > 0 &&
-                                !Array.isArray(store.state.trackingNumbers) && (
-                                    <Alert
-                                        className="my-4"
-                                        primaryAlertText="Once you hit 'Continue' below, you cannot change which facilities you are requesting from."
-                                        secondaryAlertText="Please double-check to make sure you select the correct facility or facilities."
-                                    />
-                                )}
 
                             {watchFacilityCheckboxes.length > 1 && (
                                 <Info
