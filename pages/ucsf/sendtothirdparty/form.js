@@ -145,7 +145,7 @@ const Form = ({ store }) => {
                             ref={register}
                         />
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
                             <Box>
                                 <Flex className="flex-col sm:flex-row mb-4">
@@ -348,7 +348,7 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <Box>
                                 <Box as="fieldset">
                                     <Box as="legend" className="mb-2">
@@ -524,7 +524,7 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>Purpose of Request</SectionHeading>
                             <Box>
                                 <Box>
@@ -556,7 +556,7 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
                                 <Flex className="flex-col sm:flex-row">
@@ -938,7 +938,7 @@ const Form = ({ store }) => {
                             />
                         </FormSection>
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>
                                 Delivery Information
                             </SectionHeading>
