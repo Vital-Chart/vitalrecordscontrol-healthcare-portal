@@ -17,17 +17,30 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
     const { fields } = await runMiddleware(req)
 
-    let payload = [...fields['FI_CB'].split(','), fields['TRKNUM']].join(':')
+    let payload
+
+    // TODO: Clean this up, and include all hmac types
+
+    if (fields['hmacType'] === 'request') {
+        payload = [fields['TRKNUM'], ...fields['FI_CB'].split(',')].join(':')
+        if (fields['TRKNUM'] === '') {
+            payload = payload.slice(0, -1)
+        }
+    }
+
+    if (fields['hmacType'] === 'delete') {
+        payload = [fields['TRKNUM'], fields['fileName']].join(':')
+    }
+
+    if (fields['hmacType'] === 'authForm') {
+        payload = [fields['TRKNUM'], fields['fileName']].join(':')
+    }
 
     // Security Signatures
     // Uploads/Delete => TRKNUM:FileName
     // AuthorizationForm/RenderForm => TRKNUM
     // PatientRequest/CompletePatientRequest => TRKNUM
     // PatientRequest/PersistPatientRequest => TRKNUM(s):FaclityID(s) (comma separate, ordered by TRKNUM with corresponding order of FacilityIDs)
-
-    // if (fields['TRKNUM'] === '') {
-    //     payload = payload.slice(0, -2)
-    // }
 
     const hmac = crypto
         .createHmac('sha256', 'portal-test')

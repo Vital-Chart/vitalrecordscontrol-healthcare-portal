@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import cx from 'classnames'
 import { Box, Flex, Text } from '@/components/core'
 import { useStore } from '@/lib/store'
 import { deleteUploadedFile } from '@/lib/api'
+import IconLoading from '@/icons/icon-loading.svg'
 
 export const UploadsList = ({
     className,
@@ -11,19 +13,24 @@ export const UploadsList = ({
 }) => {
     const store = useStore()
 
-    const handleDeleteFile = async fileName => {
-        store.state.uploadedFiles.map(uploadedFile => {
-            if (fileName === uploadedFile.name) {
-                deleteFile(fileName)
-            }
-        })
-    }
+    const [isFetching, setIsFetching] = useState(false)
 
-    const deleteFile = async fileName => {
+    const handleDeleteFile = async fileName => {
         setServerErrors([])
-        // setIsFetching(true)
+        setIsFetching(true)
 
         console.log(store.state.trackingNumbers[0].TrackingNumberID, fileName)
+
+        const isUploaded = store.state.uploadedFiles.find(
+            uploadedFile => fileName === uploadedFile.name
+        )
+
+        if (!isUploaded) {
+            store.dispatch({
+                type: 'REMOVE_FILE',
+                value: fileName,
+            })
+        }
 
         try {
             const { errorInformation, inError } = await deleteUploadedFile(
@@ -37,14 +44,18 @@ export const UploadsList = ({
                     errorInformation.map(error => error.errorNumber)
                 )
                 console.log({ errorInformation })
-                // setIsFetching(false)
+                setIsFetching(false)
             } else {
-                // setIsFetching(false)
+                store.dispatch({
+                    type: 'REMOVE_FILE',
+                    value: fileName,
+                })
+                setIsFetching(false)
             }
         } catch (error) {
             // General server error
             setServerErrors([100000])
-            // setIsFetching(false)
+            setIsFetching(false)
         }
     }
 
@@ -91,13 +102,13 @@ export const UploadsList = ({
                                         as="button"
                                         onClick={() => {
                                             handleDeleteFile(file.name)
-                                            store.dispatch({
-                                                type: 'REMOVE_FILE',
-                                                value: file.name,
-                                            })
                                         }}
                                     >
-                                        Remove
+                                        {isFetching ? (
+                                            <IconLoading className="w-6 text-gray-400 animate-spin" />
+                                        ) : (
+                                            <>Remove</>
+                                        )}
                                     </Box>
                                 </Box>
                             )}
