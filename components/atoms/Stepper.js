@@ -15,7 +15,7 @@ const StepperLink = ({ children, href, className, ...props }) => {
                 pathname === href
                     ? 'font-bold text-black transition-colors'
                     : 'text-gray',
-                'hover:text-black',
+                'text-sm text-center sm:text-left hover:text-black',
                 className
             )}
             {...props}
@@ -32,16 +32,13 @@ export const Stepper = ({ className, ...props }) => {
         <Box className={cx('py-4 bg-gray-lightest', className)} {...props}>
             <Container>
                 <Box as="nav" className="flex" aria-label="Breadcrumb">
-                    <Box as="ol" className="flex items-center space-x-4">
+                    <Box as="ol" className="flex items-center space-x-2">
                         <Box as="li">
-                            <Box>
-                                <StepperLink
-                                    href={getStepPage('form')}
-                                    className="text-sm text-center sm:text-left"
-                                >
+                            <Flex className="items-center">
+                                <StepperLink href={getStepPage('form')}>
                                     Request Information
                                 </StepperLink>
-                            </Box>
+                            </Flex>
                         </Box>
 
                         <Box as="li">
@@ -50,12 +47,12 @@ export const Stepper = ({ className, ...props }) => {
                                 {hasUploadAccess ? (
                                     <StepperLink
                                         href={getStepPage('upload')}
-                                        className="ml-4 text-sm text-center sm:text-left"
+                                        className="ml-2"
                                     >
                                         Provide Authorization Information
                                     </StepperLink>
                                 ) : (
-                                    <Text className="ml-4 text-sm text-center sm:text-left text-gray">
+                                    <Text className="ml-2 text-sm text-center sm:text-left text-gray">
                                         Provide Authorization Information
                                     </Text>
                                 )}
@@ -68,12 +65,12 @@ export const Stepper = ({ className, ...props }) => {
                                 {hasSubmitAccess ? (
                                     <StepperLink
                                         href={getStepPage('review')}
-                                        className="ml-4 text-sm text-center sm:text-left"
+                                        className="ml-2"
                                     >
                                         Review & Submit
                                     </StepperLink>
                                 ) : (
-                                    <Text className="ml-4 text-sm text-center sm:text-left text-gray">
+                                    <Text className="ml-2 text-sm text-center sm:text-left text-gray">
                                         Review & Submit
                                     </Text>
                                 )}

@@ -53,7 +53,7 @@ export const Radio = forwardRef(
             {label ? (
                 <Label
                     className={cx(
-                        'inline-flex items-start mb-2',
+                        'inline-flex items-center mb-2',
                         labelClassName
                     )}
                 >
@@ -65,7 +65,7 @@ export const Radio = forwardRef(
                         className={cx('focus:ring-offset-0', className)}
                         {...props}
                     />
-                    <Box as="span" className="pl-2 text-sm">
+                    <Box as="span" className="pl-2">
                         {label}
                     </Box>
                 </Label>
@@ -84,45 +84,6 @@ export const Radio = forwardRef(
 )
 Radio.displayName = 'Radio'
 
-// export const Checkbox = forwardRef(
-//     ({ label, labelClassName, className, ...props }, ref) => (
-//         <>
-//             {label ? (
-//                 <Label
-//                     className={cx('inline-flex items-center', labelClassName)}
-//                 >
-//                     <Box
-//                         ref={ref}
-//                         as="input"
-//                         type="checkbox"
-//                         // __variantKey="forms.checkbox"
-//                         className={cx(
-//                             'text-gray-dark rounded focus:ring-offset-0',
-//                             className
-//                         )}
-//                         {...props}
-//                     />
-//                     <Box as="span" className="pl-2">
-//                         {label}
-//                     </Box>
-//                 </Label>
-//             ) : (
-//                 <Box
-//                     ref={ref}
-//                     as="input"
-//                     type="checkbox"
-//                     // __variantKey="forms.checkbox"
-//                     className={cx(
-//                         'text-gray-dark focus:ring-offset-0',
-//                         className
-//                     )}
-//                     {...props}
-//                 />
-//             )}
-//         </>
-//     )
-// )
-
 export const Checkbox = forwardRef(
     ({ label, children, labelClassName, className, ...props }, ref) => (
         <Label className={cx('relative flex items-start', labelClassName)}>
@@ -140,7 +101,7 @@ export const Checkbox = forwardRef(
                     {...props}
                 />
             </Box>
-            <Box className="ml-3 text-sm">
+            <Box className="ml-3">
                 <p>{label}</p>
                 {children ? (
                     <p className="text-sm text-gray-dark">{children}</p>

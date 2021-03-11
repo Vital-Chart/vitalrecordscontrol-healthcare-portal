@@ -52,6 +52,9 @@ module.exports = {
                 ...theme('spacing'),
             }),
         },
+        backgroundImage: {
+            'landing-bg': "url('/images/landing-bg.jpg')",
+        },
         screens: breakpoints,
         colors: {
             transparent: 'transparent',

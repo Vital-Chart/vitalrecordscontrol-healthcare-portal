@@ -3,7 +3,10 @@ import { Flex } from '@/components/core'
 
 export const ButtonWrapper = ({ className, children }) => (
     <Flex
-        className={cx('pt-8 space-x-4 border-t-2 border-gray-light', className)}
+        className={cx(
+            'flex-wrap items-start justify-center pt-6 border-t-2 border-gray-light',
+            className
+        )}
     >
         {children}
     </Flex>

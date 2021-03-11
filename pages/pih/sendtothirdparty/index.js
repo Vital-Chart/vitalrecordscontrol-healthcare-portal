@@ -34,7 +34,7 @@ const Instructions = () => {
                                 <Text as="span" className="font-bold">
                                     parties with the power to make decisions on
                                     behalf of a patient (e.g. parents,
-                                    guardians)
+                                    guardians, personal representatives)
                                 </Text>{' '}
                                 to request records. Third parties should{' '}
                                 <Link
@@ -182,9 +182,11 @@ const Instructions = () => {
                             </Box>
                             <Box as="li">
                                 If you request records from multiple facilities,
-                                you will get ONE tracking number for each
-                                facility, as each facility processes records
-                                separately.{' '}
+                                <Text as="span" className="font-bold">
+                                    you will get ONE tracking number for each
+                                    facility
+                                </Text>
+                                , as each facility processes records separately.{' '}
                                 <Text as="span" className="font-bold">
                                     You will receive separate notifications and
                                     records from each facility.
@@ -208,7 +210,7 @@ const Instructions = () => {
                             as={Link}
                             href={getLandingPage()}
                             variant="outline"
-                            className="flex-grow text-center"
+                            className="flex-grow m-2 text-center"
                         >
                             Back
                         </Button>
@@ -216,7 +218,7 @@ const Instructions = () => {
                             as={Link}
                             href={getStepPage('form')}
                             variant="filled"
-                            className="flex-grow text-center"
+                            className="flex-grow m-2 text-center"
                         >
                             Continue
                         </Button>

@@ -22,7 +22,7 @@ export default {
         filled:
             'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark',
         filledSecondary:
-            'text-black font-bold bg-secondary hover:bg-tertiary hover:text-white focus:bg-gray-dark focus:border-gray-dark',
+            'text-black font-bold bg-secondary hover:bg-gray hover:text-white focus:bg-gray-dark focus:border-gray-dark',
         filledReverse:
             'text-primary font-bold bg-white hover:bg-tertiary hover:text-black focus:bg-gray-dark focus:border-gray-dark',
         secondaryReverse:

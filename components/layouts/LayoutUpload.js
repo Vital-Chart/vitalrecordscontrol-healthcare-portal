@@ -25,33 +25,31 @@ import IconLoading from '@/icons/icon-loading.svg'
 
 const FacilityList = () => {
     const store = useStore()
+    const { hospital } = useNavigation()
 
+    const facilities =
+        store?.state?.form?.FI_CB && Array.isArray(store.state.form.FI_CB)
+            ? store.state.form.FI_CB
+            : [store.state.form.FI_CB]
     return (
         <>
-            {store?.state?.form?.FI_CB &&
-                store.state.form.FI_CB.map(facilityId => {
-                    return Object.keys(hospitals).map(hospitalKey => {
-                        return hospitals[hospitalKey].facilities.map(
-                            hospitalFacility => {
-                                if (hospitalFacility.id === facilityId) {
-                                    // TODO: Show tracking number with facility
-                                    // const trackingNumber = store.state.trackingNumbers.find(number => number.FacilityID === facilityId)
+            {facilities &&
+                facilities.map(facilityId => {
+                    const facility = hospitals[hospital].facilities.find(
+                        x => x.id === facilityId
+                    )
+                    const trackingNumber = store.state.trackingNumbers.find(
+                        number => number.FacilityID === facilityId
+                    )
 
-                                    return (
-                                        <Text key={facilityId} className="pb-4">
-                                            <Text
-                                                as="span"
-                                                className="font-bold"
-                                            >
-                                                {hospitalFacility.name}
-                                            </Text>{' '}
-                                            - {hospitalFacility.phone}
-                                        </Text>
-                                    )
-                                }
-                            }
-                        )
-                    })
+                    return (
+                        <Text key={facilityId} className="pb-4">
+                            <Text as="span" className="font-bold">
+                                {trackingNumber.TrackingNumberID}:
+                            </Text>{' '}
+                            {facility.name} - {facility.phone}
+                        </Text>
+                    )
                 })}
         </>
     )
@@ -94,8 +92,7 @@ export const LayoutUpload = ({ children }) => {
                 // Redirect to next step
                 goToStep('review')
             } else {
-                // TODO: Create "no uploads added" error
-                setServerErrors([100000])
+                setServerErrors([100010])
             }
         } else {
             setIsFetching(true)
@@ -193,7 +190,7 @@ export const LayoutUpload = ({ children }) => {
                         Provide Authorization Information
                     </PageHeading>
 
-                    <Box className="pb-8 border-b border-gray-light">
+                    <Box className="pb-4 border-b border-gray-light">
                         <Text className="pb-4">
                             Your request has been saved and assigned tracking
                             number(s):{' '}
@@ -206,8 +203,11 @@ export const LayoutUpload = ({ children }) => {
                         </Text>
 
                         <Text className="pb-4">
-                            Please contact the following facility/facilities if
-                            you have any questions during this process:
+                            Please contact the following{' '}
+                            {store.state.trackingNumbers.length === 1
+                                ? 'facility'
+                                : 'facilities'}{' '}
+                            if you have any questions during this process:
                         </Text>
 
                         <FacilityList />
@@ -453,6 +453,7 @@ export const LayoutUpload = ({ children }) => {
                             as={Link}
                             href={getStepPage('form')}
                             variant="outline"
+                            className="flex-grow m-2"
                         >
                             Go Back
                         </Button>
@@ -465,6 +466,7 @@ export const LayoutUpload = ({ children }) => {
                                     redirect: getLandingPage(),
                                 })
                             }}
+                            className="flex-grow m-2"
                         >
                             Cancel and Delete Request
                         </Button>
@@ -473,7 +475,7 @@ export const LayoutUpload = ({ children }) => {
                             variant="filled"
                             disabled={isFetching}
                             className={cx(
-                                'flex-grow',
+                                'flex-grow m-2',
                                 isFetching && 'pointer-events-none'
                             )}
                             onClick={handleSubmit}

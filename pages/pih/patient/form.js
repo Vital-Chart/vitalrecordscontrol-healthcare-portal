@@ -137,7 +137,7 @@ const Form = ({ store }) => {
                                 Array.isArray(store.state.trackingNumbers)
                                     ? store.state.trackingNumbers[0]
                                           .TrackingNumberID
-                                    : '-1'
+                                    : ''
                             }
                             ref={register}
                         />
@@ -280,7 +280,11 @@ const Form = ({ store }) => {
                                 </Flex>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="PI_PON">
+                                    <Label
+                                        htmlFor="PI_PON"
+                                        className="italic"
+                                        className="italic"
+                                    >
                                         Other Patient Names (Optional)
                                     </Label>
                                     <Input
@@ -324,7 +328,10 @@ const Form = ({ store }) => {
                                 </Box>
 
                                 <Box className="mb-4">
-                                    <Label htmlFor="PI_PHYCL">
+                                    <Label
+                                        htmlFor="PI_PHYCL"
+                                        className="italic"
+                                    >
                                         Physician/Clinic (Optional)
                                     </Label>
                                     <Input
@@ -451,7 +458,7 @@ const Form = ({ store }) => {
                                                                                 dateRangeCheck: value =>
                                                                                     new Date(
                                                                                         value
-                                                                                    ) >
+                                                                                    ) >=
                                                                                         new Date(
                                                                                             getValues(
                                                                                                 'VI_DR_SD'
@@ -549,7 +556,7 @@ const Form = ({ store }) => {
                                                             'Please select the items you would like released.',
                                                     })}
                                                 />
-                                                <Box className="pl-8 space-y-2 flex flex-col md:flex-row">
+                                                <Flex className="pl-8 flex-col md:flex-row">
                                                     <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="Emergency/Urgent Care Physician Report"
@@ -591,8 +598,6 @@ const Form = ({ store }) => {
                                                             }
                                                             ref={register}
                                                         />
-                                                    </CheckboxWrapper>
-                                                    <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="History and Physical Report"
                                                             labelClassName="w-full"
@@ -613,6 +618,8 @@ const Form = ({ store }) => {
                                                             }
                                                             ref={register}
                                                         />
+                                                    </CheckboxWrapper>
+                                                    <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="Pathology Report"
                                                             labelClassName="w-full"
@@ -633,8 +640,7 @@ const Form = ({ store }) => {
                                                             }
                                                             ref={register}
                                                         />
-                                                    </CheckboxWrapper>
-                                                    <CheckboxWrapper className="w-full">
+
                                                         <Checkbox
                                                             label="Discharge Summary Report"
                                                             labelClassName="w-full"
@@ -676,7 +682,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                     </CheckboxWrapper>
-                                                </Box>
+                                                </Flex>
                                             </Box>
                                         )}
 
@@ -833,7 +839,7 @@ const Form = ({ store }) => {
                                     )}
                                 </Box>
                                 <Box>
-                                    <Label htmlFor="PR_LIM">
+                                    <Label htmlFor="PR_LIM" className="italic">
                                         Limitations (Optional):
                                     </Label>
                                     <Box
@@ -938,8 +944,8 @@ const Form = ({ store }) => {
                                         ref={register({ required: true })}
                                     >
                                         <option value="text">
-                                            Text Message (Standard messaging
-                                            rates may apply.)
+                                            Text Message (Standard rates may
+                                            apply.)
                                         </option>
                                         <option value="email">Email</option>
                                     </Select>
@@ -1464,7 +1470,7 @@ const Form = ({ store }) => {
                                 as={Link}
                                 href={getLandingPage()}
                                 variant="outline"
-                                className="flex-1"
+                                className="flex-grow m-2 text-center"
                             >
                                 Cancel
                             </Button>
@@ -1474,7 +1480,7 @@ const Form = ({ store }) => {
                                 variant="filled"
                                 disabled={isFetching}
                                 className={cx(
-                                    'flex-1',
+                                    'flex-grow m-2 text-center',
                                     isFetching && 'pointer-events-none'
                                 )}
                             >

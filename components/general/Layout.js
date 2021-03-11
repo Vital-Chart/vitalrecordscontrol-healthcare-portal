@@ -39,6 +39,7 @@ export const Layout = ({ children }) => {
                     id="content"
                     role="main"
                     className="flex-1 flex-col"
+                    style={{ flex: (1, 1, 'auto') }}
                 >
                     {children}
                 </Flex>

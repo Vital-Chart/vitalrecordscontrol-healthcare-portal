@@ -19,16 +19,22 @@ export default async function handler(req, res) {
 
     let payload = [...fields['FI_CB'].split(','), fields['TRKNUM']].join(':')
 
-    if (fields['TRKNUM'] === '-1') {
-        payload = payload.slice(0, -2)
-    }
+    // Security Signatures
+    // Uploads/Delete => TRKNUM:FileName
+    // AuthorizationForm/RenderForm => TRKNUM
+    // PatientRequest/CompletePatientRequest => TRKNUM
+    // PatientRequest/PersistPatientRequest => TRKNUM(s):FaclityID(s) (comma separate, ordered by TRKNUM with corresponding order of FacilityIDs)
+
+    // if (fields['TRKNUM'] === '') {
+    //     payload = payload.slice(0, -2)
+    // }
 
     const hmac = crypto
         .createHmac('sha256', 'portal-test')
         .update(payload)
         .digest('hex')
 
-    // console.log({ payload, hmac })
+    console.log({ payload, hmac })
 
     return res.status(200).json({ hmac })
 }

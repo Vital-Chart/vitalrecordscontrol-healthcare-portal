@@ -1,6 +1,6 @@
 import useNavigation from '@/lib/useNavigation'
 import { Layout, Container } from '@/components/general'
-import { Box, Text, Button, Link } from '@/components/core'
+import { Box, Text, Button } from '@/components/core'
 import { PageHeading } from '@/components/atoms'
 
 const Custom404 = () => {
@@ -19,7 +19,6 @@ const Custom404 = () => {
 
                     <Button
                         onClick={goBack}
-                        href="/pih"
                         variant="filled"
                         className="inline-block"
                     >

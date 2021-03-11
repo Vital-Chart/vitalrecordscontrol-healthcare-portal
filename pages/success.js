@@ -1,33 +1,36 @@
-import { useEffect } from 'react'
 import { useStore } from '@/lib/store'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
 import { Layout, Container } from '@/components/general'
-import { Box, Text, Flex, Button, Link } from '@/components/core'
+import { Box, Text } from '@/components/core'
 import { PageHeading } from '@/components/atoms'
 
 const FacilityList = () => {
     const store = useStore()
+    const { hospital } = useNavigation()
+
+    const facilities =
+        store?.state?.success?.facilities && store.state.success.facilities
+
     return (
         <>
-            {store?.state?.success?.facilities &&
-                store.state.success.facilities.map(facilityId => {
-                    return hospitals[
-                        store.state.success.hospital
-                    ].facilities.map(hospitalFacility => {
-                        if (hospitalFacility.id === facilityId) {
-                            // TODO: Show tracking number with facility
-                            // const trackingNumber = store.state.success.trackingNumbers.find(number => number.FacilityID === facilityId)
-                            return (
-                                <Text key={facilityId} className="pb-4">
-                                    <Text as="span" className="font-bold">
-                                        {hospitalFacility.name}
-                                    </Text>{' '}
-                                    - {hospitalFacility.phone}
-                                </Text>
-                            )
-                        }
-                    })
+            {facilities &&
+                facilities.map(facilityId => {
+                    const facility = hospitals[hospital].facilities.find(
+                        x => x.id === facilityId
+                    )
+                    const trackingNumber = store.state.success.trackingNumbers.find(
+                        number => number.FacilityID === facilityId
+                    )
+
+                    return (
+                        <Text key={facilityId} className="pb-4">
+                            <Text as="span" className="font-bold">
+                                {trackingNumber.TrackingNumberID}:
+                            </Text>{' '}
+                            {facility.name} - {facility.phone}
+                        </Text>
+                    )
                 })}
         </>
     )
@@ -49,8 +52,8 @@ export const Success = () => {
     return (
         <Layout>
             <Container>
-                <Box className="max-w-screen-md space-y-8 pb-8">
-                    <PageHeading className="pt-4">
+                <Box className="max-w-screen-md space-y-8 pb-8 mx-auto">
+                    <PageHeading className="pt-4 text-center">
                         Request for{' '}
                         {hospitals[store.state.success.hospital].name}
                     </PageHeading>
@@ -74,8 +77,11 @@ export const Success = () => {
                         </Text>
 
                         <Text className="pb-4">
-                            Please contact the following facility/facilities if
-                            you have any questions:
+                            Please contact the following{' '}
+                            {store.state.success.trackingNumbers.length === 1
+                                ? 'facility'
+                                : 'facilities'}{' '}
+                            if you have any questions during this process:
                         </Text>
 
                         <FacilityList />

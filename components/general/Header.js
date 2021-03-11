@@ -1,34 +1,60 @@
-import { useStore } from '@/lib/store'
+import cx from 'classnames'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
 import { Box, Flex, Link, Image } from '@/components/core'
 import { Container } from '@/components/general'
 
 export const Header = () => {
-    const { hospital, getLandingPage, getContactPage } = useNavigation()
+    const {
+        hospital,
+        getLandingPage,
+        getContactPage,
+        isLandingPage,
+        isSuccessPage,
+    } = useNavigation()
 
     return (
-        <Box as="header" className="bg-black mb-20">
-            <Flex as={Container} className="relative">
-                {hospitals[hospital] && (
-                    <Link
-                        href={getLandingPage()}
-                        className="block absolute top-0 left-6 sm:left-8 w-28 p-6 bg-white shadow"
-                    >
-                        <Image src={hospitals[hospital].logo} />
-                    </Link>
-                )}
-
-                <Flex className="flex-col ml-auto py-4 text-xs text-white text-right">
-                    <Link href="/">VitalChart® Virtual ROI Portal</Link>
-
-                    {hospital && (
-                        <Link href={getContactPage()} className="underline">
-                            Contact Us
+        <Box as="header">
+            <Box className="bg-black">
+                <Container className="py-2 text-sm text-white text-right">
+                    <Box className="ml-auto">
+                        {hospital && (
+                            <Link
+                                href={getContactPage()}
+                                className="underline mr-4"
+                            >
+                                Contact Us
+                            </Link>
+                        )}
+                        <Link href="/" className="text-gray">
+                            VitalChart® Virtual ROI Portal
                         </Link>
-                    )}
-                </Flex>
-            </Flex>
+                    </Box>
+                </Container>
+            </Box>
+            {hospitals[hospital] && (
+                <Container>
+                    <Flex
+                        className={cx(
+                            'py-6',
+                            !!(isLandingPage || isSuccessPage) &&
+                                'justify-center'
+                        )}
+                    >
+                        <Link href={getLandingPage()}>
+                            <Image
+                                className={cx(
+                                    'w-auto',
+                                    isLandingPage || isSuccessPage
+                                        ? 'h-24'
+                                        : 'h-20'
+                                )}
+                                src={hospitals[hospital].logo}
+                            />
+                        </Link>
+                    </Flex>
+                </Container>
+            )}
         </Box>
     )
 }
