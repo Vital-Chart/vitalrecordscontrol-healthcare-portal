@@ -296,12 +296,17 @@ export const LayoutReview = ({ children }) => {
                             {displayRequestedInformation(store)}
                         </Text>
 
-                        <Text>
-                            <Text as="span" className="block text-sm font-bold">
-                                Authorized Information:
-                            </Text>{' '}
-                            {displayAuthorizedInformation(store)}
-                        </Text>
+                        {store.state.form?.RI_MR_AI_CB && (
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
+                                    Authorized Information:
+                                </Text>{' '}
+                                {displayAuthorizedInformation(store)}
+                            </Text>
+                        )}
 
                         <Text>
                             <Text as="span" className="block text-sm font-bold">
