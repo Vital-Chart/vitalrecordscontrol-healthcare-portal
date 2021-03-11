@@ -443,7 +443,10 @@ export const LayoutUpload = ({ children }) => {
                             </Box>
                         </Box>
 
-                        <UploadsList className="mt-8" />
+                        <UploadsList
+                            setServerErrors={setServerErrors}
+                            className="mt-8"
+                        />
                     </Box>
 
                     <ServerErrorList className="my-4" errors={serverErrors} />

@@ -1,9 +1,52 @@
 import cx from 'classnames'
 import { Box, Flex, Text } from '@/components/core'
 import { useStore } from '@/lib/store'
+import { deleteUploadedFile } from '@/lib/api'
 
-export const UploadsList = ({ className, isEditable, ...props }) => {
+export const UploadsList = ({
+    className,
+    isEditable,
+    setServerErrors,
+    ...props
+}) => {
     const store = useStore()
+
+    const handleDeleteFile = async fileName => {
+        store.state.uploadedFiles.map(uploadedFile => {
+            if (fileName === uploadedFile.name) {
+                deleteFile(fileName)
+            }
+        })
+    }
+
+    const deleteFile = async fileName => {
+        setServerErrors([])
+        // setIsFetching(true)
+
+        console.log(store.state.trackingNumbers[0].TrackingNumberID, fileName)
+
+        try {
+            const { errorInformation, inError } = await deleteUploadedFile(
+                store.state.trackingNumbers[0].TrackingNumberID,
+                fileName,
+                store.state.form
+            )
+
+            if (inError) {
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
+                console.log({ errorInformation })
+                // setIsFetching(false)
+            } else {
+                // setIsFetching(false)
+            }
+        } catch (error) {
+            // General server error
+            setServerErrors([100000])
+            // setIsFetching(false)
+        }
+    }
 
     return (
         <Box className={cx('divide-y divide-gray-light', className)} {...props}>
@@ -47,6 +90,7 @@ export const UploadsList = ({ className, isEditable, ...props }) => {
                                     <Box
                                         as="button"
                                         onClick={() => {
+                                            handleDeleteFile(file.name)
                                             store.dispatch({
                                                 type: 'REMOVE_FILE',
                                                 value: file.name,
