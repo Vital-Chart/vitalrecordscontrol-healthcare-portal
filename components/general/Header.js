@@ -11,6 +11,7 @@ export const Header = () => {
         getContactPage,
         isLandingPage,
         isSuccessPage,
+        isStartPage,
     } = useNavigation()
 
     return (
@@ -37,18 +38,13 @@ export const Header = () => {
                     <Flex
                         className={cx(
                             'py-6',
-                            !!(isLandingPage || isSuccessPage) &&
+                            !!(isLandingPage || isSuccessPage || isStartPage) &&
                                 'justify-center'
                         )}
                     >
                         <Link href={getLandingPage()}>
                             <Image
-                                className={cx(
-                                    'w-auto',
-                                    isLandingPage || isSuccessPage
-                                        ? 'h-24'
-                                        : 'h-20'
-                                )}
+                                className="w-auto h-20"
                                 src={hospitals[hospital].logo}
                             />
                         </Link>

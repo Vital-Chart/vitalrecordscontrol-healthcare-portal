@@ -17,17 +17,46 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
     const { fields } = await runMiddleware(req)
 
-    let payload = [...fields['FI_CB'].split(','), fields['TRKNUM']].join(':')
+    // TODO: Clean this up, and include all hmac types
 
-    // Security Signatures
-    // Uploads/Delete => TRKNUM:FileName
-    // AuthorizationForm/RenderForm => TRKNUM
-    // PatientRequest/CompletePatientRequest => TRKNUM
-    // PatientRequest/PersistPatientRequest => TRKNUM(s):FaclityID(s) (comma separate, ordered by TRKNUM with corresponding order of FacilityIDs)
+    let payload
 
-    // if (fields['TRKNUM'] === '') {
-    //     payload = payload.slice(0, -2)
+    const trackingNumber = fields['TRKNUM']
+
+    // Get only the first facility ID
+    const facilityId = fields['FI_CB'].slice(0, 7)
+
+    // switch (fields['hmacType']) {
+    //     case 'request':
+    //         payload = [trackingNumber, facilityId].join(':')
+    //     case 'delete':
+    //         payload = [trackingNumber, fields['fileName']].join(':')
+    //     default:
+    //         payload = ''
     // }
+
+    // if (trackingNumber === '') {
+    //     payload = payload.slice(1)
+    // }
+
+    if (fields['hmacType'] === 'trackingFacilityId') {
+        payload = [trackingNumber, facilityId].join(':')
+        if (trackingNumber === '') {
+            payload = payload.slice(1)
+        }
+    }
+
+    if (fields['hmacType'] === 'facilityId') {
+        payload = facilityId
+    }
+
+    if (fields['hmacType'] === 'trackingFileName') {
+        payload = [trackingNumber, fields['fileName']].join(':')
+    }
+
+    if (fields['hmacType'] === 'tracking') {
+        payload = trackingNumber
+    }
 
     const hmac = crypto
         .createHmac('sha256', 'portal-test')
