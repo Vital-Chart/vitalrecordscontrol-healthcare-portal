@@ -738,15 +738,6 @@ const Form = ({ store }) => {
                                         />
                                     )}
 
-                                    {/* {watchRequestedInformation.some(i =>
-                                        ['MR', 'IB'].includes(i)
-                                    ) && (
-                                        <Info
-                                            secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
-                                            className="mt-4"
-                                        />
-                                    )} */}
-
                                     {watchRequestedInformation.includes(
                                         'MR'
                                     ) && (
@@ -1139,13 +1130,12 @@ const Form = ({ store }) => {
                                     </Heading>
                                     <Text className="mb-4">
                                         There are three delivery options for
-                                        Medical Records and Billing Items. You
-                                        can download them directly from the
-                                        website, or have them created on CD.
-                                        They can be delivered via US Mail to the
-                                        address entered below via the US Postal
-                                        Service, or Picked up at the Medical
-                                        Facility.
+                                        Medical Records and Itemized Billing.
+                                        You can download them directly from the
+                                        website, or have them created on CD to
+                                        be delivered by mail via the US Postal
+                                        Service to the address entered below, or
+                                        Picked up at the Medical Facility.
                                     </Text>
                                     <Box className="mb-4">
                                         <Label htmlFor="DI_DM_DD">
@@ -1193,12 +1183,12 @@ const Form = ({ store }) => {
                                     </Heading>
                                     <Text className="mb-4">
                                         Radiology Images & Pathology Slides are
-                                        saved to CD. They can be delivered via
-                                        US Mail to the address entered below via
-                                        the US Postal Service, or Picked up at
-                                        the Medical Facility. The department
-                                        will contact you if additional
-                                        information is required.
+                                        automatically saved to CD. They can be
+                                        delivered by mail via the US Postal
+                                        Service to the address entered below, or
+                                        Picked up at the Medical Facility. The
+                                        department will contact you if
+                                        additional information is required.
                                     </Text>
 
                                     <Box className="mb-4">
@@ -1510,93 +1500,83 @@ const Form = ({ store }) => {
                                     </Box>
                                 </Box>
                                 <Box>
-                                    {watchRecordDeliveryMethod.includes('PU') ||
-                                        (watchRPDeliveryMethod.includes(
-                                            'PU'
-                                        ) && (
-                                            <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
-                                                <Text>
-                                                    Once available, records can
-                                                    be picked up from the
-                                                    facility or facilities
-                                                    listed below.
-                                                </Text>
-                                                {watchFacilityCheckboxes.includes(
-                                                    'P7202-1'
-                                                ) && (
-                                                    <Box>
-                                                        <Text
-                                                            as="span"
-                                                            className="font-bold"
-                                                        >
-                                                            PIH Health Hospital
-                                                            - Downey
-                                                        </Text>
-                                                        <Text>
-                                                            11500 Brookshire
-                                                            Avenue
-                                                        </Text>
-                                                        <Text>
-                                                            Downey, CA 90241
-                                                        </Text>
-                                                        <Text>
-                                                            (562) 904-5166
-                                                            x26177
-                                                        </Text>
-                                                    </Box>
-                                                )}
+                                    {(watchRPDeliveryMethod === 'PU' ||
+                                        watchRecordDeliveryMethod === 'PU') && (
+                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
+                                            <Text>
+                                                Once available, records can be
+                                                picked up from the facility or
+                                                facilities listed below.
+                                            </Text>
+                                            {watchFacilityCheckboxes.includes(
+                                                'P7202-1'
+                                            ) && (
+                                                <Box>
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        PIH Health Hospital -
+                                                        Downey
+                                                    </Text>
+                                                    <Text>
+                                                        11500 Brookshire Avenue
+                                                    </Text>
+                                                    <Text>
+                                                        Downey, CA 90241
+                                                    </Text>
+                                                    <Text>
+                                                        (562) 904-5166 x26177
+                                                    </Text>
+                                                </Box>
+                                            )}
 
-                                                {watchFacilityCheckboxes.includes(
-                                                    'P7201-1'
-                                                ) && (
-                                                    <Box>
-                                                        <Text
-                                                            as="span"
-                                                            className="font-bold"
-                                                        >
-                                                            PIH Health Hospital
-                                                            - Whittier
-                                                        </Text>
-                                                        <Text>
-                                                            12401 Washington
-                                                            Blvd
-                                                        </Text>
-                                                        <Text>
-                                                            Whittier, CA 90602
-                                                        </Text>
-                                                        <Text>
-                                                            (562) 698-0811
-                                                            x13685
-                                                        </Text>
-                                                    </Box>
-                                                )}
+                                            {watchFacilityCheckboxes.includes(
+                                                'P7201-1'
+                                            ) && (
+                                                <Box>
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        PIH Health Hospital -
+                                                        Whittier
+                                                    </Text>
+                                                    <Text>
+                                                        12401 Washington Blvd
+                                                    </Text>
+                                                    <Text>
+                                                        Whittier, CA 90602
+                                                    </Text>
+                                                    <Text>
+                                                        (562) 698-0811 x13685
+                                                    </Text>
+                                                </Box>
+                                            )}
 
-                                                {watchFacilityCheckboxes.includes(
-                                                    'P7203-1'
-                                                ) && (
-                                                    <Box>
-                                                        <Text
-                                                            as="span"
-                                                            className="font-bold"
-                                                        >
-                                                            PIH Health
-                                                            Physicians
-                                                        </Text>
-                                                        <Text>
-                                                            12401 Washington
-                                                            Blvd
-                                                        </Text>
-                                                        <Text>
-                                                            Whittier, CA 90602
-                                                        </Text>
-                                                        <Text>
-                                                            (562) 698-0811
-                                                            x13858
-                                                        </Text>
-                                                    </Box>
-                                                )}
-                                            </Box>
-                                        ))}
+                                            {watchFacilityCheckboxes.includes(
+                                                'P7203-1'
+                                            ) && (
+                                                <Box>
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        PIH Health Physicians
+                                                    </Text>
+                                                    <Text>
+                                                        12401 Washington Blvd
+                                                    </Text>
+                                                    <Text>
+                                                        Whittier, CA 90602
+                                                    </Text>
+                                                    <Text>
+                                                        (562) 698-0811 x13858
+                                                    </Text>
+                                                </Box>
+                                            )}
+                                        </Box>
+                                    )}
                                 </Box>
                             </Box>
                         </FormSection>
