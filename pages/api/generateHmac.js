@@ -17,37 +17,45 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
     const { fields } = await runMiddleware(req)
 
-    let payload
-
     // TODO: Clean this up, and include all hmac types
 
+    let payload
+
+    const trackingNumber = fields['TRKNUM']
+
+    // Get only the first facility ID
+    const facilityId = fields['FI_CB'].slice(0, 7)
+
+    // switch (fields['hmacType']) {
+    //     case 'request':
+    //         payload = [trackingNumber, facilityId].join(':')
+    //     case 'delete':
+    //         payload = [trackingNumber, fields['fileName']].join(':')
+    //     default:
+    //         payload = ''
+    // }
+
+    // if (trackingNumber === '') {
+    //     payload = payload.slice(1)
+    // }
+
     if (fields['hmacType'] === 'request') {
-        payload = [fields['TRKNUM'], ...fields['FI_CB'].split(',')].join(':')
-        if (fields['TRKNUM'] === '') {
-            payload = payload.slice(0, -1)
+        payload = [trackingNumber, facilityId].join(':')
+        if (trackingNumber === '') {
+            payload = payload.slice(1)
         }
     }
 
     if (fields['hmacType'] === 'delete') {
-        payload = [fields['TRKNUM'], fields['fileName']].join(':')
+        payload = [trackingNumber, fields['fileName']].join(':')
     }
-
-    if (fields['hmacType'] === 'authForm') {
-        payload = [fields['TRKNUM'], fields['fileName']].join(':')
-    }
-
-    // Security Signatures
-    // Uploads/Delete => TRKNUM:FileName
-    // AuthorizationForm/RenderForm => TRKNUM
-    // PatientRequest/CompletePatientRequest => TRKNUM
-    // PatientRequest/PersistPatientRequest => TRKNUM(s):FaclityID(s) (comma separate, ordered by TRKNUM with corresponding order of FacilityIDs)
 
     const hmac = crypto
         .createHmac('sha256', 'portal-test')
         .update(payload)
         .digest('hex')
 
-    console.log({ payload, hmac })
+    // console.log({ payload, hmac })
 
     return res.status(200).json({ hmac })
 }
