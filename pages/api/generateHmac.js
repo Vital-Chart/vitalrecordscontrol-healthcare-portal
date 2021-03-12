@@ -39,15 +39,23 @@ export default async function handler(req, res) {
     //     payload = payload.slice(1)
     // }
 
-    if (fields['hmacType'] === 'request') {
+    if (fields['hmacType'] === 'trackingFacilityId') {
         payload = [trackingNumber, facilityId].join(':')
         if (trackingNumber === '') {
             payload = payload.slice(1)
         }
     }
 
-    if (fields['hmacType'] === 'delete') {
+    if (fields['hmacType'] === 'facilityId') {
+        payload = facilityId
+    }
+
+    if (fields['hmacType'] === 'trackingFileName') {
         payload = [trackingNumber, fields['fileName']].join(':')
+    }
+
+    if (fields['hmacType'] === 'tracking') {
+        payload = trackingNumber
     }
 
     const hmac = crypto
@@ -55,7 +63,7 @@ export default async function handler(req, res) {
         .update(payload)
         .digest('hex')
 
-    // console.log({ payload, hmac })
+    console.log({ payload, hmac })
 
     return res.status(200).json({ hmac })
 }
