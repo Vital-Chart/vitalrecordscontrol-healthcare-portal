@@ -1,6 +1,5 @@
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
-import { PageHeading, Info } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
 const Hospital = () => {

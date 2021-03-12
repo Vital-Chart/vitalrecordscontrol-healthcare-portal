@@ -788,15 +788,6 @@ const Form = ({ store }) => {
                                             </CheckboxWrapper>
                                         </Box>
                                     )}
-
-                                    {/* {watchRequestedInformation.some(i =>
-                                        ['RI', 'PS'].includes(i)
-                                    ) && (
-                                        <Info
-                                            secondaryText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered."
-                                            className="mt-4"
-                                        />
-                                    )} */}
                                 </Box>
                             </Box>
                         </FormSection>

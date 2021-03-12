@@ -1077,7 +1077,7 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <FormSection className="border-b border-gray-light">
+                        <FormSection>
                             <SectionHeading>
                                 Delivery Information
                             </SectionHeading>
