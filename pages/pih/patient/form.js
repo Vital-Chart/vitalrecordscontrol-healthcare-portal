@@ -19,6 +19,7 @@ import {
     Flex,
     Button,
     Link,
+    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -57,7 +58,8 @@ const Form = ({ store }) => {
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
-    const watchDeliveryMethod = watch('DI_DM_DD', [])
+    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
+    const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
 
     useEffect(() => {
@@ -170,7 +172,7 @@ const Form = ({ store }) => {
                                 Facility / Facilities
                             </SectionHeading>
 
-                            <Box>
+                            <Box as="fieldset">
                                 <Box as="legend" className="mb-2">
                                     Please select the facility or facilities
                                     from which you are requesting records:
@@ -1118,258 +1120,284 @@ const Form = ({ store }) => {
                             <SectionHeading>
                                 Delivery Information
                             </SectionHeading>
-                            <Text className="mb-4">
-                                Choose how you would like to receive your
-                                records.
-                            </Text>
+
                             <Box>
-                                <Box>
-                                    <Box className="mb-4">
-                                        <Label htmlFor="DI_DM_DD">
-                                            Delivery Method
-                                        </Label>
-                                        <Select
-                                            name="DI_DM_DD"
-                                            id="DI_DM_DD"
-                                            className="block mt-1 mb-2 sm:mr-4"
-                                            onChange={handleChange}
-                                            ref={register}
-                                        >
-                                            <option value="DL">
-                                                Download via website
-                                            </option>
-                                            <option value="PU">
-                                                CD Pick Up
-                                            </option>
-                                            <option value="PS">
-                                                CD Postal Service
-                                            </option>
-                                        </Select>
-                                    </Box>
-
-                                    {watchRequestedInformation.some(i =>
-                                        ['RI', 'PS'].includes(i)
-                                    ) && (
-                                        <>
-                                            <Info
-                                                primaryText="Radiology Images and Pathology Slides will be mailed."
-                                                secondaryText="Radiology Images are saved to CD.
-                                                        Radiology Images and Pathology
-                                                        Slides will be delivered
-                                                        via US Mail to the
-                                                        address you enter below via the
-                                                        US Postal Service. The
-                                                        department will contact you if
-                                                        additional information is
-                                                        required."
-                                                className="my-4"
-                                            />
-                                        </>
-                                    )}
-
-                                    {(watchRequestedInformation.some(i =>
-                                        ['RI', 'PS'].includes(i)
-                                    ) ||
-                                        watchDeliveryMethod === 'PS') && (
-                                        <Box>
-                                            <Box className="mb-4">
-                                                <Label htmlFor="DI_NM">
-                                                    Name
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_NM"
-                                                    id="DI_NM"
-                                                    className="w-full mt-1"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter a name.',
-                                                    })}
-                                                />
-                                                {errors.DI_NM && (
-                                                    <ErrorMessage
-                                                        className="mt-2"
-                                                        message={
-                                                            errors.DI_NM.message
-                                                        }
-                                                    />
-                                                )}
-                                            </Box>
-
-                                            <Box className="mb-4">
-                                                <Label htmlFor="DI_ADDR1">
-                                                    Address
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_ADDR1"
-                                                    id="DI_ADDR1"
-                                                    className="w-full mt-1 mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter an address.',
-                                                    })}
-                                                />
-                                                {errors.DI_ADDR1 && (
-                                                    <ErrorMessage
-                                                        className="mt-2"
-                                                        message={
-                                                            errors.DI_ADDR1
-                                                                .message
-                                                        }
-                                                    />
-                                                )}
-                                            </Box>
-
-                                            <Box className="mb-4">
-                                                <Label htmlFor="DI_ADDR2">
-                                                    Address Line 2
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_ADDR2"
-                                                    id="DI_ADDR2"
-                                                    className="w-full mt-1  mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                            </Box>
-
-                                            <Box className="mb-4">
-                                                <Label htmlFor="DI_CITY">
-                                                    City
-                                                </Label>
-                                                <Input
-                                                    type="text"
-                                                    name="DI_CITY"
-                                                    id="DI_CITY"
-                                                    className="w-full mt-1 mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter a city.',
-                                                    })}
-                                                />
-
-                                                {errors.DI_CITY && (
-                                                    <ErrorMessage
-                                                        className="mt-2"
-                                                        message={
-                                                            errors.DI_CITY
-                                                                .message
-                                                        }
-                                                    />
-                                                )}
-                                            </Box>
-
-                                            <Flex className="mb-4">
-                                                <Box>
-                                                    <Label htmlFor="DI_ST_DD">
-                                                        State
-                                                    </Label>
-                                                    <Select
-                                                        name="DI_ST_DD"
-                                                        id="DI_ST_DD"
-                                                        className="block mt-1 mr-4"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            validate: {
-                                                                stateCheck: value =>
-                                                                    value !==
-                                                                        'Select a state' ||
-                                                                    'Please select a state.',
-                                                            },
-                                                        })}
-                                                    >
-                                                        <option>
-                                                            Select a state
-                                                        </option>
-                                                        {Object.keys(
-                                                            states
-                                                        ).map(key => (
-                                                            <option
-                                                                value={key}
-                                                                key={key}
-                                                            >
-                                                                {states[key]}
-                                                            </option>
-                                                        ))}
-                                                    </Select>
-
-                                                    {errors.DI_ST_DD && (
-                                                        <ErrorMessage
-                                                            className="mt-2"
-                                                            message={
-                                                                errors.DI_ST_DD
-                                                                    .message
-                                                            }
-                                                        />
-                                                    )}
-                                                </Box>
-                                                <Box>
-                                                    <Label htmlFor="DI_ZIP">
-                                                        Zip
-                                                    </Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="DI_ZIP"
-                                                        id="DI_ZIP"
-                                                        className="w-full mt-1"
-                                                        onChange={handleChange}
-                                                        ref={register({
-                                                            required:
-                                                                'Please enter a zip code.',
-                                                        })}
-                                                    />
-
-                                                    {errors.DI_ZIP && (
-                                                        <ErrorMessage
-                                                            className="mt-2"
-                                                            message={
-                                                                errors.DI_ZIP
-                                                                    .message
-                                                            }
-                                                        />
-                                                    )}
-                                                </Box>
-                                            </Flex>
-                                            <Box className="mb-4">
-                                                <Label htmlFor="DI_FAX">
-                                                    Fax Number
-                                                </Label>
-                                                <Input
-                                                    type="tel"
-                                                    name="DI_FAX"
-                                                    id="DI_FAX"
-                                                    className="w-full mt-1 mb-2"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter a fax number.',
-                                                        pattern: {
-                                                            value:
-                                                                regexPatterns.phone,
-                                                            message:
-                                                                'Please enter a valid phone number.',
-                                                        },
-                                                    })}
-                                                />
-                                                {errors.DI_FAX && (
-                                                    <ErrorMessage
-                                                        className="mt-2"
-                                                        message={
-                                                            errors.DI_FAX
-                                                                .message
-                                                        }
-                                                    />
-                                                )}
-                                            </Box>
-                                        </Box>
+                                <Heading as="h3" variant="h5">
+                                    Medical Records and Billing Items Delivery
+                                    Options
+                                </Heading>
+                                <Text className="mb-4">
+                                    There are three delivery options for Medical
+                                    Records and Billing Items. You can download
+                                    them directly from the website, or have them
+                                    created on CD. They can be delivered via US
+                                    Mail to the address entered below via the US
+                                    Postal Service, or Picked up at the Medical
+                                    Facility.
+                                </Text>
+                                <Box className="mb-4">
+                                    <Label htmlFor="DI_DM_DD">
+                                        Desired Delivery Option:
+                                    </Label>
+                                    <Select
+                                        name="DI_DM_DD"
+                                        id="DI_DM_DD"
+                                        className="block mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select a delivery option.',
+                                        })}
+                                    >
+                                        <option value="DL">
+                                            Download from Website
+                                        </option>
+                                        <option value="PS">
+                                            CD via US Postal Service
+                                        </option>
+                                        <option value="PU">
+                                            CD for On-Site Pickup
+                                        </option>
+                                    </Select>
+                                    {errors.DI_DM_DD && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.DI_DM_DD.message}
+                                        />
                                     )}
                                 </Box>
                             </Box>
+
+                            {watchRequestedInformation.some(i =>
+                                ['RI', 'PS'].includes(i)
+                            ) && (
+                                <Box>
+                                    <Heading as="h3" variant="h5">
+                                        Radiology Images and Pathology Slides
+                                        Delivery Options
+                                    </Heading>
+                                    <Text className="mb-4">
+                                        Radiology Images & Pathology Slides are
+                                        saved to CD. They can be delivered via
+                                        US Mail to the address entered below via
+                                        the US Postal Service, or Picked up at
+                                        the Medical Facility. The department
+                                        will contact you if additional
+                                        information is required.
+                                    </Text>
+
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_DMRP_OPT">
+                                            Desired Delivery Option:
+                                        </Label>
+                                        <Select
+                                            name="DI_DMRP_OPT"
+                                            id="DI_DMRP_OPT"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please select a delivery option.',
+                                            })}
+                                        >
+                                            <option value="PS">
+                                                Send via US Postal Service
+                                            </option>
+                                            <option value="PU">
+                                                Pickup at Facility
+                                            </option>
+                                        </Select>
+                                        {errors.DI_DMRP_OPT && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_DMRP_OPT.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                            )}
+
+                            {(watchRPDeliveryMethod === 'PS' ||
+                                watchRecordDeliveryMethod === 'PS') && (
+                                <Box>
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_NM">Name</Label>
+                                        <Input
+                                            type="text"
+                                            name="DI_NM"
+                                            id="DI_NM"
+                                            className="w-full mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please enter a name.',
+                                            })}
+                                        />
+                                        {errors.DI_NM && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={errors.DI_NM.message}
+                                            />
+                                        )}
+                                    </Box>
+
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_ADDR1">
+                                            Address
+                                        </Label>
+                                        <Input
+                                            type="text"
+                                            name="DI_ADDR1"
+                                            id="DI_ADDR1"
+                                            className="w-full mt-1 mb-2"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please enter an address.',
+                                            })}
+                                        />
+                                        {errors.DI_ADDR1 && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_ADDR1.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_ADDR2">
+                                            Address Line 2
+                                        </Label>
+                                        <Input
+                                            type="text"
+                                            name="DI_ADDR2"
+                                            id="DI_ADDR2"
+                                            className="w-full mt-1  mb-2"
+                                            onChange={handleChange}
+                                            ref={register}
+                                        />
+                                    </Box>
+
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_CITY">City</Label>
+                                        <Input
+                                            type="text"
+                                            name="DI_CITY"
+                                            id="DI_CITY"
+                                            className="w-full mt-1 mb-2"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please enter a city.',
+                                            })}
+                                        />
+
+                                        {errors.DI_CITY && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={errors.DI_CITY.message}
+                                            />
+                                        )}
+                                    </Box>
+
+                                    <Flex className="mb-4">
+                                        <Box>
+                                            <Label htmlFor="DI_ST_DD">
+                                                State
+                                            </Label>
+                                            <Select
+                                                name="DI_ST_DD"
+                                                id="DI_ST_DD"
+                                                className="block mt-1 mr-4"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    validate: {
+                                                        stateCheck: value =>
+                                                            value !==
+                                                                'Select a state' ||
+                                                            'Please select a state.',
+                                                    },
+                                                })}
+                                            >
+                                                <option>Select a state</option>
+                                                {Object.keys(states).map(
+                                                    key => (
+                                                        <option
+                                                            value={key}
+                                                            key={key}
+                                                        >
+                                                            {states[key]}
+                                                        </option>
+                                                    )
+                                                )}
+                                            </Select>
+
+                                            {errors.DI_ST_DD && (
+                                                <ErrorMessage
+                                                    className="mt-2"
+                                                    message={
+                                                        errors.DI_ST_DD.message
+                                                    }
+                                                />
+                                            )}
+                                        </Box>
+                                        <Box>
+                                            <Label htmlFor="DI_ZIP">Zip</Label>
+                                            <Input
+                                                type="text"
+                                                name="DI_ZIP"
+                                                id="DI_ZIP"
+                                                className="w-full mt-1"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please enter a zip code.',
+                                                })}
+                                            />
+
+                                            {errors.DI_ZIP && (
+                                                <ErrorMessage
+                                                    className="mt-2"
+                                                    message={
+                                                        errors.DI_ZIP.message
+                                                    }
+                                                />
+                                            )}
+                                        </Box>
+                                    </Flex>
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_FAX">
+                                            Fax Number
+                                        </Label>
+                                        <Input
+                                            type="tel"
+                                            name="DI_FAX"
+                                            id="DI_FAX"
+                                            className="w-full mt-1 mb-2"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please enter a fax number.',
+                                                pattern: {
+                                                    value: regexPatterns.phone,
+                                                    message:
+                                                        'Please enter a valid phone number.',
+                                                },
+                                            })}
+                                        />
+                                        {errors.DI_FAX && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={errors.DI_FAX.message}
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                            )}
                         </FormSection>
 
                         <FormSection>
@@ -1409,7 +1437,9 @@ const Form = ({ store }) => {
                                     </Box>
                                 </Box>
                                 <Box>
-                                    {watchDeliveryMethod.includes('PU') && (
+                                    {watchRecordDeliveryMethod.includes(
+                                        'PU'
+                                    ) && (
                                         <Box className="mb-4 space-y-4">
                                             <Text>
                                                 Once available, records can be
