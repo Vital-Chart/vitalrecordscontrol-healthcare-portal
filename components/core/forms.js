@@ -71,10 +71,7 @@ export const Radio = forwardRef(
                         as="input"
                         type="radio"
                         // __variantKey="forms.radio"
-                        className={cx(
-                            'border border-gray focus:ring-offset-0',
-                            className
-                        )}
+                        className={cx('border border-gray', className)}
                         {...props}
                     />
                     <Box as="span" className="pl-2">
@@ -87,10 +84,7 @@ export const Radio = forwardRef(
                     as="input"
                     type="radio"
                     // __variantKey="forms.radio"
-                    className={cx(
-                        'border border-gray focus:ring-offset-0',
-                        className
-                    )}
+                    className={cx('border border-gray', className)}
                     {...props}
                 />
             )}
@@ -111,7 +105,7 @@ export const Checkbox = forwardRef(
                     type="checkbox"
                     // __variantKey="forms.checkbox"
                     className={cx(
-                        'rounded border border-gray focu:ring-offset-0',
+                        'rounded border border-gray',
                         { 'opacity-50': props.disabled },
                         className
                     )}
