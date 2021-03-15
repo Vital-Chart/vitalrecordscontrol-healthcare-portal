@@ -19,7 +19,7 @@ export const Input = forwardRef(({ className, ...props }, ref) => (
         as="input"
         type="text"
         // __variantKey="forms.input"
-        className={cx('rounded gray-light:border-gray-light', className)}
+        className={cx('rounded focus:border-gray-light', className)}
         {...props}
     />
 ))
@@ -30,7 +30,7 @@ export const Textarea = forwardRef(({ className, ...props }, ref) => (
         ref={ref}
         as="textarea"
         // __variantKey="forms.textarea"
-        className={cx('rounded gray-light:border-gray-light', className)}
+        className={cx('rounded focus:border-gray-light', className)}
         {...props}
     />
 ))
@@ -41,7 +41,7 @@ export const Select = forwardRef(({ className, ...props }, ref) => (
         ref={ref}
         as="select"
         // __variantKey="forms.select"
-        className={cx('rounded gray-light:border-gray-light', className)}
+        className={cx('rounded focus:border-gray-light', className)}
         {...props}
     />
 ))
