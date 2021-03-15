@@ -1107,7 +1107,7 @@ const Form = ({ store }) => {
                                 <Text>
                                     Delivery options will appear here once
                                     you've selected they records you'd like to
-                                    receive.{' '}
+                                    receive.
                                 </Text>
                             )}
 
@@ -1116,7 +1116,7 @@ const Form = ({ store }) => {
                             ) && (
                                 <Box className="p-8 mb-6 bg-gray-lightest">
                                     <Heading as="h3" variant="h5">
-                                        Medical Records and Billing Items
+                                        Medical Records and Itemized Billing
                                         Delivery Options
                                     </Heading>
                                     <Text className="mb-4">
