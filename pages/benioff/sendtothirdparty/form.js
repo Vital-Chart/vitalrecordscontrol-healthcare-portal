@@ -356,7 +356,6 @@ const Form = ({ store }) => {
                                     <CheckboxWrapper>
                                         <Checkbox
                                             label="Emergency Room Visit"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="ERV"
                                             onChange={handleChange}
@@ -371,7 +370,6 @@ const Form = ({ store }) => {
                                         </Checkbox>
                                         <Checkbox
                                             label="Entire Hospital Record"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="EHR"
                                             onChange={handleChange}
@@ -387,7 +385,6 @@ const Form = ({ store }) => {
                                         </Checkbox>
                                         <Checkbox
                                             label="Clinic or Office Visit"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="COV"
                                             onChange={handleChange}
@@ -403,7 +400,6 @@ const Form = ({ store }) => {
                                         </Checkbox>
                                         <Checkbox
                                             label="Billing Records"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="BR"
                                             onChange={handleChange}
@@ -414,7 +410,6 @@ const Form = ({ store }) => {
                                         />
                                         <Checkbox
                                             label="Radiology Images (only)"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="RI"
                                             onChange={handleChange}
@@ -425,7 +420,6 @@ const Form = ({ store }) => {
                                         />
                                         <Checkbox
                                             label="Other Records"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="OR"
                                             onChange={handleChange}

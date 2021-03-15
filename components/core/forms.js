@@ -86,7 +86,9 @@ Radio.displayName = 'Radio'
 
 export const Checkbox = forwardRef(
     ({ label, children, labelClassName, className, ...props }, ref) => (
-        <Label className={cx('relative flex items-start', labelClassName)}>
+        <Label
+            className={cx('relative inline-flex items-start', labelClassName)}
+        >
             <Box className="flex items-center h-5">
                 <Box
                     ref={ref}

@@ -162,7 +162,7 @@ const Form = ({ store }) => {
                                         label="PIH Health Hospital - Downey"
                                         value="P7202-1"
                                         name="FI_CB"
-                                        labelClassName="w-full mb-2"
+                                        labelClassName="mb-2"
                                         onChange={handleChange}
                                         disabled={Array.isArray(
                                             store.state.trackingNumbers
@@ -176,7 +176,7 @@ const Form = ({ store }) => {
                                         label="PIH Health Hospital - Whittier"
                                         value="P7201-1"
                                         name="FI_CB"
-                                        labelClassName="w-full mb-2"
+                                        labelClassName="mb-2"
                                         onChange={handleChange}
                                         disabled={Array.isArray(
                                             store.state.trackingNumbers
@@ -190,7 +190,6 @@ const Form = ({ store }) => {
                                         label="PIH Health Hospital - PIH Health Physicians"
                                         value="P7203-1"
                                         name="FI_CB"
-                                        labelClassName="w-full"
                                         onChange={handleChange}
                                         disabled={Array.isArray(
                                             store.state.trackingNumbers
@@ -344,10 +343,9 @@ const Form = ({ store }) => {
                                             Please select the visits/admissions
                                             you would like released:
                                         </Box>
-                                        <Box className="ml-4">
+                                        <Flex className="flex-col items-start ml-4">
                                             <Radio
                                                 label="Most recent"
-                                                labelClassName="w-full"
                                                 name="VI_OPT"
                                                 value="MR"
                                                 onChange={handleChange}
@@ -358,7 +356,6 @@ const Form = ({ store }) => {
                                             />
                                             <Radio
                                                 label="All"
-                                                labelClassName="w-full"
                                                 name="VI_OPT"
                                                 value="ALL"
                                                 onChange={handleChange}
@@ -369,7 +366,6 @@ const Form = ({ store }) => {
                                             />
                                             <Radio
                                                 label="In a date range"
-                                                labelClassName="w-full"
                                                 name="VI_OPT"
                                                 value="DR"
                                                 onChange={handleChange}
@@ -473,7 +469,7 @@ const Form = ({ store }) => {
                                                         )}
                                                     </>
                                                 )}
-                                        </Box>
+                                        </Flex>
                                     </Box>
                                 </Box>
                             </Box>
@@ -489,7 +485,6 @@ const Form = ({ store }) => {
                                     <CheckboxWrapper>
                                         <Checkbox
                                             label="Medical Records"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="MR"
                                             onChange={handleChange}
@@ -511,10 +506,9 @@ const Form = ({ store }) => {
                                         {watchRequestedInformation.includes(
                                             'MR'
                                         ) && (
-                                            <Box className="ml-4">
+                                            <Flex className="flex-col items-start ml-4">
                                                 <Radio
                                                     label="Pertinent Information (Discharge Summary, History and Physical, Consultation, ER Reports, Labs, Radiology Reports, EKGs, Pathology Reports)"
-                                                    labelClassName="w-full"
                                                     name="RI_MR_OPT"
                                                     value="PI"
                                                     onChange={handleChange}
@@ -525,7 +519,6 @@ const Form = ({ store }) => {
                                                 />
                                                 <Radio
                                                     label="All health information pertaining to my medical history, mental or physical condition and treatment received, including records received from other healthcare providers. A reasonable clerical and reproduction processing fee is applicable."
-                                                    labelClassName="w-full"
                                                     name="RI_MR_OPT"
                                                     value="AHI"
                                                     onChange={handleChange}
@@ -536,7 +529,6 @@ const Form = ({ store }) => {
                                                 />
                                                 <Radio
                                                     label="Only the following records or types of health information included in the following dates of service:"
-                                                    labelClassName="w-full"
                                                     name="RI_MR_OPT"
                                                     value="FR"
                                                     onChange={handleChange}
@@ -549,7 +541,6 @@ const Form = ({ store }) => {
                                                     <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="Emergency/Urgent Care Physician Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="EUR"
                                                             onChange={
@@ -559,7 +550,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Consultation Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="CR"
                                                             onChange={
@@ -569,7 +559,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Laboratory Reports"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="LR"
                                                             onChange={
@@ -579,7 +568,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Newborn Record"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="NR"
                                                             onChange={
@@ -589,7 +577,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="History and Physical Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="HPR"
                                                             onChange={
@@ -599,7 +586,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Operative Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="OR"
                                                             onChange={
@@ -611,7 +597,6 @@ const Form = ({ store }) => {
                                                     <CheckboxWrapper className="w-full">
                                                         <Checkbox
                                                             label="Pathology Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="PR"
                                                             onChange={
@@ -621,7 +606,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Immunization Record"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="IR"
                                                             onChange={
@@ -632,7 +616,6 @@ const Form = ({ store }) => {
 
                                                         <Checkbox
                                                             label="Discharge Summary Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="DSR"
                                                             onChange={
@@ -642,7 +625,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Anesthesia Records"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="AR"
                                                             onChange={
@@ -652,7 +634,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Radiology Report"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="RR"
                                                             onChange={
@@ -662,7 +643,6 @@ const Form = ({ store }) => {
                                                         />
                                                         <Checkbox
                                                             label="Therapy Records"
-                                                            labelClassName="w-full"
                                                             name="RI_MR_FR_CB"
                                                             value="TR"
                                                             onChange={
@@ -672,12 +652,11 @@ const Form = ({ store }) => {
                                                         />
                                                     </CheckboxWrapper>
                                                 </Flex>
-                                            </Box>
+                                            </Flex>
                                         )}
 
                                         <Checkbox
                                             label="Itemized Billing"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="IB"
                                             onChange={handleChange}
@@ -689,7 +668,6 @@ const Form = ({ store }) => {
 
                                         <Checkbox
                                             label="Radiology Images"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="RI"
                                             onChange={handleChange}
@@ -704,7 +682,6 @@ const Form = ({ store }) => {
                                         </Checkbox>
                                         <Checkbox
                                             label="Pathology Slides"
-                                            labelClassName="w-full"
                                             name="RI_CB"
                                             value="PS"
                                             onChange={handleChange}
