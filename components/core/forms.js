@@ -19,7 +19,10 @@ export const Input = forwardRef(({ className, ...props }, ref) => (
         as="input"
         type="text"
         // __variantKey="forms.input"
-        className={cx('rounded focus:border-gray-light', className)}
+        className={cx(
+            'rounded border border-gray focus:border-gray-light',
+            className
+        )}
         {...props}
     />
 ))
@@ -30,7 +33,10 @@ export const Textarea = forwardRef(({ className, ...props }, ref) => (
         ref={ref}
         as="textarea"
         // __variantKey="forms.textarea"
-        className={cx('rounded focus:border-gray-light', className)}
+        className={cx(
+            'rounded border border-gray focus:border-gray-light',
+            className
+        )}
         {...props}
     />
 ))
@@ -41,7 +47,10 @@ export const Select = forwardRef(({ className, ...props }, ref) => (
         ref={ref}
         as="select"
         // __variantKey="forms.select"
-        className={cx('rounded focus:border-gray-light', className)}
+        className={cx(
+            'rounded border border-gray focus:border-gray-light',
+            className
+        )}
         {...props}
     />
 ))
@@ -62,7 +71,10 @@ export const Radio = forwardRef(
                         as="input"
                         type="radio"
                         // __variantKey="forms.radio"
-                        className={cx('focus:ring-offset-0', className)}
+                        className={cx(
+                            'border border-gray focus:ring-offset-0',
+                            className
+                        )}
                         {...props}
                     />
                     <Box as="span" className="pl-2">
@@ -75,7 +87,10 @@ export const Radio = forwardRef(
                     as="input"
                     type="radio"
                     // __variantKey="forms.radio"
-                    className={cx('focus:ring-offset-0', className)}
+                    className={cx(
+                        'border border-gray focus:ring-offset-0',
+                        className
+                    )}
                     {...props}
                 />
             )}
@@ -96,7 +111,7 @@ export const Checkbox = forwardRef(
                     type="checkbox"
                     // __variantKey="forms.checkbox"
                     className={cx(
-                        'rounded gray-light:ring-offset-0',
+                        'rounded border border-gray focu:ring-offset-0',
                         { 'opacity-50': props.disabled },
                         className
                     )}
