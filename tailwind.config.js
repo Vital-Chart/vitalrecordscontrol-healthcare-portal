@@ -64,36 +64,36 @@ module.exports = {
             white: '#FFFFFF',
             outline: 'rgba(59, 130, 246, 0.5)',
             primary: {
-                DEFAULT: '#09613A',
+                default: '#09613A',
                 dark: '#02532F',
             },
             secondary: {
                 lightest: '#F9F4E0',
                 light: '#ECC114',
-                DEFAULT: '#D5B227',
+                default: '#D5B227',
                 dark: '#C6A316',
                 darkest: '#6A5813',
             },
             tertiary: {
                 lightest: '#EDFDF7',
-                DEFAULT: '#80EFC4',
+                default: '#80EFC4',
                 dark: '#60DDAC',
             },
             red: {
                 light: '#F8D8D8',
-                DEFAULT: '#DE4848',
+                default: '#DE4848',
                 dark: '#C53E3E',
             },
             blue: {
                 lightest: '#E1EFFF',
                 light: '#006EF4',
-                DEFAULT: '#00469C',
+                default: '#00469C',
             },
             gray: {
                 lightest: '#F5F5F5',
                 lighter: '#EAEAEA',
                 light: '#E0E0E0',
-                DEFAULT: '#838383',
+                default: '#838383',
                 dark: '#737373',
             },
         },
@@ -149,7 +149,7 @@ module.exports = {
         },
         borderRadius: {
             none: '0',
-            DEFAULT: '3px',
+            default: '3px',
             5: '5px',
             8: '8px',
             16: '16px',
@@ -157,10 +157,10 @@ module.exports = {
             full: '9999px',
         },
         transitionDuration: {
-            DEFAULT: '200ms',
+            default: '200ms',
         },
         transitionTimingFunction: {
-            DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
+            default: 'cubic-bezier(0.4, 0, 0.2, 1)',
         },
     },
     variants: {

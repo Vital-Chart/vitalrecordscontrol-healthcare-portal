@@ -28,7 +28,7 @@ export default {
         secondaryReverse:
             'text-secondary-dark font-bold bg-white hover:bg-secondary-lightest hover:text-black focus:bg-gray-dark focus:border-gray-dark',
         outline:
-            'text-primary font-bold bg-transparent ring-2 ring-inset ring-primary hover:bg-primary hover:text-white focus:bg-gray-lighter focus:border-gray-lighter focus:ring-gray-dark',
+            'text-primary font-bold bg-transparent ring-2 hover:bg-primary hover:text-white focus:bg-gray-lighter focus:border-gray-lighter',
     },
     images: {},
 }
