@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form/dist/index.ie11'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { regexPatterns, states } from '@/lib/helpers'
@@ -782,7 +782,7 @@ const Form = ({ store }) => {
                                         as="textarea"
                                         name="PR_PUR"
                                         id="PR_PUR"
-                                        className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded"
+                                        className="block w-full mt-1 mb-2 sm:text-sm rounded"
                                         placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
                                         onChange={handleChange}
                                         ref={register({
@@ -805,7 +805,7 @@ const Form = ({ store }) => {
                                         as="textarea"
                                         name="PR_LIM"
                                         id="PR_LIM"
-                                        className="block w-full mt-1 sm:text-sm border-gray-dark rounded"
+                                        className="block w-full mt-1 sm:text-sm rounded"
                                         onChange={handleChange}
                                         ref={register}
                                     />
