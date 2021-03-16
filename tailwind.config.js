@@ -54,6 +54,7 @@ module.exports = {
         },
         backgroundImage: {
             'landing-bg': "url('/images/landing-bg.jpg')",
+            'landing-bg-gray': "url('/images/landing-bg-gray.jpg')",
         },
         screens: breakpoints,
         colors: {

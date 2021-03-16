@@ -45,8 +45,8 @@ const Hospital = () => {
                     </Box>
                 </Container>
             </Flex>
-            <Container id="newRequest">
-                <PageHeading className="text-center pt-12 mb-6">
+            <Container id="newRequest" className="pt-12">
+                <PageHeading className="text-center mb-6">
                     Order Your Medical Records Online
                 </PageHeading>
 
