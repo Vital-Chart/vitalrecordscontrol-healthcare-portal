@@ -365,7 +365,10 @@ export const LayoutReview = ({ children }) => {
                             Uploaded Files
                         </SectionHeading>
 
-                        <UploadsList isEditable={false} />
+                        <UploadsList
+                            isEditable={false}
+                            setServerErrors={setServerErrors}
+                        />
 
                         <Button
                             as={Link}

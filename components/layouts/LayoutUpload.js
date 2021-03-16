@@ -72,11 +72,45 @@ export const LayoutUpload = ({ children }) => {
 
     const handleDrop = useCallback(droppedFiles => {
         setServerErrors([])
+        setIsFetching(true)
 
-        store.dispatch({
-            type: 'ADD_FILES',
-            value: droppedFiles,
-        })
+        const newFile = {
+            name: droppedFiles[0].name,
+            size: droppedFiles[0].size,
+        }
+
+        // TODO: Handle duplicate file names
+        // const isDuplicateName = store.state.uploadedFiles.some(
+        //     file => file.name === newFile.name
+        // )
+
+        // if (isDuplicateName) {
+        //     console.log('Duplicate file name: ', newFile.name)
+        // }
+
+        try {
+            const { inError, errorInformation } = createRequest({
+                ...store.state.form,
+                files: droppedFiles,
+            })
+
+            if (inError) {
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
+                setIsFetching(false)
+            } else {
+                store.dispatch({
+                    type: 'ADD_FILES',
+                    value: newFile,
+                })
+                setIsFetching(false)
+            }
+        } catch (error) {
+            // General server error
+            setServerErrors([100000])
+            setIsFetching(false)
+        }
     }, [])
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -85,45 +119,11 @@ export const LayoutUpload = ({ children }) => {
     })
 
     const handleSubmit = async () => {
-        setServerErrors([])
-
-        if (store.state.newFiles.length === 0) {
-            if (store.state.uploadedFiles.length > 0) {
-                // Redirect to next step
-                goToStep('review')
-            } else {
-                setServerErrors([100010])
-            }
+        if (store.state.uploadedFiles.length > 0) {
+            // Redirect to next step
+            goToStep('review')
         } else {
-            setIsFetching(true)
-
-            try {
-                const { inError, errorInformation } = await createRequest({
-                    ...store.state.form,
-                    files: store.state.newFiles,
-                })
-
-                if (inError) {
-                    setServerErrors(
-                        errorInformation.map(error => error.errorNumber)
-                    )
-
-                    setIsFetching(false)
-                } else {
-                    setIsFetching(false)
-
-                    store.dispatch({
-                        type: 'UPDATE_UPLOADED_FILES',
-                    })
-
-                    // Redirect to next step
-                    goToStep('review')
-                }
-            } catch (error) {
-                // General server error
-                setServerErrors([100000])
-                setIsFetching(false)
-            }
+            setServerErrors([100010])
         }
     }
 
@@ -160,7 +160,6 @@ export const LayoutUpload = ({ children }) => {
             // General server error
             console.error(error)
             setServerErrors([100000])
-            // setIsFetching(false)
         }
     }
 
