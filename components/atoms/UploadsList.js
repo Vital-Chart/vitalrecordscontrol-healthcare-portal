@@ -100,7 +100,6 @@ export const UploadsList = ({
                             >
                                 {file.name}
                             </Button>
-                            {/* <Text>{file.name}</Text> */}
                         </Box>
 
                         <Box className="w-32 py-2 px-4">
