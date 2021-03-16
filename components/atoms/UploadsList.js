@@ -15,7 +15,7 @@ export const UploadsList = ({
 
     const [isFetching, setIsFetching] = useState(false)
 
-    const handleView = async fileName => {
+    const handleViewUpload = async fileName => {
         try {
             const {
                 FormURI,
@@ -46,17 +46,6 @@ export const UploadsList = ({
     const handleDeleteFile = async fileName => {
         setServerErrors([])
         setIsFetching(true)
-
-        const isUploaded = store.state.uploadedFiles.find(
-            uploadedFile => fileName === uploadedFile.name
-        )
-
-        if (!isUploaded) {
-            store.dispatch({
-                type: 'REMOVE_FILE',
-                value: fileName,
-            })
-        }
 
         try {
             const { errorInformation, inError } = await deleteUploadedFile(
@@ -107,7 +96,7 @@ export const UploadsList = ({
                         <Box className="flex-1 py-2 px-4">
                             <Button
                                 className="underline text-blue hover:text-black transition-colors"
-                                onClick={() => handleView(file.name)}
+                                onClick={() => handleViewUpload(file.name)}
                             >
                                 {file.name}
                             </Button>
