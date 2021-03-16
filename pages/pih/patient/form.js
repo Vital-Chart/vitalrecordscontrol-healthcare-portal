@@ -60,6 +60,7 @@ const Form = ({ store }) => {
     const watchVisitOptions = watch('VI_OPT', [])
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
+    const watchRelationshipToPatient = watch('YI_REL_DD', '')
 
     useEffect(() => {
         if (watchRelationshipToPatient === 'SELF') {
