@@ -20,7 +20,7 @@ const Hospital = () => {
                 <Flex className="max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
                     <Flex className="flex-1 border-t-8 border-primary">
                         <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
-                            <Box className="pb-8">
+                            <Box className="pb-8 w-full">
                                 <Heading
                                     as="h3"
                                     variant="h4"
@@ -55,7 +55,7 @@ const Hospital = () => {
 
                     <Flex className="flex-1 border-t-8 border-secondary">
                         <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
-                            <Box className="pb-8">
+                            <Box className="pb-8 w-full">
                                 <Heading
                                     as="h3"
                                     variant="h4"
@@ -93,7 +93,7 @@ const Hospital = () => {
             <Heading as="h3" variant="h5" className="mb-4 text-center">
                 Need help choosing an option?
             </Heading>
-            <Box className="max-w-5xl mx-auto mb-12 border border-gray-light">
+            <Box className="w-full max-w-5xl mx-auto mb-12 border border-gray-light">
                 <Flex className="w-full">
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 border-b-8 border-primary">
                         <Text className="w-full text-xs uppercase font-bold text-center">
