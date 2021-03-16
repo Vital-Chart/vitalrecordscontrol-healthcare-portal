@@ -160,7 +160,6 @@ export const LayoutUpload = ({ children }) => {
             // General server error
             console.error(error)
             setServerErrors([100000])
-            // setIsFetching(false)
         }
     }
 

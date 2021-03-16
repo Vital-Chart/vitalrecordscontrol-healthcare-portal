@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import cx from 'classnames'
-import { Box, Flex, Text } from '@/components/core'
+import { Box, Flex, Text, Button } from '@/components/core'
 import { useStore } from '@/lib/store'
-import { deleteUploadedFile } from '@/lib/api'
+import { getUpload, deleteUploadedFile } from '@/lib/api'
 import IconLoading from '@/icons/icon-loading.svg'
 
 export const UploadsList = ({
@@ -15,11 +15,33 @@ export const UploadsList = ({
 
     const [isFetching, setIsFetching] = useState(false)
 
+    const viewUpload = async fileName => {
+        try {
+            const { FormURI, inError, errorInformation } = await getUpload(
+                store.state.trackingNumbers[0].TrackingNumberID,
+                fileName,
+                store.state.form
+            )
+
+            if (inError) {
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
+            } else {
+                setServerErrors([])
+                window.open(FormURI, '_blank')
+            }
+        } catch (error) {
+            // General server error
+            console.error(error)
+            setServerErrors([100000])
+            setIsFetching(false)
+        }
+    }
+
     const handleDeleteFile = async fileName => {
         setServerErrors([])
         setIsFetching(true)
-
-        console.log(store.state.trackingNumbers[0].TrackingNumberID, fileName)
 
         const isUploaded = store.state.uploadedFiles.find(
             uploadedFile => fileName === uploadedFile.name
@@ -80,10 +102,13 @@ export const UploadsList = ({
                     file => (
                         <Flex key={file.name}>
                             <Box className="flex-1 py-2 px-4">
-                                <Text>
+                                {/* <Button
+                                    className="underline text-blue hover:text-black transition-colors"
+                                    onClick={() => viewUpload(file.name)}
+                                >
                                     {file.name}
-                                    {file.isNew && ` (new)`}
-                                </Text>
+                                </Button> */}
+                                <Text>{file.name}</Text>
                             </Box>
 
                             <Box className="w-32 py-2 px-4">
@@ -100,9 +125,9 @@ export const UploadsList = ({
                                 <Box className="w-28 py-2 px-4 text-right">
                                     <Box
                                         as="button"
-                                        onClick={() => {
+                                        onClick={() =>
                                             handleDeleteFile(file.name)
-                                        }}
+                                        }
                                     >
                                         {isFetching ? (
                                             <IconLoading className="w-6 text-gray-400 animate-spin" />

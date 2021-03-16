@@ -14,6 +14,8 @@ const nextConfig = {
             'https://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/DisplayForm',
         DELETE_UPLOAD_ENDPOINT:
             'https://v2.abtroiplus.com/patientportalwebservicedev/Uploads/Delete',
+        VIEW_UPLOAD_ENDPOINT:
+            'https://v2.abtroiplus.com/patientportalwebservicedev/Uploads/RenderUpload',
     },
     images: {
         deviceSizes: defaultImageSizes,
