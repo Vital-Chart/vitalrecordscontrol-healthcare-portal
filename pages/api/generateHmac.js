@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         case 'createRequest':
             payload = fields['FI_CB'].split(',', 1).toString()
             break
-        case 'getUpload':
+        case 'getUploadedFile':
         case 'deleteUploadedFile':
             payload = [fields['TRKNUM'], fields['fileName']].join(':')
             break
