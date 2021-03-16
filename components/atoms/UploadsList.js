@@ -2,7 +2,7 @@ import { useState } from 'react'
 import cx from 'classnames'
 import { Box, Flex, Text, Button } from '@/components/core'
 import { useStore } from '@/lib/store'
-import { getUpload, deleteUploadedFile } from '@/lib/api'
+import { getUploadedFile, deleteUploadedFile } from '@/lib/api'
 import IconLoading from '@/icons/icon-loading.svg'
 
 export const UploadsList = ({
@@ -15,9 +15,13 @@ export const UploadsList = ({
 
     const [isFetching, setIsFetching] = useState(false)
 
-    const viewUpload = async fileName => {
+    const handleView = async fileName => {
         try {
-            const { FormURI, inError, errorInformation } = await getUpload(
+            const {
+                FormURI,
+                inError,
+                errorInformation,
+            } = await getUploadedFile(
                 store.state.trackingNumbers[0].TrackingNumberID,
                 fileName,
                 store.state.form
@@ -103,7 +107,7 @@ export const UploadsList = ({
                         <Box className="flex-1 py-2 px-4">
                             <Button
                                 className="underline text-blue hover:text-black transition-colors"
-                                onClick={() => viewUpload(file.name)}
+                                onClick={() => handleView(file.name)}
                             >
                                 {file.name}
                             </Button>

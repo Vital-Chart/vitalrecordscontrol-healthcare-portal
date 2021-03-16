@@ -86,6 +86,10 @@ export const LayoutUpload = ({ children }) => {
                 )
                 setIsFetching(false)
             } else {
+                store.dispatch({
+                    type: 'ADD_FILES',
+                    value: droppedFiles,
+                })
                 setIsFetching(false)
             }
         } catch (error) {
@@ -93,11 +97,6 @@ export const LayoutUpload = ({ children }) => {
             setServerErrors([100000])
             setIsFetching(false)
         }
-
-        store.dispatch({
-            type: 'ADD_FILES',
-            value: droppedFiles,
-        })
     }, [])
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
