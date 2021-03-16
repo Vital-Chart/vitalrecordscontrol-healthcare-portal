@@ -19,6 +19,7 @@ import {
     Flex,
     Button,
     Link,
+    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -50,6 +51,7 @@ const Form = ({ store }) => {
     const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchVisitOptions = watch('VI_OPT', [])
+    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
 
     const handleChange = e => {
         setServerErrors([])
@@ -145,14 +147,8 @@ const Form = ({ store }) => {
                             <SectionHeading>
                                 Facility / Facilities
                             </SectionHeading>
-                            {Array.isArray(store.state.trackingNumbers) && (
-                                <Alert
-                                    className="my-4"
-                                    primaryAlertText="Your request has been initiated. You cannot change facilities for this request."
-                                    secondaryAlertText="If you'd like to request records from a different facility, please start a new request."
-                                />
-                            )}
-                            <Box>
+
+                            <Box as="fieldset">
                                 <Box as="legend" className="mb-2">
                                     Please select the facility or facilities
                                     from which you are requesting records:
@@ -162,7 +158,6 @@ const Form = ({ store }) => {
                                         label="PIH Health Hospital - Downey"
                                         value="P7202-1"
                                         name="FI_CB"
-                                        labelClassName="mb-2"
                                         onChange={handleChange}
                                         disabled={Array.isArray(
                                             store.state.trackingNumbers
@@ -176,7 +171,6 @@ const Form = ({ store }) => {
                                         label="PIH Health Hospital - Whittier"
                                         value="P7201-1"
                                         name="FI_CB"
-                                        labelClassName="mb-2"
                                         onChange={handleChange}
                                         disabled={Array.isArray(
                                             store.state.trackingNumbers
@@ -207,15 +201,6 @@ const Form = ({ store }) => {
                                     )}
                                 </CheckboxWrapper>
                             </Box>
-
-                            {watchFacilityCheckboxes.length > 0 &&
-                                !Array.isArray(store.state.trackingNumbers) && (
-                                    <Alert
-                                        className="my-4"
-                                        primaryAlertText="Once you hit 'Continue' below, you cannot change which facilities you are requesting from."
-                                        secondaryAlertText="Please double-check to make sure you select the correct facility or facilities."
-                                    />
-                                )}
 
                             {watchFacilityCheckboxes.length > 1 && (
                                 <Info
@@ -703,15 +688,6 @@ const Form = ({ store }) => {
                                         />
                                     )}
 
-                                    {watchRequestedInformation.some(i =>
-                                        ['MR', 'IB'].includes(i)
-                                    ) && (
-                                        <Info
-                                            secondaryText="Medical Records and Itemized Billing will be delivered electronically through this website."
-                                            className="mt-4"
-                                        />
-                                    )}
-
                                     {watchRequestedInformation.includes(
                                         'MR'
                                     ) && (
@@ -761,15 +737,6 @@ const Form = ({ store }) => {
                                                 />
                                             </CheckboxWrapper>
                                         </Box>
-                                    )}
-
-                                    {watchRequestedInformation.some(i =>
-                                        ['RI', 'PS'].includes(i)
-                                    ) && (
-                                        <Info
-                                            secondaryText="Radiology CDs and Pathology slides will be sent via US Mail or can be picked up at the facility. You will choose below how you would like them delivered."
-                                            className="mt-4"
-                                        />
                                     )}
                                 </Box>
                             </Box>
@@ -824,22 +791,54 @@ const Form = ({ store }) => {
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
                                 <Box className="mb-4">
-                                    <Label htmlFor="YI_REL_DD">
-                                        Relationship to Patient
-                                    </Label>
-                                    <Select
-                                        name="YI_REL_DD"
-                                        id="YI_REL_DD"
-                                        className="block mt-1"
-                                        onChange={handleChange}
-                                        ref={register({ required: true })}
-                                    >
-                                        <option value="SELF">Self</option>
-                                        <option value="PG">
-                                            Parent/Guardian
-                                        </option>
-                                        <option value="CON">Conservator</option>
-                                    </Select>
+                                    <Flex className="flex-col sm:flex-row">
+                                        <Box className="mr-4 mb-4">
+                                            <Label htmlFor="YI_REL_DD">
+                                                Relationship to Patient
+                                            </Label>
+                                            <Select
+                                                name="YI_REL_DD"
+                                                id="YI_REL_DD"
+                                                className="block mt-1"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required: true,
+                                                })}
+                                            >
+                                                <option value="PG">
+                                                    Parent/Guardian
+                                                </option>
+                                                <option value="CON">
+                                                    Conservator
+                                                </option>
+                                            </Select>
+                                        </Box>
+                                        <Box className="flex-grow mb-4">
+                                            <Label htmlFor="YI_REL_NM">
+                                                Name
+                                            </Label>
+                                            <Input
+                                                type="tel"
+                                                name="YI_REL_NM"
+                                                id="YI_REL_NM"
+                                                autoComplete="name"
+                                                className="w-full mt-1"
+                                                onChange={handleChange}
+                                                ref={register({
+                                                    required:
+                                                        'Please enter your name.',
+                                                })}
+                                            />
+                                            {errors.YI_REL_NM && (
+                                                <ErrorMessage
+                                                    className="mt-2"
+                                                    message={
+                                                        errors.YI_REL_NM.message
+                                                    }
+                                                />
+                                            )}
+                                        </Box>
+                                    </Flex>
                                 </Box>
                                 <Box className="mb-4">
                                     <Flex className="items-center">
@@ -1054,59 +1053,101 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>
                                 Delivery Information
                             </SectionHeading>
-                            <Box>
-                                <Box
-                                    as="ul"
-                                    className="pl-8 space-y-2 list-disc"
-                                >
-                                    <Box as="li">
-                                        Medical records will be delivered via
-                                        this website in Adobe PDF format. A
-                                        notification will be sent when the
-                                        records are ready for download, and they
-                                        will be available for 30 days.
-                                    </Box>
 
-                                    <Box as="li">
-                                        Normal processing time is 5 business
-                                        days from time of receipt.
-                                    </Box>
+                            {watchRequestedInformation.length === 0 && (
+                                <Text>
+                                    Delivery options will appear here once
+                                    you've selected they records you'd like to
+                                    receive.
+                                </Text>
+                            )}
 
-                                    <Box as="li">
-                                        Please{' '}
-                                        <Link
-                                            href={getContactPage()}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                            {watchRequestedInformation.some(i =>
+                                ['MR', 'IB'].includes(i)
+                            ) && (
+                                <Box className="p-8 mb-6 bg-gray-lightest">
+                                    <Heading as="h3" variant="h5">
+                                        Medical Records and Itemized Billing
+                                        Delivery Options
+                                    </Heading>
+                                    <Text className="mb-4">
+                                        There are three delivery options for
+                                        Medical Records and Itemized Billing.
+                                        You can download them directly from the
+                                        website, or have them created on CD to
+                                        be delivered by mail via the US Postal
+                                        Service to the address entered below, or
+                                        Picked up at the Medical Facility.
+                                    </Text>
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_DM_DD">
+                                            Desired Delivery Option:
+                                        </Label>
+                                        <Select
+                                            name="DI_DM_DD"
+                                            id="DI_DM_DD"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please select a delivery option.',
+                                            })}
                                         >
-                                            contact us
-                                        </Link>{' '}
-                                        if you have any questions.
+                                            <option value="DL">
+                                                Download from Website
+                                            </option>
+                                            <option value="PS">
+                                                CD via US Postal Service
+                                            </option>
+                                            <option value="PU">
+                                                CD for On-Site Pickup
+                                            </option>
+                                        </Select>
+                                        {errors.DI_DM_DD && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_DM_DD.message
+                                                }
+                                            />
+                                        )}
                                     </Box>
                                 </Box>
+                            )}
 
-                                <Box>
-                                    <Info
-                                        secondaryText="Radiology Images are saved to CD.
-                                                        Radiology Images and Pathology
-                                                        Slides will be delivered
-                                                        via US Mail to the
-                                                        address you enter below via the
-                                                        US Postal Service. The
-                                                        department will contact you if
-                                                        additional information is
-                                                        required."
-                                        className="my-4"
-                                    />
+                            {watchRequestedInformation.some(i =>
+                                ['RI', 'PS'].includes(i)
+                            ) && (
+                                <Box className="p-8 mb-6 bg-gray-lightest">
+                                    <Heading as="h3" variant="h5">
+                                        Radiology Images and Pathology Slides
+                                        Delivery
+                                    </Heading>
+                                    <Text>
+                                        Radiology Images & Pathology Slides are
+                                        automatically saved to CD. They will be
+                                        delivered by mail via the US Postal
+                                        Service to the address entered below.
+                                        The department will contact you if
+                                        additional information is required.
+                                    </Text>
                                     <Input
+                                        name="DI_DMRP_OPT"
                                         type="hidden"
-                                        name="DI_DM_DD"
                                         value="PS"
                                     />
+                                </Box>
+                            )}
 
+                            {(watchRequestedInformation.some(i =>
+                                ['RI', 'PS'].includes(i)
+                            ) ||
+                                watchRecordDeliveryMethod === 'PS') && (
+                                <Box>
                                     <Flex className="flex-col sm:flex-row">
                                         <Box className="mr-4 mb-4">
                                             <Label htmlFor="DI_REC_DD">
@@ -1342,6 +1383,164 @@ const Form = ({ store }) => {
                                             />
                                         )}
                                     </Box>
+                                </Box>
+                            )}
+                        </FormSection>
+
+                        <FormSection>
+                            <SectionHeading>Delivery Summary</SectionHeading>
+                            <Box>
+                                <Box
+                                    as="ul"
+                                    className="pl-8 mb-8 space-y-2 list-disc"
+                                >
+                                    {watchRequestedInformation.some(i =>
+                                        ['MR', 'IB'].includes(i)
+                                    ) && (
+                                        <>
+                                            {watchRecordDeliveryMethod.includes(
+                                                'DL'
+                                            ) && (
+                                                <Box as="li">
+                                                    Medical records and/or
+                                                    billing items will be
+                                                    delivered via this website
+                                                    in Adobe PDF format. A
+                                                    notification will be sent
+                                                    when the records are ready
+                                                    for download, and they will
+                                                    be available for 30 days.
+                                                </Box>
+                                            )}
+
+                                            {watchRecordDeliveryMethod.includes(
+                                                'PS'
+                                            ) && (
+                                                <Box as="li">
+                                                    Medical records and/or
+                                                    billing items will be mailed
+                                                    to the address you entered
+                                                    above via the US Postal
+                                                    Service.
+                                                </Box>
+                                            )}
+                                            {watchRecordDeliveryMethod.includes(
+                                                'PU'
+                                            ) && (
+                                                <Box as="li">
+                                                    Once ready, medical records
+                                                    and/or billing items can be
+                                                    picked up from the facility
+                                                    listed below.
+                                                </Box>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {watchRequestedInformation.some(i =>
+                                        ['RI', 'PS'].includes(i)
+                                    ) && (
+                                        <Box as="li">
+                                            Radiology images and/or pathology
+                                            slides will be mailed to the address
+                                            you entered above via the US Postal
+                                            Service.
+                                        </Box>
+                                    )}
+
+                                    <Box as="li">
+                                        Normal processing time is 5 business
+                                        days from time of receipt.
+                                    </Box>
+
+                                    <Box as="li">
+                                        Please{' '}
+                                        <Link
+                                            href={getContactPage()}
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                        >
+                                            contact us
+                                        </Link>{' '}
+                                        if you have any questions.
+                                    </Box>
+                                </Box>
+                                <Box>
+                                    {watchRecordDeliveryMethod === 'PU' && (
+                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
+                                            <Text>
+                                                Once available, records can be
+                                                picked up from the facility or
+                                                facilities listed below.
+                                            </Text>
+                                            {watchFacilityCheckboxes.includes(
+                                                'P7202-1'
+                                            ) && (
+                                                <Box>
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        PIH Health Hospital -
+                                                        Downey
+                                                    </Text>
+                                                    <Text>
+                                                        11500 Brookshire Avenue
+                                                    </Text>
+                                                    <Text>
+                                                        Downey, CA 90241
+                                                    </Text>
+                                                    <Text>
+                                                        (562) 904-5166 x26177
+                                                    </Text>
+                                                </Box>
+                                            )}
+
+                                            {watchFacilityCheckboxes.includes(
+                                                'P7201-1'
+                                            ) && (
+                                                <Box>
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        PIH Health Hospital -
+                                                        Whittier
+                                                    </Text>
+                                                    <Text>
+                                                        12401 Washington Blvd
+                                                    </Text>
+                                                    <Text>
+                                                        Whittier, CA 90602
+                                                    </Text>
+                                                    <Text>
+                                                        (562) 698-0811 x13685
+                                                    </Text>
+                                                </Box>
+                                            )}
+
+                                            {watchFacilityCheckboxes.includes(
+                                                'P7203-1'
+                                            ) && (
+                                                <Box>
+                                                    <Text
+                                                        as="span"
+                                                        className="font-bold"
+                                                    >
+                                                        PIH Health Physicians
+                                                    </Text>
+                                                    <Text>
+                                                        12401 Washington Blvd
+                                                    </Text>
+                                                    <Text>
+                                                        Whittier, CA 90602
+                                                    </Text>
+                                                    <Text>
+                                                        (562) 698-0811 x13858
+                                                    </Text>
+                                                </Box>
+                                            )}
+                                        </Box>
+                                    )}
                                 </Box>
                             </Box>
                         </FormSection>
