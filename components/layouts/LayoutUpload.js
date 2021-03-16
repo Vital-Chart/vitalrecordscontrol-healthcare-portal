@@ -72,6 +72,27 @@ export const LayoutUpload = ({ children }) => {
 
     const handleDrop = useCallback(droppedFiles => {
         setServerErrors([])
+        setIsFetching(true)
+
+        try {
+            const { inError, errorInformation } = createRequest({
+                ...store.state.form,
+                files: droppedFiles,
+            })
+
+            if (inError) {
+                setServerErrors(
+                    errorInformation.map(error => error.errorNumber)
+                )
+                setIsFetching(false)
+            } else {
+                setIsFetching(false)
+            }
+        } catch (error) {
+            // General server error
+            setServerErrors([100000])
+            setIsFetching(false)
+        }
 
         store.dispatch({
             type: 'ADD_FILES',
@@ -85,45 +106,11 @@ export const LayoutUpload = ({ children }) => {
     })
 
     const handleSubmit = async () => {
-        setServerErrors([])
-
-        if (store.state.newFiles.length === 0) {
-            if (store.state.uploadedFiles.length > 0) {
-                // Redirect to next step
-                goToStep('review')
-            } else {
-                setServerErrors([100010])
-            }
+        if (store.state.uploadedFiles.length > 0) {
+            // Redirect to next step
+            goToStep('review')
         } else {
-            setIsFetching(true)
-
-            try {
-                const { inError, errorInformation } = await createRequest({
-                    ...store.state.form,
-                    files: store.state.newFiles,
-                })
-
-                if (inError) {
-                    setServerErrors(
-                        errorInformation.map(error => error.errorNumber)
-                    )
-
-                    setIsFetching(false)
-                } else {
-                    setIsFetching(false)
-
-                    store.dispatch({
-                        type: 'UPDATE_UPLOADED_FILES',
-                    })
-
-                    // Redirect to next step
-                    goToStep('review')
-                }
-            } catch (error) {
-                // General server error
-                setServerErrors([100000])
-                setIsFetching(false)
-            }
+            setServerErrors([100010])
         }
     }
 

@@ -97,49 +97,43 @@ export const UploadsList = ({
                 {isEditable && <Box className="w-28 py-2 px-4" />}
             </Flex>
 
-            {store.state.uploadedFiles.length || store.state.newFiles.length ? (
-                [...store.state.uploadedFiles, ...store.state.newFiles].map(
-                    file => (
-                        <Flex key={file.name}>
-                            <Box className="flex-1 py-2 px-4">
-                                {/* <Button
-                                    className="underline text-blue hover:text-black transition-colors"
-                                    onClick={() => viewUpload(file.name)}
+            {store.state.uploadedFiles.length ? (
+                store.state.uploadedFiles.map(file => (
+                    <Flex key={file.name}>
+                        <Box className="flex-1 py-2 px-4">
+                            <Button
+                                className="underline text-blue hover:text-black transition-colors"
+                                onClick={() => viewUpload(file.name)}
+                            >
+                                {file.name}
+                            </Button>
+                            {/* <Text>{file.name}</Text> */}
+                        </Box>
+
+                        <Box className="w-32 py-2 px-4">
+                            <Text>
+                                {file.size >= 1000000
+                                    ? `${(file.size / 1000000).toFixed(1)} MB`
+                                    : `${Math.round(file.size / 1000)} KB`}
+                            </Text>
+                        </Box>
+
+                        {isEditable && (
+                            <Box className="w-28 py-2 px-4 text-right">
+                                <Box
+                                    as="button"
+                                    onClick={() => handleDeleteFile(file.name)}
                                 >
-                                    {file.name}
-                                </Button> */}
-                                <Text>{file.name}</Text>
-                            </Box>
-
-                            <Box className="w-32 py-2 px-4">
-                                <Text>
-                                    {file.size >= 1000000
-                                        ? `${(file.size / 1000000).toFixed(
-                                              1
-                                          )} MB`
-                                        : `${Math.round(file.size / 1000)} KB`}
-                                </Text>
-                            </Box>
-
-                            {isEditable && (
-                                <Box className="w-28 py-2 px-4 text-right">
-                                    <Box
-                                        as="button"
-                                        onClick={() =>
-                                            handleDeleteFile(file.name)
-                                        }
-                                    >
-                                        {isFetching ? (
-                                            <IconLoading className="w-6 text-gray-400 animate-spin" />
-                                        ) : (
-                                            <>Remove</>
-                                        )}
-                                    </Box>
+                                    {isFetching ? (
+                                        <IconLoading className="w-6 text-gray-400 animate-spin" />
+                                    ) : (
+                                        <>Remove</>
+                                    )}
                                 </Box>
-                            )}
-                        </Flex>
-                    )
-                )
+                            </Box>
+                        )}
+                    </Flex>
+                ))
             ) : (
                 <Box className="py-2 px-4">
                     <Text className="text-sm">
