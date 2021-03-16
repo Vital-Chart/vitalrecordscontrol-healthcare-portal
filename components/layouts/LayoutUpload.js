@@ -74,6 +74,20 @@ export const LayoutUpload = ({ children }) => {
         setServerErrors([])
         setIsFetching(true)
 
+        const newFile = {
+            name: droppedFiles[0].name,
+            size: droppedFiles[0].size,
+        }
+
+        // TODO: Handle duplicate file names
+        // const isDuplicateName = store.state.uploadedFiles.some(
+        //     file => file.name === newFile.name
+        // )
+
+        // if (isDuplicateName) {
+        //     console.log('Duplicate file name: ', newFile.name)
+        // }
+
         try {
             const { inError, errorInformation } = createRequest({
                 ...store.state.form,
@@ -88,7 +102,7 @@ export const LayoutUpload = ({ children }) => {
             } else {
                 store.dispatch({
                     type: 'ADD_FILES',
-                    value: droppedFiles,
+                    value: newFile,
                 })
                 setIsFetching(false)
             }
