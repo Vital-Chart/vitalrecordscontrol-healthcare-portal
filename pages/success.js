@@ -62,9 +62,11 @@ export const Success = () => {
                         <Text className="pb-4">
                             Thank you. Your request(s) for medical records has
                             been submitted and is being processed. Typical
-                            processing time is 5 business days. Please wait at
-                            least 48 hours before checking the status of your
-                            request.
+                            processing time is{' '}
+                            {hospitals[store.state.success.hospital]
+                                .processingTime || '5-7 business days'}
+                            . Please wait at least 48 hours before checking the
+                            status of your request.
                         </Text>
 
                         <Text className="pb-4">

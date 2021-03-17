@@ -4,6 +4,7 @@ import SignatureCanvas from 'react-signature-canvas'
 import { useStore } from '@/lib/store'
 import { finishRequest } from '@/lib/api'
 import { isTouchDevice, formatPhoneNumber } from '@/lib/helpers'
+import hospitals from '@/lib/hospitals'
 import useNavigation from '@/lib/useNavigation'
 import { Layout, Container } from '@/components/general'
 import { Box, Text, Button, Link } from '@/components/core'
@@ -247,8 +248,10 @@ export const LayoutReview = ({ children }) => {
                             no errors and you have uploaded all required
                             documentation, you must click "Submit Request for
                             Processing" below to complete submission of your
-                            request. Normal processing time is 7-14 days after
-                            submission.
+                            request. Normal processing time is{' '}
+                            {hospitals[hospital].processingTime ||
+                                '5-7 business days'}{' '}
+                            after submission.
                         </Text>
                     </Box>
 
