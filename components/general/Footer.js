@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Link, Image } from '@/components/core'
 import { Container } from '@/components/general'
 import useNavigation from '@/lib/useNavigation'
+import hospitals from '@/lib/hospitals'
 
 export const Footer = () => {
     const { hospital } = useNavigation()
@@ -11,7 +12,7 @@ export const Footer = () => {
                 className="flex-col md:flex-row md:justify-between items-center"
             >
                 <Box className="w-40 mb-6 md:mb-0">
-                    {hospital !== 'ucsf' && hospital !== 'benioff' && (
+                    {!hospitals[hospital].isWhitelabel && (
                         <Link href="https://vitalrecordscontrol.com/">
                             <Image src="/images/vrc-logo.png" />
                         </Link>

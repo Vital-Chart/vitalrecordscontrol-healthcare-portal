@@ -1,50 +1,27 @@
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
-import { PageHeading, Info } from '@/components/atoms'
+import { PageHeading, Info, LandingIntro } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
 const Hospital = () => {
-    const { hospital, getLandingPage } = useNavigation()
+    const { getLandingPage } = useNavigation()
 
     return (
         <Layout>
-            <Flex className="py-32 items-center bg-landing-bg-gray bg-center bg-cover">
-                <Container>
-                    <Box className="max-w-xl text-center sm:text-left">
-                        <Heading
-                            as="h1"
-                            variant="h1"
-                            className="pt-4 pb-6 mb-6 text-white border-b-2 border-white"
-                        >
-                            Request Medical Records
-                        </Heading>
-                        <Text className="text-lg sm:text-xl text-white">
-                            Through our online patient portal, you can request
-                            your medical records, track a request, or download
-                            records.
-                        </Text>
-                        <Box className="mt-6 -ml-2">
-                            <Button
-                                as={Link}
-                                href={`${hospital}/#newRequest`}
-                                variant="filledSecondary"
-                                className="flex-grow m-2 text-center"
-                            >
-                                Start New Request
-                            </Button>
+            <LandingIntro>
+                <Heading
+                    as="h1"
+                    variant="h1"
+                    className="pt-4 pb-6 mb-6 text-white border-b-2 border-white"
+                >
+                    Request Medical Records
+                </Heading>
+                <Text className="text-lg sm:text-xl text-white">
+                    Through our online patient portal, you can request your
+                    medical records, track a request, or download records.
+                </Text>
+            </LandingIntro>
 
-                            <Button
-                                as={Link}
-                                href={getLandingPage()}
-                                variant="filledSecondary"
-                                className="flex-grow m-2 text-center"
-                            >
-                                Track Request or Download Records
-                            </Button>
-                        </Box>
-                    </Box>
-                </Container>
-            </Flex>
             <Container id="newRequest" className="pt-12">
                 <PageHeading className="text-center mb-6">
                     Order Your Medical Records Online

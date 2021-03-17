@@ -1,6 +1,6 @@
 import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
-import { PageHeading, Info } from '@/components/atoms'
+import { PageHeading, Info, LandingIntro } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
 const Hospital = () => {
@@ -8,8 +8,23 @@ const Hospital = () => {
 
     return (
         <Layout>
-            <Container>
-                <PageHeading className="text-center pt-4 mb-6">
+            <LandingIntro>
+                <Heading
+                    as="h1"
+                    variant="h1"
+                    className="pt-4 pb-6 mb-6 text-white border-b-2 border-white"
+                >
+                    Request Medical Records
+                </Heading>
+                <Text className="text-lg sm:text-xl text-white">
+                    Through our online patient portal, VitalChart Virtual ROI,
+                    patients can request medical records for themselves or send
+                    them to a third-party.
+                </Text>
+            </LandingIntro>
+
+            <Container id="newRequest" className="pt-12">
+                <PageHeading className="text-center mb-6">
                     Order Your Medical Records Online
                 </PageHeading>
 

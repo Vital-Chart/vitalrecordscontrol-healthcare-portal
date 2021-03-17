@@ -74,6 +74,10 @@ export const LayoutUpload = ({ children }) => {
         setServerErrors([])
         setIsFetching(true)
 
+        // Loop through dropped files and compare names to uploaded files
+        // If match throw error
+        // Error code as string for custom error message
+
         // TODO: Handle duplicate file names
         // const isDuplicateName = store.state.uploadedFiles.some(
         //     file => file.name === newFile.name
