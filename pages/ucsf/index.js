@@ -67,7 +67,7 @@ const Hospital = () => {
                     <Box className="mx-auto mb-12 border border-gray-light">
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     How long can it take to process my request?
                                 </Text>
                             </Flex>
@@ -80,7 +80,7 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     Can I order my records with my phone/tablet?
                                 </Text>
                             </Flex>
@@ -93,7 +93,7 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3  bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     Will I be told when my request is ready?
                                 </Text>
                             </Flex>
@@ -107,7 +107,7 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     Can I access my own records?
                                 </Text>
                             </Flex>
@@ -120,7 +120,7 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     Can I print, email, save, and/or fax my
                                     records?
                                 </Text>
@@ -135,7 +135,7 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     How are my records made available?
                                 </Text>
                             </Flex>
@@ -149,7 +149,7 @@ const Hospital = () => {
 
                         <Flex className="w-full">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full font-bold text-sm text-center">
                                     Can I view my records on my phone/tablet?
                                 </Text>
                             </Flex>
