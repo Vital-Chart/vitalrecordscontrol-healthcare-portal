@@ -577,7 +577,7 @@ const Form = ({ store }) => {
                             </Box>
                         </FormSection>
 
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
                                 <Flex className="flex-col sm:flex-row">
@@ -949,14 +949,6 @@ const Form = ({ store }) => {
                                     </Box>
                                 </Flex>
                             </Box>
-                            <Info
-                                primaryText="Medical records will be delivered via this
-                                website in Adobe PDF format."
-                                secondaryText="A notification
-                                    will be sent when the records are ready for
-                                    download, and they will be available for 30
-                                    days."
-                            />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
