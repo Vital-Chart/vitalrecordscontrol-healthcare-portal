@@ -19,6 +19,7 @@ import {
     Flex,
     Button,
     Link,
+    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -56,6 +57,8 @@ const Form = ({ store }) => {
 
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
+    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
+    const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
 
     useEffect(() => {
         if (watchRelationshipToPatient === 'SELF') {
@@ -954,6 +957,248 @@ const Form = ({ store }) => {
                                     download, and they will be available for 30
                                     days."
                             />
+                        </FormSection>
+
+                        <FormSection className="border-b border-gray-light">
+                            <SectionHeading>
+                                Delivery Information
+                            </SectionHeading>
+
+                            {watchRequestedInformation.length === 0 && (
+                                <Text>
+                                    Delivery options will appear here once
+                                    you've selected they records you'd like to
+                                    receive.
+                                </Text>
+                            )}
+
+                            {watchRequestedInformation.some(i =>
+                                ['ERV', 'EHR', 'COV', 'BR', 'OR'].includes(i)
+                            ) && (
+                                <Box className="p-8 mb-6 bg-gray-lightest">
+                                    <Heading as="h3" variant="h5">
+                                        Medical Records Delivery Options
+                                    </Heading>
+                                    <Text className="mb-4">
+                                        There are three delivery options for
+                                        Medical Records. You can download them
+                                        directly from the website, or have them
+                                        created on CD to be delivered by mail
+                                        via the US Postal Service to the address
+                                        entered above, or Picked up at the
+                                        Medical Facility.
+                                    </Text>
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_DM_DD">
+                                            Desired Delivery Option:
+                                        </Label>
+                                        <Select
+                                            name="DI_DM_DD"
+                                            id="DI_DM_DD"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please select a delivery option.',
+                                            })}
+                                        >
+                                            <option value="DL">
+                                                Download from Website
+                                            </option>
+                                            <option value="PS">
+                                                CD via US Postal Service
+                                            </option>
+                                            <option value="PU">
+                                                CD for On-Site Pickup
+                                            </option>
+                                        </Select>
+                                        {errors.DI_DM_DD && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_DM_DD.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                            )}
+
+                            {watchRequestedInformation.includes('RI') && (
+                                <Box className="p-8 mb-6 bg-gray-lightest">
+                                    <Heading as="h3" variant="h5">
+                                        Radiology Images Delivery Options
+                                    </Heading>
+                                    <Text className="mb-4">
+                                        Radiology Images are automatically saved
+                                        to CD. They can be delivered by mail via
+                                        the US Postal Service to the address
+                                        entered above, or Picked up at the
+                                        Medical Facility. The department will
+                                        contact you if additional information is
+                                        required.
+                                    </Text>
+
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_DMRP_OPT">
+                                            Desired Delivery Option:
+                                        </Label>
+                                        <Select
+                                            name="DI_DMRP_OPT"
+                                            id="DI_DMRP_OPT"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please select a delivery option.',
+                                            })}
+                                        >
+                                            <option value="PS">
+                                                Send via US Postal Service
+                                            </option>
+                                            <option value="PU">
+                                                Pickup at Facility
+                                            </option>
+                                        </Select>
+                                        {errors.DI_DMRP_OPT && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_DMRP_OPT.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                            )}
+                        </FormSection>
+
+                        <FormSection>
+                            <SectionHeading>Delivery Summary</SectionHeading>
+                            <Box>
+                                <Box
+                                    as="ul"
+                                    className="pl-8 mb-8 space-y-2 list-disc"
+                                >
+                                    {watchRequestedInformation.some(i =>
+                                        [
+                                            'ERV',
+                                            'EHR',
+                                            'COV',
+                                            'BR',
+                                            'OR',
+                                        ].includes(i)
+                                    ) && (
+                                        <>
+                                            {watchRecordDeliveryMethod.includes(
+                                                'DL'
+                                            ) && (
+                                                <Box as="li">
+                                                    Medical records will be
+                                                    delivered via this website
+                                                    in Adobe PDF format. A
+                                                    notification will be sent
+                                                    when the records are ready
+                                                    for download, and they will
+                                                    be available for 30 days.
+                                                </Box>
+                                            )}
+
+                                            {watchRecordDeliveryMethod.includes(
+                                                'PS'
+                                            ) && (
+                                                <Box as="li">
+                                                    Medical records will be
+                                                    mailed to the address you
+                                                    entered above via the US
+                                                    Postal Service.
+                                                </Box>
+                                            )}
+                                            {watchRecordDeliveryMethod.includes(
+                                                'PU'
+                                            ) && (
+                                                <Box as="li">
+                                                    Once ready, medical records
+                                                    and/or billing items can be
+                                                    picked up from the facility
+                                                    listed below.
+                                                </Box>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {watchRequestedInformation.includes(
+                                        'RI'
+                                    ) && (
+                                        <>
+                                            {watchRPDeliveryMethod.includes(
+                                                'PS'
+                                            ) && (
+                                                <Box as="li">
+                                                    Radiology images will be
+                                                    mailed to the address you
+                                                    entered above via the US
+                                                    Postal Service.
+                                                </Box>
+                                            )}
+                                            {watchRPDeliveryMethod.includes(
+                                                'PU'
+                                            ) && (
+                                                <Box as="li">
+                                                    Once ready, radiology images
+                                                    can be picked up from the
+                                                    facility listed below.
+                                                </Box>
+                                            )}
+                                        </>
+                                    )}
+
+                                    <Box as="li">
+                                        Normal processing time is 5-7 business
+                                        days from time of receipt.
+                                    </Box>
+
+                                    <Box as="li">
+                                        Please{' '}
+                                        <Link
+                                            href={getContactPage()}
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                        >
+                                            contact us
+                                        </Link>{' '}
+                                        if you have any questions.
+                                    </Box>
+                                </Box>
+                                <Box>
+                                    {(watchRPDeliveryMethod === 'PU' ||
+                                        watchRecordDeliveryMethod === 'PU') && (
+                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
+                                            <Text>
+                                                Once available, records can be
+                                                picked up from the facility or
+                                                facilities listed below.
+                                            </Text>
+
+                                            <Box>
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    UCSF Health
+                                                </Text>
+                                                <Text>
+                                                    Health Information Services
+                                                </Text>
+                                                <Text>400 Parnassus Ave</Text>
+                                                <Text>Room A88</Text>
+                                                <Text>
+                                                    San Francisco, CA 94143
+                                                </Text>
+                                            </Box>
+                                        </Box>
+                                    )}
+                                </Box>
+                            </Box>
                         </FormSection>
 
                         <ServerErrorList
