@@ -116,11 +116,7 @@ export const UploadsList = ({
                                     as="button"
                                     onClick={() => handleDeleteFile(file.name)}
                                 >
-                                    {isFetching ? (
-                                        <IconLoading className="w-6 text-gray-400 animate-spin" />
-                                    ) : (
-                                        <>Remove</>
-                                    )}
+                                    Remove
                                 </Box>
                             </Box>
                         )}

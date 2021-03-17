@@ -70,47 +70,47 @@ export const LayoutUpload = ({ children }) => {
     const [isFetching, setIsFetching] = useState(false)
     const hasTouch = isTouchDevice()
 
+    // TODO: Sort out handling duplicate files
+
     const handleDrop = useCallback(droppedFiles => {
         setServerErrors([])
-        setIsFetching(true)
-
-        // Loop through dropped files and compare names to uploaded files
-        // If match throw error
-        // Error code as string for custom error message
-
-        // TODO: Handle duplicate file names
-        // const isDuplicateName = store.state.uploadedFiles.some(
-        //     file => file.name === newFile.name
-        // )
-
-        // if (isDuplicateName) {
-        //     console.log('Duplicate file name: ', newFile.name)
-        // }
-
-        try {
-            const { inError, errorInformation } = createRequest({
-                ...store.state.form,
-                files: droppedFiles,
+        droppedFiles.map(droppedFile => {
+            store.state.uploadedFiles.map(uploadedFile => {
+                if (droppedFile.name === uploadedFile.name) {
+                    console.log('duplicate!')
+                    setServerErrors([
+                        `${droppedFile.name} is already in use. Please use a unique name for each file.`,
+                    ])
+                }
             })
+        })
 
-            if (inError) {
-                setServerErrors(
-                    errorInformation.map(error => error.errorNumber)
-                )
-                setIsFetching(false)
-            } else {
-                console.log({ droppedFiles })
-                store.dispatch({
-                    type: 'ADD_FILES',
-                    value: droppedFiles,
+        if (serverErrors.length === 0) {
+            setIsFetching(true)
+            try {
+                const { inError, errorInformation } = createRequest({
+                    ...store.state.form,
+                    files: droppedFiles,
                 })
+
+                if (inError) {
+                    setServerErrors(
+                        errorInformation.map(error => error.errorNumber)
+                    )
+                    setIsFetching(false)
+                } else {
+                    store.dispatch({
+                        type: 'ADD_FILES',
+                        value: droppedFiles,
+                    })
+                    setIsFetching(false)
+                }
+            } catch (error) {
+                // General server error
+                console.error(error)
+                setServerErrors([100000])
                 setIsFetching(false)
             }
-        } catch (error) {
-            // General server error
-            console.error(error)
-            setServerErrors([100000])
-            setIsFetching(false)
         }
     }, [])
 

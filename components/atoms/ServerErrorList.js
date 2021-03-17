@@ -36,11 +36,18 @@ export const ServerErrorList = ({ className, errors }) => {
                         There was a problem processing your request.
                     </Text>
 
-                    {errors.map(errorCode => (
-                        <Text key={errorCode} className="text-sm">
-                            {errorMessages[errorCode]}
-                        </Text>
-                    ))}
+                    {errors.map(error => {
+                        const errorMessage =
+                            typeof error === 'string'
+                                ? error
+                                : errorMessages[error]
+
+                        return (
+                            <Text key={error} className="text-sm">
+                                {errorMessage}
+                            </Text>
+                        )
+                    })}
                 </Flex>
             </Flex>
         </Box>
