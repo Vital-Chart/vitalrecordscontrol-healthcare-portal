@@ -36,7 +36,15 @@ export const LayoutContact = () => {
                                     {facility.name}
                                 </Text>
                                 <Text>{facility.address1}</Text>
-                                <Text>{facility.address2}</Text>
+                                {facility.address2 && (
+                                    <Text>{facility.address2}</Text>
+                                )}
+                                {facility.address3 && (
+                                    <Text>{facility.address3}</Text>
+                                )}
+                                {facility.address4 && (
+                                    <Text>{facility.address4}</Text>
+                                )}
                                 <Link href={phoneLink}>{facility.phone}</Link>
                             </Box>
                         )

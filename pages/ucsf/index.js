@@ -19,9 +19,9 @@ const Hospital = () => {
                             Request Medical Records
                         </Heading>
                         <Text className="text-lg sm:text-xl text-white">
-                            Through our online patient portal, VitalChart
-                            Virtual ROI, patients can request medical records
-                            for themselves or send them to a third-party.
+                            Through our online patient portal, you can request
+                            your medical records, track a request, or download
+                            records.
                         </Text>
                         <Box className="mt-6 -ml-2">
                             <Button
@@ -54,42 +54,35 @@ const Hospital = () => {
                     <Info secondaryText="NOTICE: This site is for Patient or Patient Directed Use Only. Fees for processing medical records requests are non-refundable." />
                 </Flex>
 
-                <Flex className="max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
-                    <Flex className="flex-1 border-t-8 border-primary">
-                        <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
-                            <Box className="pb-8 w-full">
-                                <Heading
-                                    as="h3"
-                                    variant="h4"
-                                    className="pb-2 text-center"
-                                >
-                                    <Text
-                                        as="span"
-                                        className="block mb-4 text-sm uppercase"
-                                    >
-                                        Option 1
-                                    </Text>
-                                    Quick Release to You
-                                </Heading>
-
-                                <Text className="text-center">
-                                    Your request is processed within 5-7
-                                    business days, and your records will be
-                                    available for download.
-                                </Text>
-                            </Box>
-
-                            <Button
-                                as={Link}
-                                href={`${getLandingPage()}/patient`}
-                                variant="filled"
-                                className="text-sm text-center"
+                <Box className="w-full max-w-xl mx-auto mb-12 border-t-8 border-primary">
+                    <Flex className="flex-col items-center w-full p-8 md:px-12 border-r border-b border-l border-gray-light">
+                        <Box className="pb-8 w-full">
+                            <Heading
+                                as="h3"
+                                variant="h4"
+                                className="pb-2 text-center"
                             >
-                                Begin
-                            </Button>
-                        </Flex>
+                                Request My Records
+                            </Heading>
+
+                            <Text className="text-center">
+                                Your request is processed within 5-7 business
+                                days, and your records will be available for
+                                download once complete.
+                            </Text>
+                        </Box>
+
+                        <Button
+                            as={Link}
+                            href={`${getLandingPage()}/patient`}
+                            variant="filled"
+                            className="text-sm text-center"
+                        >
+                            Begin
+                        </Button>
                     </Flex>
-                </Flex>
+                </Box>
+
                 <Box>
                     <Heading as="h3" variant="h3" className="mb-4 text-center">
                         Frequently Asked Questions
@@ -103,7 +96,7 @@ const Hospital = () => {
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
                                 <Text className="w-full text-sm text-center">
-                                    48 hours**
+                                    5-7 business days
                                 </Text>
                             </Flex>
                         </Flex>
@@ -191,20 +184,23 @@ const Hospital = () => {
                         </Flex>
                     </Box>
                 </Box>
-                <Box className="w-full py-8 px-12 mb-12 bg-gray-lightest">
-                    <Heading as="h3" variant="h4" className="pb-4">
-                        Sample Texts
-                    </Heading>
-                    <Text className="pb-4">
-                        You will receive text messages similar to these samples:
-                    </Text>
+                <Box className="w-full py-8 mb-12">
+                    <Box className="mb-6 text-center">
+                        <Heading as="h3" variant="h4" className="pb-2">
+                            Sample Texts
+                        </Heading>
+                        <Text className="pb-4">
+                            You will receive text messages similar to these
+                            samples:
+                        </Text>
+                    </Box>
 
-                    <Flex className="space-x-8">
-                        <Box className="w-1/2">
+                    <Flex className="flex-col md:flex-row items-center">
+                        <Flex className="md:w-1/2 flex-col justify-center p-8 md:mx-4 mb-8 md:mb-0 border border-gray-light">
                             <Text className="pb-4">
                                 When your request is accepted:
                             </Text>
-                            <Box className="rounded-8 bg-white py-6 px-8 mb-4">
+                            <Box className="w-full max-w-lg rounded-8 bg-gray-lightest py-6 px-8">
                                 <Text className="w-full text-sm">
                                     Your Medical Records request is in process.
                                     When complete, you will get Acct # and PIN #
@@ -214,25 +210,23 @@ const Hospital = () => {
                                     (UCSF Hosptial)
                                 </Text>
                             </Box>
-                        </Box>
+                        </Flex>
 
-                        <Box className="w-1/2">
+                        <Flex className="md:w-1/2 flex-col justify-center p-8 md:mx-4 border border-gray-light">
                             <Text className="pb-4">
                                 When your request is ready:
                             </Text>
-                            <Box className="rounded-8 bg-white py-6 px-8 mb-4">
+                            <Box className="w-full max-w-lg rounded-8 bg-gray-lightest py-6 px-8">
                                 <Text className="w-full text-sm">
-                                    Your Medical Records are ready!
-                                </Text>
-                                <Text className="w-full text-sm">
-                                    Go to https://myroiplus.com
+                                    Your Medical Records are ready! Go to
+                                    https://myroiplus.com
                                 </Text>
                                 <Text className="text-sm">
                                     Account #: xxxxxx PIN #: xxxx
                                 </Text>
                                 <Text className="text-sm">(UCSF Hospital)</Text>
                             </Box>
-                        </Box>
+                        </Flex>
                     </Flex>
                 </Box>
             </Container>

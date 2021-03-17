@@ -39,22 +39,7 @@ const Instructions = () => {
                                 </Text>
                                 . Some materials, such as Radiology Imaging CDs
                                 or Pathology Slides, require being sent via the
-                                U.S. Postal service or require pick-up. **Note:
-                                If you are a patient requesting records to be
-                                delivered to a{' '}
-                                <Text as="span" className="font-bold">
-                                    THIRD-PARTY
-                                </Text>{' '}
-                                (e.g., healthcare provider, attorney, an
-                                insurance company, or other),{' '}
-                                <Link
-                                    href={`${getLandingPage()}/sendto`}
-                                    className="underline font-bold text-blue hover:text-black transition-colors"
-                                >
-                                    click here
-                                </Link>{' '}
-                                to fill out the correct form to submit your
-                                request.**
+                                U.S. Postal service or require pick-up.
                             </Box>
                             <Box as="li">
                                 In order to protect your privacy and comply with
