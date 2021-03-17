@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
@@ -19,14 +19,13 @@ import {
     Flex,
     Button,
     Link,
+    Heading,
 } from '@/components/core'
 import {
     FormSection,
     SectionHeading,
     PageHeading,
     CheckboxWrapper,
-    Alert,
-    Info,
     ErrorMessage,
     ButtonWrapper,
     Stepper,
@@ -40,7 +39,14 @@ import IconLoading from '@/icons/icon-loading.svg'
 const Form = ({ store }) => {
     const { getLandingPage, goToStep, getContactPage } = useNavigation()
 
-    const { register, handleSubmit, watch, getValues, errors } = useForm({
+    const {
+        register,
+        handleSubmit,
+        watch,
+        getValues,
+        setValue,
+        errors,
+    } = useForm({
         defaultValues: store.state.form,
     })
 
@@ -48,6 +54,26 @@ const Form = ({ store }) => {
     const [isFetching, setIsFetching] = useState(false)
 
     const watchRequestedInformation = watch('RI_CB', [])
+    const watchRelationshipToPatient = watch('YI_REL_DD', '')
+    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
+    const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
+
+    useEffect(() => {
+        if (watchRelationshipToPatient === 'SELF') {
+            setValue(
+                'YI_REL_NM',
+                `${store.state.form.PI_PFN || ''} ${
+                    store.state.form.PI_PLN || ''
+                }`
+            )
+        } else {
+            setValue('YI_REL_NM', '')
+        }
+    }, [
+        watchRelationshipToPatient,
+        store.state.form.PI_PFN,
+        store.state.form.PI_PLN,
+    ])
 
     const handleChange = e => {
         setServerErrors([])
@@ -100,12 +126,6 @@ const Form = ({ store }) => {
             <Container>
                 <Box>
                     <PageHeading className="pt-4">
-                        <Text
-                            as="span"
-                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
-                        >
-                            Quick Release to You
-                        </Text>{' '}
                         New Medical Records Request
                     </PageHeading>
 
@@ -144,7 +164,6 @@ const Form = ({ store }) => {
                             value="P7105-1"
                             ref={register}
                         />
-
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
                             <Box>
@@ -347,7 +366,6 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
                         </FormSection>
-
                         <FormSection className="border-b border-gray-light">
                             <Box>
                                 <Box as="fieldset">
@@ -431,7 +449,6 @@ const Form = ({ store }) => {
                                             })}
                                         />
                                     </CheckboxWrapper>
-
                                     {watchRequestedInformation.includes(
                                         'OR'
                                     ) && (
@@ -517,7 +534,6 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
                         </FormSection>
-
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Purpose of Request</SectionHeading>
                             <Box>
@@ -549,28 +565,54 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
                         </FormSection>
-
-                        <FormSection>
+                        <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_REL_DD">
-                                        Relationship to Patient
-                                    </Label>
-                                    <Select
-                                        name="YI_REL_DD"
-                                        id="YI_REL_DD"
-                                        className="block mt-1"
-                                        onChange={handleChange}
-                                        ref={register({ required: true })}
-                                    >
-                                        <option value="SELF">Self</option>
-                                        <option value="PG">
-                                            Parent/Guardian
-                                        </option>
-                                        <option value="CON">Conservator</option>
-                                    </Select>
-                                </Box>
+                                <Flex className="flex-col sm:flex-row">
+                                    <Box className="mr-4 mb-4">
+                                        <Label htmlFor="YI_REL_DD">
+                                            Relationship to Patient
+                                        </Label>
+                                        <Select
+                                            name="YI_REL_DD"
+                                            id="YI_REL_DD"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({ required: true })}
+                                        >
+                                            <option value="SELF">Self</option>
+                                            <option value="PG">
+                                                Parent/Guardian
+                                            </option>
+                                            <option value="CON">
+                                                Conservator
+                                            </option>
+                                        </Select>
+                                    </Box>
+                                    <Box className="flex-grow mb-4">
+                                        <Label htmlFor="YI_REL_NM">Name</Label>
+                                        <Input
+                                            type="tel"
+                                            name="YI_REL_NM"
+                                            id="YI_REL_NM"
+                                            autoComplete="name"
+                                            className="w-full mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please enter your name.',
+                                            })}
+                                        />
+                                        {errors.YI_REL_NM && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.YI_REL_NM.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Flex>
                                 <Box className="mb-4">
                                     <Flex className="items-center">
                                         <Label htmlFor="YI_NOTICE_DD">
@@ -895,21 +937,247 @@ const Form = ({ store }) => {
                                     </Box>
                                 </Flex>
                             </Box>
-                            <Info
-                                primaryText="Medical records will be delivered via this
-                                website in Adobe PDF format."
-                                secondaryText="A notification
-                                    will be sent when the records are ready for
-                                    download, and they will be available for 30
-                                    days."
-                            />
+                        </FormSection>
+                        <FormSection className="border-b border-gray-light">
+                            <SectionHeading>
+                                Delivery Information
+                            </SectionHeading>
+
+                            {watchRequestedInformation.length === 0 && (
+                                <Text>
+                                    Delivery options will appear here once
+                                    you've selected they records you'd like to
+                                    receive.
+                                </Text>
+                            )}
+
+                            {watchRequestedInformation.some(i =>
+                                ['ERV', 'EHR', 'COV', 'BR', 'OR'].includes(i)
+                            ) && (
+                                <Box className="p-8 mb-6 bg-gray-lightest">
+                                    <Heading as="h3" variant="h5">
+                                        Medical Records Delivery Options
+                                    </Heading>
+                                    <Text className="mb-4">
+                                        There are three delivery options for
+                                        Medical Records. You can download them
+                                        directly from the website, or have them
+                                        created on CD to be delivered by mail
+                                        via the US Postal Service to the address
+                                        entered above, or Picked up at the
+                                        Medical Facility.
+                                    </Text>
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_DM_DD">
+                                            Desired Delivery Option:
+                                        </Label>
+                                        <Select
+                                            name="DI_DM_DD"
+                                            id="DI_DM_DD"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please select a delivery option.',
+                                            })}
+                                        >
+                                            <option value="DL">
+                                                Download from Website
+                                            </option>
+                                            <option value="PS">
+                                                CD via US Postal Service
+                                            </option>
+                                            <option value="PU">
+                                                CD for On-Site Pickup
+                                            </option>
+                                        </Select>
+                                        {errors.DI_DM_DD && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_DM_DD.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                            )}
+
+                            {watchRequestedInformation.includes('RI') && (
+                                <Box className="p-8 mb-6 bg-gray-lightest">
+                                    <Heading as="h3" variant="h5">
+                                        Radiology Images Delivery Options
+                                    </Heading>
+                                    <Text className="mb-4">
+                                        Radiology Images are automatically saved
+                                        to CD. They can be delivered by mail via
+                                        the US Postal Service to the address
+                                        entered above, or Picked up at the
+                                        Medical Facility. The department will
+                                        contact you if additional information is
+                                        required.
+                                    </Text>
+
+                                    <Box className="mb-4">
+                                        <Label htmlFor="DI_DMRP_OPT">
+                                            Desired Delivery Option:
+                                        </Label>
+                                        <Select
+                                            name="DI_DMRP_OPT"
+                                            id="DI_DMRP_OPT"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register({
+                                                required:
+                                                    'Please select a delivery option.',
+                                            })}
+                                        >
+                                            <option value="PS">
+                                                Send via US Postal Service
+                                            </option>
+                                            <option value="PU">
+                                                Pickup at Facility
+                                            </option>
+                                        </Select>
+                                        {errors.DI_DMRP_OPT && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.DI_DMRP_OPT.message
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Box>
+                            )}
+                        </FormSection>
+                        <FormSection>
+                            <SectionHeading>Delivery Summary</SectionHeading>
+                            <Box>
+                                <Box
+                                    as="ul"
+                                    className="pl-8 mb-8 space-y-2 list-disc"
+                                >
+                                    {watchRequestedInformation.some(i =>
+                                        [
+                                            'ERV',
+                                            'EHR',
+                                            'COV',
+                                            'BR',
+                                            'OR',
+                                        ].includes(i)
+                                    ) && (
+                                        <>
+                                            {watchRecordDeliveryMethod.includes(
+                                                'DL'
+                                            ) && (
+                                                <Box as="li">
+                                                    Medical records will be
+                                                    delivered via this website
+                                                    in Adobe PDF format. A
+                                                    notification will be sent
+                                                    when the records are ready
+                                                    for download, and they will
+                                                    be available for 30 days.
+                                                </Box>
+                                            )}
+
+                                            {watchRecordDeliveryMethod.includes(
+                                                'PS'
+                                            ) && (
+                                                <Box as="li">
+                                                    Medical records will be
+                                                    mailed to the address you
+                                                    entered above via the US
+                                                    Postal Service.
+                                                </Box>
+                                            )}
+                                            {watchRecordDeliveryMethod.includes(
+                                                'PU'
+                                            ) && (
+                                                <Box as="li">
+                                                    Once ready, medical records
+                                                    and/or billing items can be
+                                                    picked up from the facility
+                                                    listed below.
+                                                </Box>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {watchRequestedInformation.includes(
+                                        'RI'
+                                    ) && (
+                                        <>
+                                            {watchRPDeliveryMethod.includes(
+                                                'PS'
+                                            ) && (
+                                                <Box as="li">
+                                                    Radiology images will be
+                                                    mailed to the address you
+                                                    entered above via the US
+                                                    Postal Service.
+                                                </Box>
+                                            )}
+                                            {watchRPDeliveryMethod.includes(
+                                                'PU'
+                                            ) && (
+                                                <Box as="li">
+                                                    Once ready, radiology images
+                                                    can be picked up from the
+                                                    facility listed below.
+                                                </Box>
+                                            )}
+                                        </>
+                                    )}
+
+                                    <Box as="li">
+                                        Normal processing time is 5-7 business
+                                        days from time of receipt.
+                                    </Box>
+
+                                    <Box as="li">
+                                        Please{' '}
+                                        <Link
+                                            href={getContactPage()}
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                        >
+                                            contact us
+                                        </Link>{' '}
+                                        if you have any questions.
+                                    </Box>
+                                </Box>
+                                <Box>
+                                    {(watchRPDeliveryMethod === 'PU' ||
+                                        watchRecordDeliveryMethod === 'PU') && (
+                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
+                                            <Text>
+                                                Once available, records can be
+                                                picked up from the facility or
+                                                facilities listed below.
+                                            </Text>
+
+                                            <Box>
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    Benioff Children's Hospital
+                                                    Oakland
+                                                </Text>
+                                                <Text>747 52nd Street</Text>
+                                                <Text>Oakland, CA 94609</Text>
+                                            </Box>
+                                        </Box>
+                                    )}
+                                </Box>
+                            </Box>
                         </FormSection>
 
                         <ServerErrorList
                             className="my-4"
                             errors={serverErrors}
                         />
-
                         <ButtonWrapper className="pb-8">
                             <Button
                                 as={Link}

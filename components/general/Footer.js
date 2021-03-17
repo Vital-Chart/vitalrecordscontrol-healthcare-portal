@@ -11,7 +11,7 @@ export const Footer = () => {
                 className="flex-col md:flex-row md:justify-between items-center"
             >
                 <Box className="w-40 mb-6 md:mb-0">
-                    {hospital !== 'ucsf' && (
+                    {hospital !== 'ucsf' && hospital !== 'benioff' && (
                         <Link href="https://vitalrecordscontrol.com/">
                             <Image src="/images/vrc-logo.png" />
                         </Link>

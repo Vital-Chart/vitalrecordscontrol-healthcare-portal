@@ -26,8 +26,6 @@ import {
     SectionHeading,
     PageHeading,
     CheckboxWrapper,
-    Alert,
-    Info,
     ErrorMessage,
     ButtonWrapper,
     Stepper,
@@ -128,12 +126,6 @@ const Form = ({ store }) => {
             <Container>
                 <Box>
                     <PageHeading className="pt-4">
-                        <Text
-                            as="span"
-                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
-                        >
-                            Quick Release to You
-                        </Text>{' '}
                         New Medical Records Request
                     </PageHeading>
 

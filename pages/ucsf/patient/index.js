@@ -10,9 +10,7 @@ const Instructions = () => {
         <Layout>
             <Container>
                 <Box className="max-w-screen-md space-y-8">
-                    <PageHeading className="pt-4">
-                        Instructions for Quick Release to You
-                    </PageHeading>
+                    <PageHeading className="pt-4">Instructions</PageHeading>
 
                     <Box>
                         <Text className="pb-4">

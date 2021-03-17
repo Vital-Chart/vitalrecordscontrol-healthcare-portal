@@ -343,12 +343,17 @@ export const LayoutReview = ({ children }) => {
                             VitalChart &reg; Virtual ROI Portal
                         </Text>
 
-                        <Text>
-                            <Text as="span" className="block text-sm font-bold">
-                                Delivery Method for CDs/Slides:
-                            </Text>{' '}
-                            {displayDeliveryMethod(store) || 'No Delivery'}
-                        </Text>
+                        {displayDeliveryMethod(store) && (
+                            <Text>
+                                <Text
+                                    as="span"
+                                    className="block text-sm font-bold"
+                                >
+                                    Delivery Method for CDs/Slides:
+                                </Text>{' '}
+                                {displayDeliveryMethod(store)}
+                            </Text>
+                        )}
 
                         <Button
                             as={Link}
