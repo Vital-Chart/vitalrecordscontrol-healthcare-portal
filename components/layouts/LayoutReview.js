@@ -457,7 +457,7 @@ export const LayoutReview = ({ children }) => {
                             as={Link}
                             href={getStepPage('upload')}
                             variant="outline"
-                            className="flex-grow m-2"
+                            className="m-2"
                         >
                             Go Back
                         </Button>
@@ -470,7 +470,7 @@ export const LayoutReview = ({ children }) => {
                                     redirect: getLandingPage(),
                                 })
                             }}
-                            className="flex-grow m-2"
+                            className="m-2"
                         >
                             Cancel and Delete Request
                         </Button>
@@ -479,7 +479,7 @@ export const LayoutReview = ({ children }) => {
                             variant="filled"
                             disabled={isFetching}
                             className={cx(
-                                'flex-grow m-2',
+                                'm-2',
                                 isFetching && 'pointer-events-none'
                             )}
                             onClick={handleSubmit}

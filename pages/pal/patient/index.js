@@ -123,7 +123,7 @@ const Instructions = () => {
                             as={Link}
                             href={getLandingPage()}
                             variant="outline"
-                            className="flex-grow m-2 text-center"
+                            className="flex-1 m-2"
                         >
                             Back
                         </Button>
@@ -132,7 +132,7 @@ const Instructions = () => {
                             as={Link}
                             href={getStepPage('form')}
                             variant="filled"
-                            className="flex-grow m-2 text-center"
+                            className="flex-1 m-2"
                         >
                             Continue
                         </Button>
