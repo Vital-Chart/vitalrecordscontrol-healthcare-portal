@@ -1,10 +1,11 @@
 import useNavigation from '@/lib/useNavigation'
+import hospitals from '@/lib/hospitals'
 import { Box, Link, Text, Button, Flex, Heading } from '@/components/core'
 import { PageHeading, Info, LandingIntro } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
 const Hospital = () => {
-    const { getLandingPage } = useNavigation()
+    const { getLandingPage, hospital } = useNavigation()
 
     return (
         <Layout>
@@ -86,8 +87,10 @@ const Hospital = () => {
                                 </Heading>
 
                                 <Text className="text-center">
-                                    Your request is processed within 5-7 days*,
-                                    and your records are delivered to a
+                                    Your request is processed within{' '}
+                                    {hospitals[hospital].processingTime ||
+                                        '5-7 business days'}
+                                    *, and your records are delivered to a
                                     third-party.
                                 </Text>
                             </Box>
@@ -141,7 +144,9 @@ const Hospital = () => {
 
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
                         <Text className="w-full text-sm text-center">
-                            5-7 business days**
+                            {hospitals[hospital].processingTime ||
+                                '5-7 business days'}
+                            **
                         </Text>
                     </Flex>
                 </Flex>

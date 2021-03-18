@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form/dist/index.ie11'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { regexPatterns, states } from '@/lib/helpers'
+import hospitals from '@/lib/hospitals'
 import useNavigation from '@/lib/useNavigation'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import {
@@ -39,7 +40,12 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const { getLandingPage, goToStep, getContactPage } = useNavigation()
+    const {
+        getLandingPage,
+        goToStep,
+        getContactPage,
+        hospital,
+    } = useNavigation()
 
     const {
         register,
@@ -1452,8 +1458,10 @@ const Form = ({ store }) => {
                                     )}
 
                                     <Box as="li">
-                                        Normal processing time is 5 business
-                                        days from time of receipt.
+                                        Normal processing time is{' '}
+                                        {hospitals[hospital].processingTime ||
+                                            '5-7 business days'}{' '}
+                                        from time of receipt.
                                     </Box>
 
                                     <Box as="li">
