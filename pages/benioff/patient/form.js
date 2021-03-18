@@ -66,6 +66,13 @@ const Form = ({ store }) => {
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
 
     useEffect(() => {
+        console.log(store.state.form)
+        if (Object.keys(store.state.form).length === 0) {
+            requestForm.current.reset()
+        }
+    }, [store.state.form])
+
+    useEffect(() => {
         if (watchRelationshipToPatient === 'SELF') {
             setValue(
                 'YI_REL_NM',

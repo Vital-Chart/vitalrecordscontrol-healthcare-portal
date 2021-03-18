@@ -70,6 +70,13 @@ const Form = ({ store }) => {
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
 
     useEffect(() => {
+        console.log(store.state.form)
+        if (Object.keys(store.state.form).length === 0) {
+            requestForm.current.reset()
+        }
+    }, [store.state.form])
+
+    useEffect(() => {
         if (watchRelationshipToPatient === 'SELF') {
             setValue(
                 'YI_REL_NM',

@@ -70,22 +70,22 @@ export const LayoutUpload = ({ children }) => {
     const [isFetching, setIsFetching] = useState(false)
     const hasTouch = isTouchDevice()
 
-    // TODO: Sort out handling duplicate files
-
-    const handleDrop = useCallback(droppedFiles => {
+    const handleDrop = droppedFiles => {
+        let isDuplicate = false
         setServerErrors([])
         droppedFiles.map(droppedFile => {
             store.state.uploadedFiles.map(uploadedFile => {
                 if (droppedFile.name === uploadedFile.name) {
-                    console.log('duplicate!')
-                    setServerErrors([
+                    isDuplicate = true
+                    setServerErrors(prevState => [
+                        ...prevState,
                         `${droppedFile.name} is already in use. Please use a unique name for each file.`,
                     ])
                 }
             })
         })
 
-        if (serverErrors.length === 0) {
+        if (!isDuplicate) {
             setIsFetching(true)
             try {
                 const { inError, errorInformation } = createRequest({
@@ -112,7 +112,7 @@ export const LayoutUpload = ({ children }) => {
                 setIsFetching(false)
             }
         }
-    }, [])
+    }
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: handleDrop,
