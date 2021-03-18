@@ -54,6 +54,7 @@ const Form = ({ store }) => {
         watch,
         getValues,
         setValue,
+        reset,
         errors,
     } = useForm({
         defaultValues: store.state.form,
@@ -70,9 +71,8 @@ const Form = ({ store }) => {
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
 
     useEffect(() => {
-        console.log(store.state.form)
         if (Object.keys(store.state.form).length === 0) {
-            requestForm.current.reset()
+            reset({})
         }
     }, [store.state.form])
 

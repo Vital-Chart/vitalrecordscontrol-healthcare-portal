@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
@@ -48,9 +48,11 @@ const Form = ({ store }) => {
         hospital,
     } = useNavigation()
 
-    const { register, handleSubmit, watch, getValues, errors } = useForm({
-        defaultValues: store.state.form,
-    })
+    const { register, handleSubmit, watch, getValues, reset, errors } = useForm(
+        {
+            defaultValues: store.state.form,
+        }
+    )
 
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -61,9 +63,8 @@ const Form = ({ store }) => {
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
 
     useEffect(() => {
-        console.log(store.state.form)
         if (Object.keys(store.state.form).length === 0) {
-            requestForm.current.reset()
+            reset({})
         }
     }, [store.state.form])
 

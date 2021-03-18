@@ -52,6 +52,7 @@ const Form = ({ store }) => {
         watch,
         getValues,
         setValue,
+        reset,
         errors,
     } = useForm({
         defaultValues: store.state.form,
@@ -66,9 +67,8 @@ const Form = ({ store }) => {
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
 
     useEffect(() => {
-        console.log(store.state.form)
         if (Object.keys(store.state.form).length === 0) {
-            requestForm.current.reset()
+            reset({})
         }
     }, [store.state.form])
 
