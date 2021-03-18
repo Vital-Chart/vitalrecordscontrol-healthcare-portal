@@ -17,6 +17,7 @@ import {
     Radio,
     Label,
     Input,
+    Textarea,
     Flex,
     Button,
     Link,
@@ -650,8 +651,7 @@ const Form = ({ store }) => {
                                     </Text>
 
                                     <Label htmlFor="PR_PUR">Purpose:</Label>
-                                    <Box
-                                        as="textarea"
+                                    <Textarea
                                         name="PR_PUR"
                                         id="PR_PUR"
                                         className="block w-full mt-1 mb-2 sm:text-sm border-gray-dark rounded"
@@ -673,8 +673,7 @@ const Form = ({ store }) => {
                                     <Label htmlFor="PR_LIM" className="italic">
                                         Limitations (Optional):
                                     </Label>
-                                    <Box
-                                        as="textarea"
+                                    <Textarea
                                         name="PR_LIM"
                                         id="PR_LIM"
                                         className="block w-full mt-1 sm:text-sm border-gray-dark rounded"
