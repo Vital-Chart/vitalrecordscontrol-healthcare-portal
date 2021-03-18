@@ -170,6 +170,7 @@ const Form = ({ store }) => {
                             value="P7105-1"
                             ref={register}
                         />
+
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
                             <Box>
@@ -372,6 +373,7 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
                         </FormSection>
+
                         <FormSection className="border-b border-gray-light">
                             <Box>
                                 <Box as="fieldset">
@@ -540,6 +542,7 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
                         </FormSection>
+
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Purpose of Request</SectionHeading>
                             <Box>
@@ -571,6 +574,7 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
                         </FormSection>
+
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
                             <Box>
@@ -944,6 +948,7 @@ const Form = ({ store }) => {
                                 </Flex>
                             </Box>
                         </FormSection>
+
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>
                                 Delivery Information
@@ -1057,6 +1062,7 @@ const Form = ({ store }) => {
                                 </Box>
                             )}
                         </FormSection>
+
                         <FormSection>
                             <SectionHeading>Delivery Summary</SectionHeading>
                             <Box>
@@ -1186,6 +1192,7 @@ const Form = ({ store }) => {
                             className="my-4"
                             errors={serverErrors}
                         />
+
                         <ButtonWrapper className="pb-8">
                             <Button
                                 as={Link}
