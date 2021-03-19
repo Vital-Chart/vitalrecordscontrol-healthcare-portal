@@ -34,7 +34,7 @@ const Hospital = () => {
                 </Flex>
 
                 <Flex className="w-full max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
-                    <Flex className="flex-1 border-t-8 border-primary">
+                    <Flex className="flex-1 border-t-8 border-primary my-8 md:my-0 md:mx-8">
                         <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                             <Box className="pb-8 w-full">
                                 <Heading
