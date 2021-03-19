@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
     let payload
 
-    switch (fields['hmacType']) {
+    switch (fields['esigType']) {
         case 'createRequest':
             payload = fields['FI_CB'].split(',', 1).toString()
             break
@@ -31,12 +31,12 @@ export default async function handler(req, res) {
             payload = fields['TRKNUM']
     }
 
-    const hmac = crypto
+    const secsig = crypto
         .createHmac('sha256', 'portal-test')
         .update(payload)
         .digest('hex')
 
-    return res.status(200).json({ hmac })
+    return res.status(200).json({ secsig })
 }
 
 export const config = {
