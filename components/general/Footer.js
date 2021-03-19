@@ -27,7 +27,7 @@ export const Footer = () => {
 
                     <Link
                         href="https://vitalrecordscontrol.com/privacy-policy/"
-                        className="block underline text-sm text-center md:text-right text-white"
+                        className="block underline text-sm text-center md:text-right text-white hover:text-gray transition-colors"
                     >
                         Website Privacy Policy
                     </Link>

@@ -58,7 +58,7 @@ export const UploadsList = ({
                 setServerErrors(
                     errorInformation.map(error => error.errorNumber)
                 )
-                console.log({ errorInformation })
+                console.error({ errorInformation })
                 setIsFetching(false)
             } else {
                 store.dispatch({

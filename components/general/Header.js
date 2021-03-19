@@ -11,26 +11,23 @@ export const Header = () => {
         getContactPage,
         isLandingPage,
         isSuccessPage,
-        isStartPage,
     } = useNavigation()
 
     return (
         <Box as="header">
             <Box className="bg-black">
-                <Container className="py-2 text-sm text-white text-right">
-                    <Box className="ml-auto">
-                        {hospital && (
-                            <Link
-                                href={getContactPage()}
-                                className="underline mr-4"
-                            >
-                                Contact Us
-                            </Link>
-                        )}
-                        <Link href="/" className="text-gray">
-                            VitalChart® Virtual ROI Portal
+                <Container className="py-2 text-sm text-white hover:text-gray text-right transition-colors">
+                    {hospital && (
+                        <Link
+                            href={getContactPage()}
+                            className="underline mr-4"
+                        >
+                            Contact Us
                         </Link>
-                    </Box>
+                    )}
+                    <Link href="/" className="text-gray">
+                        VitalChart® Virtual ROI Portal
+                    </Link>
                 </Container>
             </Box>
             {hospitals[hospital] && (
@@ -38,7 +35,7 @@ export const Header = () => {
                     <Flex
                         className={cx(
                             'py-6',
-                            !!(isLandingPage || isSuccessPage || isStartPage) &&
+                            !!(isLandingPage || isSuccessPage) &&
                                 'justify-center'
                         )}
                     >

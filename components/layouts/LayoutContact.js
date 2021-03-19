@@ -8,9 +8,6 @@ export const LayoutContact = () => {
     const { hospital: hospitalSlug, goBack } = useNavigation()
     const hospital = hospitals[hospitalSlug]
 
-    // Return 404 if doesn't exist
-    // if (!hospital) return <Error status="404" />
-
     return (
         <Layout>
             <Container>

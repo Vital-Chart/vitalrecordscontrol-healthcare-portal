@@ -11,7 +11,7 @@ export const Layout = ({ children }) => {
     const { getLandingPage, isStepPage } = useNavigation()
     const isIdle = useIdle(60e4) // 10 minutes
 
-    // Clear data and redirect if user is idle to long
+    // Clear data and redirect if user is idle too long
     useEffect(() => {
         if (isIdle && isStepPage) {
             store.dispatch({
