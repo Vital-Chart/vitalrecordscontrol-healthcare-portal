@@ -17,7 +17,7 @@ export const LandingIntro = ({ children }) => {
             )}
         >
             <Container>
-                <Box className="max-w-xl text-center sm:text-left">
+                <Box className="w-full max-w-xl text-center sm:text-left">
                     {children}
                     <Box className="mt-6 -ml-2">
                         <Button

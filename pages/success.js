@@ -52,7 +52,7 @@ export const Success = () => {
     return (
         <Layout>
             <Container>
-                <Box className="max-w-screen-md space-y-8 pb-8 mx-auto">
+                <Box className="w-full max-w-screen-md space-y-8 pb-8 mx-auto">
                     <PageHeading className="pt-4 text-center">
                         Request for{' '}
                         {hospitals[store.state.success.hospital].name}

@@ -9,7 +9,7 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md space-y-8">
                     <PageHeading className="pt-4">
                         Instructions for Medical Records Request
                     </PageHeading>

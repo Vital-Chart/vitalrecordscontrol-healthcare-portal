@@ -33,7 +33,7 @@ const Hospital = () => {
                     <Info secondaryText="NOTICE: This site is for Patient or Patient Directed Use Only. Fees for processing medical records requests are non-refundable." />
                 </Flex>
 
-                <Flex className="max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
+                <Flex className="w-full max-w-5xl flex-col md:flex-row space-y-8 md:space-x-8 md:space-y-0 flex-wrap mx-auto mb-12">
                     <Flex className="flex-1 border-t-8 border-primary">
                         <Flex className="flex-col items-center md:justify-between w-full p-8 md:px-12 border border-gray-light">
                             <Box className="pb-8 w-full">

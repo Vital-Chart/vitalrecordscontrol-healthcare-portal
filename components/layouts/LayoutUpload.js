@@ -178,7 +178,7 @@ export const LayoutUpload = ({ children }) => {
             <Stepper className="mb-4" />
 
             <Container>
-                <Box className="max-w-screen-md space-y-8 pb-8">
+                <Box className="w-full max-w-screen-md space-y-8 pb-8">
                     <PageHeading className="pt-4">
                         <Text
                             as="span"

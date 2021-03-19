@@ -13,7 +13,10 @@ export const Footer = () => {
             >
                 <Box className="w-40 mb-6 md:mb-0">
                     {!hospitals[hospital]?.isWhitelabel && (
-                        <Link href="https://vitalrecordscontrol.com/">
+                        <Link
+                            href="https://vitalrecordscontrol.com/"
+                            aria-label="Visit the Vital Records Control main website"
+                        >
                             <Image src="/images/vrc-logo.png" />
                         </Link>
                     )}

@@ -39,7 +39,10 @@ export const Header = () => {
                                 'justify-center'
                         )}
                     >
-                        <Link href={getLandingPage()}>
+                        <Link
+                            href={getLandingPage()}
+                            aria-label={`VitalChart® Virtual ROI Portal - ${hospitals[hospital].name}`}
+                        >
                             <Image
                                 className="w-auto h-20"
                                 src={hospitals[hospital].logo}

@@ -18,7 +18,7 @@ export default {
     },
     buttons: {
         DEFAULT:
-            'inline-flex items-center justify-center px-6 py-3 rounded transition-colors',
+            'inline-flex items-center justify-center px-6 py-3 h-12 rounded transition-colors',
         filled:
             'text-white font-bold bg-primary hover:bg-tertiary hover:text-black focus:border-gray-dark',
         filledSecondary:
