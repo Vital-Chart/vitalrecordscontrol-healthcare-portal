@@ -301,7 +301,7 @@ const Hospital = () => {
                             access.
                         </Text>
                         <Text className="w-full text-sm">
-                            (PIH Health Whittier Hospital)
+                            ({hospitals[hospital].name})
                         </Text>
                     </Box>
 
@@ -317,7 +317,7 @@ const Hospital = () => {
                             Account #: xxxxxx PIN #: xxxx
                         </Text>
                         <Text className="text-sm">
-                            (PIH Health Whittier Hospital)
+                            ({hospitals[hospital].name})
                         </Text>
                     </Box>
                 </Box>

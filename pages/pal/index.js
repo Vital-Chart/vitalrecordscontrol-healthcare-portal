@@ -300,7 +300,9 @@ const Hospital = () => {
                             complete, you will get Acct # and PIN # for online
                             access.
                         </Text>
-                        <Text className="w-full text-sm">(UCSF Hosptial)</Text>
+                        <Text className="w-full text-sm">
+                            ({hospitals[hospital].name})
+                        </Text>
                     </Box>
 
                     <Text className="pb-4">When your request is ready:</Text>
@@ -314,7 +316,9 @@ const Hospital = () => {
                         <Text className="text-sm">
                             Account #: xxxxxx PIN #: xxxx
                         </Text>
-                        <Text className="text-sm">(UCSF Hospital)</Text>
+                        <Text className="text-sm">
+                            ({hospitals[hospital].name})
+                        </Text>
                     </Box>
                 </Box>
             </Flex>
