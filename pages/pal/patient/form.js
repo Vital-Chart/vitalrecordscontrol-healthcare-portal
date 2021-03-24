@@ -851,7 +851,8 @@ const Form = ({ store }) => {
                                             className="w-full mt-1"
                                             onChange={handleChange}
                                             ref={register({
-                                                required: true,
+                                                required:
+                                                    'Please select a phone type.',
                                             })}
                                         >
                                             <option defaultValue disabled>
@@ -867,6 +868,14 @@ const Form = ({ store }) => {
                                                 Work
                                             </option>
                                         </Select>
+                                        {errors.YI_PHT_DD && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.YI_PHT_DD.message
+                                                }
+                                            />
+                                        )}
                                     </Box>
                                 </Flex>
 
