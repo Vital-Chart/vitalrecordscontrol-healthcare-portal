@@ -63,6 +63,7 @@ const Form = ({ store }) => {
 
     const watchVisitOptions = watch('VI_OPT', [])
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
+    const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
 
     useEffect(() => {
@@ -440,33 +441,33 @@ const Form = ({ store }) => {
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
-                            <Box>
-                                <Box as="fieldset">
-                                    <Box as="legend" className="mb-2">
-                                        Please select the type of information
-                                        you would like released:
-                                    </Box>
-                                    <CheckboxWrapper>
-                                        <Checkbox
-                                            label="Medical Records"
-                                            name="RI_CB"
-                                            value="MR"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
+                            <Box as="fieldset">
+                                <Box as="legend" className="mb-2">
+                                    Please select the type of information you
+                                    would like released:
+                                </Box>
+                                <CheckboxWrapper>
+                                    <Checkbox
+                                        label="Medical Records"
+                                        name="RI_CB"
+                                        value="MR"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select the items you would like released.',
+                                        })}
+                                    />
+
+                                    {errors.RI_MR_OPT && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.RI_MR_OPT.message}
                                         />
+                                    )}
+                                </CheckboxWrapper>
 
-                                        {errors.RI_MR_OPT && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.RI_MR_OPT.message
-                                                }
-                                            />
-                                        )}
-
+                                {watchRequestedInformation === 'MR' && (
+                                    <Box className="mt-4 pl-4">
                                         <Flex className="flex-col items-start ml-4">
                                             <Radio
                                                 label="Pertinent Information (Discharge Summary, History and Physical, Consultation, ER Reports, Labs, Radiology Reports, EKGs, Pathology Reports)"
@@ -590,61 +591,62 @@ const Form = ({ store }) => {
                                                 </CheckboxWrapper>
                                             </Flex>
                                         </Flex>
-                                    </CheckboxWrapper>
 
-                                    {errors.RI_CB && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.RI_CB.message}
-                                        />
-                                    )}
+                                        {errors.RI_CB && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={errors.RI_CB.message}
+                                            />
+                                        )}
 
-                                    <Box className="mt-4">
-                                        <Text className="text-sm font-bold mb-2">
-                                            The following information will not
-                                            be released unless specifically
-                                            authorized by checking the relevant
-                                            box(es) below:
-                                        </Text>
-                                        <CheckboxWrapper>
-                                            <Checkbox
-                                                name="RI_MR_AI_CB"
-                                                label="Information pertaining to mental health diagnosis or treatment"
-                                                value="IPM"
-                                                onChange={handleChange}
-                                                ref={register}
-                                            />
-                                            <Checkbox
-                                                name="RI_MR_AI_CB"
-                                                label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
-                                                value="IPD"
-                                                onChange={handleChange}
-                                                ref={register}
-                                            />
-                                            <Checkbox
-                                                name="RI_MR_AI_CB"
-                                                label="HIV/AIDS test results"
-                                                value="HIV"
-                                                onChange={handleChange}
-                                                ref={register}
-                                            />
-                                            <Checkbox
-                                                name="RI_MR_AI_CB"
-                                                label="Genetic testing information"
-                                                value="GTI"
-                                                onChange={handleChange}
-                                                ref={register}
-                                            />
-                                            <Checkbox
-                                                name="RI_MR_AI_CB"
-                                                label="Worker's Comp information"
-                                                value="WCI"
-                                                onChange={handleChange}
-                                                ref={register}
-                                            />
-                                        </CheckboxWrapper>
+                                        <Box className="mt-4">
+                                            <Text className="text-sm font-bold mb-2">
+                                                The following information will
+                                                not be released unless
+                                                specifically authorized by
+                                                checking the relevant box(es)
+                                                below:
+                                            </Text>
+                                            <CheckboxWrapper>
+                                                <Checkbox
+                                                    name="RI_MR_AI_CB"
+                                                    label="Information pertaining to mental health diagnosis or treatment"
+                                                    value="IPM"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
+                                                <Checkbox
+                                                    name="RI_MR_AI_CB"
+                                                    label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
+                                                    value="IPD"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
+                                                <Checkbox
+                                                    name="RI_MR_AI_CB"
+                                                    label="HIV/AIDS test results"
+                                                    value="HIV"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
+                                                <Checkbox
+                                                    name="RI_MR_AI_CB"
+                                                    label="Genetic testing information"
+                                                    value="GTI"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
+                                                <Checkbox
+                                                    name="RI_MR_AI_CB"
+                                                    label="Worker's Comp information"
+                                                    value="WCI"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
+                                            </CheckboxWrapper>
+                                        </Box>
                                     </Box>
-                                </Box>
+                                )}
                             </Box>
                         </FormSection>
 
