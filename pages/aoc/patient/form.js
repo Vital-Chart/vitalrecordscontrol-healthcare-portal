@@ -270,148 +270,6 @@ const Form = ({ store }) => {
                                         />
                                     )}
                                 </Box>
-
-                                <Box>
-                                    <Box as="fieldset">
-                                        <Box as="legend" className="mb-2">
-                                            Please select the visits/admissions
-                                            you would like released:
-                                        </Box>
-                                        <Flex className="flex-col items-start ml-4">
-                                            <Radio
-                                                label="Most recent"
-                                                name="VI_OPT"
-                                                value="MR"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select which records you would like released.',
-                                                })}
-                                            />
-                                            <Radio
-                                                label="All"
-                                                name="VI_OPT"
-                                                value="ALL"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select which records you would like released.',
-                                                })}
-                                            />
-                                            <Radio
-                                                label="In a date range"
-                                                name="VI_OPT"
-                                                value="DR"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select which records you would like released.',
-                                                })}
-                                            />
-                                            {errors.VI_OPT && (
-                                                <ErrorMessage
-                                                    className="mt-2"
-                                                    message={
-                                                        errors.VI_OPT.message
-                                                    }
-                                                />
-                                            )}
-
-                                            {watchVisitOptions &&
-                                                watchVisitOptions.includes(
-                                                    'DR'
-                                                ) && (
-                                                    <>
-                                                        <Flex className="space-x-4">
-                                                            <Box>
-                                                                <Label
-                                                                    htmlFor="VI_DR_SD"
-                                                                    className="block mb-1"
-                                                                >
-                                                                    Service
-                                                                    Start:
-                                                                </Label>
-                                                                <Input
-                                                                    type="text"
-                                                                    name="VI_DR_SD"
-                                                                    id="VI_DR_SD"
-                                                                    className="w-full"
-                                                                    placeholder="MM/DD/YYYY"
-                                                                    onChange={
-                                                                        handleChange
-                                                                    }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                            pattern: {
-                                                                                value:
-                                                                                    regexPatterns.date,
-                                                                                message:
-                                                                                    'Please enter a valid date (MM/DD/YYYY).',
-                                                                            },
-                                                                        }
-                                                                    )}
-                                                                />
-                                                            </Box>
-
-                                                            <Box>
-                                                                <Label
-                                                                    htmlFor="VI_DR_ED"
-                                                                    className="block mb-1"
-                                                                >
-                                                                    Service End:
-                                                                </Label>
-                                                                <Input
-                                                                    type="text"
-                                                                    name="VI_DR_ED"
-                                                                    id="VI_DR_ED"
-                                                                    className="w-full"
-                                                                    placeholder="MM/DD/YYYY"
-                                                                    onChange={
-                                                                        handleChange
-                                                                    }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                            pattern: {
-                                                                                value:
-                                                                                    regexPatterns.date,
-                                                                                message:
-                                                                                    'Please enter a valid date (MM/DD/YYYY).',
-                                                                            },
-                                                                            validate: {
-                                                                                dateRangeCheck: value =>
-                                                                                    new Date(
-                                                                                        value
-                                                                                    ) >=
-                                                                                        new Date(
-                                                                                            getValues(
-                                                                                                'VI_DR_SD'
-                                                                                            )
-                                                                                        ) ||
-                                                                                    'The Service End date you entered is before the Service Start date.',
-                                                                            },
-                                                                        }
-                                                                    )}
-                                                                />
-                                                            </Box>
-                                                        </Flex>
-
-                                                        {errors.VI_DR_ED && (
-                                                            <ErrorMessage
-                                                                className="mt-2"
-                                                                message={
-                                                                    errors
-                                                                        .VI_DR_ED
-                                                                        .message
-                                                                }
-                                                            />
-                                                        )}
-                                                    </>
-                                                )}
-                                        </Flex>
-                                    </Box>
-                                </Box>
                             </Box>
                         </FormSection>
 
@@ -496,49 +354,6 @@ const Form = ({ store }) => {
                                             message={errors.RI_CB.message}
                                         />
                                     )}
-                                </Box>
-                            </Box>
-                        </FormSection>
-
-                        <FormSection className="border-b border-gray-light">
-                            <SectionHeading>Purpose of Request</SectionHeading>
-                            <Box>
-                                <Box>
-                                    <Text className="mb-2">
-                                        Please enter your reason for requesting
-                                        records.
-                                    </Text>
-
-                                    <Label htmlFor="PR_PUR">Purpose:</Label>
-                                    <Textarea
-                                        name="PR_PUR"
-                                        id="PR_PUR"
-                                        className="block w-full mt-1 mb-2 sm:text-sm rounded"
-                                        placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please enter the purpose of this request.',
-                                        })}
-                                    />
-                                    {errors.PR_PUR && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.PR_PUR.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Box>
-                                    <Label htmlFor="PR_LIM" className="italic">
-                                        Limitations (Optional):
-                                    </Label>
-                                    <Textarea
-                                        name="PR_LIM"
-                                        id="PR_LIM"
-                                        className="block w-full mt-1 sm:text-sm rounded"
-                                        onChange={handleChange}
-                                        ref={register}
-                                    />
                                 </Box>
                             </Box>
                         </FormSection>
@@ -1156,73 +971,22 @@ const Form = ({ store }) => {
                                                 picked up from the facility or
                                                 facilities listed below.
                                             </Text>
-                                            {watchFacilityCheckboxes.includes(
-                                                'P7202-1'
-                                            ) && (
-                                                <Box>
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        PIH Health Hospital -
-                                                        Downey
-                                                    </Text>
-                                                    <Text>
-                                                        11500 Brookshire Avenue
-                                                    </Text>
-                                                    <Text>
-                                                        Downey, CA 90241
-                                                    </Text>
-                                                    <Text>
-                                                        (562) 904-5166 x26177
-                                                    </Text>
-                                                </Box>
-                                            )}
 
-                                            {watchFacilityCheckboxes.includes(
-                                                'P7201-1'
-                                            ) && (
-                                                <Box>
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        PIH Health Hospital -
-                                                        Whittier
-                                                    </Text>
-                                                    <Text>
-                                                        12401 Washington Blvd
-                                                    </Text>
-                                                    <Text>
-                                                        Whittier, CA 90602
-                                                    </Text>
-                                                    <Text>
-                                                        (562) 698-0811 x13685
-                                                    </Text>
-                                                </Box>
-                                            )}
-
-                                            {watchFacilityCheckboxes.includes(
-                                                'P7203-1'
-                                            ) && (
-                                                <Box>
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        PIH Health Physicians
-                                                    </Text>
-                                                    <Text>
-                                                        12401 Washington Blvd
-                                                    </Text>
-                                                    <Text>
-                                                        Whittier, CA 90602
-                                                    </Text>
-                                                    <Text>
-                                                        (562) 698-0811 x13858
-                                                    </Text>
-                                                </Box>
-                                            )}
+                                            <Box>
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    PIH Health Hospital - Downey
+                                                </Text>
+                                                <Text>
+                                                    11500 Brookshire Avenue
+                                                </Text>
+                                                <Text>Downey, CA 90241</Text>
+                                                <Text>
+                                                    (562) 904-5166 x26177
+                                                </Text>
+                                            </Box>
                                         </Box>
                                     )}
                                 </Box>
