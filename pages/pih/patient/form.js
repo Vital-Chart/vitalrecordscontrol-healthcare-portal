@@ -195,6 +195,7 @@ const Form = ({ store }) => {
                                 </Box>
                                 <CheckboxWrapper>
                                     <Checkbox
+                                        labelClassName="mb-2"
                                         label="PIH Health Hospital - Downey"
                                         value="P7202-1"
                                         name="FI_CB"
@@ -205,6 +206,7 @@ const Form = ({ store }) => {
                                         })}
                                     />
                                     <Checkbox
+                                        labelClassName="mb-2"
                                         label="PIH Health Hospital - Whittier"
                                         value="P7201-1"
                                         name="FI_CB"

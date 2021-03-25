@@ -391,6 +391,7 @@ const Form = ({ store }) => {
                                     </Box>
                                     <CheckboxWrapper>
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Emergency Room Visit"
                                             name="RI_CB"
                                             value="ERV"
@@ -405,6 +406,7 @@ const Form = ({ store }) => {
                                             consults and procedure notes)
                                         </Checkbox>
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Entire Hospital Record"
                                             name="RI_CB"
                                             value="EHR"
@@ -420,6 +422,7 @@ const Form = ({ store }) => {
                                             notes, progress notes)
                                         </Checkbox>
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Clinic or Office Visit"
                                             name="RI_CB"
                                             value="COV"
@@ -435,6 +438,7 @@ const Form = ({ store }) => {
                                             reports)
                                         </Checkbox>
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Billing Records"
                                             name="RI_CB"
                                             value="BR"
@@ -445,6 +449,7 @@ const Form = ({ store }) => {
                                             })}
                                         />
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Radiology Images (only)"
                                             name="RI_CB"
                                             value="RI"
@@ -510,6 +515,7 @@ const Form = ({ store }) => {
                                         </Text>
                                         <CheckboxWrapper>
                                             <Checkbox
+                                                labelClassName="mb-2"
                                                 name="RI_MR_AI_CB"
                                                 label="Information pertaining to mental health diagnosis or treatment"
                                                 value="IPM"
@@ -517,6 +523,7 @@ const Form = ({ store }) => {
                                                 ref={register}
                                             />
                                             <Checkbox
+                                                labelClassName="mb-2"
                                                 name="RI_MR_AI_CB"
                                                 label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
                                                 value="IPD"
@@ -524,6 +531,7 @@ const Form = ({ store }) => {
                                                 ref={register}
                                             />
                                             <Checkbox
+                                                labelClassName="mb-2"
                                                 name="RI_MR_AI_CB"
                                                 label="HIV/AIDS test results"
                                                 value="HIV"
@@ -531,6 +539,7 @@ const Form = ({ store }) => {
                                                 ref={register}
                                             />
                                             <Checkbox
+                                                labelClassName="mb-2"
                                                 name="RI_MR_AI_CB"
                                                 label="Genetic testing information"
                                                 value="GTI"
