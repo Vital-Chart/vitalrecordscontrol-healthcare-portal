@@ -853,8 +853,12 @@ const Form = ({ store }) => {
                                             className="w-full mt-1"
                                             onChange={handleChange}
                                             ref={register({
-                                                required:
-                                                    'Please select a phone type.',
+                                                validate: {
+                                                    phoneTypeCheck: value =>
+                                                        value !==
+                                                            'Select phone type' ||
+                                                        'Please select a phone type.',
+                                                },
                                             })}
                                         >
                                             <option defaultValue disabled>
