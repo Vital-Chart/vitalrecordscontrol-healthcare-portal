@@ -1,0 +1,25 @@
+github pull down SF source
+
+install node.js
+
+install visual studio code
+
+https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=platform-linux
+
+
+run local
+npm install
+npm start
+
+
+https://jannehansen.com/node-js-and-azure/
+
+npm install
+node DevAzurePublish.js
+
+
+https://parveensingh.com/next-js-deployment-on-azure-app-service/
+
+DNS
+https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain
+https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-bindings
