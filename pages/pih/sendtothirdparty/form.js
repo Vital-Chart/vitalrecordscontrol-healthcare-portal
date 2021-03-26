@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form/dist/index.ie11'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { regexPatterns, states } from '@/lib/helpers'
@@ -28,13 +28,12 @@ import {
     SectionHeading,
     PageHeading,
     CheckboxWrapper,
-    Alert,
-    Info,
     ErrorMessage,
     ButtonWrapper,
     Stepper,
     ServerErrorList,
 } from '@/components/atoms'
+import { SectionFacilitySelector, SectionFormMeta } from '@/components/sections'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
@@ -48,11 +47,16 @@ const Form = ({ store }) => {
         hospital,
     } = useNavigation()
 
-    const { register, handleSubmit, watch, getValues, reset, errors } = useForm(
-        {
-            defaultValues: store.state.form,
-        }
-    )
+    const methods = useForm({ defaultValues: store.state.form })
+    const {
+        register,
+        handleSubmit,
+        watch,
+        getValues,
+        setValue,
+        reset,
+        errors,
+    } = methods
 
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -117,116 +121,25 @@ const Form = ({ store }) => {
         <Layout>
             <Stepper className="mb-4" />
             <Container>
-                <Box>
-                    <PageHeading className="pt-4">
-                        <Text
-                            as="span"
-                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
-                        >
-                            Release to Third-Party
-                        </Text>{' '}
-                        New Medical Records Request
-                    </PageHeading>
-
+                <PageHeading className="pt-4">
+                    <Text
+                        as="span"
+                        className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                    >
+                        Release to Third-Party
+                    </Text>{' '}
+                    New Medical Records Request
+                </PageHeading>
+                <FormProvider handleChange={handleChange} {...methods}>
                     <Box
                         as="form"
                         acceptCharset="UTF-8"
                         encType="multipart/form-data"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <Input
-                            type="hidden"
-                            name="CLNT"
-                            value="PIH"
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
-                            name="FTYPE"
-                            value="3RD"
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
-                            name="TRKNUM"
-                            value={
-                                Array.isArray(store.state.trackingNumbers)
-                                    ? store.state.trackingNumbers[0]
-                                          .TrackingNumberID
-                                    : ''
-                            }
-                            ref={register}
-                        />
+                        <SectionFormMeta />
 
-                        <FormSection className="border-b border-gray-light">
-                            <SectionHeading>
-                                Facility / Facilities
-                            </SectionHeading>
-
-                            <Box as="fieldset">
-                                <Box as="legend" className="mb-2">
-                                    Please select the facility or facilities
-                                    from which you are requesting records:
-                                </Box>
-                                <CheckboxWrapper>
-                                    <Checkbox
-                                        labelClassName="mb-2"
-                                        label="PIH Health Hospital - Downey"
-                                        value="P7202-1"
-                                        name="FI_CB"
-                                        onChange={handleChange}
-                                        disabled={Array.isArray(
-                                            store.state.trackingNumbers
-                                        )}
-                                        ref={register({
-                                            required:
-                                                'Please select at least one facility.',
-                                        })}
-                                    />
-                                    <Checkbox
-                                        labelClassName="mb-2"
-                                        label="PIH Health Hospital - Whittier"
-                                        value="P7201-1"
-                                        name="FI_CB"
-                                        onChange={handleChange}
-                                        disabled={Array.isArray(
-                                            store.state.trackingNumbers
-                                        )}
-                                        ref={register({
-                                            required:
-                                                'Please select at least one facility.',
-                                        })}
-                                    />
-                                    <Checkbox
-                                        label="PIH Health Hospital - PIH Health Physicians"
-                                        value="P7203-1"
-                                        name="FI_CB"
-                                        onChange={handleChange}
-                                        disabled={Array.isArray(
-                                            store.state.trackingNumbers
-                                        )}
-                                        ref={register({
-                                            required:
-                                                'Please select at least one facility.',
-                                        })}
-                                    />
-                                    {errors.FI_CB && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.FI_CB.message}
-                                        />
-                                    )}
-                                </CheckboxWrapper>
-                            </Box>
-
-                            {watchFacilityCheckboxes.length > 1 && (
-                                <Info
-                                    primaryText="You have selected more than one facility."
-                                    secondaryText="You will receive SEPARATE tracking numbers for each facility. Each facility processes requests individually."
-                                    className="my-4"
-                                />
-                            )}
-                        </FormSection>
+                        <SectionFacilitySelector />
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
@@ -1626,7 +1539,7 @@ const Form = ({ store }) => {
                             </Button>
                         </ButtonWrapper>
                     </Box>
-                </Box>
+                </FormProvider>
             </Container>
         </Layout>
     )

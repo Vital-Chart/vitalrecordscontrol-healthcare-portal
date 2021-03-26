@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form/dist/index.ie11'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { regexPatterns, states } from '@/lib/helpers'
@@ -13,8 +13,8 @@ import {
     Box,
     Text,
     Checkbox,
-    Select,
     Radio,
+    Select,
     Label,
     Input,
     Textarea,
@@ -33,6 +33,7 @@ import {
     Stepper,
     ServerErrorList,
 } from '@/components/atoms'
+import { SectionFacilitySelector, SectionFormMeta } from '@/components/sections'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
@@ -46,6 +47,7 @@ const Form = ({ store }) => {
         hospital,
     } = useNavigation()
 
+    const methods = useForm({ defaultValues: store.state.form })
     const {
         register,
         handleSubmit,
@@ -54,9 +56,7 @@ const Form = ({ store }) => {
         setValue,
         reset,
         errors,
-    } = useForm({
-        defaultValues: store.state.form,
-    })
+    } = methods
 
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -138,52 +138,26 @@ const Form = ({ store }) => {
         <Layout>
             <Stepper className="mb-4" />
             <Container>
-                <Box>
-                    <PageHeading className="pt-4">
-                        <Text
-                            as="span"
-                            className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
-                        >
-                            Quick Release to You
-                        </Text>{' '}
-                        New Medical Records Request
-                    </PageHeading>
+                <PageHeading className="pt-4">
+                    <Text
+                        as="span"
+                        className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
+                    >
+                        Quick Release to You
+                    </Text>{' '}
+                    New Medical Records Request
+                </PageHeading>
 
+                <FormProvider handleChange={handleChange} {...methods}>
                     <Box
                         as="form"
                         acceptCharset="UTF-8"
                         encType="multipart/form-data"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <Input
-                            type="hidden"
-                            name="CLNT"
-                            value="PAL"
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
-                            name="FTYPE"
-                            value="PAT"
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
-                            name="TRKNUM"
-                            value={
-                                Array.isArray(store.state.trackingNumbers)
-                                    ? store.state.trackingNumbers[0]
-                                          .TrackingNumberID
-                                    : ''
-                            }
-                            ref={register}
-                        />
-                        <Input
-                            type="hidden"
-                            name="FI_CB"
-                            value="P7150-1"
-                            ref={register}
-                        />
+                        <SectionFormMeta />
+
+                        <SectionFacilitySelector />
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
@@ -1281,7 +1255,7 @@ const Form = ({ store }) => {
                             </Button>
                         </ButtonWrapper>
                     </Box>
-                </Box>
+                </FormProvider>
             </Container>
         </Layout>
     )
