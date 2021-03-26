@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
-import { Box, Flex, Link, Image } from '@/components/core'
+import { Box, Flex, Text, Link, Image } from '@/components/core'
 import { Container } from '@/components/general'
 
 export const Header = () => {
@@ -25,9 +25,9 @@ export const Header = () => {
                             Contact Us
                         </Link>
                     )}
-                    <Link href="/" className="text-gray">
+                    <Text className="inline-block text-gray">
                         VitalChart® Virtual ROI Portal
-                    </Link>
+                    </Text>
                 </Container>
             </Box>
             {hospitals[hospital] && (

@@ -1087,7 +1087,7 @@ const Form = ({ store }) => {
                             {watchRequestedInformation.length === 0 && (
                                 <Text>
                                     Delivery options will appear here once
-                                    you've selected they records you'd like to
+                                    you've selected the records you'd like to
                                     receive.
                                 </Text>
                             )}

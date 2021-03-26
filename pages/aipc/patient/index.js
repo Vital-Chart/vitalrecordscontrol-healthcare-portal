@@ -51,7 +51,7 @@ const Instructions = () => {
                                 (e.g., healthcare provider, attorney, an
                                 insurance company, or other),{' '}
                                 <Link
-                                    href={`${getLandingPage()}/sendto`}
+                                    href={`${getLandingPage()}/sendtothirdparty`}
                                     className="underline font-bold text-blue hover:text-black transition-colors"
                                 >
                                     click here
