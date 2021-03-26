@@ -14,7 +14,6 @@ import {
     Text,
     Checkbox,
     Select,
-    Radio,
     Label,
     Input,
     Flex,
@@ -37,11 +36,7 @@ import {
     FacilitySelector,
     FormMeta,
     PatientName,
-    PatientOtherNames,
     PatientDOB,
-    PhysicianClinic,
-    VisitOptions,
-    RequestPurpose,
 } from '@/components/sections'
 
 import IconQuestion from '@/icons/icon-question.svg'
@@ -75,6 +70,8 @@ const Form = ({ store }) => {
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
     const watchRequestedInformationOptions = watch('RI_MR_OPT', '')
+
+    const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {
@@ -181,65 +178,79 @@ const Form = ({ store }) => {
                             </SectionHeading>
                             <Box>
                                 <Box as="fieldset">
-                                    <Flex>
+                                    <Box className="mb-4 mr-4">
+                                        <Box as="legend">
+                                            Requested Records:
+                                        </Box>
+                                        <Select
+                                            name="RI_MR_OPT"
+                                            id="RI_MR_OPT"
+                                            className="block mt-1"
+                                            onChange={handleChange}
+                                            ref={register}
+                                        >
+                                            <option defaultValue value="">
+                                                Select records
+                                            </option>
+                                            <option value="ALLNXM">
+                                                All (No Recent X-Rays/MRIs)
+                                            </option>
+                                            <option value="ALLXM">
+                                                All (Plus Recent X-Rays/MRIs)
+                                            </option>
+                                            <option value="XM">
+                                                Only Recent X-Rays/MRIs
+                                            </option>
+                                        </Select>
+                                    </Box>
+
+                                    {(watchRequestedInformationOptions ===
+                                        'ALLXM' ||
+                                        watchRequestedInformationOptions ===
+                                            'XM') && (
                                         <Box className="mb-4 mr-4">
-                                            <Box as="legend">
-                                                Requested Records:
-                                            </Box>
-                                            <Select
-                                                name="RI_MR_OPT"
-                                                id="RI_MR_OPT"
+                                            <Label htmlFor="RI_MR_OPT_CNT">
+                                                Imaging Copies
+                                            </Label>
+                                            <Input
+                                                type="number"
+                                                min="1"
+                                                name="RI_MR_OPT_CNT"
+                                                id="RI_MR_OPT_CNT"
                                                 className="block mt-1"
                                                 onChange={handleChange}
-                                                ref={register}
-                                            >
-                                                <option defaultValue value="">
-                                                    Select records
-                                                </option>
-                                                <option value="ALLNXM">
-                                                    All (No Recent X-Rays/MRIs)
-                                                </option>
-                                                <option value="ALLXM">
-                                                    All (Plus Recent
-                                                    X-Rays/MRIs)
-                                                </option>
-                                                <option value="XM">
-                                                    Only Recent X-Rays/MRIs
-                                                </option>
-                                            </Select>
-                                        </Box>
-
-                                        {(watchRequestedInformationOptions ===
-                                            'ALLXM' ||
-                                            watchRequestedInformationOptions ===
-                                                'XM') && (
-                                            <Box className="mb-4 mr-4">
-                                                <Label htmlFor="RI_MR_OPT_CNT">
-                                                    Imaging Copies
-                                                </Label>
-                                                <Input
-                                                    type="number"
-                                                    name="RI_MR_OPT_CNT"
-                                                    id="RI_MR_OPT_CNT"
-                                                    className="block mt-1"
-                                                    onChange={handleChange}
-                                                    ref={register({
-                                                        required:
-                                                            'Please enter the number of copies.',
-                                                    })}
+                                                ref={register({
+                                                    required:
+                                                        'Please enter the number of copies.',
+                                                    validate: {
+                                                        countCheck: value =>
+                                                            value > 0 ||
+                                                            'Please enter a value greater than 0.',
+                                                    },
+                                                })}
+                                            />
+                                            <Text className="mt-2 text-sm">
+                                                Note: An{' '}
+                                                <Text
+                                                    as="span"
+                                                    className="font-bold"
+                                                >
+                                                    additional
+                                                </Text>{' '}
+                                                $8 fee per copy applies to
+                                                imaging (X-Ray, MRI) CDs.
+                                            </Text>
+                                            {errors.RI_MR_OPT_CNT && (
+                                                <ErrorMessage
+                                                    className="mt-2"
+                                                    message={
+                                                        errors.RI_MR_OPT_CNT
+                                                            .message
+                                                    }
                                                 />
-                                                {errors.RI_MR_OPT_CNT && (
-                                                    <ErrorMessage
-                                                        className="mt-2"
-                                                        message={
-                                                            errors.RI_MR_OPT_CNT
-                                                                .message
-                                                        }
-                                                    />
-                                                )}
-                                            </Box>
-                                        )}
-                                    </Flex>
+                                            )}
+                                        </Box>
+                                    )}
 
                                     <CheckboxWrapper>
                                         {watchRequestedInformationOptions.length >
@@ -572,33 +583,60 @@ const Form = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
 
-                            <Input
-                                type="hidden"
-                                name="DI_DM_DD"
-                                value="DL"
-                                ref={register}
-                            />
+                            {(watchRequestedInformationOptions === 'ALLNXM' ||
+                                watchRequestedInformationOptions === 'ALLXM' ||
+                                watchRequestedInformation.includes('PT')) && (
+                                <>
+                                    <Input
+                                        type="hidden"
+                                        name="DI_DM_DD"
+                                        value="DL"
+                                        ref={register}
+                                    />
+
+                                    <Info
+                                        primaryText="Records Delivery"
+                                        secondaryText="All records (excluding X-Ray and MRI images) will be
+                                delivered via this website
+                                in Adobe PDF format. A
+                                notification will be sent
+                                when the records are ready
+                                for download, and they will
+                                be available for 30 days."
+                                        className="my-4"
+                                    />
+                                </>
+                            )}
+
+                            {watchRequestedInformation.length === 0 && (
+                                <Text className="mb-4">
+                                    Delivery options will appear here once
+                                    you've selected the records you'd like to
+                                    receive.
+                                </Text>
+                            )}
 
                             {(watchRequestedInformationOptions === 'ALLXM' ||
                                 watchRequestedInformationOptions === 'XM') && (
-                                <Input
-                                    type="hidden"
-                                    name="DI_DMRP_DD"
-                                    value="PS"
-                                    ref={register}
-                                />
+                                <>
+                                    <Input
+                                        type="hidden"
+                                        name="DI_DMRP_OPT"
+                                        value="PS"
+                                        ref={register}
+                                    />
+                                    <Info
+                                        className="mb-4"
+                                        primaryText="X-Rays and MRI Delivery"
+                                        secondaryText="X-Rays and MRIs are automatically saved
+                                        to CD and will be delivered by mail via
+                                        the US Postal Service to the address
+                                        entered below. The department will
+                                        contact you if additional information is
+                                        required."
+                                    />
+                                </>
                             )}
-
-                            <Info
-                                secondaryText="All records will be
-                                    delivered via this website
-                                    in Adobe PDF format. A
-                                    notification will be sent
-                                    when the records are ready
-                                    for download, and they will
-                                    be available for 30 days."
-                                className="my-4"
-                            />
 
                             <Box>
                                 <Flex className="flex-col sm:flex-row">
@@ -609,7 +647,7 @@ const Form = ({ store }) => {
                                         <Select
                                             name="DI_REC_DD"
                                             id="DI_REC_DD"
-                                            className="block mt-1 mb-2 sm:mr-4"
+                                            className="block mt-1 mb-2"
                                             onChange={handleChange}
                                             ref={register({
                                                 validate: {
@@ -853,99 +891,49 @@ const Form = ({ store }) => {
 
                         <FormSection>
                             <SectionHeading>Delivery Summary</SectionHeading>
-                            <Box>
-                                <Box
-                                    as="ul"
-                                    className="pl-8 mb-8 space-y-2 list-disc"
-                                >
-                                    {watchRequestedInformation.some(i =>
-                                        ['MR', 'IB'].includes(i)
-                                    ) && (
-                                        <>
-                                            {watchRecordDeliveryMethod.includes(
-                                                'DL'
-                                            ) && (
-                                                <Box as="li">
-                                                    Medical records and/or
-                                                    billing items will be
-                                                    delivered via this website
-                                                    in Adobe PDF format. A
-                                                    notification will be sent
-                                                    when the records are ready
-                                                    for download, and they will
-                                                    be available for 30 days.
-                                                </Box>
-                                            )}
 
-                                            {watchRecordDeliveryMethod.includes(
-                                                'PS'
-                                            ) && (
-                                                <Box as="li">
-                                                    Medical records and/or
-                                                    billing items will be mailed
-                                                    to the address you entered
-                                                    above via the US Postal
-                                                    Service.
-                                                </Box>
-                                            )}
-                                            {watchRecordDeliveryMethod.includes(
-                                                'PU'
-                                            ) && (
-                                                <Box as="li">
-                                                    Once ready, medical records
-                                                    and/or billing items can be
-                                                    picked up from the facility
-                                                    listed below.
-                                                </Box>
-                                            )}
-                                        </>
-                                    )}
-
-                                    <Box as="li">
-                                        Normal processing time is{' '}
-                                        {hospitals[hospital].processingTime ||
-                                            '5-7 business days'}{' '}
-                                        from time of receipt.
-                                    </Box>
-
-                                    <Box as="li">
-                                        Please{' '}
-                                        <Link
-                                            href={getContactPage()}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                        >
-                                            contact us
-                                        </Link>{' '}
-                                        if you have any questions.
-                                    </Box>
-                                </Box>
-                                <Box>
-                                    {(watchRPDeliveryMethod === 'PU' ||
-                                        watchRecordDeliveryMethod === 'PU') && (
-                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
-                                            <Text>
-                                                Once available, records can be
-                                                picked up from the facility or
-                                                facilities listed below.
-                                            </Text>
-
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    PIH Health Hospital - Downey
-                                                </Text>
-                                                <Text>
-                                                    11500 Brookshire Avenue
-                                                </Text>
-                                                <Text>Downey, CA 90241</Text>
-                                                <Text>
-                                                    (562) 904-5166 x26177
-                                                </Text>
-                                            </Box>
+                            <Box
+                                as="ul"
+                                className="pl-8 mb-8 space-y-2 list-disc"
+                            >
+                                {watchRequestedInformation.some(i =>
+                                    ['MR', 'PT'].includes(i)
+                                ) &&
+                                    watchRequestedInformationOptions !==
+                                        'XM' && (
+                                        <Box as="li">
+                                            All records (excluding X-Ray and MRI
+                                            images) will be delivered via this
+                                            website in Adobe PDF format. A
+                                            notification will be sent when the
+                                            records are ready for download, and
+                                            they will be available for 30 days.
                                         </Box>
                                     )}
+
+                                {watchRPDeliveryMethod === 'PS' && (
+                                    <Box as="li">
+                                        X-Rays and MRIs will be delivered by
+                                        mail via the US Postal Service to the
+                                        address entered above,
+                                    </Box>
+                                )}
+
+                                <Box as="li">
+                                    Normal processing time is{' '}
+                                    {hospitals[hospital].processingTime ||
+                                        '5-7 business days'}{' '}
+                                    from time of receipt.
+                                </Box>
+                                <Box as="li">
+                                    Please{' '}
+                                    <Link
+                                        href={getContactPage()}
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
+                                    >
+                                        contact us
+                                    </Link>{' '}
+                                    if you have any questions.
                                 </Box>
                             </Box>
                         </FormSection>
