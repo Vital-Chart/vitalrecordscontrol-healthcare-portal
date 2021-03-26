@@ -10,7 +10,7 @@ import {
     ErrorMessage,
 } from '@/components/atoms'
 
-export const SectionFacilitySelector = () => {
+export const FacilitySelector = () => {
     const { register, errors, watch, handleChange } = useFormContext()
     const watchFacilityCheckboxes = watch('FI_CB', [])
 
@@ -72,4 +72,4 @@ export const SectionFacilitySelector = () => {
     }
 }
 
-export default SectionFacilitySelector
+export default FacilitySelector

@@ -4,7 +4,7 @@ import useNavigation from '@/lib/useNavigation'
 import { Input } from '@/components/core'
 import hospitals from '@/lib/hospitals'
 
-export const SectionFormMeta = () => {
+export const FormMeta = () => {
     const { register } = useFormContext()
     const store = useStore()
     const { hospital, option } = useNavigation()
@@ -29,4 +29,4 @@ export const SectionFormMeta = () => {
     )
 }
 
-export default SectionFormMeta
+export default FormMeta

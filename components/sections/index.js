@@ -1,3 +1,10 @@
 // Sections
-export { SectionFacilitySelector } from './SectionFacilitySelector'
-export { SectionFormMeta } from './SectionFormMeta'
+export { FacilitySelector } from './FacilitySelector'
+export { FormMeta } from './FormMeta'
+export { PatientName } from './PatientName'
+export { PatientOtherNames } from './PatientOtherNames'
+export { PatientDOB } from './PatientDOB'
+export { PhysicianClinic } from './PhysicianClinic'
+export { VisitOptions } from './VisitOptions'
+export { VisitsDateRange } from './VisitsDateRange'
+export { RequestPurpose } from './RequestPurpose'

@@ -17,7 +17,6 @@ import {
     Radio,
     Label,
     Input,
-    Textarea,
     Flex,
     Button,
     Link,
@@ -33,7 +32,16 @@ import {
     Stepper,
     ServerErrorList,
 } from '@/components/atoms'
-import { SectionFacilitySelector, SectionFormMeta } from '@/components/sections'
+import {
+    FacilitySelector,
+    FormMeta,
+    PatientName,
+    PatientOtherNames,
+    PatientDOB,
+    PhysicianClinic,
+    VisitOptions,
+    RequestPurpose,
+} from '@/components/sections'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
@@ -62,7 +70,6 @@ const Form = ({ store }) => {
     const [isFetching, setIsFetching] = useState(false)
 
     const watchRequestedInformation = watch('RI_CB', [])
-    const watchVisitOptions = watch('VI_OPT', [])
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
@@ -156,267 +163,17 @@ const Form = ({ store }) => {
                         encType="multipart/form-data"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <SectionFormMeta />
-
-                        <SectionFacilitySelector />
+                        <FormMeta />
+                        <FacilitySelector />
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
-                            <Box>
-                                <Flex className="flex-col sm:flex-row mb-4">
-                                    <Box className="w-full sm:mr-4">
-                                        <Label htmlFor="PI_PFN">
-                                            Patient First Name
-                                        </Label>
-                                        <Input
-                                            type="text"
-                                            name="PI_PFN"
-                                            id="PI_PFN"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    "Please enter the patient's first name.",
-                                            })}
-                                        />
-                                        {errors.PI_PFN && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={errors.PI_PFN.message}
-                                            />
-                                        )}
-                                    </Box>
 
-                                    <Box className="w-full mt-4 sm:mt-0">
-                                        <Label htmlFor="PI_PLN">
-                                            Patient Last Name
-                                        </Label>
-                                        <Input
-                                            type="text"
-                                            name="PI_PLN"
-                                            id="PI_PLN"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    "Please enter the patient's last name.",
-                                            })}
-                                        />
-                                        {errors.PI_PLN && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={errors.PI_PLN.message}
-                                            />
-                                        )}
-                                    </Box>
-                                </Flex>
-
-                                <Box className="mb-4">
-                                    <Label
-                                        htmlFor="PI_PON"
-                                        className="italic"
-                                        className="italic"
-                                    >
-                                        Other Patient Names (Optional)
-                                    </Label>
-                                    <Input
-                                        type="text"
-                                        name="PI_PON"
-                                        id="PI_PON"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register}
-                                    />
-                                </Box>
-
-                                <Box className="mb-4">
-                                    <Label htmlFor="PI_DOB">
-                                        Patient Date of Birth
-                                    </Label>
-                                    <Input
-                                        type="text"
-                                        name="PI_DOB"
-                                        id="PI_DOB"
-                                        className="w-full mt-1"
-                                        placeholder="MM/DD/YYYY"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                "Please enter the patient's date of birth.",
-                                            pattern: {
-                                                value: regexPatterns.date,
-                                                message:
-                                                    'Please enter a valid date (MM/DD/YYYY).',
-                                            },
-                                        })}
-                                    />
-
-                                    {errors.PI_DOB && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.PI_DOB.message}
-                                        />
-                                    )}
-                                </Box>
-
-                                <Box className="mb-4">
-                                    <Label
-                                        htmlFor="PI_PHYCL"
-                                        className="italic"
-                                    >
-                                        Physician/Clinic (Optional)
-                                    </Label>
-                                    <Input
-                                        type="text"
-                                        name="PI_PHYCL"
-                                        id="PI_PHYCL"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register}
-                                    />
-                                </Box>
-                                <Box>
-                                    <Box as="fieldset">
-                                        <Box as="legend" className="mb-2">
-                                            Please select the visits/admissions
-                                            you would like released:
-                                        </Box>
-                                        <Flex className="flex-col items-start ml-4">
-                                            <Radio
-                                                label="Most recent"
-                                                name="VI_OPT"
-                                                value="MR"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select which records you would like released.',
-                                                })}
-                                            />
-                                            <Radio
-                                                label="All"
-                                                name="VI_OPT"
-                                                value="ALL"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select which records you would like released.',
-                                                })}
-                                            />
-                                            <Radio
-                                                label="In a date range"
-                                                name="VI_OPT"
-                                                value="DR"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select which records you would like released.',
-                                                })}
-                                            />
-                                            {errors.VI_OPT && (
-                                                <ErrorMessage
-                                                    className="mt-2"
-                                                    message={
-                                                        errors.VI_OPT.message
-                                                    }
-                                                />
-                                            )}
-
-                                            {watchVisitOptions &&
-                                                watchVisitOptions.includes(
-                                                    'DR'
-                                                ) && (
-                                                    <>
-                                                        <Flex className="space-x-4">
-                                                            <Box>
-                                                                <Label
-                                                                    htmlFor="VI_DR_SD"
-                                                                    className="block mb-1"
-                                                                >
-                                                                    Service
-                                                                    Start:
-                                                                </Label>
-                                                                <Input
-                                                                    type="text"
-                                                                    name="VI_DR_SD"
-                                                                    id="VI_DR_SD"
-                                                                    className="w-full"
-                                                                    placeholder="MM/DD/YYYY"
-                                                                    onChange={
-                                                                        handleChange
-                                                                    }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                            pattern: {
-                                                                                value:
-                                                                                    regexPatterns.date,
-                                                                                message:
-                                                                                    'Please enter a valid date (MM/DD/YYYY).',
-                                                                            },
-                                                                        }
-                                                                    )}
-                                                                />
-                                                            </Box>
-
-                                                            <Box>
-                                                                <Label
-                                                                    htmlFor="VI_DR_ED"
-                                                                    className="block mb-1"
-                                                                >
-                                                                    Service End:
-                                                                </Label>
-                                                                <Input
-                                                                    type="text"
-                                                                    name="VI_DR_ED"
-                                                                    id="VI_DR_ED"
-                                                                    className="w-full"
-                                                                    placeholder="MM/DD/YYYY"
-                                                                    onChange={
-                                                                        handleChange
-                                                                    }
-                                                                    ref={register(
-                                                                        {
-                                                                            required: true,
-                                                                            pattern: {
-                                                                                value:
-                                                                                    regexPatterns.date,
-                                                                                message:
-                                                                                    'Please enter a valid date (MM/DD/YYYY).',
-                                                                            },
-                                                                            validate: {
-                                                                                dateRangeCheck: value =>
-                                                                                    new Date(
-                                                                                        value
-                                                                                    ) >=
-                                                                                        new Date(
-                                                                                            getValues(
-                                                                                                'VI_DR_SD'
-                                                                                            )
-                                                                                        ) ||
-                                                                                    'The Service End date you entered is before the Service Start date.',
-                                                                            },
-                                                                        }
-                                                                    )}
-                                                                />
-                                                            </Box>
-                                                        </Flex>
-
-                                                        {errors.VI_DR_ED && (
-                                                            <ErrorMessage
-                                                                className="mt-2"
-                                                                message={
-                                                                    errors
-                                                                        .VI_DR_ED
-                                                                        .message
-                                                                }
-                                                            />
-                                                        )}
-                                                    </>
-                                                )}
-                                        </Flex>
-                                    </Box>
-                                </Box>
-                            </Box>
+                            <PatientName />
+                            <PatientOtherNames />
+                            <PatientDOB />
+                            <PhysicianClinic />
+                            <VisitOptions />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
@@ -722,45 +479,7 @@ const Form = ({ store }) => {
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Purpose of Request</SectionHeading>
-                            <Box>
-                                <Box>
-                                    <Text className="mb-2">
-                                        Please enter your reason for requesting
-                                        records.
-                                    </Text>
-
-                                    <Label htmlFor="PR_PUR">Purpose:</Label>
-                                    <Textarea
-                                        name="PR_PUR"
-                                        id="PR_PUR"
-                                        className="block w-full mt-1 mb-2 sm:text-sm rounded"
-                                        placeholder="Examples: Patient Request, Continuity of Care, Billing/Payment, etc."
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please enter the purpose of this request.',
-                                        })}
-                                    />
-                                    {errors.PR_PUR && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.PR_PUR.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Box>
-                                    <Label htmlFor="PR_LIM" className="italic">
-                                        Limitations (Optional):
-                                    </Label>
-                                    <Textarea
-                                        name="PR_LIM"
-                                        id="PR_LIM"
-                                        className="block w-full mt-1 sm:text-sm rounded"
-                                        onChange={handleChange}
-                                        ref={register}
-                                    />
-                                </Box>
-                            </Box>
+                            <RequestPurpose includeLimitations={true} />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
