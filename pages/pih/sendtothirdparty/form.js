@@ -170,6 +170,7 @@ const Form = ({ store }) => {
                                 </Box>
                                 <CheckboxWrapper>
                                     <Checkbox
+                                        labelClassName="mb-2"
                                         label="PIH Health Hospital - Downey"
                                         value="P7202-1"
                                         name="FI_CB"
@@ -183,6 +184,7 @@ const Form = ({ store }) => {
                                         })}
                                     />
                                     <Checkbox
+                                        labelClassName="mb-2"
                                         label="PIH Health Hospital - Whittier"
                                         value="P7201-1"
                                         name="FI_CB"
@@ -484,6 +486,7 @@ const Form = ({ store }) => {
                                     </Box>
                                     <CheckboxWrapper>
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Medical Records"
                                             name="RI_CB"
                                             value="MR"
@@ -537,9 +540,10 @@ const Form = ({ store }) => {
                                                             'Please select the items you would like released.',
                                                     })}
                                                 />
-                                                <Flex className="pl-8 flex-col md:flex-row">
+                                                <Flex className="w-full pl-8 flex-col md:flex-row">
                                                     <CheckboxWrapper className="w-full">
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Emergency/Urgent Care Physician Report"
                                                             name="RI_MR_FR_CB"
                                                             value="EUR"
@@ -549,6 +553,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Consultation Report"
                                                             name="RI_MR_FR_CB"
                                                             value="CR"
@@ -558,6 +563,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Laboratory Reports"
                                                             name="RI_MR_FR_CB"
                                                             value="LR"
@@ -567,6 +573,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Newborn Record"
                                                             name="RI_MR_FR_CB"
                                                             value="NR"
@@ -576,6 +583,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="History and Physical Report"
                                                             name="RI_MR_FR_CB"
                                                             value="HPR"
@@ -585,6 +593,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Operative Report"
                                                             name="RI_MR_FR_CB"
                                                             value="OR"
@@ -596,6 +605,7 @@ const Form = ({ store }) => {
                                                     </CheckboxWrapper>
                                                     <CheckboxWrapper className="w-full">
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Pathology Report"
                                                             name="RI_MR_FR_CB"
                                                             value="PR"
@@ -605,6 +615,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Immunization Record"
                                                             name="RI_MR_FR_CB"
                                                             value="IR"
@@ -615,6 +626,7 @@ const Form = ({ store }) => {
                                                         />
 
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Discharge Summary Report"
                                                             name="RI_MR_FR_CB"
                                                             value="DSR"
@@ -624,6 +636,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Anesthesia Records"
                                                             name="RI_MR_FR_CB"
                                                             value="AR"
@@ -633,6 +646,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Radiology Report"
                                                             name="RI_MR_FR_CB"
                                                             value="RR"
@@ -642,6 +656,7 @@ const Form = ({ store }) => {
                                                             ref={register}
                                                         />
                                                         <Checkbox
+                                                            labelClassName="mb-2"
                                                             label="Therapy Records"
                                                             name="RI_MR_FR_CB"
                                                             value="TR"
@@ -656,6 +671,7 @@ const Form = ({ store }) => {
                                         )}
 
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Itemized Billing"
                                             name="RI_CB"
                                             value="IB"
@@ -667,6 +683,7 @@ const Form = ({ store }) => {
                                         />
 
                                         <Checkbox
+                                            labelClassName="mb-2"
                                             label="Radiology Images"
                                             name="RI_CB"
                                             value="RI"
@@ -716,6 +733,7 @@ const Form = ({ store }) => {
                                             </Text>
                                             <CheckboxWrapper>
                                                 <Checkbox
+                                                    labelClassName="mb-2"
                                                     name="RI_MR_AI_CB"
                                                     label="Information pertaining to mental health diagnosis or treatment"
                                                     value="IPM"
@@ -723,6 +741,7 @@ const Form = ({ store }) => {
                                                     ref={register}
                                                 />
                                                 <Checkbox
+                                                    labelClassName="mb-2"
                                                     name="RI_MR_AI_CB"
                                                     label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
                                                     value="IPD"
@@ -730,6 +749,7 @@ const Form = ({ store }) => {
                                                     ref={register}
                                                 />
                                                 <Checkbox
+                                                    labelClassName="mb-2"
                                                     name="RI_MR_AI_CB"
                                                     label="HIV/AIDS test results"
                                                     value="HIV"
@@ -737,6 +757,7 @@ const Form = ({ store }) => {
                                                     ref={register}
                                                 />
                                                 <Checkbox
+                                                    labelClassName="mb-2"
                                                     name="RI_MR_AI_CB"
                                                     label="Genetic testing information"
                                                     value="GTI"
@@ -965,7 +986,12 @@ const Form = ({ store }) => {
                                             className="w-full mt-1"
                                             onChange={handleChange}
                                             ref={register({
-                                                required: true,
+                                                validate: {
+                                                    phoneTypeCheck: value =>
+                                                        value !==
+                                                            'Select phone type' ||
+                                                        'Please select a phone type.',
+                                                },
                                             })}
                                         >
                                             <option defaultValue disabled>
@@ -981,6 +1007,14 @@ const Form = ({ store }) => {
                                                 Work
                                             </option>
                                         </Select>
+                                        {errors.YI_PHT_DD && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.YI_PHT_DD.message
+                                                }
+                                            />
+                                        )}
                                     </Box>
                                 </Flex>
 

@@ -9,7 +9,7 @@ const Custom404 = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md mx-auto space-y-8 text-center">
+                <Box className="w-full max-w-screen-md mx-auto pt-16 space-y-8 text-center">
                     <PageHeading className="pt-4">Page Not Found</PageHeading>
 
                     <Text className="pb-4 leading-relaxed">

@@ -58,7 +58,7 @@ export const Success = () => {
                         {hospitals[store.state.success.hospital].name}
                     </PageHeading>
 
-                    <Box className="pb-8 border-b border-gray-light">
+                    <Box className="pb-8">
                         <Text className="pb-4">
                             Thank you. Your request(s) for medical records has
                             been submitted and is being processed. Typical

@@ -188,7 +188,7 @@ const Hospital = () => {
                                     for online access.
                                 </Text>
                                 <Text className="w-full text-sm">
-                                    (UCSF Hosptial)
+                                    ({hospitals[hospital].name})
                                 </Text>
                             </Box>
                         </Flex>
@@ -205,7 +205,9 @@ const Hospital = () => {
                                 <Text className="text-sm">
                                     Account #: xxxxxx PIN #: xxxx
                                 </Text>
-                                <Text className="text-sm">(UCSF Hospital)</Text>
+                                <Text className="text-sm">
+                                    ({hospitals[hospital].name})
+                                </Text>
                             </Box>
                         </Flex>
                     </Flex>
