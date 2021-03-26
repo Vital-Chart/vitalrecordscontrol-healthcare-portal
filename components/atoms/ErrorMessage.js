@@ -8,7 +8,7 @@ export const ErrorMessage = ({ className, message }) => (
                 <IconAlert className="h-5 w-5 text-red-dark" />
             </Box>
 
-            <Box className="ml-2">
+            <Box className="ml-1">
                 <Text className="text-sm text-red-dark">{message}</Text>
             </Box>
         </Flex>

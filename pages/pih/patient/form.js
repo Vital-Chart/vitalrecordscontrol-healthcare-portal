@@ -874,7 +874,7 @@ const Form = ({ store }) => {
                                     <Box className="flex-grow mb-4">
                                         <Label htmlFor="YI_REL_NM">Name</Label>
                                         <Input
-                                            type="tel"
+                                            type="text"
                                             name="YI_REL_NM"
                                             id="YI_REL_NM"
                                             autoComplete="name"

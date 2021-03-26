@@ -63,9 +63,7 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
-    const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
-    const watchVisitOptions = watch('VI_OPT', [])
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
@@ -279,32 +277,65 @@ const Form = ({ store }) => {
                             </SectionHeading>
                             <Box>
                                 <Box as="fieldset">
-                                    <Box as="legend" className="mb-2">
-                                        Please select the type of information
-                                        you would like released:
-                                    </Box>
-                                    <Box className="mb-4">
-                                        <Select
-                                            name="RI_MR_OPT"
-                                            id="RI_MR_OPT"
-                                            className="block mt-1"
-                                            onChange={handleChange}
-                                            ref={register}
-                                        >
-                                            <option defaultValue value="">
-                                                Select records
-                                            </option>
-                                            <option value="ALLNXM">
-                                                All (No Recent X-Rays/MRIs)
-                                            </option>
-                                            <option value="ALLXM">
-                                                All (Plus Recent X-Rays/MRIs)
-                                            </option>
-                                            <option value="XM">
-                                                Only Recent X-Rays/MRIs
-                                            </option>
-                                        </Select>
-                                    </Box>
+                                    <Flex>
+                                        <Box className="mb-4 mr-4">
+                                            <Box as="legend">
+                                                Requested Records:
+                                            </Box>
+                                            <Select
+                                                name="RI_MR_OPT"
+                                                id="RI_MR_OPT"
+                                                className="block mt-1"
+                                                onChange={handleChange}
+                                                ref={register}
+                                            >
+                                                <option defaultValue value="">
+                                                    Select records
+                                                </option>
+                                                <option value="ALLNXM">
+                                                    All (No Recent X-Rays/MRIs)
+                                                </option>
+                                                <option value="ALLXM">
+                                                    All (Plus Recent
+                                                    X-Rays/MRIs)
+                                                </option>
+                                                <option value="XM">
+                                                    Only Recent X-Rays/MRIs
+                                                </option>
+                                            </Select>
+                                        </Box>
+
+                                        {(watchRequestedInformationOptions ===
+                                            'ALLXM' ||
+                                            watchRequestedInformationOptions ===
+                                                'XM') && (
+                                            <Box className="mb-4 mr-4">
+                                                <Label htmlFor="RI_MR_OPT_CNT">
+                                                    Imaging Copies
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    name="RI_MR_OPT_CNT"
+                                                    id="RI_MR_OPT_CNT"
+                                                    className="block mt-1"
+                                                    onChange={handleChange}
+                                                    ref={register({
+                                                        required:
+                                                            'Please enter the number of copies.',
+                                                    })}
+                                                />
+                                                {errors.RI_MR_OPT_CNT && (
+                                                    <ErrorMessage
+                                                        className="mt-2"
+                                                        message={
+                                                            errors.RI_MR_OPT_CNT
+                                                                .message
+                                                        }
+                                                    />
+                                                )}
+                                            </Box>
+                                        )}
+                                    </Flex>
 
                                     <CheckboxWrapper>
                                         {watchRequestedInformationOptions.length >
@@ -385,7 +416,7 @@ const Form = ({ store }) => {
                                     <Box className="flex-grow mb-4">
                                         <Label htmlFor="YI_REL_NM">Name</Label>
                                         <Input
-                                            type="tel"
+                                            type="text"
                                             name="YI_REL_NM"
                                             id="YI_REL_NM"
                                             autoComplete="name"
