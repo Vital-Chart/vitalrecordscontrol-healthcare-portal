@@ -32,7 +32,16 @@ import {
     ServerErrorList,
     Info,
 } from '@/components/atoms'
-import { FacilitySelector, FormMeta } from '@/components/sections'
+import {
+    FacilitySelector,
+    FormMeta,
+    PatientName,
+    PatientOtherNames,
+    PatientDOB,
+    PhysicianClinic,
+    VisitOptions,
+    RequestPurpose,
+} from '@/components/sections'
 
 import IconQuestion from '@/icons/icon-question.svg'
 import IconClose from '@/icons/icon-close.svg'
