@@ -66,12 +66,9 @@ const Form = ({ store }) => {
     const [isFetching, setIsFetching] = useState(false)
 
     const watchRequestedInformation = watch('RI_CB', [])
-    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
     const watchRequestedInformationOptions = watch('RI_MR_OPT', '')
-
-    const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {
@@ -150,7 +147,7 @@ const Form = ({ store }) => {
                         as="span"
                         className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
                     >
-                        Quick Release to You
+                        Release to Third-Party
                     </Text>{' '}
                     New Medical Records Request
                 </PageHeading>
