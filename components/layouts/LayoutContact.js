@@ -17,7 +17,11 @@ export const LayoutContact = () => {
                     </PageHeading>
 
                     {hospital.facilities.map(facility => (
-                        <FacilityAddress facility={facility} className="mt-6" />
+                        <FacilityAddress
+                            key={facility.id}
+                            facility={facility}
+                            className="mt-6"
+                        />
                     ))}
 
                     <Button

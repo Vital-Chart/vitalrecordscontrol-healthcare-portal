@@ -1174,6 +1174,7 @@ const Form = ({ store }) => {
                                                 ) {
                                                     return (
                                                         <FacilityAddress
+                                                            key={facility.id}
                                                             facility={facility}
                                                         />
                                                     )

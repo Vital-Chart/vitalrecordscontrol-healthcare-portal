@@ -639,8 +639,7 @@ const Form = ({ store }) => {
 
                             <Box className="p-8 mb-6 bg-gray-lightest">
                                 <Heading as="h3" variant="h5">
-                                    Medical Records and Itemized Billing
-                                    Delivery Options
+                                    Medical Records Delivery Options
                                 </Heading>
                                 <Text className="mb-4">
                                     There are three delivery options for Medical
@@ -671,6 +670,10 @@ const Form = ({ store }) => {
                                         <option value="PS">
                                             CD via US Postal Service
                                         </option>
+                                        <option value="FPS">
+                                            Records via Fax, CD via US Postal
+                                            Service
+                                        </option>
                                         <option value="PU">
                                             CD for On-Site Pickup
                                         </option>
@@ -684,7 +687,8 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
 
-                            {watchRecordDeliveryMethod === 'PS' && (
+                            {(watchRecordDeliveryMethod === 'PS' ||
+                                watchRecordDeliveryMethod === 'FPS') && (
                                 <Box>
                                     <Box className="mb-4">
                                         <Label htmlFor="DI_NM">Name</Label>
@@ -932,6 +936,7 @@ const Form = ({ store }) => {
                                             </Text>
 
                                             <FacilityAddress
+                                                key={facility.id}
                                                 facility={facility}
                                             />
                                         </Box>

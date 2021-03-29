@@ -966,6 +966,7 @@ const Form = ({ store }) => {
                                             </Text>
 
                                             <FacilityAddress
+                                                key={facility.id}
                                                 facility={facility}
                                             />
                                         </Box>

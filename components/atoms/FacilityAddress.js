@@ -11,7 +11,7 @@ export const FacilityAddress = ({ facility, className }) => {
     }
 
     return (
-        <Box key={id} className={className}>
+        <Box className={className}>
             <Text className="font-bold">{name}</Text>
             {address.map(addressLine => (
                 <Text>{addressLine}</Text>

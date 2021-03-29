@@ -151,6 +151,8 @@ function displayDeliveryMethod(store) {
     switch (form.DI_DM_DD) {
         case 'PS':
             return 'Postal Service - Mail'
+        case 'FPS':
+            return 'Records via Fax, CD via Postal Service - Mail'
         case 'PU':
             return 'Pick Up'
         default:
@@ -355,6 +357,12 @@ export const LayoutReview = ({ children }) => {
                                     Delivery Method for CDs/Slides:
                                 </Text>{' '}
                                 {displayDeliveryMethod(store)}
+                                {hospitals[hospital].imageFee && (
+                                    <Text
+                                        as="span"
+                                        className="block text-sm text-gray"
+                                    >{`*${hospitals[hospital].imageFee} fee applies.`}</Text>
+                                )}
                             </Text>
                         )}
 

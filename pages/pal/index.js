@@ -275,9 +275,8 @@ const Hospital = () => {
                         following: (a) providing us the correct contact
                         information for the designated third-party; (b) making
                         the designated third-party aware that a notice will be
-                        faxed to them when the written records are ready and
-                        that they must access those records online; and (c)
-                        following up, if needed, with the third-party to
+                        faxed to them when the written records are ready; and
+                        (c) following up, if needed, with the third-party to
                         determine if they have received a faxed notice and/or
                         have accessed your records.
                     </Text>

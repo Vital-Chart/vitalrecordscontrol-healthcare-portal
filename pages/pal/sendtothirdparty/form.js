@@ -20,6 +20,7 @@ import {
     Flex,
     Button,
     Link,
+    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -633,14 +634,51 @@ const Form = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
 
-                            <Input
-                                type="hidden"
-                                name="DI_DM_DD"
-                                value="DL"
-                                ref={register}
-                            />
+                            <Box className="p-8 mb-6 bg-gray-lightest">
+                                <Heading as="h3" variant="h5">
+                                    Medical Records Delivery Options
+                                </Heading>
+                                <Text className="mb-4">
+                                    There are three delivery options for Medical
+                                    Records and Itemized Billing. You can
+                                    download them directly from the website, or
+                                    have them created on CD to be delivered by
+                                    mail via the US Postal Service to the
+                                    address entered below, or Picked up at the
+                                    Medical Facility.
+                                </Text>
+                                <Box className="mb-4">
+                                    <Label htmlFor="DI_DM_DD">
+                                        Desired Delivery Option:
+                                    </Label>
+                                    <Select
+                                        name="DI_DM_DD"
+                                        id="DI_DM_DD"
+                                        className="block mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select a delivery option.',
+                                        })}
+                                    >
+                                        <option value="DL">
+                                            Download from Website
+                                        </option>
+                                        <option value="FPS">
+                                            Records via Fax, CD via US Postal
+                                            Service
+                                        </option>
+                                    </Select>
+                                    {errors.DI_DM_DD && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.DI_DM_DD.message}
+                                        />
+                                    )}
+                                </Box>
+                            </Box>
 
-                            <Info
+                            {/* <Info
                                 secondaryText="All records will be
                                     delivered via this website
                                     in Adobe PDF format. A
@@ -649,7 +687,7 @@ const Form = ({ store }) => {
                                     for download, and they will
                                     be available for 30 days."
                                 className="my-4"
-                            />
+                            /> */}
 
                             <Box>
                                 <Flex className="flex-col sm:flex-row">

@@ -4,7 +4,7 @@ import { ErrorMessage } from '@/components/atoms'
 import { regexPatterns } from '@/lib/helpers'
 
 export const VisitsDateRange = () => {
-    const { register, errors, watch, handleChange } = useFormContext()
+    const { register, errors, handleChange, getValues } = useFormContext()
 
     return (
         <>
