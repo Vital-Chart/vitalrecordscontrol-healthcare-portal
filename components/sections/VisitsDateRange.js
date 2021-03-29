@@ -8,8 +8,8 @@ export const VisitsDateRange = () => {
 
     return (
         <>
-            <Flex className="space-x-4">
-                <Box>
+            <Flex>
+                <Box className="mr-4">
                     <Label htmlFor="VI_DR_SD" className="block mb-1">
                         Service Start:
                     </Label>
