@@ -312,7 +312,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
-                                                        label="Radiology Report"
+                                                        label="Radiology Report/Image"
                                                         name="RI_MR_FR_CB"
                                                         value="RR"
                                                         onChange={handleChange}
@@ -878,7 +878,7 @@ const Form = ({ store }) => {
                                             in Adobe PDF format. A notification
                                             will be sent when the records are
                                             ready for download, and they will be
-                                            available for 30 days.
+                                            available for 60 days.
                                         </Box>
                                     )}
 

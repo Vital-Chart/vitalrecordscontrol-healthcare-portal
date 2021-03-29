@@ -223,14 +223,14 @@ const Hospital = () => {
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
                         <Text className="w-full text-sm text-center">
-                            Online only.*** The only item you may pick up or
-                            have mailed to you is an X-Ray/MRI CD.
+                            The only item you may pick up or have mailed to you
+                            is an X-Ray/MRI CD.
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
                         <Text className="w-full text-sm text-center">
-                            Online only.*** The only item mailed to the
-                            Healthcare Provider is an X-Ray/MRI CD.
+                            The only item mailed to the Healthcare Provider is
+                            an X-Ray/MRI CD.
                         </Text>
                     </Flex>
                 </Flex>
@@ -268,11 +268,7 @@ const Hospital = () => {
                     </Text>
                     <Text className="pb-4">
                         ** The timeframe specified above for written records
-                        excludes weekends and holidays. X-ray/MRI images take
-                        longer to process than written records because they must
-                        be prepared by clinic staff and copied to a CD. Once the
-                        imaging CD is ready, please allow an additional average
-                        of 14 business days for mail delivery time.
+                        excludes weekends and holidays.
                     </Text>
                     <Text className="pb-4">
                         *** For Option 2, you are solely responsible for the

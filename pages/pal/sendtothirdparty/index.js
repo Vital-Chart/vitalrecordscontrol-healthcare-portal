@@ -34,7 +34,7 @@ const Instructions = () => {
                                 <Text as="span" className="font-bold">
                                     parties with the power to make decisions on
                                     behalf of a patient (e.g. parents,
-                                    guardians)
+                                    guardians, personal representatives)
                                 </Text>{' '}
                                 to request records. Third parties should{' '}
                                 <Link
@@ -176,9 +176,9 @@ const Instructions = () => {
                             <Box as="li" className="pb-2 font-bold">
                                 There may be a clerical/reproduction processing
                                 fee charged. Items not able to be delivered
-                                electronically (e.g. Radiology Imaging CDs or
-                                Pathology Slides) may incur additional charges,
-                                which will be displayed if selected.
+                                electronically (e.g. Radiology Imaging CDs) may
+                                incur additional charges, which will be
+                                displayed if selected.
                             </Box>
                             <Box as="li">
                                 If you request records from multiple facilities,

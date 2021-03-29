@@ -31,7 +31,7 @@ const Instructions = () => {
                                 <Text as="span" className="font-bold">
                                     patients only
                                 </Text>{' '}
-                                to request records to be delivered
+                                to request records to be delivered{' '}
                                 <Text as="span" className="font-bold">
                                     electronically through the web
                                 </Text>
@@ -44,7 +44,7 @@ const Instructions = () => {
                                     click here
                                 </Link>{' '}
                                 to view other options for submitting requests.
-                                Some materials will be sent via the U.S. Postal
+                                Some materials may be sent via the U.S. Postal
                                 service or will require pick-up.
                             </Box>
                             <Box as="li">
