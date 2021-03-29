@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form/dist/index.ie11'
 import { withStore } from '@/lib/store'
 import { createRequest } from '@/lib/api'
 import { regexPatterns, states } from '@/lib/helpers'
