@@ -31,6 +31,7 @@ import {
     ButtonWrapper,
     Stepper,
     ServerErrorList,
+    FacilityAddress,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -73,6 +74,8 @@ const Form = ({ store }) => {
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
+
+    const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {
@@ -961,17 +964,9 @@ const Form = ({ store }) => {
                                                 facilities listed below.
                                             </Text>
 
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    Benioff Children's Hospital
-                                                    Oakland
-                                                </Text>
-                                                <Text>747 52nd Street</Text>
-                                                <Text>Oakland, CA 94609</Text>
-                                            </Box>
+                                            <FacilityAddress
+                                                facility={facility}
+                                            />
                                         </Box>
                                     )}
                                 </Box>

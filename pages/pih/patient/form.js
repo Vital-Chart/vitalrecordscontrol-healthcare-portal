@@ -31,6 +31,7 @@ import {
     ButtonWrapper,
     Stepper,
     ServerErrorList,
+    FacilityAddress,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -69,10 +70,13 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
+    const watchFacilityCheckboxes = watch('FI_CB', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
+
+    const { facilities } = hospitals[hospital]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {
@@ -1161,73 +1165,20 @@ const Form = ({ store }) => {
                                                 picked up from the facility or
                                                 facilities listed below.
                                             </Text>
-                                            {watchFacilityCheckboxes.includes(
-                                                'P7202-1'
-                                            ) && (
-                                                <Box>
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        PIH Health Hospital -
-                                                        Downey
-                                                    </Text>
-                                                    <Text>
-                                                        11500 Brookshire Avenue
-                                                    </Text>
-                                                    <Text>
-                                                        Downey, CA 90241
-                                                    </Text>
-                                                    <Text>
-                                                        (562) 904-5166 x26177
-                                                    </Text>
-                                                </Box>
-                                            )}
 
-                                            {watchFacilityCheckboxes.includes(
-                                                'P7201-1'
-                                            ) && (
-                                                <Box>
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        PIH Health Hospital -
-                                                        Whittier
-                                                    </Text>
-                                                    <Text>
-                                                        12401 Washington Blvd
-                                                    </Text>
-                                                    <Text>
-                                                        Whittier, CA 90602
-                                                    </Text>
-                                                    <Text>
-                                                        (562) 698-0811 x13685
-                                                    </Text>
-                                                </Box>
-                                            )}
-
-                                            {watchFacilityCheckboxes.includes(
-                                                'P7203-1'
-                                            ) && (
-                                                <Box>
-                                                    <Text
-                                                        as="span"
-                                                        className="font-bold"
-                                                    >
-                                                        PIH Health Physicians
-                                                    </Text>
-                                                    <Text>
-                                                        12401 Washington Blvd
-                                                    </Text>
-                                                    <Text>
-                                                        Whittier, CA 90602
-                                                    </Text>
-                                                    <Text>
-                                                        (562) 698-0811 x13858
-                                                    </Text>
-                                                </Box>
-                                            )}
+                                            {facilities.map(facility => {
+                                                if (
+                                                    watchFacilityCheckboxes.includes(
+                                                        facility.id
+                                                    )
+                                                ) {
+                                                    return (
+                                                        <FacilityAddress
+                                                            facility={facility}
+                                                        />
+                                                    )
+                                                }
+                                            })}
                                         </Box>
                                     )}
                                 </Box>

@@ -912,30 +912,9 @@ const Form = ({ store }) => {
                                                 facilities listed below.
                                             </Text>
 
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    {facility.name}
-                                                </Text>
-                                                <Text>{facility.address1}</Text>
-                                                {facility.address2 && (
-                                                    <Text>
-                                                        {facility.address2}
-                                                    </Text>
-                                                )}
-                                                {facility.address3 && (
-                                                    <Text>
-                                                        {facility.address3}
-                                                    </Text>
-                                                )}
-                                                {facility.address4 && (
-                                                    <Text>
-                                                        {facility.address4}
-                                                    </Text>
-                                                )}
-                                            </Box>
+                                            <FacilityAddress
+                                                facility={facility}
+                                            />
                                         </Box>
                                     )}
                                 </Box>

@@ -1,8 +1,8 @@
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
 import { Layout, Container } from '@/components/general'
-import { Box, Text, Button, Link } from '@/components/core'
-import { PageHeading } from '@/components/atoms'
+import { Box, Button } from '@/components/core'
+import { PageHeading, FacilityAddress } from '@/components/atoms'
 
 export const LayoutContact = () => {
     const { hospital: hospitalSlug, goBack } = useNavigation()
@@ -11,43 +11,20 @@ export const LayoutContact = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8 pb-12">
+                <Box className="w-full max-w-screen-md pb-12">
                     <PageHeading className="pt-4">
                         Contact Information for {hospital.name}
                     </PageHeading>
 
-                    {hospital.facilities.map(facility => {
-                        const phoneNum = facility.phone
-                            .split('x')[0]
-                            .replace(/\D/g, '')
-                        const phoneExt = facility.phone.split('x')[1]
-                        let phoneLink = `tel:${phoneNum}`
+                    {hospital.facilities.map(facility => (
+                        <FacilityAddress facility={facility} className="mt-6" />
+                    ))}
 
-                        if (phoneExt) {
-                            phoneLink += `,${phoneExt}`
-                        }
-
-                        return (
-                            <Box key={facility.id}>
-                                <Text className="font-bold">
-                                    {facility.name}
-                                </Text>
-                                <Text>{facility.address1}</Text>
-                                {facility.address2 && (
-                                    <Text>{facility.address2}</Text>
-                                )}
-                                {facility.address3 && (
-                                    <Text>{facility.address3}</Text>
-                                )}
-                                {facility.address4 && (
-                                    <Text>{facility.address4}</Text>
-                                )}
-                                <Link href={phoneLink}>{facility.phone}</Link>
-                            </Box>
-                        )
-                    })}
-
-                    <Button onClick={() => goBack()} variant="filled">
+                    <Button
+                        onClick={() => goBack()}
+                        variant="filled"
+                        className="mt-8"
+                    >
                         Go Back
                     </Button>
                 </Box>

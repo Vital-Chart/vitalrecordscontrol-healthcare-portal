@@ -69,7 +69,6 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
-    const watchVisitOptions = watch('VI_OPT', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
 

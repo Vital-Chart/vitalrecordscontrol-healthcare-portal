@@ -31,6 +31,7 @@ import {
     ButtonWrapper,
     Stepper,
     ServerErrorList,
+    FacilityAddress,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -69,10 +70,11 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
-    const watchVisitOptions = watch('VI_OPT', [])
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
+
+    const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {
@@ -929,19 +931,9 @@ const Form = ({ store }) => {
                                                 facilities listed below.
                                             </Text>
 
-                                            <Box>
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    Palomar Health Medical
-                                                    Records
-                                                </Text>
-                                                <Text>
-                                                    2185 West Citracado Parkway
-                                                </Text>
-                                                <Text>Escondido, CA 92029</Text>
-                                            </Box>
+                                            <FacilityAddress
+                                                facility={facility}
+                                            />
                                         </Box>
                                     )}
                                 </Box>
