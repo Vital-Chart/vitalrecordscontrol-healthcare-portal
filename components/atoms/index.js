@@ -1,5 +1,6 @@
 // Atoms
 export { Alert } from './Alert'
+export { BrowserAlert } from './BrowserAlert'
 export { ButtonWrapper } from './ButtonWrapper'
 export { CheckboxWrapper } from './CheckboxWrapper'
 export { ErrorMessage } from './ErrorMessage'

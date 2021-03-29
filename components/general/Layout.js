@@ -5,11 +5,15 @@ import useNavigation from '@/lib/useNavigation'
 import { useStore } from '@/lib/store'
 import { Flex } from '@/components/core'
 import { Footer, Header, ScreenReader } from '@/components/general'
+import { BrowserAlert } from '@/components/atoms'
+
+import { getBrowser } from '@/lib/helpers'
 
 export const Layout = ({ children }) => {
     const store = useStore()
     const { getLandingPage, isStepPage } = useNavigation()
     const isIdle = useIdle(60e4) // 10 minutes
+    const browser = getBrowser()
 
     // Clear data and redirect if user is idle too long
     useEffect(() => {
@@ -30,6 +34,10 @@ export const Layout = ({ children }) => {
             <ScreenReader as="a" href="#content">
                 Skip to content
             </ScreenReader>
+
+            {browser.browser === 'Explorer' && browser.version < 11 && (
+                <BrowserAlert />
+            )}
 
             <Flex className="flex-col min-h-screen">
                 <Header />
