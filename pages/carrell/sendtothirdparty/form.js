@@ -234,8 +234,9 @@ const Form = ({ store }) => {
                                                 >
                                                     additional
                                                 </Text>{' '}
-                                                $8 fee per copy applies to
-                                                imaging (X-Ray, MRI) CDs.
+                                                {hospitals[hospital].imageFee}{' '}
+                                                fee per copy applies to imaging
+                                                (X-Ray, MRI) CDs.
                                             </Text>
                                             {errors.RI_MR_OPT_CNT && (
                                                 <ErrorMessage
