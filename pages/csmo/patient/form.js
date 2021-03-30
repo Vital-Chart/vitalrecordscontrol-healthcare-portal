@@ -180,6 +180,14 @@ const Form = ({ store }) => {
 
                             <CheckboxWrapper className="mt-4">
                                 <Checkbox
+                                    labelClassName="hidden"
+                                    checked
+                                    name="RI_CB"
+                                    value="MR"
+                                    onChange={handleChange}
+                                    ref={register}
+                                />
+                                <Checkbox
                                     label="Include visits from today or yesterday?"
                                     name="RI_CB"
                                     value="VSTY"
