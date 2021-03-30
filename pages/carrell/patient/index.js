@@ -43,7 +43,7 @@ const Instructions = () => {
                             <Text as="span" className="font-bold">
                                 online only
                             </Text>
-                            . We do
+                            . We do{' '}
                             <Text as="span" className="font-bold">
                                 not
                             </Text>{' '}
@@ -91,10 +91,10 @@ const Instructions = () => {
                     <Box as="ol" className="pl-8 pb-2 space-y-2 list-decimal">
                         <Box as="li">
                             The patient's valid driver's license or other valid
-                            state-issued ID.{' '}
+                            state-issued ID.
                         </Box>
                         <Box as="li">
-                            If you have the legal authority to make
+                            If you have the legal authority to make{' '}
                             <Text as="span" className="font-bold">
                                 healthcare
                             </Text>{' '}
@@ -117,7 +117,7 @@ const Instructions = () => {
                             NOTE: A financial power of attorney is{' '}
                             <Text as="span" className="font-bold">
                                 not
-                            </Text>
+                            </Text>{' '}
                             acceptable. If you cannot provide ALL required
                             items, the patient must place his or her own
                             request.
