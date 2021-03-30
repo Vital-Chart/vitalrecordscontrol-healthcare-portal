@@ -14,7 +14,7 @@ const Instructions = () => {
             <Container>
                 <Box className="w-full max-w-screen-md space-y-8">
                     <PageHeading className="pt-4">
-                        Instructions for Release to Third Party
+                        Instructions for Release to Third-Party
                     </PageHeading>
                     <Box>
                         <Text className="pb-4 leading-relaxed">

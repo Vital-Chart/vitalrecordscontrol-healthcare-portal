@@ -9,12 +9,12 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
                         Instructions for Quick Release to You
                     </PageHeading>
 
-                    <Box>
+                    <Box className="mt-8">
                         <Heading as="h3" variant="h3" className="mb-2">
                             Welcome! Please Read Below.
                         </Heading>
@@ -62,7 +62,8 @@ const Instructions = () => {
                             </Box>
                         </Box>
                     </Box>
-                    <Box>
+
+                    <Box className="mt-8">
                         <Heading as="h3" variant="h3" className="mb-2">
                             What You Need to Get Started
                         </Heading>
@@ -89,7 +90,7 @@ const Instructions = () => {
                         </Text>
                     </Box>
 
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

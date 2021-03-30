@@ -97,7 +97,7 @@ const Instructions = () => {
                             Important - Please Read!
                         </Heading>
 
-                        <Box as="ul" className="pl-8 mb-6 space-y-2 list-disc">
+                        <Box as="ul" className="pl-8 space-y-2 list-disc">
                             <Box as="li">
                                 <Text as="span" className="font-bold">
                                     To ensure patient security, we do not fax or
@@ -152,12 +152,13 @@ const Instructions = () => {
                             </Box>
                         </Box>
                         <Info
+                            className="mt-6"
                             secondaryText="Third parties are not eligible to use this form to request records from Associates in Psychiatry and Counseling. Only patients or parents/guardians
                             of patients are eligible to request records using this form."
                         />
                     </Box>
 
-                    <ButtonWrapper className="mt-8 pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

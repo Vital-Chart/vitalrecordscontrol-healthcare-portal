@@ -12,12 +12,12 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
                         Instructions for Quick Release to You
                     </PageHeading>
 
-                    <Box>
+                    <Box className="mt-8">
                         <Text className="pb-4 leading-relaxed">
                             This website allows you to request copies of your
                             medical record and to retrieve it electronically.
@@ -201,7 +201,7 @@ const Instructions = () => {
                         </Box>
                     </Box>
 
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

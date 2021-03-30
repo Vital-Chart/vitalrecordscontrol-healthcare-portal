@@ -11,7 +11,7 @@ const Instructions = () => {
             <Container>
                 <Box className="w-full max-w-screen-md">
                     <PageHeading className="mt-4">
-                        Instructions for Quick Release to You
+                        Instructions for Release to Third-Party
                     </PageHeading>
 
                     <Box className="mt-8">

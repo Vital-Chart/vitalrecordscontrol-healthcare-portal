@@ -12,12 +12,12 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
-                        Instructions for Release to Third Party
+                        Instructions for Release to Third-Party
                     </PageHeading>
 
-                    <Text className="mb-4">
+                    <Text className="mt-8">
                         ALERT: This system lets you as a patient or
                         parent/guardian request that medical records be directed
                         to a designated third party. You will not be able to
@@ -29,7 +29,7 @@ const Instructions = () => {
                         for Alabama Orthopedic Clinic.
                     </Text>
 
-                    <Box>
+                    <Box className="mt-8">
                         <Heading as="h3" variant="h3" className="mb-2">
                             What You Need to Get Started
                         </Heading>
@@ -52,7 +52,7 @@ const Instructions = () => {
                         </Text>
                     </Box>
 
-                    <Box>
+                    <Box className="mt-8">
                         <Heading as="h3" variant="h3" className="mb-2">
                             Important - Please Read!
                         </Heading>
@@ -121,7 +121,7 @@ const Instructions = () => {
                         </Text>
                     </Box>
 
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}
