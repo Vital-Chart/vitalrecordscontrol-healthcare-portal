@@ -14,8 +14,7 @@ export const Layout = ({ children }) => {
     const { getLandingPage, isStepPage } = useNavigation()
     const isIdle = useIdle(60e4) // 10 minutes
     const browser = getBrowser()
-    let unsupportedBrowser =
-        browser.browser === 'Explorer' && browser.version < 11
+    let unsupportedBrowser
 
     // Clear data and redirect if user is idle too long
     useEffect(() => {
@@ -26,6 +25,11 @@ export const Layout = ({ children }) => {
             })
         }
     }, [isIdle])
+
+    useEffect(() => {
+        unsupportedBrowser =
+            browser.browser === 'Explorer' && browser.version < 11
+    }, [])
 
     return (
         <>
