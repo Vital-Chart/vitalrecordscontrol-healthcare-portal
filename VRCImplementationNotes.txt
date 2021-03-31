@@ -22,4 +22,18 @@ https://parveensingh.com/next-js-deployment-on-azure-app-service/
 
 DNS
 https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain
+<<<<<<< Updated upstream
 https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-bindings
+=======
+https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-bindings
+
+To Publish
+	main branch
+	fetch
+	npm install
+	npm run build
+	deploy via vsc
+	
+https://docs.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started
+https://docs.microsoft.com/en-us/azure/virtual-machines/acu
+>>>>>>> Stashed changes
