@@ -398,7 +398,7 @@ const Form = ({ store }) => {
 
                                 {watchRequestedInformation.includes('MR') && (
                                     <Box className="mt-4">
-                                        <Text className="text-sm font-bold mb-2">
+                                        <Text className="max-w-lg text-sm font-bold mb-2">
                                             The following information will not
                                             be released unless specifically
                                             authorized by checking the relevant
