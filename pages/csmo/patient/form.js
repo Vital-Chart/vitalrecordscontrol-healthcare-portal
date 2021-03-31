@@ -201,275 +201,257 @@ const Form = ({ store }) => {
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
-                            <Box>
-                                <Flex className="flex-col sm:flex-row">
-                                    <Box className="mr-4 mb-4">
-                                        <Label htmlFor="YI_REL_DD">
-                                            Relationship to Patient
-                                        </Label>
-                                        <Select
-                                            name="YI_REL_DD"
-                                            id="YI_REL_DD"
-                                            className="block mt-1"
-                                            onChange={handleChange}
-                                            ref={register({ required: true })}
-                                        >
-                                            <option value="SELF">Self</option>
-                                            <option value="PG">
-                                                Parent/Guardian
-                                            </option>
-                                            <option value="CON">
-                                                Conservator
-                                            </option>
-                                        </Select>
-                                    </Box>
-                                    <Box className="flex-grow mb-4">
-                                        <Label htmlFor="YI_REL_NM">Name</Label>
-                                        <Input
-                                            type="text"
-                                            name="YI_REL_NM"
-                                            id="YI_REL_NM"
-                                            autoComplete="name"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter your name.',
-                                            })}
-                                        />
-                                        {errors.YI_REL_NM && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_REL_NM.message
-                                                }
-                                            />
-                                        )}
-                                    </Box>
-                                </Flex>
-                                <Box className="mb-4">
-                                    <Flex className="items-center">
-                                        <Label htmlFor="YI_NOTICE_DD">
-                                            Preferred Notification Method
-                                        </Label>
-                                        <MicroModal
-                                            trigger={handleOpen => (
-                                                <Button
-                                                    onClick={handleOpen}
-                                                    className="ml-2"
-                                                >
-                                                    <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
-                                                </Button>
-                                            )}
-                                            children={handleClose => (
-                                                <Box className="p-8 relative">
-                                                    <Button
-                                                        onClick={handleClose}
-                                                        className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                                    >
-                                                        <IconClose
-                                                            onClick={
-                                                                handleClose
-                                                            }
-                                                            className=""
-                                                        />
-                                                        <ScreenReader>
-                                                            Close
-                                                        </ScreenReader>
-                                                    </Button>
 
-                                                    <Box>
-                                                        <Text className="text-xl font-bold">
-                                                            Preferred
-                                                            Notification Method
-                                                        </Text>
-
-                                                        <Text>
-                                                            This is the method
-                                                            by which you would
-                                                            like to receive
-                                                            automatic
-                                                            notifications of the
-                                                            progress of your
-                                                            request(s), as well
-                                                            as how you will
-                                                            receive password
-                                                            updates from this
-                                                            website. If we have
-                                                            specific questions
-                                                            about your request,
-                                                            we will call you at
-                                                            the phone number
-                                                            listed.
-                                                        </Text>
-                                                    </Box>
-                                                </Box>
-                                            )}
-                                        />
-                                    </Flex>
-
+                            <Flex className="flex-col sm:flex-row">
+                                <Box className="mr-4 mb-4">
+                                    <Label htmlFor="YI_REL_DD">
+                                        Relationship to Patient
+                                    </Label>
                                     <Select
-                                        name="YI_NOTICE_DD"
-                                        id="YI_NOTICE_DD"
-                                        className="block w-full mt-1"
+                                        name="YI_REL_DD"
+                                        id="YI_REL_DD"
+                                        className="block mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
-                                        <option value="text">
-                                            Text Message (Standard rates may
-                                            apply.)
+                                        <option value="SELF">Self</option>
+                                        <option value="PG">
+                                            Parent/Guardian
                                         </option>
-                                        <option value="email">Email</option>
+                                        <option value="CON">Conservator</option>
                                     </Select>
                                 </Box>
-
-                                <Flex className="flex-col sm:flex-row">
-                                    <Box className="mb-4 sm:mr-4">
-                                        <Label htmlFor="YI_PN">
-                                            Phone Number
-                                        </Label>
-                                        <Input
-                                            type="tel"
-                                            name="YI_PN"
-                                            id="YI_PN"
-                                            autoComplete="tel"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter your phone number.',
-                                                pattern: {
-                                                    value: regexPatterns.phone,
-                                                    message:
-                                                        'Please enter a valid phone number.',
-                                                },
-                                            })}
+                                <Box className="flex-grow mb-4">
+                                    <Label htmlFor="YI_REL_NM">Name</Label>
+                                    <Input
+                                        type="text"
+                                        name="YI_REL_NM"
+                                        id="YI_REL_NM"
+                                        autoComplete="name"
+                                        className="w-full mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required: 'Please enter your name.',
+                                        })}
+                                    />
+                                    {errors.YI_REL_NM && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.YI_REL_NM.message}
                                         />
-                                        {errors.YI_PN && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={errors.YI_PN.message}
-                                            />
+                                    )}
+                                </Box>
+                            </Flex>
+                            <Box className="mb-4">
+                                <Flex className="items-center">
+                                    <Label htmlFor="YI_NOTICE_DD">
+                                        Preferred Notification Method
+                                    </Label>
+                                    <MicroModal
+                                        trigger={handleOpen => (
+                                            <Button
+                                                onClick={handleOpen}
+                                                className="ml-2"
+                                            >
+                                                <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
+                                            </Button>
                                         )}
-                                    </Box>
-                                    <Box className="mb-4">
-                                        <Label htmlFor="YI_PHT_DD">Type</Label>
-                                        <Select
-                                            name="YI_PHT_DD"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                validate: {
-                                                    phoneTypeCheck: value =>
-                                                        value !==
-                                                            'Select phone type' ||
-                                                        'Please select a phone type.',
-                                                },
-                                            })}
-                                        >
-                                            <option defaultValue disabled>
-                                                Select phone type
-                                            </option>
-                                            <option key="mobile" value="mobile">
-                                                Mobile
-                                            </option>
-                                            <option key="home" value="home">
-                                                Home
-                                            </option>
-                                            <option key="work" value="work">
-                                                Work
-                                            </option>
-                                        </Select>
-                                        {errors.YI_PHT_DD && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_PHT_DD.message
-                                                }
-                                            />
+                                        children={handleClose => (
+                                            <Box className="p-8 relative">
+                                                <Button
+                                                    onClick={handleClose}
+                                                    className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                                >
+                                                    <IconClose
+                                                        onClick={handleClose}
+                                                        className=""
+                                                    />
+                                                    <ScreenReader>
+                                                        Close
+                                                    </ScreenReader>
+                                                </Button>
+
+                                                <Box>
+                                                    <Text className="text-xl font-bold">
+                                                        Preferred Notification
+                                                        Method
+                                                    </Text>
+
+                                                    <Text>
+                                                        This is the method by
+                                                        which you would like to
+                                                        receive automatic
+                                                        notifications of the
+                                                        progress of your
+                                                        request(s), as well as
+                                                        how you will receive
+                                                        password updates from
+                                                        this website. If we have
+                                                        specific questions about
+                                                        your request, we will
+                                                        call you at the phone
+                                                        number listed.
+                                                    </Text>
+                                                </Box>
+                                            </Box>
                                         )}
-                                    </Box>
+                                    />
                                 </Flex>
 
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_PHC">
-                                        Retype Phone Number
-                                    </Label>
+                                <Select
+                                    name="YI_NOTICE_DD"
+                                    id="YI_NOTICE_DD"
+                                    className="block w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({ required: true })}
+                                >
+                                    <option value="text">
+                                        Text Message (Standard rates may apply.)
+                                    </option>
+                                    <option value="email">Email</option>
+                                </Select>
+                            </Box>
+
+                            <Flex className="flex-col sm:flex-row">
+                                <Box className="mb-4 sm:mr-4">
+                                    <Label htmlFor="YI_PN">Phone Number</Label>
                                     <Input
                                         type="tel"
-                                        name="YI_PHC"
-                                        id="YI_PHC"
+                                        name="YI_PN"
+                                        id="YI_PN"
                                         autoComplete="tel"
                                         className="w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({
                                             required:
-                                                'Please confirm your phone number.',
-                                            validate: {
-                                                phoneMatch: value =>
-                                                    value ===
-                                                        getValues('YI_PN') ||
-                                                    'The phone numbers you entered do not match!',
+                                                'Please enter your phone number.',
+                                            pattern: {
+                                                value: regexPatterns.phone,
+                                                message:
+                                                    'Please enter a valid phone number.',
                                             },
                                         })}
                                     />
-                                    {errors.YI_PHC && (
+                                    {errors.YI_PN && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.YI_PHC.message}
+                                            message={errors.YI_PN.message}
                                         />
                                     )}
                                 </Box>
                                 <Box className="mb-4">
-                                    <Label htmlFor="YI_EM">Email Address</Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EM"
-                                        id="YI_EM"
-                                        autoComplete="email"
+                                    <Label htmlFor="YI_PHT_DD">Type</Label>
+                                    <Select
+                                        name="YI_PHT_DD"
                                         className="w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({
-                                            required:
-                                                'Please enter your email address.',
-                                        })}
-                                    />
-                                    {errors.YI_EM && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_EM.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_EMC">
-                                        Retype Email Address
-                                    </Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EMC"
-                                        id="YI_EMC"
-                                        autoComplete="email"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please confirm your email address.',
                                             validate: {
-                                                emailMatch: value =>
-                                                    value ===
-                                                        getValues('YI_EM') ||
-                                                    'The email addresses you entered do not match.',
+                                                phoneTypeCheck: value =>
+                                                    value !==
+                                                        'Select phone type' ||
+                                                    'Please select a phone type.',
                                             },
                                         })}
-                                    />
-                                    {errors.YI_EMC && (
+                                    >
+                                        <option defaultValue disabled>
+                                            Select phone type
+                                        </option>
+                                        <option key="mobile" value="mobile">
+                                            Mobile
+                                        </option>
+                                        <option key="home" value="home">
+                                            Home
+                                        </option>
+                                        <option key="work" value="work">
+                                            Work
+                                        </option>
+                                    </Select>
+                                    {errors.YI_PHT_DD && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.YI_EMC.message}
+                                            message={errors.YI_PHT_DD.message}
                                         />
                                     )}
                                 </Box>
+                            </Flex>
+
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_PHC">
+                                    Retype Phone Number
+                                </Label>
+                                <Input
+                                    type="tel"
+                                    name="YI_PHC"
+                                    id="YI_PHC"
+                                    autoComplete="tel"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your phone number.',
+                                        validate: {
+                                            phoneMatch: value =>
+                                                value === getValues('YI_PN') ||
+                                                'The phone numbers you entered do not match!',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_PHC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_PHC.message}
+                                    />
+                                )}
+                            </Box>
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EM">Email Address</Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EM"
+                                    id="YI_EM"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please enter your email address.',
+                                    })}
+                                />
+                                {errors.YI_EM && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_EM.message}
+                                    />
+                                )}
+                            </Box>
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EMC">
+                                    Retype Email Address
+                                </Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EMC"
+                                    id="YI_EMC"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your email address.',
+                                        validate: {
+                                            emailMatch: value =>
+                                                value === getValues('YI_EM') ||
+                                                'The email addresses you entered do not match.',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_EMC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_EMC.message}
+                                    />
+                                )}
                             </Box>
                         </FormSection>
 
