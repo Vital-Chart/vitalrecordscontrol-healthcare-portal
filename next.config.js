@@ -1,21 +1,22 @@
 const path = require('path')
 const defaultImageSizes = [80, 160, 320, 640]
 
+const currentEnv = process.env.ENV || 'dev'
+
+const envSettings = {
+    dev: 'https://v2.abtroiplus.com/patientportalwebservicedev',
+    test: 'https://v2.abtroiplus.com/patientportalwebservicetest',
+    prod: 'https://v2.abtroiplus.com/patientportalwebserviceprod',
+}
+
 const nextConfig = {
     env: {
-        CREATE_UPDATE_REQUEST_ENDPOINT:
-            'https://v2.abtroiplus.com/patientportalwebservicedev/PatientRequest/PersistPatientRequest',
-        COMPLETE_REQUEST_ENDPOINT:
-            'https://v2.abtroiplus.com/patientportalwebservicedev/PatientRequest/CompletePatientRequest',
-        CREATE_FORM_ENDPOINT:
-            'https://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/RenderForm',
-        GET_FORM_ENDPOINT:
-            'https://v2.abtroiplus.com/patientportalwebservicedev/AuthorizationForm/DisplayForm',
-        DELETE_UPLOAD_ENDPOINT:
-            'https://v2.abtroiplus.com/patientportalwebservicedev/Uploads/Delete',
-        VIEW_UPLOAD_ENDPOINT:
-            'https://v2.abtroiplus.com/patientportalwebservicedev/Uploads/RenderUpload',
-        NEXT_PUBLIC_ENV: 'Dev',
+        CREATE_UPDATE_REQUEST_ENDPOINT: `${envSettings[currentEnv]}/PatientRequest/PersistPatientRequest`,
+        COMPLETE_REQUEST_ENDPOINT: `${envSettings[currentEnv]}/PatientRequest/CompletePatientRequest`,
+        CREATE_FORM_ENDPOINT: `${envSettings[currentEnv]}/AuthorizationForm/RenderForm`,
+        GET_FORM_ENDPOINT: `${envSettings[currentEnv]}/AuthorizationForm/DisplayForm`,
+        DELETE_UPLOAD_ENDPOINT: `${envSettings[currentEnv]}/Uploads/Delete`,
+        VIEW_UPLOAD_ENDPOINT: `${envSettings[currentEnv]}/Uploads/RenderUpload`,
     },
     images: {
         deviceSizes: defaultImageSizes,
@@ -32,24 +33,6 @@ const nextConfig = {
         })
         return config
     },
-    // exportPathMap: async function () {
-    //     return {
-    //         '/': { page: '/' },
-    //         '/pih': { page: '/pih' },
-    //         '/pih/patient': {
-    //             page: '/pih/patient',
-    //         },
-    //         '/pih/patient/request': {
-    //             page: '/pih/patient/request',
-    //         },
-    //         '/pih/sendto': {
-    //             page: '/pih/sendto',
-    //         },
-    //         '/pih/sendto/request': {
-    //             page: '/pih/sendto/request',
-    //         },
-    //     }
-    // },
 }
 
 module.exports = nextConfig

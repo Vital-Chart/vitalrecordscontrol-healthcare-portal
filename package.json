@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:test": "ENV=test next build",
+    "build:prod": "ENV=prod next build",
     "export": "next build && next export",
     "prestart": "next build",
     "start": "next start",
