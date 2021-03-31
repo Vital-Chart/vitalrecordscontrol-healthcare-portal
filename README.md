@@ -22,8 +22,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### General Deploy Steps
 1. Pull updates from the remote `main` branch into your local repository using `git pull`.
 2. Run `yarn` or `npm install` to install/update dependencies.
-3. Run the appropriate build command (see below).
-4. Deploy to the desired environment using the VS Code Azure extension. 
+3. Delete the `.next` folder.
+4. Run the appropriate build command (see below).
+5. Deploy to the desired environment using the VS Code Azure extension. 
 
 Endpoints are set at build time via an environment variable. Run the corresponding command before deploying to each environment. If using `npm` instead of `yarn`, replace `yarn` in with `npm run` in teh commands below. 
 
