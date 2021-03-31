@@ -73,6 +73,11 @@ const Form = ({ store }) => {
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
+    const watchIPMInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
+    const watchIPDInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
+    const watchGTIInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
+    const watchHIVInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
+    const watchWCIInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
 
     const facility = hospitals[hospital].facilities[0]
 
@@ -241,6 +246,7 @@ const Form = ({ store }) => {
                                             <Flex className="pl-8 flex-col md:flex-row">
                                                 <CheckboxWrapper className="w-full">
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Emergency/Urgent Care Physician Report"
                                                         name="RI_MR_FR_CB"
                                                         value="EUR"
@@ -248,6 +254,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Consultation Report"
                                                         name="RI_MR_FR_CB"
                                                         value="CR"
@@ -255,6 +262,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Laboratory Reports"
                                                         name="RI_MR_FR_CB"
                                                         value="LR"
@@ -262,6 +270,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Newborn Record"
                                                         name="RI_MR_FR_CB"
                                                         value="NR"
@@ -269,6 +278,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="History and Physical Report"
                                                         name="RI_MR_FR_CB"
                                                         value="HPR"
@@ -285,6 +295,7 @@ const Form = ({ store }) => {
                                                 </CheckboxWrapper>
                                                 <CheckboxWrapper className="w-full">
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Pathology Report"
                                                         name="RI_MR_FR_CB"
                                                         value="PR"
@@ -292,6 +303,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Immunization Record"
                                                         name="RI_MR_FR_CB"
                                                         value="IR"
@@ -300,6 +312,7 @@ const Form = ({ store }) => {
                                                     />
 
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Discharge Summary Report"
                                                         name="RI_MR_FR_CB"
                                                         value="DSR"
@@ -307,6 +320,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Anesthesia Records"
                                                         name="RI_MR_FR_CB"
                                                         value="AR"
@@ -314,6 +328,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Radiology Report/Image"
                                                         name="RI_MR_FR_CB"
                                                         value="RR"
@@ -339,50 +354,133 @@ const Form = ({ store }) => {
                                         )}
 
                                         <Box className="mt-4">
-                                            <Text className="text-sm font-bold mb-2">
+                                            <Text className="max-w-lg text-sm font-bold mb-4">
                                                 The following information will
                                                 not be released unless
                                                 specifically authorized by
-                                                checking the relevant box(es)
-                                                below:
+                                                typing your initials in the
+                                                relevant box(es) below:
                                             </Text>
-                                            <CheckboxWrapper>
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Information pertaining to mental health diagnosis or treatment"
-                                                    value="IPM"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
-                                                    value="IPD"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="HIV/AIDS test results"
-                                                    value="HIV"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Genetic testing information"
-                                                    value="GTI"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Worker's Comp information"
-                                                    value="WCI"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                            </CheckboxWrapper>
+                                            <Box className="pl-4">
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_IPM"
+                                                        id="RI_MR_AI_CB_TXT_IPM"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                        ref={register}
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_IPM">
+                                                        Information pertaining
+                                                        to mental health
+                                                        diagnosis or treatment
+                                                    </Label>
+                                                </Flex>
+                                                {watchIPMInitials !== '' && (
+                                                    <Checkbox
+                                                        labelClassName="hidden"
+                                                        checked
+                                                        name="RI_MR_AI_CB"
+                                                        value="IPM"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                )}
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_IPD"
+                                                        id="RI_MR_AI_CB_TXT_IPD"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_IPD">
+                                                        Information pertaining
+                                                        to drug and alcohol
+                                                        abuse, diagnosis, or
+                                                        treatment
+                                                    </Label>
+                                                </Flex>
+                                                {watchIPDInitials !== '' && (
+                                                    <Checkbox
+                                                        labelClassName="hidden"
+                                                        checked
+                                                        name="RI_MR_AI_CB"
+                                                        value="IPD"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                )}
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_HIV"
+                                                        id="RI_MR_AI_CB_TXT_HIV"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_HIV">
+                                                        HIV/AIDS test results
+                                                    </Label>
+                                                </Flex>
+                                                {watchHIVInitials !== '' && (
+                                                    <Checkbox
+                                                        labelClassName="hidden"
+                                                        checked
+                                                        name="RI_MR_AI_CB"
+                                                        value="HIV"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                )}
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_GTI"
+                                                        id="RI_MR_AI_CB_TXT_GTI"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_GTI">
+                                                        Genetic testing
+                                                        information
+                                                    </Label>
+                                                </Flex>
+                                                {watchGTIInitials !== '' && (
+                                                    <Checkbox
+                                                        labelClassName="hidden"
+                                                        checked
+                                                        name="RI_MR_AI_CB"
+                                                        value="GTI"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                )}
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_WCI"
+                                                        id="RI_MR_AI_CB_TXT_WCI"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_WCI">
+                                                        Worker's Comp
+                                                        information
+                                                    </Label>
+                                                </Flex>
+                                                {watchWCIInitials !== '' && (
+                                                    <Checkbox
+                                                        labelClassName="hidden"
+                                                        checked
+                                                        name="RI_MR_AI_CB"
+                                                        value="WCI"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                )}
+                                            </Box>
                                         </Box>
                                     </Box>
                                 )}
@@ -625,13 +723,12 @@ const Form = ({ store }) => {
                                     Medical Records Delivery Options
                                 </Heading>
                                 <Text className="mb-4">
-                                    There are three delivery options for Medical
-                                    Records and Itemized Billing. You can
-                                    download them directly from the website, or
-                                    have them created on CD to be delivered by
-                                    mail via the US Postal Service to the
-                                    address entered below, or Picked up at the
-                                    Medical Facility.
+                                    Please choose from one of the below options
+                                    for Medical Records. You can download them
+                                    directly from the website, or have them
+                                    created on CD to be delivered by mail via
+                                    the US Postal Service to the address entered
+                                    below, or Picked up at the Medical Facility.
                                 </Text>
                                 <Box className="mb-4">
                                     <Label htmlFor="DI_DM_DD">

@@ -133,7 +133,7 @@ const Hospital = () => {
                 <Flex className="w-full border-b border-gray-light">
                     <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
                         <Text className="w-full text-sm text-center">
-                            How long can it take to process my request?
+                            How long can it take to process the request?
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
@@ -154,7 +154,7 @@ const Hospital = () => {
                 <Flex className="w-full border-b border-gray-light">
                     <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
                         <Text className="w-full text-sm text-center">
-                            Can I order my records with my phone/tablet?
+                            Can I order records with the phone/tablet?
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3  order-1">
@@ -168,7 +168,7 @@ const Hospital = () => {
                 <Flex className="w-full border-b border-gray-light">
                     <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
                         <Text className="w-full text-sm text-center">
-                            Will I be told when my request is ready?
+                            Will I be told when the request is ready?
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
@@ -187,50 +187,40 @@ const Hospital = () => {
                 <Flex className="w-full border-b border-gray-light">
                     <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
                         <Text className="w-full text-sm text-center">
-                            Can I access my own records?
+                            Can I print, email, save, and/or fax the records?
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                        <Text className="w-full text-sm text-center">Yes</Text>
+                        <Text className="w-full text-sm text-center">
+                            Yes. The most expedient method is electronic
+                            delivery.
+                        </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                        <Text className="w-full text-sm text-center">No</Text>
+                        <Text className="w-full text-sm text-center">
+                            Yes. The most expedient method is electronic
+                            delivery.
+                        </Text>
                     </Flex>
                 </Flex>
 
                 <Flex className="w-full border-b border-gray-light">
                     <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
                         <Text className="w-full text-sm text-center">
-                            Can I print, email, save, and/or fax my records?
+                            How can I access the imaging study?
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
                         <Text className="w-full text-sm text-center">
-                            Yes, and you can share them with any 3rd party when
-                            and how you want
-                        </Text>
-                    </Flex>
-                    <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                        <Text className="w-full text-sm text-center">No</Text>
-                    </Flex>
-                </Flex>
-
-                <Flex className="w-full border-b border-gray-light">
-                    <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
-                        <Text className="w-full text-sm text-center">
-                            How are my records made available?
-                        </Text>
-                    </Flex>
-                    <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
-                        <Text className="w-full text-sm text-center">
-                            The only item you may pick up or have mailed to you
-                            is an X-Ray/MRI CD.
+                            Palomar Health can provide imaging study
+                            electronically through 3rd party application. Please
+                            inquire.
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
                         <Text className="w-full text-sm text-center">
-                            The only item mailed to the Healthcare Provider is
-                            an X-Ray/MRI CD.
+                            Palomar Health can provide imaging study via CD/DVD
+                            for a flat rate fee. Please inquire.
                         </Text>
                     </Flex>
                 </Flex>
@@ -238,14 +228,14 @@ const Hospital = () => {
                 <Flex className="w-full">
                     <Flex className="w-1/3 md:w-1/2 items-center px-4 py-3 order-2 bg-gray-lightest">
                         <Text className="w-full text-sm text-center">
-                            Can I view my records on my phone/tablet?
+                            Can I view the records on a phone/tablet?
                         </Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-1">
                         <Text className="w-full text-sm text-center">Yes</Text>
                     </Flex>
                     <Flex className="w-1/3 md:w-1/4 items-center px-4 py-3 order-3">
-                        <Text className="w-full text-sm text-center">No</Text>
+                        <Text className="w-full text-sm text-center">Yes</Text>
                     </Flex>
                 </Flex>
             </Box>
