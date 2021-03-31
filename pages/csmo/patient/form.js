@@ -143,9 +143,9 @@ const Form = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper className="mb-4" />
+            <Stepper />
             <Container>
-                <PageHeading className="pt-4">
+                <PageHeading className="mt-8">
                     <Text
                         as="span"
                         className="block pb-1 text-base md:text-lg font-normal text-gray-dark"

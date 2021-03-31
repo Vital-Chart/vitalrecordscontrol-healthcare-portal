@@ -127,9 +127,9 @@ const Form = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper className="mb-4" />
+            <Stepper />
             <Container>
-                <PageHeading className="pt-4">
+                <PageHeading className="mt-8">
                     <Text
                         as="span"
                         className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
@@ -982,8 +982,8 @@ const Form = ({ store }) => {
                                         )}
                                     </Box>
 
-                                    <Flex className="mb-4">
-                                        <Box>
+                                    <Flex className="flex-col sm:flex-row">
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ST_DD">
                                                 State
                                             </Label>
@@ -1023,7 +1023,7 @@ const Form = ({ store }) => {
                                                 />
                                             )}
                                         </Box>
-                                        <Box>
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ZIP">Zip</Label>
                                             <Input
                                                 type="text"

@@ -147,9 +147,9 @@ const Form = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper className="mb-4" />
+            <Stepper />
             <Container>
-                <PageHeading className="pt-4">
+                <PageHeading className="mt-8">
                     New Medical Records Request
                 </PageHeading>
                 <FormProvider handleChange={handleChange} {...methods}>
