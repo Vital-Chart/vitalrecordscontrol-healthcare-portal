@@ -250,6 +250,17 @@ const Form = ({ store }) => {
                                         })}
                                     />
                                     <Checkbox
+                                        labelClassName="mb-2"
+                                        label="Reproductive Health"
+                                        name="RI_CB"
+                                        value="RH"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select the items you would like released.',
+                                        })}
+                                    />
+                                    <Checkbox
                                         label="Other Records"
                                         name="RI_CB"
                                         value="OR"

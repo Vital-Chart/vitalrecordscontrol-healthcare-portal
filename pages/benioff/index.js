@@ -103,8 +103,8 @@ const Hospital = () => {
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
                                 <Text className="w-full text-sm text-center">
-                                    Yes, immediately, by text message (see
-                                    sample texts below) or email
+                                    Yes, by text message (see sample texts
+                                    below) or email
                                 </Text>
                             </Flex>
                         </Flex>
@@ -131,8 +131,7 @@ const Hospital = () => {
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
                                 <Text className="w-full text-sm text-center">
-                                    Yes, and you can share them with any 3rd
-                                    party when and how you want
+                                    Yes
                                 </Text>
                             </Flex>
                         </Flex>
@@ -145,8 +144,8 @@ const Hospital = () => {
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
                                 <Text className="w-full text-sm text-center">
-                                    Online only.*** The only item you may pick
-                                    up or have mailed to you is an X-Ray/MRI CD.
+                                    You will be asked for your desired method of
+                                    delivery when completing the request form.
                                 </Text>
                             </Flex>
                         </Flex>
