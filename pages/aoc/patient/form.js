@@ -808,7 +808,7 @@ const Form = ({ store }) => {
                                                 pattern: {
                                                     value: regexPatterns.phone,
                                                     message:
-                                                        'Please enter a valid phone number.',
+                                                        'Please enter a valid fax number.',
                                                 },
                                             })}
                                         />
