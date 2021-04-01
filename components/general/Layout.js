@@ -29,7 +29,7 @@ export const Layout = ({ children }) => {
     useEffect(() => {
         // unsupportedBrowser =
         //     browser.browser === 'Explorer' && browser.version < 11
-        if (browser.browser === 'Chrome' && browser.version < 11) {
+        if (browser.browser === 'Explorer' && browser.version < 11) {
             setUnsupportedBrowser(true)
         }
     }, [])
