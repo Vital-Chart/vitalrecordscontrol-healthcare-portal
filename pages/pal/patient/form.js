@@ -74,10 +74,10 @@ const Form = ({ store }) => {
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
     const watchIPMInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
-    const watchIPDInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
-    const watchGTIInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
-    const watchHIVInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
-    const watchWCIInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
+    const watchIPDInitials = watch('RI_MR_AI_CB_TXT_IPD', '')
+    const watchGTIInitials = watch('RI_MR_AI_CB_TXT_GTI', '')
+    const watchHIVInitials = watch('RI_MR_AI_CB_TXT_HIV', '')
+    const watchWCIInitials = watch('RI_MR_AI_CB_TXT_WCI', '')
 
     const facility = hospitals[hospital].facilities[0]
 
@@ -359,7 +359,10 @@ const Form = ({ store }) => {
                                                 not be released unless
                                                 specifically authorized by
                                                 typing your initials in the
-                                                relevant box(es) below:
+                                                relevant box(es) below. DO NOT
+                                                fill in your initials, unless
+                                                you want the below records
+                                                released.
                                             </Text>
                                             <Box className="pl-4">
                                                 <Flex className="items-start sm:items-center mb-4">
@@ -369,6 +372,7 @@ const Form = ({ store }) => {
                                                         id="RI_MR_AI_CB_TXT_IPM"
                                                         className="mr-2 w-16"
                                                         maxLength="3"
+                                                        onChange={handleChange}
                                                         ref={register}
                                                     />
                                                     <Label htmlFor="RI_MR_AI_CB_TXT_IPM">
@@ -394,6 +398,8 @@ const Form = ({ store }) => {
                                                         id="RI_MR_AI_CB_TXT_IPD"
                                                         className="mr-2 w-16"
                                                         maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
                                                     />
                                                     <Label htmlFor="RI_MR_AI_CB_TXT_IPD">
                                                         Information pertaining
@@ -419,6 +425,8 @@ const Form = ({ store }) => {
                                                         id="RI_MR_AI_CB_TXT_HIV"
                                                         className="mr-2 w-16"
                                                         maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
                                                     />
                                                     <Label htmlFor="RI_MR_AI_CB_TXT_HIV">
                                                         HIV/AIDS test results
@@ -441,6 +449,8 @@ const Form = ({ store }) => {
                                                         id="RI_MR_AI_CB_TXT_GTI"
                                                         className="mr-2 w-16"
                                                         maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
                                                     />
                                                     <Label htmlFor="RI_MR_AI_CB_TXT_GTI">
                                                         Genetic testing
@@ -464,6 +474,8 @@ const Form = ({ store }) => {
                                                         id="RI_MR_AI_CB_TXT_WCI"
                                                         className="mr-2 w-16"
                                                         maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
                                                     />
                                                     <Label htmlFor="RI_MR_AI_CB_TXT_WCI">
                                                         Worker's Comp
