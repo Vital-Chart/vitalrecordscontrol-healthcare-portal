@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useIdle } from 'react-use'
 import useNavigation from '@/lib/useNavigation'
@@ -14,7 +14,7 @@ export const Layout = ({ children }) => {
     const { getLandingPage, isStepPage } = useNavigation()
     const isIdle = useIdle(60e4) // 10 minutes
     const browser = getBrowser()
-    let unsupportedBrowser
+    const [unsupportedBrowser, setUnsupportedBrowser] = useState(false)
 
     // Clear data and redirect if user is idle too long
     useEffect(() => {
@@ -27,8 +27,11 @@ export const Layout = ({ children }) => {
     }, [isIdle])
 
     useEffect(() => {
-        unsupportedBrowser =
-            browser.browser === 'Explorer' && browser.version < 11
+        // unsupportedBrowser =
+        //     browser.browser === 'Explorer' && browser.version < 11
+        if (browser.browser === 'Chrome' && browser.version < 11) {
+            setUnsupportedBrowser(true)
+        }
     }, [])
 
     return (
