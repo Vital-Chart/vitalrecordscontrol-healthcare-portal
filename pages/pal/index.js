@@ -296,7 +296,7 @@ const Hospital = () => {
                             Your Medical Records are ready!
                         </Text>
                         <Text className="w-full text-sm">
-                            Go to https://myroiplus.com
+                            Go to https://roigateway.vrcroiplus.com/pal
                         </Text>
                         <Text className="text-sm">
                             Account #: xxxxxx PIN #: xxxx
