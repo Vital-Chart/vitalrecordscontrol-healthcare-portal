@@ -103,11 +103,11 @@ const Form = ({ store }) => {
 
     useEffect(() => {
         const authorizedInfo = [
-            watchIPMInitials && 'IPM',
-            watchIPDInitials && 'IPD',
-            watchGTIInitials && 'GTI',
-            watchHIVInitials && 'HIV',
-            watchWCIInitials && 'WCI',
+            watchIPMInitials.trim().length > 0 ? 'IPM' : '',
+            watchIPDInitials.trim().length > 0 ? 'IPD' : '',
+            watchGTIInitials.trim().length > 0 ? 'GTI' : '',
+            watchHIVInitials.trim().length > 0 ? 'HIV' : '',
+            watchWCIInitials.trim().length > 0 ? 'WCI' : '',
         ].filter(el => el !== '')
 
         setValue('RI_MR_AI_CB', authorizedInfo)
