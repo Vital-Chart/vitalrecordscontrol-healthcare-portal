@@ -11,6 +11,7 @@ const envSettings = {
 
 const nextConfig = {
     env: {
+        CURRENT_ENV: currentEnv,
         CREATE_UPDATE_REQUEST_ENDPOINT: `${envSettings[currentEnv]}/PatientRequest/PersistPatientRequest`,
         COMPLETE_REQUEST_ENDPOINT: `${envSettings[currentEnv]}/PatientRequest/CompletePatientRequest`,
         CREATE_FORM_ENDPOINT: `${envSettings[currentEnv]}/AuthorizationForm/RenderForm`,
@@ -22,7 +23,7 @@ const nextConfig = {
         deviceSizes: defaultImageSizes,
         domains: [],
     },
-    webpack(config) {
+    webpack: (config, options) => {
         config.resolve.alias['@'] = path.resolve(__dirname)
         config.module.rules.push({
             test: /\.svg$/,
@@ -31,6 +32,18 @@ const nextConfig = {
             },
             use: ['@svgr/webpack'],
         })
+        // Sentry
+        if (!options.isServer) {
+            config.resolve.alias['@sentry/node'] = '@sentry/browser'
+        }
+        config.plugins.push(
+            new options.webpack.DefinePlugin({
+                'process.env.NEXT_IS_SERVER': JSON.stringify(
+                    options.isServer.toString()
+                ),
+            })
+        )
+
         return config
     },
 }
