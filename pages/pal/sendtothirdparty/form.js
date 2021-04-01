@@ -101,6 +101,24 @@ const Form = ({ store }) => {
         store.state.form.PI_PLN,
     ])
 
+    useEffect(() => {
+        const authorizedInfo = [
+            watchIPMInitials && 'IPM',
+            watchIPDInitials && 'IPD',
+            watchGTIInitials && 'GTI',
+            watchHIVInitials && 'HIV',
+            watchWCIInitials && 'WCI',
+        ].filter(el => el !== '')
+
+        setValue('RI_MR_AI_CB', authorizedInfo)
+    }, [
+        watchIPMInitials,
+        watchIPDInitials,
+        watchGTIInitials,
+        watchHIVInitials,
+        watchWCIInitials,
+    ])
+
     const handleChange = e => {
         setServerErrors([])
 
@@ -362,6 +380,12 @@ const Form = ({ store }) => {
                                                 released.
                                             </Text>
                                             <Box className="pl-4">
+                                                <Input
+                                                    type="hidden"
+                                                    name="RI_MR_AI_CB"
+                                                    onChange={handleChange}
+                                                    ref={register}
+                                                />
                                                 <Flex className="items-start sm:items-center mb-4">
                                                     <Input
                                                         type="text"
@@ -378,16 +402,7 @@ const Form = ({ store }) => {
                                                         diagnosis or treatment
                                                     </Label>
                                                 </Flex>
-                                                {watchIPMInitials !== '' && (
-                                                    <Checkbox
-                                                        labelClassName="hidden"
-                                                        checked
-                                                        name="RI_MR_AI_CB"
-                                                        value="IPM"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                )}
+
                                                 <Flex className="items-start sm:items-center mb-4">
                                                     <Input
                                                         type="text"
@@ -405,16 +420,7 @@ const Form = ({ store }) => {
                                                         treatment
                                                     </Label>
                                                 </Flex>
-                                                {watchIPDInitials !== '' && (
-                                                    <Checkbox
-                                                        labelClassName="hidden"
-                                                        checked
-                                                        name="RI_MR_AI_CB"
-                                                        value="IPD"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                )}
+
                                                 <Flex className="items-start sm:items-center mb-4">
                                                     <Input
                                                         type="text"
@@ -429,16 +435,7 @@ const Form = ({ store }) => {
                                                         HIV/AIDS test results
                                                     </Label>
                                                 </Flex>
-                                                {watchHIVInitials !== '' && (
-                                                    <Checkbox
-                                                        labelClassName="hidden"
-                                                        checked
-                                                        name="RI_MR_AI_CB"
-                                                        value="HIV"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                )}
+
                                                 <Flex className="items-start sm:items-center mb-4">
                                                     <Input
                                                         type="text"
@@ -454,16 +451,7 @@ const Form = ({ store }) => {
                                                         information
                                                     </Label>
                                                 </Flex>
-                                                {watchGTIInitials !== '' && (
-                                                    <Checkbox
-                                                        labelClassName="hidden"
-                                                        checked
-                                                        name="RI_MR_AI_CB"
-                                                        value="GTI"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                )}
+
                                                 <Flex className="items-start sm:items-center mb-4">
                                                     <Input
                                                         type="text"
@@ -479,16 +467,6 @@ const Form = ({ store }) => {
                                                         information
                                                     </Label>
                                                 </Flex>
-                                                {watchWCIInitials !== '' && (
-                                                    <Checkbox
-                                                        labelClassName="hidden"
-                                                        checked
-                                                        name="RI_MR_AI_CB"
-                                                        value="WCI"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                )}
                                             </Box>
                                         </Box>
                                     </Box>

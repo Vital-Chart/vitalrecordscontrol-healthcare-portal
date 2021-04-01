@@ -251,7 +251,7 @@ const Form = ({ store }) => {
                                     />
                                     <Checkbox
                                         labelClassName="mb-2"
-                                        label="Reproductive Health"
+                                        label="Reproductive Health (family planning , infertility)"
                                         name="RI_CB"
                                         value="RH"
                                         onChange={handleChange}
