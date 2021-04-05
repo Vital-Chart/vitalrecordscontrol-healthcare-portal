@@ -265,18 +265,6 @@ const Form = ({ store }) => {
                                     )}
 
                                     <Checkbox
-                                        labelClassName="mb-2"
-                                        label="Include physical therapy records?"
-                                        name="RI_CB"
-                                        value="PT"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
-                                    />
-
-                                    <Checkbox
                                         label="Include visits from today or yesterday?"
                                         name="RI_CB"
                                         value="VSTY"
@@ -295,6 +283,10 @@ const Form = ({ store }) => {
                                         message={errors.RI_CB.message}
                                     />
                                 )}
+                                <Info
+                                    className="mt-4"
+                                    secondaryText="NOTE: Physical Therapy records are NOT available via this request."
+                                />
                             </Box>
                         </FormSection>
 
@@ -560,8 +552,8 @@ const Form = ({ store }) => {
                             </SectionHeading>
 
                             {(watchRequestedInformationOptions === 'ALLNXM' ||
-                                watchRequestedInformationOptions === 'ALLXM' ||
-                                watchRequestedInformation.includes('PT')) && (
+                                watchRequestedInformationOptions ===
+                                    'ALLXM') && (
                                 <>
                                     <Input
                                         type="hidden"
@@ -854,9 +846,7 @@ const Form = ({ store }) => {
                                 as="ul"
                                 className="pl-8 mb-8 space-y-2 list-disc"
                             >
-                                {watchRequestedInformation.some(i =>
-                                    ['MR', 'PT'].includes(i)
-                                ) &&
+                                {watchRequestedInformation === 'MR' &&
                                     watchRequestedInformationOptions !==
                                         'XM' && (
                                         <Box as="li">
@@ -873,7 +863,7 @@ const Form = ({ store }) => {
                                     <Box as="li">
                                         X-Rays and MRIs will be delivered by
                                         mail via the US Postal Service to the
-                                        address entered above,
+                                        address entered above.
                                     </Box>
                                 )}
 
