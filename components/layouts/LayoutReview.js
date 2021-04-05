@@ -125,7 +125,14 @@ function getFollowingRecordsString(store) {
 function displayAuthorizedInformation(store) {
     const { form } = store.state
 
-    const info = form.RI_MR_AI_CB.map(checkbox => {
+    const authorizedInfo =
+        form.RI_MR_AI_CB && Array.isArray(form.RI_MR_AI_CB)
+            ? form.RI_MR_AI_CB
+            : form.RI_MR_AI_CB.split(',')
+
+    console.log(authorizedInfo)
+
+    const info = authorizedInfo.map(checkbox => {
         switch (checkbox) {
             case 'IPD':
                 return 'Information pertaining to drug and alcohol abuse, diagnosis, or treatment'
