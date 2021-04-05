@@ -12,11 +12,12 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
-                        Instructions for Release to Third Party
+                        Instructions for Release to Third-Party
                     </PageHeading>
-                    <Box>
+
+                    <Box className="mt-8">
                         <Text className="pb-4 leading-relaxed">
                             This website allows you to submit requests for
                             copies of a patient's medical records to be sent to
@@ -203,7 +204,7 @@ const Instructions = () => {
                             to review other options for submitting your request.
                         </Text>
                     </Box>
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

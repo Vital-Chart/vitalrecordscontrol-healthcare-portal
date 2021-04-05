@@ -1,5 +1,5 @@
 import useNavigation from '@/lib/useNavigation'
-import { Box, Link, Text, Button } from '@/components/core'
+import { Box, Link, Text, Button, Heading } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
 
@@ -9,117 +9,139 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
-                        Instructions for Medical Records Request
+                        Instructions for Quick Release to You
                     </PageHeading>
 
-                    <Box>
-                        <Text className="pb-4">
-                            This website allows you to request copies of your
-                            medical record and to retrieve it electronically.
-                            Please read the important notes below before
-                            continuing to use this system:
-                        </Text>
-
-                        <Box
-                            as="ol"
-                            className="pl-8 pb-4 space-y-2 list-decimal"
-                        >
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            Welcome! Please Read Below.
+                        </Heading>
+                        <Box as="ul" className="pl-8 space-y-2 list-disc">
                             <Box as="li">
+                                This ordering site is for use by{' '}
+                                <Text as="span" className="italic">
+                                    patients only.
+                                </Text>
+                            </Box>
+                            <Box as="li">
+                                All written records (including imaging reports)
+                                are provided to patients for a flat fee of $15
+                                per request.
+                            </Box>
+                            <Box as="li">
+                                ALL available medical records are provided. You
+                                do not need to specify the types of written
+                                records or dates of service.
+                            </Box>
+                            <Box as="li">
+                                Written records (excludes X-Ray and MRI imaging)
+                                are made available securely{' '}
                                 <Text as="span" className="font-bold">
-                                    This option is for patients or parties with
-                                    the power to make decisions on behalf of a
-                                    patient
+                                    online only
+                                </Text>
+                                . We do{' '}
+                                <Text as="span" className="font-bold">
+                                    not
                                 </Text>{' '}
-                                (e.g., parents, guardians) to request records to
-                                be electronically delivered to{' '}
-                                <Text as="span" className="font-bold">
-                                    YOU
-                                </Text>
-                                . Some materials, such as Radiology Imaging CDs
-                                or Pathology Slides, require being sent via the
-                                U.S. Postal service or require pick-up.
+                                fax or mail records.
                             </Box>
                             <Box as="li">
-                                In order to protect your privacy and comply with
-                                federal and state regulations, we need a copy of
-                                your driver's license or other government-issued
-                                ID before we can release your records.{' '}
-                                <Text as="span" className="font-bold">
-                                    Failure to upload all required documents
-                                    through this system within 72 hours after
-                                    beginning the process will result in your
-                                    request being canceled.
-                                </Text>
-                            </Box>
-                            <Box
-                                as="ul"
-                                className="pl-8 pb-2 space-y-2 list-disc"
-                            >
-                                <Box as="li">
-                                    If you are on a mobile device (e.g.
-                                    smartphone/tablet), you will need to
-                                    electronically sign an authorization form
-                                    and submit a picture of yourself holding
-                                    your government-issued ID.
-                                </Box>
-                                <Box as="li">
-                                    If you are on a non-mobile device (e.g.
-                                    desktop/laptop computer) you will need to
-                                    print, manually sign, and upload a scanned
-                                    copy of an authorization form as well as
-                                    your government-issued ID.
-                                </Box>
+                                If you need a CD of Images (MRI or X-rays),
+                                please put in a separate request for the CD
+                                through your portal account at{' '}
+                                <Link
+                                    href="https://sportmed.com/"
+                                    className="text-blue underline hover:text-black transition-colors"
+                                >
+                                    sportmed.com
+                                </Link>
+                                .
                             </Box>
                             <Box as="li">
-                                Information requested through this system must
-                                exactly match hospital records. Typographic
-                                errors, such as patient name misspelling or
-                                incorrect dates of service, may result in your
-                                request being canceled or delayed.
-                            </Box>
-                            <Box as="li" className="pb-2">
-                                You may be charged a processing fee of 25 cents
-                                per page (if copied from paper records) or $25
-                                (if created from electronic records) before
-                                delivery of your records.{' '}
-                                <Text as="span" className="font-bold">
-                                    By submitting your request through this
-                                    system, you agree to pay any processing fees
-                                    up to and including $50 without prior
-                                    notification.
-                                </Text>{' '}
-                                If your request will incur fees in excess of
-                                $50, you will be notified in advance and have
-                                the option to cancel your request.{' '}
-                                <Text as="span" className="font-bold">
-                                    You must pay this fee by credit card in
-                                    order to use this system.
-                                </Text>
-                            </Box>
-                            <Box as="li">
-                                Copies of diagnostic imaging cannot be requested
-                                through this system. If you require copies of
-                                diagnostic imaging, contact the radiology
-                                department at{' '}
-                                <Link href="tel:4153531640">415-353-1640</Link>.
+                                You will be texted when written records are
+                                ready to access online.
                             </Box>
                         </Box>
-                        <Text>
-                            If you are unable to complete the above, please
-                            refer to{' '}
-                            <Link
-                                href={getLandingPage()}
-                                className="underline font-bold text-blue hover:text-black transition-colors"
-                            >
-                                this page
-                            </Link>{' '}
-                            to review other options for submitting your request.{' '}
+                    </Box>
+
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            Who Can Order Patient Records?
+                        </Heading>
+                        <Box as="ul" className="pl-8 space-y-2 list-disc">
+                            <Box as="li">
+                                Patients who have reached the age of majority:
+                                18 years of age or older{' '}
+                                <Text as="span" className="font-bold">
+                                    (NOTE: A parent may not request records on
+                                    behalf of an adult child, regardless of
+                                    insurance coverage, residence, etc.).
+                                </Text>
+                            </Box>
+                            <Box as="li">
+                                Parents/guardians who have the legal authority
+                                to access a{' '}
+                                <Text as="span" className="italic">
+                                    minor
+                                </Text>{' '}
+                                child's records.
+                            </Box>
+                            <Box as="li">
+                                A person who has the legal authority (healthCare
+                                trustee/conservator, healthcare proxy,
+                                medical/healthcare power of attorney) to make
+                                healthcare decisions for a patient of any age.
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            What You Need to Get Started
+                        </Heading>
+                        <Box
+                            as="ol"
+                            className="pl-8 pb-2 space-y-2 list-decimal"
+                        >
+                            <Box as="li">
+                                The patient's valid driver's license or other
+                                valid state-issued ID.
+                            </Box>
+                            <Box as="li">A credit card to make payment.</Box>
+                            <Box as="li">
+                                If you have the legal authority to make{' '}
+                                <Text as="span" className="font-bold">
+                                    healthcare
+                                </Text>{' '}
+                                decisions for a patient as a healthcare
+                                trustee/conservator, healthcare proxy, or
+                                medical/healthcare power of attorney, you must
+                                upload two items: (a){' '}
+                                <Text as="span" className="font-bold">
+                                    YOUR OWN Driver's License/ID,
+                                </Text>{' '}
+                                AND (b){' '}
+                                <Text as="span" className="font-bold">
+                                    official documentation of your authority to
+                                    make healthcare decisions for the patient.
+                                </Text>{' '}
+                                NOTE: A financial power of attorney is{' '}
+                                <Text as="span" className="font-bold">
+                                    not
+                                </Text>{' '}
+                                acceptable. If you cannot provide BOTH required
+                                items, the patient must place his or her own
+                                request.
+                            </Box>
+                        </Box>
+                        <Text className="italic">
+                            Please have these items handy before you start!
                         </Text>
                     </Box>
 
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

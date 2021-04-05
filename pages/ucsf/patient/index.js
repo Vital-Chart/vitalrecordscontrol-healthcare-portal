@@ -9,12 +9,12 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
                         Instructions for Medical Records Request
                     </PageHeading>
 
-                    <Box>
+                    <Box className="mt-8">
                         <Text className="pb-4">
                             This website allows you to request copies of your
                             medical record and to retrieve it electronically.
@@ -37,9 +37,7 @@ const Instructions = () => {
                                 <Text as="span" className="font-bold">
                                     YOU
                                 </Text>
-                                . Some materials, such as Radiology Imaging CDs
-                                or Pathology Slides, require being sent via the
-                                U.S. Postal service or require pick-up.
+                                .
                             </Box>
                             <Box as="li">
                                 In order to protect your privacy and comply with
@@ -86,16 +84,8 @@ const Instructions = () => {
                                 delivery of your records.{' '}
                                 <Text as="span" className="font-bold">
                                     By submitting your request through this
-                                    system, you agree to pay any processing fees
-                                    up to and including $50 without prior
-                                    notification.
-                                </Text>{' '}
-                                If your request will incur fees in excess of
-                                $50, you will be notified in advance and have
-                                the option to cancel your request.{' '}
-                                <Text as="span" className="font-bold">
-                                    You must pay this fee by credit card in
-                                    order to use this system.
+                                    system, you agree to pay any processing
+                                    fees.
                                 </Text>
                             </Box>
                             <Box as="li">
@@ -119,7 +109,7 @@ const Instructions = () => {
                         </Text>
                     </Box>
 
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

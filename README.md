@@ -18,6 +18,31 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Deploying to Azure
+### General Deploy Steps
+1. Pull updates from the remote `main` branch into your local repository using `git pull`.
+2. Run `yarn` or `npm install` to install/update dependencies.
+3. Run the appropriate build command (see below).
+4. Deploy to the desired environment using the VS Code Azure extension. 
+
+Endpoints are set at build time via an environment variable. Run the corresponding command before deploying to each environment. If using `npm` instead of `yarn`, replace `yarn` in with `npm run` in teh commands below. 
+
+To build locally or to deploy to development environment:
+```bash
+yarn build
+```
+
+For deploys to the test/staging environment:
+```bash
+yarn build:test
+```
+
+For deploys to production:
+```bash
+yarn build:prod
+```
+### For More Help with Azure Deploy Setup
+Read: [Deploying Next.JS App on Azure App Service (Tutorial)](https://parveensingh.com/next-js-deployment-on-azure-app-service/)
 
 ## Tools/Tech
 

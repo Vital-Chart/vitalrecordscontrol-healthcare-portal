@@ -16,6 +16,12 @@ class MyDocument extends Document {
                     />
                 </Head>
                 <body>
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: ` <!--[if lt IE 9]><p>Your browser is outdated <a href="http://browsehappy.com/">Upgrade to a different 
+                            browser</a> to use this site.</p><![endif]-->`,
+                        }}
+                    />
                     <Main />
                     <NextScript />
                 </body>

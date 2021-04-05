@@ -1,10 +1,7 @@
-import dynamic from 'next/dynamic'
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import useNavigation from '@/lib/useNavigation'
-import { Box, Link, Text, Button } from '@/components/core'
+import { Box, Link, Text, Button, Heading } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
-import { Layout, Container, ScreenReader } from '@/components/general'
-import IconClose from '@/icons/icon-close.svg'
+import { Layout, Container } from '@/components/general'
 
 const Instructions = () => {
     const { getLandingPage, getStepPage } = useNavigation()
@@ -12,196 +9,103 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
+                <Box className="w-full max-w-screen-md">
                     <PageHeading className="pt-4">
                         Instructions for Quick Release to You
                     </PageHeading>
 
-                    <Box>
-                        <Text className="pb-4 leading-relaxed">
-                            This website allows you to request copies of your
-                            medical record and to retrieve it electronically.
-                            Please read the important notes below before
-                            continuing to use this system:
-                        </Text>
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            Welcome! Please Read Below.
+                        </Heading>
+                        <Box as="ul" className="pl-8 mb-6 space-y-2 list-disc">
+                            <Box as="li">
+                                This site is for{' '}
+                                <Text as="span" className="italic">
+                                    patients
+                                </Text>{' '}
+                                only.
+                            </Box>
+                            <Box as="li">
+                                Processing fee: $25 flat fee.{' '}
+                                <Text as="span" className="font-bold">
+                                    THERE ARE NO REFUNDS FOR ANY REASON
+                                    WHATSOEVER.
+                                </Text>
+                            </Box>
+                            <Box as="li">
+                                ALL available medical records are provided,
+                                subject to clinician review/approval.
+                            </Box>
+                            <Box as="li">
+                                Records are made available securely{' '}
+                                <Text as="span" className="font-bold">
+                                    online only
+                                </Text>
+                                . We do{' '}
+                                <Text as="span" className="font-bold">
+                                    not
+                                </Text>{' '}
+                                fax or mail records.
+                            </Box>
+                            <Box as="li">
+                                You will be texted when written records are
+                                ready to access online. You will receive no text
+                                alerts regarding Imaging CDs.
+                            </Box>
+                        </Box>
+                    </Box>
 
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            What You Need to Get Started
+                        </Heading>
                         <Box
                             as="ol"
                             className="pl-8 pb-2 space-y-2 list-decimal"
                         >
                             <Box as="li">
+                                The patient's valid driver's license or other
+                                valid state-issued ID.{' '}
+                            </Box>
+                            <Box as="li">A credit card to make payment.</Box>
+                            <Box as="li">
+                                If you have the legal authority to make{' '}
                                 <Text as="span" className="font-bold">
-                                    This option is for patients or parties with
-                                    the power to make decisions on behalf of a
-                                    patient
+                                    healthcare
                                 </Text>{' '}
-                                (e.g., parents, guardians) to request records to
-                                be electronically delivered to{' '}
+                                decisions for a patient as a healthcare
+                                trustee/conservator, healthcare proxy, or
+                                medical/healthcare power of attorney, you must
+                                upload three items: (a){' '}
                                 <Text as="span" className="font-bold">
-                                    YOU
-                                </Text>
-                                . Some materials, such as Radiology Imaging CDs
-                                or Pathology Slides, require being sent via the
-                                U.S. Postal service or require pick-up. **Note:
-                                If you are a patient requesting records to be
-                                delivered to a{' '}
-                                <Text as="span" className="font-bold">
-                                    THIRD-PARTY
+                                    the patient's driver's license/ID,
                                 </Text>{' '}
-                                (e.g., healthcare provider, attorney, an
-                                insurance company, or other),{' '}
-                                <Link
-                                    href={`${getLandingPage()}/sendtothirdparty`}
-                                    className="underline font-bold text-blue hover:text-black transition-colors"
-                                >
-                                    click here
-                                </Link>{' '}
-                                to fill out the correct form to submit your
-                                request.**
-                            </Box>
-                            <Box as="li">
-                                In order to protect your privacy and comply with
-                                federal and state regulations, we need a copy of
-                                your driver's license or other government-issued
-                                ID before we can release your records.{' '}
+                                (b){' '}
                                 <Text as="span" className="font-bold">
-                                    Failure to upload all required documents
-                                    through this system within 72 hours after
-                                    beginning the process will result in your
-                                    request being canceled.
-                                </Text>
-                            </Box>
-                            <Box
-                                as="ul"
-                                className="pl-8 pb-2 space-y-2 list-disc"
-                            >
-                                <Box as="li">
-                                    If you are on a mobile device (e.g.
-                                    smartphone/tablet), you will need to
-                                    electronically sign an authorization form
-                                    and submit a picture of yourself holding
-                                    your government-issued ID.
-                                </Box>
-                                <Box as="li">
-                                    If you are on a non-mobile device (e.g.
-                                    desktop/laptop computer) you will need to
-                                    print, manually sign, and upload a scanned
-                                    copy of an authorization form as well as
-                                    your government-issued ID.
-                                </Box>
-                            </Box>
-                            <Box as="li">
-                                If you are not the patient, you will also need
-                                to submit a legible image (picture or scanned)
-                                of proof you are authorized to make medical
-                                decisions for the patient.{' '}
-                                <MicroModal
-                                    trigger={handleOpen => (
-                                        <Box
-                                            as="button"
-                                            onClick={handleOpen}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                        >
-                                            Click here for examples.
-                                        </Box>
-                                    )}
-                                    children={handleClose => (
-                                        <Box className="p-8 relative">
-                                            <button
-                                                onClick={handleClose}
-                                                className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                            >
-                                                <IconClose
-                                                    onClick={handleClose}
-                                                    className=""
-                                                />
-                                                <ScreenReader>
-                                                    Close
-                                                </ScreenReader>
-                                            </button>
-
-                                            <Box>
-                                                <Text className="text-xl font-bold">
-                                                    Types of Supporting
-                                                    Documents
-                                                </Text>
-                                                <Text className="mb-4">
-                                                    Acceptable forms of
-                                                    supporting documentation are
-                                                    listed below. However, the
-                                                    facility where the records
-                                                    you are requesting are
-                                                    located may have additional
-                                                    or other requirements.
-                                                </Text>
-                                                <Box
-                                                    as="ul"
-                                                    className="list-disc pl-8 mb-4 text-sm"
-                                                >
-                                                    <Box as="li">
-                                                        Power of Attorney for
-                                                        Healthcare if the
-                                                        patient is alive but
-                                                        unable to sign for
-                                                        themselves
-                                                    </Box>
-                                                    <Box as="li">
-                                                        Executor's Documents if
-                                                        the patient is deceased
-                                                    </Box>
-                                                    <Box as="li">
-                                                        A copy of the deceased
-                                                        patient's will
-                                                    </Box>
-                                                    <Box as="li">
-                                                        Court Documents
-                                                        identifying custodial
-                                                        parent
-                                                    </Box>
-                                                    <Box as="li">
-                                                        Birth Certificate
-                                                    </Box>
-                                                </Box>
-                                                <Text>
-                                                    Note: Please understand
-                                                    until we have the
-                                                    opportunity to review the
-                                                    request against the medical
-                                                    records, we do not know if
-                                                    additional documentation
-                                                    will be required. You will
-                                                    be notified if we need
-                                                    further documentation.
-                                                </Text>
-                                            </Box>
-                                        </Box>
-                                    )}
-                                />
-                            </Box>
-                            <Box as="li">
-                                Information requested through this system must
-                                exactly match hospital records. Typographic
-                                errors, such as patient name misspelling or
-                                incorrect dates of service, may result in your
-                                request being canceled or delayed.
-                            </Box>
-                            <Box as="li" className="pb-2 font-bold">
-                                There may be a clerical/reproduction processing
-                                fee charged. Items not able to be delivered
-                                electronically (e.g. Radiology Imaging CDs or
-                                Pathology Slides) may incur additional charges,
-                                which will be displayed if selected.
-                            </Box>
-                            <Box as="li">
-                                If you request records from multiple facilities,
-                                you will get ONE tracking number for each
-                                facility, as each facility processes records
-                                separately.
+                                    YOUR OWN Driver's License/ID,
+                                </Text>{' '}
+                                AND (c){' '}
+                                <Text as="span" className="font-bold">
+                                    official documentation of your authority to
+                                    make healthcare decisions for the patient.
+                                </Text>{' '}
+                                NOTE: A financial power of attorney is{' '}
+                                <Text as="span" className="font-bold">
+                                    not
+                                </Text>{' '}
+                                acceptable. If you cannot provide ALL required
+                                items, the patient must place his or her own
+                                request.
                             </Box>
                         </Box>
+
+                        <Text className="italic">
+                            Please have these items handy before you start!
+                        </Text>
                     </Box>
 
-                    <ButtonWrapper className="pb-8">
+                    <ButtonWrapper className="my-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}

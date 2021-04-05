@@ -73,6 +73,11 @@ const Form = ({ store }) => {
     const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
     const watchRequestedInformation = watch('RI_CB', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
+    const watchIPMInitials = watch('RI_MR_AI_CB_TXT_IPM', '')
+    const watchIPDInitials = watch('RI_MR_AI_CB_TXT_IPD', '')
+    const watchGTIInitials = watch('RI_MR_AI_CB_TXT_GTI', '')
+    const watchHIVInitials = watch('RI_MR_AI_CB_TXT_HIV', '')
+    const watchWCIInitials = watch('RI_MR_AI_CB_TXT_WCI', '')
 
     const facility = hospitals[hospital].facilities[0]
 
@@ -97,6 +102,24 @@ const Form = ({ store }) => {
         watchRelationshipToPatient,
         store.state.form.PI_PFN,
         store.state.form.PI_PLN,
+    ])
+
+    useEffect(() => {
+        const authorizedInfo = [
+            watchIPMInitials.trim().length > 0 ? 'IPM' : '',
+            watchIPDInitials.trim().length > 0 ? 'IPD' : '',
+            watchGTIInitials.trim().length > 0 ? 'GTI' : '',
+            watchHIVInitials.trim().length > 0 ? 'HIV' : '',
+            watchWCIInitials.trim().length > 0 ? 'WCI' : '',
+        ].filter(el => el !== '')
+
+        setValue('RI_MR_AI_CB', authorizedInfo)
+    }, [
+        watchIPMInitials,
+        watchIPDInitials,
+        watchGTIInitials,
+        watchHIVInitials,
+        watchWCIInitials,
     ])
 
     const handleChange = e => {
@@ -146,9 +169,9 @@ const Form = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper className="mb-4" />
+            <Stepper />
             <Container>
-                <PageHeading className="pt-4">
+                <PageHeading className="mt-8">
                     <Text
                         as="span"
                         className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
@@ -241,6 +264,7 @@ const Form = ({ store }) => {
                                             <Flex className="pl-8 flex-col md:flex-row">
                                                 <CheckboxWrapper className="w-full">
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Emergency/Urgent Care Physician Report"
                                                         name="RI_MR_FR_CB"
                                                         value="EUR"
@@ -248,6 +272,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Consultation Report"
                                                         name="RI_MR_FR_CB"
                                                         value="CR"
@@ -255,6 +280,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Laboratory Reports"
                                                         name="RI_MR_FR_CB"
                                                         value="LR"
@@ -262,6 +288,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Newborn Record"
                                                         name="RI_MR_FR_CB"
                                                         value="NR"
@@ -269,6 +296,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="History and Physical Report"
                                                         name="RI_MR_FR_CB"
                                                         value="HPR"
@@ -285,6 +313,7 @@ const Form = ({ store }) => {
                                                 </CheckboxWrapper>
                                                 <CheckboxWrapper className="w-full">
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Pathology Report"
                                                         name="RI_MR_FR_CB"
                                                         value="PR"
@@ -292,6 +321,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Immunization Record"
                                                         name="RI_MR_FR_CB"
                                                         value="IR"
@@ -300,6 +330,7 @@ const Form = ({ store }) => {
                                                     />
 
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Discharge Summary Report"
                                                         name="RI_MR_FR_CB"
                                                         value="DSR"
@@ -307,6 +338,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Anesthesia Records"
                                                         name="RI_MR_FR_CB"
                                                         value="AR"
@@ -314,6 +346,7 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
                                                     <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Radiology Report/Image"
                                                         name="RI_MR_FR_CB"
                                                         value="RR"
@@ -339,50 +372,105 @@ const Form = ({ store }) => {
                                         )}
 
                                         <Box className="mt-4">
-                                            <Text className="text-sm font-bold mb-2">
+                                            <Text className="max-w-lg text-sm font-bold mb-4">
                                                 The following information will
                                                 not be released unless
                                                 specifically authorized by
-                                                checking the relevant box(es)
-                                                below:
+                                                typing your initials in the
+                                                relevant box(es) below. DO NOT
+                                                fill in your initials, unless
+                                                you want the below records
+                                                released.
                                             </Text>
-                                            <CheckboxWrapper>
-                                                <Checkbox
+                                            <Box className="pl-4">
+                                                <Input
+                                                    type="hidden"
                                                     name="RI_MR_AI_CB"
-                                                    label="Information pertaining to mental health diagnosis or treatment"
-                                                    value="IPM"
                                                     onChange={handleChange}
                                                     ref={register}
                                                 />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
-                                                    value="IPD"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="HIV/AIDS test results"
-                                                    value="HIV"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Genetic testing information"
-                                                    value="GTI"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                                <Checkbox
-                                                    name="RI_MR_AI_CB"
-                                                    label="Worker's Comp information"
-                                                    value="WCI"
-                                                    onChange={handleChange}
-                                                    ref={register}
-                                                />
-                                            </CheckboxWrapper>
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_IPM"
+                                                        id="RI_MR_AI_CB_TXT_IPM"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_IPM">
+                                                        Information pertaining
+                                                        to mental health
+                                                        diagnosis or treatment
+                                                    </Label>
+                                                </Flex>
+
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_IPD"
+                                                        id="RI_MR_AI_CB_TXT_IPD"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_IPD">
+                                                        Information pertaining
+                                                        to drug and alcohol
+                                                        abuse, diagnosis, or
+                                                        treatment
+                                                    </Label>
+                                                </Flex>
+
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_HIV"
+                                                        id="RI_MR_AI_CB_TXT_HIV"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_HIV">
+                                                        HIV/AIDS test results
+                                                    </Label>
+                                                </Flex>
+
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_GTI"
+                                                        id="RI_MR_AI_CB_TXT_GTI"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_GTI">
+                                                        Genetic testing
+                                                        information
+                                                    </Label>
+                                                </Flex>
+
+                                                <Flex className="items-start sm:items-center mb-4">
+                                                    <Input
+                                                        type="text"
+                                                        name="RI_MR_AI_CB_TXT_WCI"
+                                                        id="RI_MR_AI_CB_TXT_WCI"
+                                                        className="mr-2 w-16"
+                                                        maxLength="3"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+                                                    <Label htmlFor="RI_MR_AI_CB_TXT_WCI">
+                                                        Worker's Comp
+                                                        information
+                                                    </Label>
+                                                </Flex>
+                                            </Box>
                                         </Box>
                                     </Box>
                                 )}
@@ -396,239 +484,222 @@ const Form = ({ store }) => {
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
-                            <Box>
-                                <Flex className="flex-col sm:flex-row">
-                                    <Box className="mr-4 mb-4">
-                                        <Label htmlFor="YI_REL_DD">
-                                            Relationship to Patient
-                                        </Label>
-                                        <Select
-                                            name="YI_REL_DD"
-                                            id="YI_REL_DD"
-                                            className="block mt-1"
-                                            onChange={handleChange}
-                                            ref={register({ required: true })}
-                                        >
-                                            <option value="SELF">Self</option>
-                                            <option value="PG">
-                                                Parent/Guardian
-                                            </option>
-                                            <option value="CON">
-                                                Conservator
-                                            </option>
-                                        </Select>
-                                    </Box>
-                                    <Box className="flex-grow mb-4">
-                                        <Label htmlFor="YI_REL_NM">Name</Label>
-                                        <Input
-                                            type="text"
-                                            name="YI_REL_NM"
-                                            id="YI_REL_NM"
-                                            autoComplete="name"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter your name.',
-                                            })}
-                                        />
-                                        {errors.YI_REL_NM && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_REL_NM.message
-                                                }
-                                            />
-                                        )}
-                                    </Box>
-                                </Flex>
-                                <Box className="mb-4">
-                                    <Flex className="items-center">
-                                        <Label htmlFor="YI_NOTICE_DD">
-                                            Preferred Notification Method
-                                        </Label>
-                                        <MicroModal
-                                            trigger={handleOpen => (
-                                                <Button
-                                                    onClick={handleOpen}
-                                                    className="ml-2"
-                                                >
-                                                    <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
-                                                </Button>
-                                            )}
-                                            children={handleClose => (
-                                                <Box className="p-8 relative">
-                                                    <Button
-                                                        onClick={handleClose}
-                                                        className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                                    >
-                                                        <IconClose
-                                                            onClick={
-                                                                handleClose
-                                                            }
-                                                            className=""
-                                                        />
-                                                        <ScreenReader>
-                                                            Close
-                                                        </ScreenReader>
-                                                    </Button>
 
-                                                    <Box>
-                                                        <Text className="text-xl font-bold">
-                                                            Preferred
-                                                            Notification Method
-                                                        </Text>
-
-                                                        <Text>
-                                                            This is the method
-                                                            by which you would
-                                                            like to receive
-                                                            automatic
-                                                            notifications of the
-                                                            progress of your
-                                                            request(s), as well
-                                                            as how you will
-                                                            receive password
-                                                            updates from this
-                                                            website. If we have
-                                                            specific questions
-                                                            about your request,
-                                                            we will call you at
-                                                            the phone number
-                                                            listed.
-                                                        </Text>
-                                                    </Box>
-                                                </Box>
-                                            )}
-                                        />
-                                    </Flex>
-
+                            <Flex className="flex-col sm:flex-row">
+                                <Box className="mr-4 mb-4">
+                                    <Label htmlFor="YI_REL_DD">
+                                        Relationship to Patient
+                                    </Label>
                                     <Select
-                                        name="YI_NOTICE_DD"
-                                        id="YI_NOTICE_DD"
-                                        className="block w-full mt-1"
+                                        name="YI_REL_DD"
+                                        id="YI_REL_DD"
+                                        className="block mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
-                                        <option value="text">
-                                            Text Message (Standard rates may
-                                            apply.)
+                                        <option value="SELF">Self</option>
+                                        <option value="PG">
+                                            Parent/Guardian
                                         </option>
-                                        <option value="email">Email</option>
+                                        <option value="CON">Conservator</option>
                                     </Select>
                                 </Box>
-
-                                <Flex className="flex-col sm:flex-row">
-                                    <Box className="mb-4 sm:mr-4">
-                                        <Label htmlFor="YI_PN">
-                                            Phone Number
-                                        </Label>
-                                        <Input
-                                            type="tel"
-                                            name="YI_PN"
-                                            id="YI_PN"
-                                            autoComplete="tel"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter your phone number.',
-                                                pattern: {
-                                                    value: regexPatterns.phone,
-                                                    message:
-                                                        'Please enter a valid phone number.',
-                                                },
-                                            })}
+                                <Box className="flex-grow mb-4">
+                                    <Label htmlFor="YI_REL_NM">Name</Label>
+                                    <Input
+                                        type="text"
+                                        name="YI_REL_NM"
+                                        id="YI_REL_NM"
+                                        autoComplete="name"
+                                        className="w-full mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required: 'Please enter your name.',
+                                        })}
+                                    />
+                                    {errors.YI_REL_NM && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.YI_REL_NM.message}
                                         />
-                                        {errors.YI_PN && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={errors.YI_PN.message}
-                                            />
+                                    )}
+                                </Box>
+                            </Flex>
+                            <Box className="mb-4">
+                                <Flex className="items-center">
+                                    <Label htmlFor="YI_NOTICE_DD">
+                                        Preferred Notification Method
+                                    </Label>
+                                    <MicroModal
+                                        trigger={handleOpen => (
+                                            <Button
+                                                onClick={handleOpen}
+                                                className="ml-2"
+                                            >
+                                                <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
+                                            </Button>
                                         )}
-                                    </Box>
-                                    <Box className="mb-4">
-                                        <Label htmlFor="YI_PHT_DD">Type</Label>
-                                        <Select
-                                            name="YI_PHT_DD"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                validate: {
-                                                    phoneTypeCheck: value =>
-                                                        value !==
-                                                            'Select phone type' ||
-                                                        'Please select a phone type.',
-                                                },
-                                            })}
-                                        >
-                                            <option defaultValue disabled>
-                                                Select phone type
-                                            </option>
-                                            <option key="mobile" value="mobile">
-                                                Mobile
-                                            </option>
-                                            <option key="home" value="home">
-                                                Home
-                                            </option>
-                                            <option key="work" value="work">
-                                                Work
-                                            </option>
-                                        </Select>
-                                        {errors.YI_PHT_DD && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_PHT_DD.message
-                                                }
-                                            />
+                                        children={handleClose => (
+                                            <Box className="p-8 relative">
+                                                <Button
+                                                    onClick={handleClose}
+                                                    className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                                >
+                                                    <IconClose
+                                                        onClick={handleClose}
+                                                        className=""
+                                                    />
+                                                    <ScreenReader>
+                                                        Close
+                                                    </ScreenReader>
+                                                </Button>
+
+                                                <Box>
+                                                    <Text className="text-xl font-bold">
+                                                        Preferred Notification
+                                                        Method
+                                                    </Text>
+
+                                                    <Text>
+                                                        This is the method by
+                                                        which you would like to
+                                                        receive automatic
+                                                        notifications of the
+                                                        progress of your
+                                                        request(s), as well as
+                                                        how you will receive
+                                                        password updates from
+                                                        this website. If we have
+                                                        specific questions about
+                                                        your request, we will
+                                                        call you at the phone
+                                                        number listed.
+                                                    </Text>
+                                                </Box>
+                                            </Box>
                                         )}
-                                    </Box>
+                                    />
                                 </Flex>
 
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_PHC">
-                                        Retype Phone Number
-                                    </Label>
+                                <Select
+                                    name="YI_NOTICE_DD"
+                                    id="YI_NOTICE_DD"
+                                    className="block w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({ required: true })}
+                                >
+                                    <option value="text">
+                                        Text Message (Standard rates may apply.)
+                                    </option>
+                                    <option value="email">Email</option>
+                                </Select>
+                            </Box>
+
+                            <Flex className="flex-col sm:flex-row">
+                                <Box className="mb-4 sm:mr-4">
+                                    <Label htmlFor="YI_PN">Phone Number</Label>
                                     <Input
                                         type="tel"
-                                        name="YI_PHC"
-                                        id="YI_PHC"
+                                        name="YI_PN"
+                                        id="YI_PN"
                                         autoComplete="tel"
                                         className="w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({
                                             required:
-                                                'Please confirm your phone number.',
-                                            validate: {
-                                                phoneMatch: value =>
-                                                    value ===
-                                                        getValues('YI_PN') ||
-                                                    'The phone numbers you entered do not match!',
+                                                'Please enter your phone number.',
+                                            pattern: {
+                                                value: regexPatterns.phone,
+                                                message:
+                                                    'Please enter a valid phone number.',
                                             },
                                         })}
                                     />
-                                    {errors.YI_PHC && (
+                                    {errors.YI_PN && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.YI_PHC.message}
+                                            message={errors.YI_PN.message}
                                         />
                                     )}
                                 </Box>
                                 <Box className="mb-4">
-                                    <Label htmlFor="YI_EM" className="italic">
-                                        Email Address (Optional)
-                                    </Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EM"
-                                        id="YI_EM"
-                                        autoComplete="email"
+                                    <Label htmlFor="YI_PHT_DD">Type</Label>
+                                    <Select
+                                        name="YI_PHT_DD"
                                         className="w-full mt-1"
                                         onChange={handleChange}
-                                        ref={register}
-                                    />
+                                        ref={register({
+                                            validate: {
+                                                phoneTypeCheck: value =>
+                                                    value !==
+                                                        'Select phone type' ||
+                                                    'Please select a phone type.',
+                                            },
+                                        })}
+                                    >
+                                        <option defaultValue disabled>
+                                            Select phone type
+                                        </option>
+                                        <option key="mobile" value="mobile">
+                                            Mobile
+                                        </option>
+                                        <option key="home" value="home">
+                                            Home
+                                        </option>
+                                        <option key="work" value="work">
+                                            Work
+                                        </option>
+                                    </Select>
+                                    {errors.YI_PHT_DD && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.YI_PHT_DD.message}
+                                        />
+                                    )}
                                 </Box>
+                            </Flex>
+
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_PHC">
+                                    Retype Phone Number
+                                </Label>
+                                <Input
+                                    type="tel"
+                                    name="YI_PHC"
+                                    id="YI_PHC"
+                                    autoComplete="tel"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your phone number.',
+                                        validate: {
+                                            phoneMatch: value =>
+                                                value === getValues('YI_PN') ||
+                                                'The phone numbers you entered do not match!',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_PHC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_PHC.message}
+                                    />
+                                )}
+                            </Box>
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EM" className="italic">
+                                    Email Address (Optional)
+                                </Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EM"
+                                    id="YI_EM"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register}
+                                />
                             </Box>
                         </FormSection>
 
@@ -642,13 +713,12 @@ const Form = ({ store }) => {
                                     Medical Records Delivery Options
                                 </Heading>
                                 <Text className="mb-4">
-                                    There are three delivery options for Medical
-                                    Records and Itemized Billing. You can
-                                    download them directly from the website, or
-                                    have them created on CD to be delivered by
-                                    mail via the US Postal Service to the
-                                    address entered below, or Picked up at the
-                                    Medical Facility.
+                                    Please choose from one of the below options
+                                    for Medical Records. You can download them
+                                    directly from the website, or have them
+                                    created on CD to be delivered by mail via
+                                    the US Postal Service to the address entered
+                                    below, or Picked up at the Medical Facility.
                                 </Text>
                                 <Box className="mb-4">
                                     <Label htmlFor="DI_DM_DD">
@@ -772,8 +842,8 @@ const Form = ({ store }) => {
                                         )}
                                     </Box>
 
-                                    <Flex className="mb-4">
-                                        <Box>
+                                    <Flex className="flex-col sm:flex-row">
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ST_DD">
                                                 State
                                             </Label>
@@ -813,7 +883,7 @@ const Form = ({ store }) => {
                                                 />
                                             )}
                                         </Box>
-                                        <Box>
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ZIP">Zip</Label>
                                             <Input
                                                 type="text"
@@ -853,7 +923,7 @@ const Form = ({ store }) => {
                                                 pattern: {
                                                     value: regexPatterns.phone,
                                                     message:
-                                                        'Please enter a valid phone number.',
+                                                        'Please enter a valid fax number.',
                                                 },
                                             })}
                                         />
@@ -870,79 +940,70 @@ const Form = ({ store }) => {
 
                         <FormSection>
                             <SectionHeading>Delivery Summary</SectionHeading>
-                            <Box>
-                                <Box
-                                    as="ul"
-                                    className="pl-8 mb-8 space-y-2 list-disc"
-                                >
-                                    {watchRecordDeliveryMethod.includes(
-                                        'DL'
-                                    ) && (
-                                        <Box as="li">
-                                            Medical records and/or billing items
-                                            will be delivered via this website
-                                            in Adobe PDF format. A notification
-                                            will be sent when the records are
-                                            ready for download, and they will be
-                                            available for 60 days.
-                                        </Box>
-                                    )}
 
-                                    {watchRecordDeliveryMethod.includes(
-                                        'PS'
-                                    ) && (
-                                        <Box as="li">
-                                            Medical records and/or billing items
-                                            will be mailed to the address you
-                                            entered above via the US Postal
-                                            Service.
-                                        </Box>
-                                    )}
-                                    {watchRecordDeliveryMethod.includes(
-                                        'PU'
-                                    ) && (
-                                        <Box as="li">
-                                            Once ready, medical records and/or
-                                            billing items can be picked up from
-                                            the facility listed below.
-                                        </Box>
-                                    )}
-
+                            <Box
+                                as="ul"
+                                className="pl-8 mb-8 space-y-2 list-disc"
+                            >
+                                {watchRecordDeliveryMethod.includes('DL') && (
                                     <Box as="li">
-                                        Normal processing time is{' '}
-                                        {hospitals[hospital].processingTime ||
-                                            '5-7 business days'}{' '}
-                                        from time of receipt.
+                                        Medical records and/or billing items
+                                        will be delivered via this website in
+                                        Adobe PDF format. A notification will be
+                                        sent when the records are ready for
+                                        download, and they will be available for
+                                        60 days.
                                     </Box>
+                                )}
 
+                                {watchRecordDeliveryMethod.includes('PS') && (
                                     <Box as="li">
-                                        Please{' '}
-                                        <Link
-                                            href={getContactPage()}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                        >
-                                            contact us
-                                        </Link>{' '}
-                                        if you have any questions.
+                                        Medical records and/or billing items
+                                        will be mailed to the address you
+                                        entered above via the US Postal Service.
                                     </Box>
+                                )}
+                                {watchRecordDeliveryMethod.includes('PU') && (
+                                    <Box as="li">
+                                        Once ready, medical records and/or
+                                        billing items can be picked up from the
+                                        facility listed below.
+                                    </Box>
+                                )}
+
+                                <Box as="li">
+                                    Normal processing time is{' '}
+                                    {hospitals[hospital].processingTime ||
+                                        '5-7 business days'}{' '}
+                                    from time of receipt.
                                 </Box>
-                                <Box>
-                                    {watchRecordDeliveryMethod === 'PU' && (
-                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
-                                            <Text>
-                                                Once available, records can be
-                                                picked up from the facility or
-                                                facilities listed below.
-                                            </Text>
 
-                                            <FacilityAddress
-                                                key={facility.id}
-                                                facility={facility}
-                                            />
-                                        </Box>
-                                    )}
+                                <Box as="li">
+                                    Please{' '}
+                                    <Link
+                                        href={getContactPage()}
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
+                                    >
+                                        contact us
+                                    </Link>{' '}
+                                    if you have any questions.
                                 </Box>
                             </Box>
+
+                            {watchRecordDeliveryMethod === 'PU' && (
+                                <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
+                                    <Text>
+                                        Once available, records can be picked up
+                                        from the facility or facilities listed
+                                        below.
+                                    </Text>
+
+                                    <FacilityAddress
+                                        key={facility.id}
+                                        facility={facility}
+                                    />
+                                </Box>
+                            )}
                         </FormSection>
 
                         <ServerErrorList

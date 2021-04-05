@@ -143,9 +143,9 @@ const Form = ({ store }) => {
 
     return (
         <Layout>
-            <Stepper className="mb-4" />
+            <Stepper />
             <Container>
-                <PageHeading className="pt-4">
+                <PageHeading className="mt-8">
                     <Text
                         as="span"
                         className="block pb-1 text-base md:text-lg font-normal text-gray-dark"
@@ -176,405 +176,376 @@ const Form = ({ store }) => {
                             <SectionHeading>
                                 Requested Information
                             </SectionHeading>
-                            <Box>
-                                <Box as="fieldset">
+
+                            <Box as="fieldset">
+                                <Box className="mb-4 mr-4">
+                                    <Box as="legend">Requested Records:</Box>
+                                    <Select
+                                        name="RI_MR_OPT"
+                                        id="RI_MR_OPT"
+                                        className="block mt-1"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    >
+                                        <option defaultValue value="">
+                                            Select records
+                                        </option>
+                                        <option value="ALLNXM">
+                                            All (No Recent X-Rays/MRIs)
+                                        </option>
+                                        <option value="ALLXM">
+                                            All (Plus Recent X-Rays/MRIs)
+                                        </option>
+                                        <option value="XM">
+                                            Only Recent X-Rays/MRIs
+                                        </option>
+                                    </Select>
+                                </Box>
+
+                                {(watchRequestedInformationOptions ===
+                                    'ALLXM' ||
+                                    watchRequestedInformationOptions ===
+                                        'XM') && (
                                     <Box className="mb-4 mr-4">
-                                        <Box as="legend">
-                                            Requested Records:
-                                        </Box>
-                                        <Select
-                                            name="RI_MR_OPT"
-                                            id="RI_MR_OPT"
+                                        <Label htmlFor="RI_MR_OPT_CNT">
+                                            Imaging Copies
+                                        </Label>
+                                        <Input
+                                            type="number"
+                                            min="1"
+                                            name="RI_MR_OPT_CNT"
+                                            id="RI_MR_OPT_CNT"
                                             className="block mt-1"
                                             onChange={handleChange}
-                                            ref={register}
-                                        >
-                                            <option defaultValue value="">
-                                                Select records
-                                            </option>
-                                            <option value="ALLNXM">
-                                                All (No Recent X-Rays/MRIs)
-                                            </option>
-                                            <option value="ALLXM">
-                                                All (Plus Recent X-Rays/MRIs)
-                                            </option>
-                                            <option value="XM">
-                                                Only Recent X-Rays/MRIs
-                                            </option>
-                                        </Select>
-                                    </Box>
-
-                                    {(watchRequestedInformationOptions ===
-                                        'ALLXM' ||
-                                        watchRequestedInformationOptions ===
-                                            'XM') && (
-                                        <Box className="mb-4 mr-4">
-                                            <Label htmlFor="RI_MR_OPT_CNT">
-                                                Imaging Copies
-                                            </Label>
-                                            <Input
-                                                type="number"
-                                                min="1"
-                                                name="RI_MR_OPT_CNT"
-                                                id="RI_MR_OPT_CNT"
-                                                className="block mt-1"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please enter the number of copies.',
-                                                    validate: {
-                                                        countCheck: value =>
-                                                            value > 0 ||
-                                                            'Please enter a value greater than 0.',
-                                                    },
-                                                })}
-                                            />
-                                            <Text className="mt-2 text-sm">
-                                                Note: An{' '}
-                                                <Text
-                                                    as="span"
-                                                    className="font-bold"
-                                                >
-                                                    additional
-                                                </Text>{' '}
-                                                $8 fee per copy applies to
-                                                imaging (X-Ray, MRI) CDs.
-                                            </Text>
-                                            {errors.RI_MR_OPT_CNT && (
-                                                <ErrorMessage
-                                                    className="mt-2"
-                                                    message={
-                                                        errors.RI_MR_OPT_CNT
-                                                            .message
-                                                    }
-                                                />
-                                            )}
-                                        </Box>
-                                    )}
-
-                                    <CheckboxWrapper>
-                                        {watchRequestedInformationOptions.length >
-                                            0 && (
-                                            <Checkbox
-                                                labelClassName="hidden"
-                                                label="Medical Records"
-                                                name="RI_CB"
-                                                value="MR"
-                                                checked
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select the items you would like released.',
-                                                })}
+                                            ref={register({
+                                                required:
+                                                    'Please enter the number of copies.',
+                                                validate: {
+                                                    countCheck: value =>
+                                                        value > 0 ||
+                                                        'Please enter a value greater than 0.',
+                                                },
+                                            })}
+                                        />
+                                        <Text className="mt-2 text-sm">
+                                            Note: An{' '}
+                                            <Text
+                                                as="span"
+                                                className="font-bold"
+                                            >
+                                                additional
+                                            </Text>{' '}
+                                            {hospitals[hospital].imageFee} fee
+                                            per copy applies to imaging (X-Ray,
+                                            MRI) CDs.
+                                        </Text>
+                                        {errors.RI_MR_OPT_CNT && (
+                                            <ErrorMessage
+                                                className="mt-2"
+                                                message={
+                                                    errors.RI_MR_OPT_CNT.message
+                                                }
                                             />
                                         )}
+                                    </Box>
+                                )}
 
+                                <CheckboxWrapper>
+                                    {watchRequestedInformationOptions.length >
+                                        0 && (
                                         <Checkbox
-                                            labelClassName="mb-2"
-                                            label="Include physical therapy records?"
+                                            labelClassName="hidden"
+                                            label="Medical Records"
                                             name="RI_CB"
-                                            value="PT"
+                                            value="MR"
+                                            checked
                                             onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please select the items you would like released.',
                                             })}
-                                        />
-
-                                        <Checkbox
-                                            label="Include visits from today or yesterday?"
-                                            name="RI_CB"
-                                            value="VSTY"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        >
-                                            May delay processing by 2 days.
-                                        </Checkbox>
-                                    </CheckboxWrapper>
-                                    {errors.RI_CB && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.RI_CB.message}
                                         />
                                     )}
-                                </Box>
+
+                                    <Checkbox
+                                        label="Include visits from today or yesterday?"
+                                        name="RI_CB"
+                                        value="VSTY"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select the items you would like released.',
+                                        })}
+                                    >
+                                        May delay processing by 2 days.
+                                    </Checkbox>
+                                </CheckboxWrapper>
+                                {errors.RI_CB && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.RI_CB.message}
+                                    />
+                                )}
+                                <Info
+                                    className="mt-4"
+                                    secondaryText="NOTE: Physical Therapy records are NOT available via this request."
+                                />
                             </Box>
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Your Information</SectionHeading>
-                            <Box>
-                                <Flex className="flex-col sm:flex-row">
-                                    <Box className="mr-4 mb-4">
-                                        <Label htmlFor="YI_REL_DD">
-                                            Relationship to Patient
-                                        </Label>
-                                        <Select
-                                            name="YI_REL_DD"
-                                            id="YI_REL_DD"
-                                            className="block mt-1"
-                                            onChange={handleChange}
-                                            ref={register({ required: true })}
-                                        >
-                                            <option value="SELF">Self</option>
-                                            <option value="PG">
-                                                Parent/Guardian
-                                            </option>
-                                            <option value="CON">
-                                                Conservator
-                                            </option>
-                                        </Select>
-                                    </Box>
-                                    <Box className="flex-grow mb-4">
-                                        <Label htmlFor="YI_REL_NM">Name</Label>
-                                        <Input
-                                            type="text"
-                                            name="YI_REL_NM"
-                                            id="YI_REL_NM"
-                                            autoComplete="name"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter your name.',
-                                            })}
-                                        />
-                                        {errors.YI_REL_NM && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_REL_NM.message
-                                                }
-                                            />
-                                        )}
-                                    </Box>
-                                </Flex>
-                                <Box className="mb-4">
-                                    <Flex className="items-center">
-                                        <Label htmlFor="YI_NOTICE_DD">
-                                            Preferred Notification Method
-                                        </Label>
-                                        <MicroModal
-                                            trigger={handleOpen => (
-                                                <Button
-                                                    onClick={handleOpen}
-                                                    className="ml-2"
-                                                >
-                                                    <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
-                                                </Button>
-                                            )}
-                                            children={handleClose => (
-                                                <Box className="p-8 relative">
-                                                    <Button
-                                                        onClick={handleClose}
-                                                        className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                                    >
-                                                        <IconClose
-                                                            onClick={
-                                                                handleClose
-                                                            }
-                                                            className=""
-                                                        />
-                                                        <ScreenReader>
-                                                            Close
-                                                        </ScreenReader>
-                                                    </Button>
 
-                                                    <Box>
-                                                        <Text className="text-xl font-bold">
-                                                            Preferred
-                                                            Notification Method
-                                                        </Text>
-
-                                                        <Text>
-                                                            This is the method
-                                                            by which you would
-                                                            like to receive
-                                                            automatic
-                                                            notifications of the
-                                                            progress of your
-                                                            request(s), as well
-                                                            as how you will
-                                                            receive password
-                                                            updates from this
-                                                            website. If we have
-                                                            specific questions
-                                                            about your request,
-                                                            we will call you at
-                                                            the phone number
-                                                            listed.
-                                                        </Text>
-                                                    </Box>
-                                                </Box>
-                                            )}
-                                        />
-                                    </Flex>
-
+                            <Flex className="flex-col sm:flex-row">
+                                <Box className="mr-4 mb-4">
+                                    <Label htmlFor="YI_REL_DD">
+                                        Relationship to Patient
+                                    </Label>
                                     <Select
-                                        name="YI_NOTICE_DD"
-                                        id="YI_NOTICE_DD"
-                                        className="block w-full mt-1"
+                                        name="YI_REL_DD"
+                                        id="YI_REL_DD"
+                                        className="block mt-1"
                                         onChange={handleChange}
                                         ref={register({ required: true })}
                                     >
-                                        <option value="text">
-                                            Text Message (Standard rates may
-                                            apply.)
+                                        <option value="SELF">Self</option>
+                                        <option value="PG">
+                                            Parent/Guardian
                                         </option>
-                                        <option value="email">Email</option>
+                                        <option value="CON">Conservator</option>
                                     </Select>
                                 </Box>
-
-                                <Flex className="flex-col sm:flex-row">
-                                    <Box className="mb-4 sm:mr-4">
-                                        <Label htmlFor="YI_PN">
-                                            Phone Number
-                                        </Label>
-                                        <Input
-                                            type="tel"
-                                            name="YI_PN"
-                                            id="YI_PN"
-                                            autoComplete="tel"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please enter your phone number.',
-                                                pattern: {
-                                                    value: regexPatterns.phone,
-                                                    message:
-                                                        'Please enter a valid phone number.',
-                                                },
-                                            })}
+                                <Box className="flex-grow mb-4">
+                                    <Label htmlFor="YI_REL_NM">Name</Label>
+                                    <Input
+                                        type="text"
+                                        name="YI_REL_NM"
+                                        id="YI_REL_NM"
+                                        autoComplete="name"
+                                        className="w-full mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required: 'Please enter your name.',
+                                        })}
+                                    />
+                                    {errors.YI_REL_NM && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.YI_REL_NM.message}
                                         />
-                                        {errors.YI_PN && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={errors.YI_PN.message}
-                                            />
+                                    )}
+                                </Box>
+                            </Flex>
+                            <Box className="mb-4">
+                                <Flex className="items-center">
+                                    <Label htmlFor="YI_NOTICE_DD">
+                                        Preferred Notification Method
+                                    </Label>
+                                    <MicroModal
+                                        trigger={handleOpen => (
+                                            <Button
+                                                onClick={handleOpen}
+                                                className="ml-2"
+                                            >
+                                                <IconQuestion className="h-5 w-5 text-blue cursor-pointer" />
+                                            </Button>
                                         )}
-                                    </Box>
-                                    <Box className="mb-4">
-                                        <Label htmlFor="YI_PHT_DD">Type</Label>
-                                        <Select
-                                            name="YI_PHT_DD"
-                                            className="w-full mt-1"
-                                            onChange={handleChange}
-                                            ref={register({
-                                                validate: {
-                                                    phoneTypeCheck: value =>
-                                                        value !==
-                                                            'Select phone type' ||
-                                                        'Please select a phone type.',
-                                                },
-                                            })}
-                                        >
-                                            <option defaultValue disabled>
-                                                Select phone type
-                                            </option>
-                                            <option key="mobile" value="mobile">
-                                                Mobile
-                                            </option>
-                                            <option key="home" value="home">
-                                                Home
-                                            </option>
-                                            <option key="work" value="work">
-                                                Work
-                                            </option>
-                                        </Select>
-                                        {errors.YI_PHT_DD && (
-                                            <ErrorMessage
-                                                className="mt-2"
-                                                message={
-                                                    errors.YI_PHT_DD.message
-                                                }
-                                            />
+                                        children={handleClose => (
+                                            <Box className="p-8 relative">
+                                                <Button
+                                                    onClick={handleClose}
+                                                    className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                                >
+                                                    <IconClose
+                                                        onClick={handleClose}
+                                                        className=""
+                                                    />
+                                                    <ScreenReader>
+                                                        Close
+                                                    </ScreenReader>
+                                                </Button>
+
+                                                <Box>
+                                                    <Text className="text-xl font-bold">
+                                                        Preferred Notification
+                                                        Method
+                                                    </Text>
+
+                                                    <Text>
+                                                        This is the method by
+                                                        which you would like to
+                                                        receive automatic
+                                                        notifications of the
+                                                        progress of your
+                                                        request(s), as well as
+                                                        how you will receive
+                                                        password updates from
+                                                        this website. If we have
+                                                        specific questions about
+                                                        your request, we will
+                                                        call you at the phone
+                                                        number listed.
+                                                    </Text>
+                                                </Box>
+                                            </Box>
                                         )}
-                                    </Box>
+                                    />
                                 </Flex>
 
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_PHC">
-                                        Retype Phone Number
-                                    </Label>
+                                <Select
+                                    name="YI_NOTICE_DD"
+                                    id="YI_NOTICE_DD"
+                                    className="block w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({ required: true })}
+                                >
+                                    <option value="text">
+                                        Text Message (Standard rates may apply.)
+                                    </option>
+                                    <option value="email">Email</option>
+                                </Select>
+                            </Box>
+
+                            <Flex className="flex-col sm:flex-row">
+                                <Box className="mb-4 sm:mr-4">
+                                    <Label htmlFor="YI_PN">Phone Number</Label>
                                     <Input
                                         type="tel"
-                                        name="YI_PHC"
-                                        id="YI_PHC"
+                                        name="YI_PN"
+                                        id="YI_PN"
                                         autoComplete="tel"
                                         className="w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({
                                             required:
-                                                'Please confirm your phone number.',
-                                            validate: {
-                                                phoneMatch: value =>
-                                                    value ===
-                                                        getValues('YI_PN') ||
-                                                    'The phone numbers you entered do not match!',
+                                                'Please enter your phone number.',
+                                            pattern: {
+                                                value: regexPatterns.phone,
+                                                message:
+                                                    'Please enter a valid phone number.',
                                             },
                                         })}
                                     />
-                                    {errors.YI_PHC && (
+                                    {errors.YI_PN && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.YI_PHC.message}
+                                            message={errors.YI_PN.message}
                                         />
                                     )}
                                 </Box>
                                 <Box className="mb-4">
-                                    <Label htmlFor="YI_EM">Email Address</Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EM"
-                                        id="YI_EM"
-                                        autoComplete="email"
+                                    <Label htmlFor="YI_PHT_DD">Type</Label>
+                                    <Select
+                                        name="YI_PHT_DD"
                                         className="w-full mt-1"
                                         onChange={handleChange}
                                         ref={register({
-                                            required:
-                                                'Please enter your email address.',
-                                        })}
-                                    />
-                                    {errors.YI_EM && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_EM.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_EMC">
-                                        Retype Email Address
-                                    </Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EMC"
-                                        id="YI_EMC"
-                                        autoComplete="email"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please confirm your email address.',
                                             validate: {
-                                                emailMatch: value =>
-                                                    value ===
-                                                        getValues('YI_EM') ||
-                                                    'The email addresses you entered do not match.',
+                                                phoneTypeCheck: value =>
+                                                    value !==
+                                                        'Select phone type' ||
+                                                    'Please select a phone type.',
                                             },
                                         })}
-                                    />
-                                    {errors.YI_EMC && (
+                                    >
+                                        <option defaultValue disabled>
+                                            Select phone type
+                                        </option>
+                                        <option key="mobile" value="mobile">
+                                            Mobile
+                                        </option>
+                                        <option key="home" value="home">
+                                            Home
+                                        </option>
+                                        <option key="work" value="work">
+                                            Work
+                                        </option>
+                                    </Select>
+                                    {errors.YI_PHT_DD && (
                                         <ErrorMessage
                                             className="mt-2"
-                                            message={errors.YI_EMC.message}
+                                            message={errors.YI_PHT_DD.message}
                                         />
                                     )}
                                 </Box>
+                            </Flex>
+
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_PHC">
+                                    Retype Phone Number
+                                </Label>
+                                <Input
+                                    type="tel"
+                                    name="YI_PHC"
+                                    id="YI_PHC"
+                                    autoComplete="tel"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your phone number.',
+                                        validate: {
+                                            phoneMatch: value =>
+                                                value === getValues('YI_PN') ||
+                                                'The phone numbers you entered do not match!',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_PHC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_PHC.message}
+                                    />
+                                )}
+                            </Box>
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EM">Email Address</Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EM"
+                                    id="YI_EM"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please enter your email address.',
+                                    })}
+                                />
+                                {errors.YI_EM && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_EM.message}
+                                    />
+                                )}
+                            </Box>
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EMC">
+                                    Retype Email Address
+                                </Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EMC"
+                                    id="YI_EMC"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your email address.',
+                                        validate: {
+                                            emailMatch: value =>
+                                                value === getValues('YI_EM') ||
+                                                'The email addresses you entered do not match.',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_EMC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_EMC.message}
+                                    />
+                                )}
                             </Box>
                         </FormSection>
 
@@ -584,8 +555,8 @@ const Form = ({ store }) => {
                             </SectionHeading>
 
                             {(watchRequestedInformationOptions === 'ALLNXM' ||
-                                watchRequestedInformationOptions === 'ALLXM' ||
-                                watchRequestedInformation.includes('PT')) && (
+                                watchRequestedInformationOptions ===
+                                    'ALLXM') && (
                                 <>
                                     <Input
                                         type="hidden"
@@ -749,8 +720,8 @@ const Form = ({ store }) => {
                                         )}
                                     </Box>
 
-                                    <Flex className="mb-4">
-                                        <Box>
+                                    <Flex className="flex-col sm:flex-row">
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ST_DD">
                                                 State
                                             </Label>
@@ -790,7 +761,7 @@ const Form = ({ store }) => {
                                                 />
                                             )}
                                         </Box>
-                                        <Box>
+                                        <Box className="mb-4">
                                             <Label htmlFor="DI_ZIP">Zip</Label>
                                             <Input
                                                 type="text"
@@ -830,7 +801,7 @@ const Form = ({ store }) => {
                                                 pattern: {
                                                     value: regexPatterns.phone,
                                                     message:
-                                                        'Please enter a valid phone number.',
+                                                        'Please enter a valid fax number.',
                                                 },
                                             })}
                                         />
@@ -847,79 +818,74 @@ const Form = ({ store }) => {
 
                         <FormSection>
                             <SectionHeading>Delivery Summary</SectionHeading>
-                            <Box>
-                                <Box
-                                    as="ul"
-                                    className="pl-8 mb-8 space-y-2 list-disc"
-                                >
-                                    {watchRequestedInformation.some(i =>
-                                        ['MR', 'PT'].includes(i)
-                                    ) &&
-                                        watchRequestedInformationOptions !==
-                                            'XM' && (
-                                            <Box as="li">
-                                                All records (excluding X-Ray and
-                                                MRI images) will be delivered
-                                                via this website in Adobe PDF
-                                                format. A notification will be
-                                                sent when the records are ready
-                                                for download, and they will be
-                                                available for 30 days.
-                                            </Box>
-                                        )}
 
-                                    {watchRPDeliveryMethod === 'PU' && (
+                            <Box
+                                as="ul"
+                                className="pl-8 mb-8 space-y-2 list-disc"
+                            >
+                                {watchRequestedInformation === 'MR' &&
+                                    watchRequestedInformationOptions !==
+                                        'XM' && (
                                         <Box as="li">
-                                            X-Rays and MRIs can be picked up at
-                                            the facility listed below. The
-                                            department will contact you if
-                                            additional information is required.
+                                            All records (excluding X-Ray and MRI
+                                            images) will be delivered via this
+                                            website in Adobe PDF format. A
+                                            notification will be sent when the
+                                            records are ready for download, and
+                                            they will be available for 30 days.
                                         </Box>
                                     )}
 
-                                    {watchRPDeliveryMethod === 'PS' && (
-                                        <Box as="li">
-                                            X-Rays and MRIs will be delivered by
-                                            mail via the US Postal Service to
-                                            the address entered above,
-                                        </Box>
-                                    )}
+                                {watchRPDeliveryMethod === 'PU' && (
+                                    <Box as="li">
+                                        X-Rays and MRIs can be picked up at the
+                                        facility listed below. The department
+                                        will contact you if additional
+                                        information is required.
+                                    </Box>
+                                )}
 
+                                {watchRPDeliveryMethod === 'PS' && (
                                     <Box as="li">
-                                        Normal processing time is{' '}
-                                        {hospitals[hospital].processingTime ||
-                                            '5-7 business days'}{' '}
-                                        from time of receipt.
+                                        X-Rays and MRIs will be delivered by
+                                        mail via the US Postal Service to the
+                                        address entered above,
                                     </Box>
-                                    <Box as="li">
-                                        Please{' '}
-                                        <Link
-                                            href={getContactPage()}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                        >
-                                            contact us
-                                        </Link>{' '}
-                                        if you have any questions.
-                                    </Box>
+                                )}
+
+                                <Box as="li">
+                                    Normal processing time is{' '}
+                                    {hospitals[hospital].processingTime ||
+                                        '5-7 business days'}{' '}
+                                    from time of receipt.
                                 </Box>
-                                <Box>
-                                    {(watchRPDeliveryMethod === 'PU' ||
-                                        watchRecordDeliveryMethod === 'PU') && (
-                                        <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
-                                            <Text>
-                                                Once available, records can be
-                                                picked up from the facility or
-                                                facilities listed below.
-                                            </Text>
-
-                                            <FacilityAddress
-                                                key={facility.id}
-                                                facility={facility}
-                                            />
-                                        </Box>
-                                    )}
+                                <Box as="li">
+                                    Please{' '}
+                                    <Link
+                                        href={getContactPage()}
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
+                                    >
+                                        contact us
+                                    </Link>{' '}
+                                    if you have any questions.
                                 </Box>
                             </Box>
+
+                            {(watchRPDeliveryMethod === 'PU' ||
+                                watchRecordDeliveryMethod === 'PU') && (
+                                <Box className="p-8 mb-4 space-y-4 bg-gray-lightest">
+                                    <Text>
+                                        Once available, records can be picked up
+                                        from the facility or facilities listed
+                                        below.
+                                    </Text>
+
+                                    <FacilityAddress
+                                        key={facility.id}
+                                        facility={facility}
+                                    />
+                                </Box>
+                            )}
                         </FormSection>
 
                         <ServerErrorList
