@@ -1,10 +1,7 @@
-import dynamic from 'next/dynamic'
-const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import useNavigation from '@/lib/useNavigation'
-import { Box, Link, Text, Button } from '@/components/core'
-import { PageHeading, ButtonWrapper } from '@/components/atoms'
-import { Layout, Container, ScreenReader } from '@/components/general'
-import IconClose from '@/icons/icon-close.svg'
+import { Box, Link, Text, Button, Heading } from '@/components/core'
+import { PageHeading, ButtonWrapper, Info } from '@/components/atoms'
+import { Layout, Container } from '@/components/general'
 
 const Instructions = () => {
     const { getLandingPage, getStepPage } = useNavigation()
@@ -12,200 +9,193 @@ const Instructions = () => {
     return (
         <Layout>
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8">
-                    <PageHeading className="pt-4">
+                <Box className="w-full max-w-screen-md">
+                    <PageHeading className="mt-4">
                         Instructions for Release to Third-Party
                     </PageHeading>
-                    <Box>
-                        <Text className="pb-4 leading-relaxed">
-                            This website allows you to submit requests for
-                            copies of a patient's medical records to be sent to
-                            yourself or to someone else. Please read the
-                            important notes below before continuing to use this
-                            system:
+
+                    <Box className="mt-8">
+                        <Text>
+                            <Text as="span" className="font-bold">
+                                ALERT:
+                            </Text>{' '}
+                            This system lets you as a patient request that
+                            medical records be accessed online by a designated
+                            Healthcare Provider.{' '}
+                            <Text as="span" className="font-bold">
+                                You will not be able to access these records
+                                yourself. Only the Healthcare Provider will be
+                                able to access them.
+                            </Text>
                         </Text>
-                        <Box as="ol" className="pl-8 pb-2 list-decimal">
+
+                        <Text className="mt-4">
+                            <Text as="span" className="font-bold">
+                                Please understand that we cannot control when or
+                                if the designated Healthcare Provider will
+                                access your records on our secure website.
+                            </Text>{' '}
+                            You may experience significant delays or other
+                            issues if you depend on a Healthcare Provider to
+                            access your records on your behalf. You are solely
+                            responsible for verifying that the Healthcare
+                            Provider will go online to access your records and
+                            for making the Healthcare Provider aware that they
+                            should watch for a faxed notification indicating
+                            that your records are ready. You are also
+                            responsible for any and all follow-up with the
+                            Healthcare Provider.
+                        </Text>
+
+                        <Text className="mt-4">
+                            We strongly recommend, if possible, that you{' '}
+                            <Link
+                                href={`${getLandingPage()}/patient`}
+                                className="underline font-bold text-blue hover:text-black transition-colors"
+                            >
+                                click here
+                            </Link>{' '}
+                            <Text as="span" className="font-bold">
+                                to use Option 1 instead (the 48-hour Quick
+                                Release short form)
+                            </Text>{' '}
+                            to order and access the records for yourself. After
+                            you save your records, you may arrange to share them
+                            however and whenever you wish.
+                        </Text>
+                    </Box>
+
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            Who Can Order Patient Records?
+                        </Heading>
+                        <Box as="ul" className="pl-8 mb-6 space-y-2 list-disc">
                             <Box as="li">
-                                This website is designed for{' '}
+                                Patients 18 years of age or older{' '}
                                 <Text as="span" className="font-bold">
-                                    patients
-                                </Text>{' '}
-                                or{' '}
-                                <Text as="span" className="font-bold">
-                                    parties with the power to make decisions on
-                                    behalf of a patient (e.g. parents,
-                                    guardians, personal representatives)
-                                </Text>{' '}
-                                to request records. Third parties should{' '}
-                                <Link
-                                    href="/pih"
-                                    className="underline font-bold text-blue hover:text-black transition-colors"
-                                >
-                                    click here
-                                </Link>{' '}
-                                to view other options for requesting medical
-                                records.
-                            </Box>
-                            <Box as="li">
-                                In order to protect the patient's privacy and
-                                comply with federal and state regulations, we
-                                need a copy of your driver's license or other
-                                government-issued ID as well as proof you are
-                                authorized to make medical decisions for the
-                                patient (if you are not the patient) before we
-                                can release records.{' '}
-                                <Text as="span" className="font-bold">
-                                    Failure to upload all required documents
-                                    through this system within 72 hours after
-                                    beginning the process will result in your
-                                    request being canceled.
+                                    (NOTE: A parent may not request records on
+                                    behalf of an adult child, regardless of
+                                    insurance coverage, residence, etc.).
                                 </Text>
                             </Box>
-                            <Box as="ul" className="pl-8 space-y-2 list-disc">
-                                <Box as="li">
-                                    If you are on a mobile device (e.g.
-                                    smartphone/tablet), you will need to
-                                    electronically sign an authorization form
-                                    and submit a picture of yourself holding
-                                    your government-issued ID.
-                                </Box>
-                                <Box as="li">
-                                    If you are on a non-mobile device (e.g.
-                                    desktop/laptop computer) you will need to
-                                    print, manually sign, and upload a scanned
-                                    copy of an authorization form as well as
-                                    your government-issued ID.
-                                </Box>
+                            <Box as="li">
+                                Parents/guardians who have the legal authority
+                                to access a minor child's records.
                             </Box>
                             <Box as="li">
-                                If you are not the patient, you will also need
-                                to submit a legible image (picture or scanned)
-                                of proof you are authorized to make medical
-                                decisions for the patient.{' '}
-                                <MicroModal
-                                    trigger={handleOpen => (
-                                        <Box
-                                            as="button"
-                                            onClick={handleOpen}
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                        >
-                                            Click here for examples.
-                                        </Box>
-                                    )}
-                                    children={handleClose => (
-                                        <Box className="p-8 relative">
-                                            <button
-                                                onClick={handleClose}
-                                                className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                            >
-                                                <IconClose
-                                                    onClick={handleClose}
-                                                    className=""
-                                                />
-                                                <ScreenReader>
-                                                    Close
-                                                </ScreenReader>
-                                            </button>
-
-                                            <Box>
-                                                <Text className="text-xl font-bold">
-                                                    Types of Supporting
-                                                    Documents
-                                                </Text>
-                                                <Text className="mb-4">
-                                                    Acceptable forms of
-                                                    supporting documentation are
-                                                    listed below. However, the
-                                                    facility where the records
-                                                    you are requesting are
-                                                    located may have additional
-                                                    or other requirements.
-                                                </Text>
-                                                <Box
-                                                    as="ul"
-                                                    className="list-disc pl-8 mb-4 text-sm"
-                                                >
-                                                    <Box as="li">
-                                                        Power of Attorney for
-                                                        Healthcare if the
-                                                        patient is alive but
-                                                        unable to sign for
-                                                        themselves
-                                                    </Box>
-                                                    <Box as="li">
-                                                        Executor's Documents if
-                                                        the patient is deceased
-                                                    </Box>
-                                                    <Box as="li">
-                                                        A copy of the deceased
-                                                        patient's will
-                                                    </Box>
-                                                    <Box as="li">
-                                                        Court Documents
-                                                        identifying custodial
-                                                        parent
-                                                    </Box>
-                                                    <Box as="li">
-                                                        Birth Certificate
-                                                    </Box>
-                                                </Box>
-                                                <Text>
-                                                    Note: Please understand
-                                                    until we have the
-                                                    opportunity to review the
-                                                    request against the medical
-                                                    records, we do not know if
-                                                    additional documentation
-                                                    will be required. You will
-                                                    be notified if we need
-                                                    further documentation.
-                                                </Text>
-                                            </Box>
-                                        </Box>
-                                    )}
-                                />
-                            </Box>
-
-                            <Box as="li">
-                                Information requested through this system must
-                                exactly match hospital records. Typographic
-                                errors, such as patient name misspelling or
-                                incorrect dates of service, may result in your
-                                request being canceled or delayed.
-                            </Box>
-                            <Box as="li" className="pb-2 font-bold">
-                                There may be a clerical/reproduction processing
-                                fee charged. Items not able to be delivered
-                                electronically (e.g. Radiology Imaging CDs or
-                                Pathology Slides) may incur additional charges,
-                                which will be displayed if selected.
+                                A person who has the legal authority (healthcare
+                                trustee/conservator, healthcare proxy,
+                                medical/healthcare power of attorney) to make
+                                healthcare decisions for a patient of any age.
                             </Box>
                             <Box as="li">
-                                If you request records from multiple facilities,
+                                Only patients or those described above may place
+                                an order here.{' '}
                                 <Text as="span" className="font-bold">
-                                    you will get ONE tracking number for each
-                                    facility
-                                </Text>
-                                , as each facility processes records separately.{' '}
-                                <Text as="span" className="font-bold">
-                                    You will receive separate notifications and
-                                    records from each facility.
+                                    Third parties such as attorneys, insurance
+                                    companies, record retrieval services, and
+                                    Healthcare Providers may NOT use this
+                                    ordering site. Such requests will hot be
+                                    honored, and no refunds will be made.
                                 </Text>
                             </Box>
                         </Box>
-                        <Text>
-                            If you are unable to complete the above, please
-                            refer to{' '}
-                            <Link
-                                href="/pih"
-                                className="underline font-bold text-blue hover:text-black transition-colors"
-                            >
-                                this page
-                            </Link>{' '}
-                            to review other options for submitting your request.
+                    </Box>
+
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            What You Need to Get Started
+                        </Heading>
+                        <Box
+                            as="ol"
+                            className="pl-8 pb-2 space-y-2 list-decimal"
+                        >
+                            <Box as="li">
+                                The name, address, and fax number of the
+                                Healthcare Provider to whom you are directing
+                                your records.
+                            </Box>
+                            <Box as="li">
+                                The patient's valid driver's license or other
+                                valid state-issued ID.
+                            </Box>
+                            <Box as="li">
+                                If you have the legal authority to make{' '}
+                                <Text as="span" className="font-bold">
+                                    healthcare
+                                </Text>{' '}
+                                decisions for a patient as a healthcare
+                                trustee/conservator, healthcare proxy, or
+                                medical/healthcare power of attorney, you must
+                                upload three items: (a){' '}
+                                <Text as="span" className="font-bold">
+                                    the patient's driver's license/ID,
+                                </Text>{' '}
+                                (b){' '}
+                                <Text as="span" className="font-bold">
+                                    YOUR OWN Driver's License/ID,
+                                </Text>{' '}
+                                AND (c){' '}
+                                <Text as="span" className="font-bold">
+                                    official documentation of your authority to
+                                    make healthcare decisions for the patient.
+                                </Text>{' '}
+                                NOTE: A financial power of attorney is{' '}
+                                <Text as="span" className="font-bold">
+                                    not
+                                </Text>{' '}
+                                acceptable. If you cannot provide ALL required
+                                items, the patient must place his or her own
+                                request.
+                            </Box>
+                        </Box>
+                        <Text className="italic">
+                            Please have these items handy before you start!
                         </Text>
                     </Box>
-                    <ButtonWrapper className="pb-8">
+
+                    <Box className="mt-8">
+                        <Heading as="h3" variant="h3" className="mb-2">
+                            Important - Please Read!
+                        </Heading>
+
+                        <Box as="ul" className="pl-8 mb-6 space-y-2 list-disc">
+                            <Box as="li">
+                                <Text as="span" className="font-bold">
+                                    To ensure patient security, we do not fax or
+                                    mail paper records.
+                                </Text>{' '}
+                                We use the Healthcare Provider's fax number only
+                                to send a notification to the Healthcare
+                                Provider to go online to access the requested
+                                records securely.
+                            </Box>
+                            <Box as="li">
+                                If you are requesting imaging (X-Rays, MRIs),
+                                the images will be copied to a CD and mailed to
+                                the Healthcare Provider at the address you have
+                                provided.
+                            </Box>
+                            <Box as="li">
+                                You will be required to pay{' '}
+                                <Text as="span" className="font-bold">
+                                    $25.00 for the processing of your request
+                                    plus $8.00 for each CD copy of imaging
+                                    (X-Ray, MRI) that is mailed to the
+                                    Healthcare Provider.
+                                </Text>
+                            </Box>
+                            <Box as="li" className="font-bold">
+                                THERE ARE NO REFUNDS FOR ANY REASON WHATSOEVER.
+                            </Box>
+                        </Box>
+                        <Info
+                            secondaryText="NOTE: Only patients or those described above may place an order here. Third parties such as attorneys, insurance companies, record retrieval
+services, and Healthcare Providers may NOT use this ordering site. Such requests will not be honored, and no refunds will be made."
+                        />
+                    </Box>
+
+                    <ButtonWrapper className="mt-8 pb-8">
                         <Button
                             as={Link}
                             href={getLandingPage()}
@@ -214,6 +204,7 @@ const Instructions = () => {
                         >
                             Back
                         </Button>
+
                         <Button
                             as={Link}
                             href={getStepPage('form')}

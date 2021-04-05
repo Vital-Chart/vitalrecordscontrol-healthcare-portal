@@ -10,7 +10,7 @@ const Instructions = () => {
         <Layout>
             <Container>
                 <Box className="w-full max-w-screen-md">
-                    <PageHeading className="pt-4 mb-8">
+                    <PageHeading className="pt-4">
                         Instructions for Quick Release to You
                     </PageHeading>
 
@@ -18,30 +18,21 @@ const Instructions = () => {
                         <Heading as="h3" variant="h3" className="mb-2">
                             Welcome! Please Read Below.
                         </Heading>
-                        <Box as="ul" className="pl-8 space-y-2 list-disc">
+                        <Box as="ul" className="pl-8 mb-6 space-y-2 list-disc">
                             <Box as="li">
-                                This site is for{' '}
+                                This ordering site is for use by Petaluma Valley
+                                Hospital{' '}
                                 <Text as="span" className="italic">
-                                    patients
-                                </Text>{' '}
-                                only.
-                            </Box>
-                            <Box as="li">
-                                Processing fee: $25 plus $8 for each CD copy of
-                                imaging (X-rays/MRIs).{' '}
-                                <Text as="span" className="font-bold">
-                                    THERE ARE NO REFUNDS FOR ANY REASON
-                                    WHATSOEVER.
+                                    patients only
                                 </Text>
+                                .
                             </Box>
                             <Box as="li">
-                                ALL available medical records are provided. You
-                                do not need to specify the types of written
-                                records or dates of service.
+                                Requested records are provided to patients for a
+                                flat fee of $25.00 per request.
                             </Box>
                             <Box as="li">
-                                Written records (excludes X-Ray and MRI imaging)
-                                are made available securely{' '}
+                                Requested records are made available securely{' '}
                                 <Text as="span" className="font-bold">
                                     online only
                                 </Text>
@@ -49,20 +40,20 @@ const Instructions = () => {
                                 <Text as="span" className="font-bold">
                                     not
                                 </Text>{' '}
-                                fax or mail records.
+                                fax or mail written records ordered through this
+                                site.
                             </Box>
                             <Box as="li">
-                                You will be texted when written records are
-                                ready to access online. You will receive no text
-                                alerts regarding Imaging CDs.
+                                You will be texted when the requested records
+                                are ready to access online.
                             </Box>
                             <Box as="li">
-                                For Imaging CD mailing, allow an average of 10
-                                business days f ail delivery time. For Imaging
-                                CD pick-up, go to the off-site records
-                                processing office at Vital Records Control
-                                (VRC), 2830 Drake Avenue SW, Huntsville, AL
-                                35805.
+                                Allow 15 business days for the processing of
+                                your request.
+                            </Box>
+                            <Box as="li">
+                                Radiology (imaging) and Pathology slides are not
+                                provided.
                             </Box>
                         </Box>
                     </Box>
@@ -106,6 +97,12 @@ const Instructions = () => {
                                 valid state-issued ID.
                             </Box>
                             <Box as="li">
+                                If you are the parent/guardian of a minor or a
+                                personal representative of an adult patient, you
+                                will need your valid ID.
+                            </Box>
+                            <Box as="li">A credit card to make payment.</Box>
+                            <Box as="li">
                                 If you have the legal authority to make{' '}
                                 <Text as="span" className="font-bold">
                                     healthcare
@@ -135,6 +132,7 @@ const Instructions = () => {
                                 request.
                             </Box>
                         </Box>
+
                         <Text className="italic">
                             Please have these items handy before you start!
                         </Text>
