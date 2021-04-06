@@ -83,7 +83,7 @@ const Instructions = () => {
                                 to access a minor child's records.
                             </Box>
                             <Box as="li">
-                                A person who has the legal authority (healthCare
+                                A person who has the legal authority (healthcare
                                 trustee/conservator, healthcare proxy,
                                 medical/healthcare power of attorney) to make
                                 healthcare decisions for a patient of any age.
@@ -96,7 +96,7 @@ const Instructions = () => {
                                     companies, record retrieval services, and
                                     Healthcare Providers may NOT use this
                                     ordering site. Such requests will hot be
-                                    honored, and no refunds
+                                    honored, and no refunds will be made.
                                 </Text>
                             </Box>
                         </Box>
@@ -143,7 +143,7 @@ const Instructions = () => {
                                 NOTE: A financial power of attorney is{' '}
                                 <Text as="span" className="font-bold">
                                     not
-                                </Text>
+                                </Text>{' '}
                                 acceptable. If you cannot provide ALL required
                                 items, the patient must place his or her own
                                 request.

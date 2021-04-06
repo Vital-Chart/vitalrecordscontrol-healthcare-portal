@@ -70,7 +70,7 @@ export const LayoutUpload = ({ children }) => {
     const [isFetching, setIsFetching] = useState(false)
     const hasTouch = isTouchDevice()
 
-    const handleDrop = droppedFiles => {
+    const handleDrop = async droppedFiles => {
         let isDuplicate = false
         setServerErrors([])
         droppedFiles.map(droppedFile => {
@@ -88,11 +88,10 @@ export const LayoutUpload = ({ children }) => {
         if (!isDuplicate) {
             setIsFetching(true)
             try {
-                const { inError, errorInformation } = createRequest({
+                const { inError, errorInformation } = await createRequest({
                     ...store.state.form,
                     files: droppedFiles,
                 })
-
                 if (inError) {
                     setServerErrors(
                         errorInformation.map(error => error.errorNumber)
@@ -119,9 +118,8 @@ export const LayoutUpload = ({ children }) => {
         accept: 'image/jpeg, image/png, image/tiff, .pdf',
     })
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         if (store.state.uploadedFiles.length > 0) {
-            // Redirect to next step
             goToStep('review')
         } else {
             setServerErrors([100010])
