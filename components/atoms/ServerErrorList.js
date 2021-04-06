@@ -15,6 +15,7 @@ const errorMessages = {
     100008: '100008: Tracking number ID not found',
     100009: '100009: Not enough information provided for processing to continue.  Neither tracking number or facility information provided.',
     100010: '100010: This request requires uploading authorization documents. Please re-read the instructions above, and try again once you have uploaded documents.',
+    100011: 'This request requires a signature. Please sign in the box above and try again.',
 }
 
 export const ServerErrorList = ({ className, errors }) => {

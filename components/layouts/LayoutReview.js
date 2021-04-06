@@ -130,8 +130,6 @@ function displayAuthorizedInformation(store) {
             ? form.RI_MR_AI_CB
             : form.RI_MR_AI_CB.split(',')
 
-    console.log(authorizedInfo)
-
     const info = authorizedInfo.map(checkbox => {
         switch (checkbox) {
             case 'IPD':
@@ -184,32 +182,37 @@ export const LayoutReview = ({ children }) => {
     const hasTouch = isTouchDevice()
 
     const handleSubmit = async () => {
-        setIsFetching(true)
         setServerErrors([])
 
-        try {
-            const { inError, errorInformation } = await finishRequest({
-                ...store.state.form,
-                esig: store.state.signature,
-            })
-
-            if (inError) {
-                setServerErrors(
-                    errorInformation.map(error => error.errorNumber)
-                )
-                setIsFetching(false)
-            } else {
-                setIsFetching(false)
-
-                store.dispatch({
-                    type: 'UPDATE_SUCCESS',
-                    value: hospital,
+        if (hasTouch && !store.state.signature) {
+            setServerErrors([100011])
+            console.error('ERROR 100011: No signature.')
+        } else {
+            try {
+                setIsFetching(true)
+                const { inError, errorInformation } = await finishRequest({
+                    ...store.state.form,
+                    esig: store.state.signature,
                 })
+
+                if (inError) {
+                    setServerErrors(
+                        errorInformation.map(error => error.errorNumber)
+                    )
+                    setIsFetching(false)
+                } else {
+                    setIsFetching(false)
+
+                    store.dispatch({
+                        type: 'UPDATE_SUCCESS',
+                        value: hospital,
+                    })
+                }
+            } catch (error) {
+                // General server error
+                setServerErrors([100000])
+                setIsFetching(false)
             }
-        } catch (error) {
-            // General server error
-            setServerErrors([100000])
-            setIsFetching(false)
         }
     }
 

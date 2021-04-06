@@ -118,9 +118,8 @@ export const LayoutUpload = ({ children }) => {
         accept: 'image/jpeg, image/png, image/tiff, .pdf',
     })
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         if (store.state.uploadedFiles.length > 0) {
-            // Redirect to next step
             goToStep('review')
         } else {
             setServerErrors([100010])
