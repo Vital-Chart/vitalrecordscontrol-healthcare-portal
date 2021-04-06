@@ -425,18 +425,9 @@ export const LayoutReview = ({ children }) => {
                                                     value: blob,
                                                 })
                                             })
-
-                                        // store.dispatch({
-                                        //     type: 'UPDATE_SIGNATURE',
-                                        //     value: canvasRef.current
-                                        //         .getTrimmedCanvas()
-                                        //         .toDataURL('image/png'),
-                                        // })
                                     }}
                                     canvasProps={{
-                                        // width: 400,
-                                        // height: 200,
-                                        className: 'w-full h-36',
+                                        className: 'w-full h-40',
                                     }}
                                 />
                             </Box>
@@ -457,14 +448,6 @@ export const LayoutReview = ({ children }) => {
                                     </Button>
                                 </Box>
                             )}
-
-                            {/* {store.state.signature && (
-                                <img
-                                    src={URL.createObjectURL(
-                                        store.state.signature
-                                    )}
-                                />
-                            )} */}
                         </Box>
                     )}
 
