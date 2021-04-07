@@ -199,10 +199,9 @@ const Form = ({ store }) => {
                                     </Select>
                                 </Box>
 
-                                {(watchRequestedInformationOptions ===
-                                    'ALLXM' ||
-                                    watchRequestedInformationOptions ===
-                                        'XM') && (
+                                {['ALLXM', 'XM'].includes(
+                                    watchRequestedInformationOptions
+                                ) && (
                                     <Box className="mb-4 mr-4">
                                         <Label htmlFor="RI_MR_OPT_CNT">
                                             Imaging Copies
@@ -551,9 +550,9 @@ const Form = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
 
-                            {(watchRequestedInformationOptions === 'ALLNXM' ||
-                                watchRequestedInformationOptions ===
-                                    'ALLXM') && (
+                            {['ALLXM', 'ALLNXM'].includes(
+                                watchRequestedInformationOptions
+                            ) && (
                                 <>
                                     <Input
                                         type="hidden"
@@ -584,8 +583,9 @@ const Form = ({ store }) => {
                                 </Text>
                             )}
 
-                            {(watchRequestedInformationOptions === 'ALLXM' ||
-                                watchRequestedInformationOptions === 'XM') && (
+                            {['ALLXM', 'XM'].includes(
+                                watchRequestedInformationOptions
+                            ) && (
                                 <>
                                     <Input
                                         type="hidden"

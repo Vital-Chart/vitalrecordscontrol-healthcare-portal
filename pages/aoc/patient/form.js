@@ -202,10 +202,9 @@ const Form = ({ store }) => {
                                     </Select>
                                 </Box>
 
-                                {(watchRequestedInformationOptions ===
-                                    'ALLXM' ||
-                                    watchRequestedInformationOptions ===
-                                        'XM') && (
+                                {['ALLXM', 'XM'].includes(
+                                    watchRequestedInformationOptions
+                                ) && (
                                     <Box className="mb-4 mr-4">
                                         <Label htmlFor="RI_MR_OPT_CNT">
                                             Imaging Copies
@@ -251,11 +250,9 @@ const Form = ({ store }) => {
                                 )}
 
                                 <CheckboxWrapper>
-                                    // TODO: Replace with controlled input?
-                                    {(watchRequestedInformationOptions ===
-                                        'ALLNXM' ||
-                                        watchRequestedInformationOptions ===
-                                            'ALLXM') && (
+                                    {['ALLNXM', 'ALLXM'].includes(
+                                        watchRequestedInformationOptions
+                                    ) && (
                                         <Checkbox
                                             labelClassName="hidden"
                                             label="Medical Records"
@@ -562,8 +559,9 @@ const Form = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
 
-                            {(watchRequestedInformationOptions === 'ALLNXM' ||
-                                watchRequestedInformationOptions === 'ALLXM' ||
+                            {(['ALLNXM', 'ALLXM'].includes(
+                                watchRequestedInformationOptions
+                            ) ||
                                 watchRequestedInformation.includes('PT')) && (
                                 <>
                                     <Input
@@ -594,8 +592,9 @@ const Form = ({ store }) => {
                                 </Text>
                             )}
 
-                            {(watchRequestedInformationOptions === 'ALLXM' ||
-                                watchRequestedInformationOptions === 'XM') && (
+                            {['ALLNXM', 'XM'].includes(
+                                watchRequestedInformationOptions
+                            ) && (
                                 <Box className="p-8 mb-6 bg-gray-lightest">
                                     <Heading as="h3" variant="h5">
                                         X-Ray and MRI Delivery Options
