@@ -117,7 +117,6 @@ const Instructions = () => {
                                 If you are the parent/guardian of a minor, you
                                 will need your valid ID.
                             </Box>
-                            <Box as="li">A credit card to make payment.</Box>
                             <Box as="li">
                                 If you have the legal authority to make{' '}
                                 <Text as="span" className="font-bold">
