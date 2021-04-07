@@ -251,8 +251,11 @@ const Form = ({ store }) => {
                                 )}
 
                                 <CheckboxWrapper>
-                                    {watchRequestedInformationOptions.length >
-                                        0 && (
+                                    // TODO: Replace with controlled input?
+                                    {(watchRequestedInformationOptions ===
+                                        'ALLNXM' ||
+                                        watchRequestedInformationOptions ===
+                                            'ALLXM') && (
                                         <Checkbox
                                             labelClassName="hidden"
                                             label="Medical Records"
@@ -266,7 +269,6 @@ const Form = ({ store }) => {
                                             })}
                                         />
                                     )}
-
                                     <Checkbox
                                         labelClassName="mb-2"
                                         label="Include physical therapy records?"
@@ -278,7 +280,6 @@ const Form = ({ store }) => {
                                                 'Please select the items you would like released.',
                                         })}
                                     />
-
                                     <Checkbox
                                         label="Include visits from today or yesterday?"
                                         name="RI_CB"

@@ -3,15 +3,15 @@ import Head from 'next/head'
 import { useIdle } from 'react-use'
 import useNavigation from '@/lib/useNavigation'
 import { useStore } from '@/lib/store'
+import { getBrowser } from '@/lib/helpers'
+import hospitals from '@/lib/hospitals'
 import { Flex } from '@/components/core'
 import { Footer, Header, ScreenReader } from '@/components/general'
 import { BrowserAlert } from '@/components/atoms'
 
-import { getBrowser } from '@/lib/helpers'
-
 export const Layout = ({ children }) => {
     const store = useStore()
-    const { getLandingPage, isStepPage } = useNavigation()
+    const { getLandingPage, isStepPage, hospital } = useNavigation()
     const isIdle = useIdle(60e4) // 10 minutes
     const browser = getBrowser()
     const [unsupportedBrowser, setUnsupportedBrowser] = useState(false)
@@ -37,7 +37,10 @@ export const Layout = ({ children }) => {
     return (
         <>
             <Head>
-                <title>VitalChart® Virtual ROI Portal</title>
+                <title>
+                    VitalChart® Virtual ROI Portal
+                    {hospital && ` | ${hospitals[hospital].name}`}
+                </title>
             </Head>
 
             <ScreenReader as="a" href="#content">

@@ -118,7 +118,7 @@ export const UploadsList = ({
     return (
         <Box className={cx('divide-y divide-gray-light', className)} {...props}>
             <Flex className="bg-gray-light">
-                <Box className="w-10 py-2 px-4"></Box>
+                {isEditable && <Box className="w-10 py-2 px-4"></Box>}
                 <Box className="flex-1 py-2 px-4">
                     <Text className="uppercase text-sm font-bold">
                         Uploaded Files
@@ -135,8 +135,8 @@ export const UploadsList = ({
             {store.state.uploadedFiles.length ? (
                 store.state.uploadedFiles.map(file => (
                     <Flex key={file.name}>
-                        <Flex className="items-center justify-center w-10 p-2">
-                            {isEditable && (
+                        {isEditable && (
+                            <Flex className="items-center justify-center w-10 p-2">
                                 <Box
                                     as="button"
                                     onClick={() => handleDeleteFile(file.name)}
@@ -146,8 +146,8 @@ export const UploadsList = ({
 
                                     <ScreenReader>Close</ScreenReader>
                                 </Box>
-                            )}
-                        </Flex>
+                            </Flex>
+                        )}
                         <Flex className="flex-1 items-center py-2 px-4">
                             <Text>
                                 {file.name}{' '}
