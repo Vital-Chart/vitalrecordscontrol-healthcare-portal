@@ -738,7 +738,14 @@ const Form = ({ store }) => {
                             )}
 
                             {watchRequestedInformation.some(i =>
-                                ['ERV', 'EHR', 'COV', 'BR', 'OR'].includes(i)
+                                [
+                                    'ERV',
+                                    'EHR',
+                                    'COV',
+                                    'BR',
+                                    'OR',
+                                    'RH',
+                                ].includes(i)
                             ) && (
                                 <Box className="p-8 mb-6 bg-gray-lightest">
                                     <Heading as="h3" variant="h5">
@@ -846,9 +853,14 @@ const Form = ({ store }) => {
                                 className="pl-8 mb-8 space-y-2 list-disc"
                             >
                                 {watchRequestedInformation.some(i =>
-                                    ['ERV', 'EHR', 'COV', 'BR', 'OR'].includes(
-                                        i
-                                    )
+                                    [
+                                        'ERV',
+                                        'EHR',
+                                        'COV',
+                                        'BR',
+                                        'OR',
+                                        'RH',
+                                    ].includes(i)
                                 ) && (
                                     <>
                                         {watchRecordDeliveryMethod.includes(
