@@ -93,6 +93,18 @@ const Form = ({ store }) => {
         store.state.form.PI_PLN,
     ])
 
+    // Add or remove MR from RI_CB based on RI_MR_OPT
+    useEffect(() => {
+        if (['ALLXM', 'ALLNXM'].includes(watchRequestedInformationOptions)) {
+            setValue('RI_CB', [...getValues('RI_CB'), 'MR'])
+        } else {
+            setValue(
+                'RI_CB',
+                [getValues('RI_CB')].filter(el => el !== 'MR')
+            )
+        }
+    }, [watchRequestedInformationOptions])
+
     const handleChange = e => {
         setServerErrors([])
 
@@ -247,54 +259,32 @@ const Form = ({ store }) => {
                                 )}
 
                                 <CheckboxWrapper>
-                                    {['ALLXM', 'ALLNXM'].includes(
-                                        watchRequestedInformationOptions
-                                    ) && (
-                                        <Checkbox
-                                            labelClassName="hidden"
-                                            label="Medical Records"
-                                            name="RI_CB"
-                                            value="MR"
-                                            checked
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        />
-                                    )}
-
+                                    <Checkbox
+                                        labelClassName="hidden"
+                                        label="Medical Records"
+                                        name="RI_CB"
+                                        value="MR"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
                                     <Checkbox
                                         labelClassName="mb-2"
                                         label="Include physical therapy records?"
                                         name="RI_CB"
                                         value="PT"
                                         onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
+                                        ref={register}
                                     />
-
                                     <Checkbox
                                         label="Include visits from today or yesterday?"
                                         name="RI_CB"
                                         value="VSTY"
                                         onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
+                                        ref={register}
                                     >
                                         May delay processing by 2 days.
                                     </Checkbox>
                                 </CheckboxWrapper>
-                                {errors.RI_CB && (
-                                    <ErrorMessage
-                                        className="mt-2"
-                                        message={errors.RI_CB.message}
-                                    />
-                                )}
                             </Box>
                         </FormSection>
 
