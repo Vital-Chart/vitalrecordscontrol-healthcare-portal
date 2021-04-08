@@ -19,7 +19,6 @@ import {
     Flex,
     Button,
     Link,
-    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -30,7 +29,6 @@ import {
     ButtonWrapper,
     Stepper,
     ServerErrorList,
-    Info,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -65,13 +63,7 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
-    const watchRequestedInformation = watch('RI_CB', [])
-    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
-    const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
-    const watchRequestedInformationOptions = watch('RI_MR_OPT', '')
-
-    const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {
@@ -454,25 +446,6 @@ const Form = ({ store }) => {
                                 )}
                             </Box>
                         </FormSection>
-
-                        {/* <FormSection className="border-b border-gray-light">
-                            <SectionHeading>
-                                Delivery Information
-                            </SectionHeading>
-
-                            
-
-                            <Info
-                                secondaryText="All records will be
-                                delivered via this website
-                                in Adobe PDF format. A
-                                notification will be sent
-                                when the records are ready
-                                for download, and they will
-                                be available for 30 days."
-                                className="my-4"
-                            />
-                        </FormSection> */}
 
                         <FormSection>
                             <SectionHeading>Delivery Summary</SectionHeading>

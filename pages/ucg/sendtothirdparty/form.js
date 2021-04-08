@@ -19,7 +19,6 @@ import {
     Flex,
     Button,
     Link,
-    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -65,13 +64,7 @@ const Form = ({ store }) => {
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
 
-    const watchRequestedInformation = watch('RI_CB', [])
-    const watchRecordDeliveryMethod = watch('DI_DM_DD', [])
-    const watchRPDeliveryMethod = watch('DI_DMRP_OPT', [])
     const watchRelationshipToPatient = watch('YI_REL_DD', '')
-    const watchRequestedInformationOptions = watch('RI_MR_OPT', '')
-
-    const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
         if (Object.keys(store.state.form).length === 0) {

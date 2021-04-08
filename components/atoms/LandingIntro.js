@@ -6,6 +6,10 @@ import { Container } from '@/components/general'
 
 export const LandingIntro = ({ children }) => {
     const { hospital } = useNavigation()
+    const customButtonStyles = {
+        'background-color': `${hospitals[hospital].buttonColor || '#D5B227'}`,
+        color: `${hospitals[hospital].buttonTextColor || '#333333'}`,
+    }
 
     return (
         <Flex
@@ -25,6 +29,7 @@ export const LandingIntro = ({ children }) => {
                             href={`${hospital}/#newRequest`}
                             variant="filledSecondary"
                             className="flex-grow m-2 text-center"
+                            style={customButtonStyles}
                         >
                             Start New Request
                         </Button>
@@ -34,6 +39,7 @@ export const LandingIntro = ({ children }) => {
                             href="https://www.myroiplus.com"
                             variant="filledSecondary"
                             className="flex-grow m-2 text-center"
+                            style={customButtonStyles}
                         >
                             Track Request or Download Records
                         </Button>

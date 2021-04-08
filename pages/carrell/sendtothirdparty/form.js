@@ -93,6 +93,18 @@ const Form = ({ store }) => {
         store.state.form.PI_PLN,
     ])
 
+    // Add or remove MR from RI_CB based on RI_MR_OPT
+    useEffect(() => {
+        if (['ALLXM', 'ALLNXM'].includes(watchRequestedInformationOptions)) {
+            setValue('RI_CB', [...getValues('RI_CB'), 'MR'])
+        } else {
+            setValue(
+                'RI_CB',
+                [getValues('RI_CB')].filter(el => el !== 'MR')
+            )
+        }
+    }, [watchRequestedInformationOptions])
+
     const handleChange = e => {
         setServerErrors([])
 
@@ -199,10 +211,9 @@ const Form = ({ store }) => {
                                     </Select>
                                 </Box>
 
-                                {(watchRequestedInformationOptions ===
-                                    'ALLXM' ||
-                                    watchRequestedInformationOptions ===
-                                        'XM') && (
+                                {['ALLXM', 'XM'].includes(
+                                    watchRequestedInformationOptions
+                                ) && (
                                     <Box className="mb-4 mr-4">
                                         <Label htmlFor="RI_MR_OPT_CNT">
                                             Imaging Copies
@@ -248,45 +259,69 @@ const Form = ({ store }) => {
                                 )}
 
                                 <CheckboxWrapper>
-                                    {watchRequestedInformationOptions.length >
-                                        0 && (
-                                        <Checkbox
-                                            labelClassName="hidden"
-                                            label="Medical Records"
-                                            name="RI_CB"
-                                            value="MR"
-                                            checked
-                                            onChange={handleChange}
-                                            ref={register({
-                                                required:
-                                                    'Please select the items you would like released.',
-                                            })}
-                                        />
-                                    )}
-
+                                    <Checkbox
+                                        labelClassName="hidden"
+                                        label="Medical Records"
+                                        name="RI_CB"
+                                        value="MR"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
                                     <Checkbox
                                         label="Include visits from today or yesterday?"
                                         name="RI_CB"
                                         value="VSTY"
                                         onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
+                                        ref={register}
                                     >
                                         May delay processing by 2 days.
                                     </Checkbox>
                                 </CheckboxWrapper>
-                                {errors.RI_CB && (
-                                    <ErrorMessage
-                                        className="mt-2"
-                                        message={errors.RI_CB.message}
-                                    />
-                                )}
                                 <Info
                                     className="mt-4"
                                     secondaryText="NOTE: Physical Therapy records are NOT available via this request."
                                 />
+                            </Box>
+                            <Box className="mt-6">
+                                <Text className="max-w-lg text-sm font-bold mb-2">
+                                    The following information will not be
+                                    released unless specifically authorized by
+                                    checking the relevant box(es) below:
+                                </Text>
+                                <CheckboxWrapper>
+                                    <Checkbox
+                                        labelClassName="mb-2"
+                                        name="RI_MR_AI_CB"
+                                        label="Information pertaining to mental health diagnosis or treatment"
+                                        value="IPM"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
+                                    <Checkbox
+                                        labelClassName="mb-2"
+                                        name="RI_MR_AI_CB"
+                                        label="Information pertaining to drug and alcohol abuse, diagnosis, or treatment"
+                                        value="IPD"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
+                                    <Checkbox
+                                        labelClassName="mb-2"
+                                        name="RI_MR_AI_CB"
+                                        label="HIV/AIDS test results"
+                                        value="HIV"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
+                                    <Checkbox
+                                        labelClassName="mb-2"
+                                        name="RI_MR_AI_CB"
+                                        label="Genetic testing information"
+                                        value="GTI"
+                                        onChange={handleChange}
+                                        ref={register}
+                                    />
+                                </CheckboxWrapper>
                             </Box>
                         </FormSection>
 
@@ -551,9 +586,9 @@ const Form = ({ store }) => {
                                 Delivery Information
                             </SectionHeading>
 
-                            {(watchRequestedInformationOptions === 'ALLNXM' ||
-                                watchRequestedInformationOptions ===
-                                    'ALLXM') && (
+                            {['ALLXM', 'ALLNXM'].includes(
+                                watchRequestedInformationOptions
+                            ) && (
                                 <>
                                     <Input
                                         type="hidden"
@@ -584,8 +619,9 @@ const Form = ({ store }) => {
                                 </Text>
                             )}
 
-                            {(watchRequestedInformationOptions === 'ALLXM' ||
-                                watchRequestedInformationOptions === 'XM') && (
+                            {['ALLXM', 'XM'].includes(
+                                watchRequestedInformationOptions
+                            ) && (
                                 <>
                                     <Input
                                         type="hidden"

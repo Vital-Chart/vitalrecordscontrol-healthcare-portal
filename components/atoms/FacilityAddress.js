@@ -14,7 +14,7 @@ export const FacilityAddress = ({ facility, className }) => {
         <Box className={className}>
             <Text className="font-bold">{name}</Text>
             {address.map(addressLine => (
-                <Text>{addressLine}</Text>
+                <Text key={addressLine}>{addressLine}</Text>
             ))}
             <Link href={phoneLink}>{phone}</Link>
         </Box>
