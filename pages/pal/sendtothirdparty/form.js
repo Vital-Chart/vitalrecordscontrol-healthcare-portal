@@ -216,6 +216,12 @@ const Form = ({ store }) => {
                                                 'Please select the items you would like released.',
                                         })}
                                     />
+                                    {errors.RI_CB && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.RI_CB.message}
+                                        />
+                                    )}
 
                                     {errors.RI_MR_OPT && (
                                         <ErrorMessage
