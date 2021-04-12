@@ -10,6 +10,7 @@ const envSettings = {
 }
 
 const nextConfig = {
+    // productionBrowserSourceMaps: true,
     env: {
         CURRENT_ENV: currentEnv,
         CREATE_UPDATE_REQUEST_ENDPOINT: `${envSettings[currentEnv]}/PatientRequest/PersistPatientRequest`,

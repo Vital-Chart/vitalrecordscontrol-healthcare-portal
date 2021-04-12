@@ -30,6 +30,11 @@ export const UploadsList = ({
             )
 
             if (inError) {
+                errorInformation.map(error => {
+                    if (error.errorNumber === 100001) {
+                        throw new Error(error)
+                    }
+                })
                 setServerErrors(
                     errorInformation.map(error => error.errorNumber)
                 )
@@ -55,35 +60,6 @@ export const UploadsList = ({
         })
     }, [uploadedFiles])
 
-    const handleViewUpload = async fileName => {
-        try {
-            const {
-                FormURI,
-                inError,
-                errorInformation,
-            } = await getUploadedFile(
-                store.state.trackingNumbers[0].TrackingNumberID,
-                fileName,
-                store.state.form
-            )
-
-            if (inError) {
-                setServerErrors(
-                    errorInformation.map(error => error.errorNumber)
-                )
-            } else {
-                setServerErrors([])
-
-                window.open(FormURI, '_blank')
-            }
-        } catch (error) {
-            // General server error
-            console.error(error)
-            setServerErrors([100000])
-            setIsFetching(false)
-        }
-    }
-
     const handleDeleteFile = async fileName => {
         setServerErrors([])
         setIsFetching(true)
@@ -96,6 +72,11 @@ export const UploadsList = ({
             )
 
             if (inError) {
+                errorInformation.map(error => {
+                    if (error.errorNumber === 100001) {
+                        throw new Error(error)
+                    }
+                })
                 setServerErrors(
                     errorInformation.map(error => error.errorNumber)
                 )

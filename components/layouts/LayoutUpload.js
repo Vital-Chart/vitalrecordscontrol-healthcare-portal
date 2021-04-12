@@ -8,6 +8,7 @@ import { createRequest, createAuthForm } from '@/lib/api'
 import { isTouchDevice } from '@/lib/helpers'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
+import errorMessages from '@/lib/errorMessages'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
 import {
@@ -142,6 +143,11 @@ export const LayoutUpload = ({ children }) => {
             )
 
             if (inError) {
+                errorInformation.map(error => {
+                    if (error.errorNumber === 100001) {
+                        throw new Error(error)
+                    }
+                })
                 setServerErrors(
                     errorInformation.map(error => error.errorNumber)
                 )

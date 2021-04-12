@@ -27,8 +27,6 @@ export const Layout = ({ children }) => {
     }, [isIdle])
 
     useEffect(() => {
-        // unsupportedBrowser =
-        //     browser.browser === 'Explorer' && browser.version < 11
         if (browser.browser === 'Explorer' && browser.version < 11) {
             setUnsupportedBrowser(true)
         }
