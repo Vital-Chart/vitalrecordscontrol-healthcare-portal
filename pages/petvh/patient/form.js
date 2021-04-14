@@ -739,56 +739,55 @@ const Form = ({ store }) => {
                                     />
                                 )}
                             </Box>
-                            {/* <Box className="mb-4">
-                                    <Label htmlFor="YI_EM">Email Address</Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EM"
-                                        id="YI_EM"
-                                        autoComplete="email"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please enter your email address.',
-                                        })}
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EM">Email Address</Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EM"
+                                    id="YI_EM"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please enter your email address.',
+                                    })}
+                                />
+                                {errors.YI_EM && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_EM.message}
                                     />
-                                    {errors.YI_EM && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_EM.message}
-                                        />
-                                    )}
-                                </Box>
-                                <Box className="mb-4">
-                                    <Label htmlFor="YI_EMC">
-                                        Retype Email Address
-                                    </Label>
-                                    <Input
-                                        type="email"
-                                        name="YI_EMC"
-                                        id="YI_EMC"
-                                        autoComplete="email"
-                                        className="w-full mt-1"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please confirm your email address.',
-                                            validate: {
-                                                emailMatch: value =>
-                                                    value ===
-                                                        getValues('YI_EM') ||
-                                                    'The email addresses you entered do not match.',
-                                            },
-                                        })}
+                                )}
+                            </Box>
+                            <Box className="mb-4">
+                                <Label htmlFor="YI_EMC">
+                                    Retype Email Address
+                                </Label>
+                                <Input
+                                    type="email"
+                                    name="YI_EMC"
+                                    id="YI_EMC"
+                                    autoComplete="email"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your email address.',
+                                        validate: {
+                                            emailMatch: value =>
+                                                value === getValues('YI_EM') ||
+                                                'The email addresses you entered do not match.',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_EMC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_EMC.message}
                                     />
-                                    {errors.YI_EMC && (
-                                        <ErrorMessage
-                                            className="mt-2"
-                                            message={errors.YI_EMC.message}
-                                        />
-                                    )}
-                                </Box> */}
+                                )}
+                            </Box>
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
