@@ -70,12 +70,12 @@ const Hospital = () => {
                     <Box className="mx-auto mb-12 border border-gray-light">
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     How long can it take to process my request?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full text-center">
                                     {hospitals[hospital].processingTime ||
                                         '5-7 business days'}
                                 </Text>
@@ -84,25 +84,23 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     Can I order my records with my phone/tablet?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
-                                    Yes
-                                </Text>
+                                <Text className="w-full text-center">Yes</Text>
                             </Flex>
                         </Flex>
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3  bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     Will I be told when my request is ready?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full text-center">
                                     Yes, immediately, by text message (see
                                     sample texts below) or email
                                 </Text>
@@ -111,26 +109,24 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     Can I access my own records?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
-                                    Yes
-                                </Text>
+                                <Text className="w-full text-center">Yes</Text>
                             </Flex>
                         </Flex>
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     Can I print, email, save, and/or fax my
                                     records?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full text-center">
                                     Yes, and you can share them with any 3rd
                                     party when and how you want
                                 </Text>
@@ -139,12 +135,12 @@ const Hospital = () => {
 
                         <Flex className="w-full border-b border-gray-light">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     How are my records made available?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
+                                <Text className="w-full text-center">
                                     Online only.*** The only item you may pick
                                     up or have mailed to you is an X-Ray/MRI CD.
                                 </Text>
@@ -153,14 +149,12 @@ const Hospital = () => {
 
                         <Flex className="w-full">
                             <Flex className="w-1/2 items-center px-4 py-3 bg-gray-lightest">
-                                <Text className="w-full font-bold text-sm text-center">
+                                <Text className="w-full font-bold text-center">
                                     Can I view my records on my phone/tablet?
                                 </Text>
                             </Flex>
                             <Flex className="w-1/2 items-center px-4 py-3">
-                                <Text className="w-full text-sm text-center">
-                                    Yes
-                                </Text>
+                                <Text className="w-full text-center">Yes</Text>
                             </Flex>
                         </Flex>
                     </Box>
