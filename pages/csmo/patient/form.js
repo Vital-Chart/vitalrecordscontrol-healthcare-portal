@@ -159,9 +159,22 @@ const Form = ({ store }) => {
                         <FormMeta />
                         <FacilitySelector />
 
+                        <Input
+                            type="hidden"
+                            name="VI_OPT"
+                            value="ALL"
+                            ref={register}
+                        />
+
+                        <Input
+                            type="hidden"
+                            name="RI_MR_OPT"
+                            value="AHI"
+                            ref={register}
+                        />
+
                         <FormSection className="border-b border-gray-light">
                             <SectionHeading>Patient Information</SectionHeading>
-
                             <PatientName />
                             <PatientDOB />
                         </FormSection>

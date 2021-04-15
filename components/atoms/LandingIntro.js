@@ -7,7 +7,7 @@ import { Container } from '@/components/general'
 export const LandingIntro = ({ children }) => {
     const { hospital } = useNavigation()
     const customButtonStyles = {
-        'background-color': `${hospitals[hospital].buttonColor || '#D5B227'}`,
+        backgroundColor: `${hospitals[hospital].buttonColor || '#D5B227'}`,
         color: `${hospitals[hospital].buttonTextColor || '#333333'}`,
     }
 
