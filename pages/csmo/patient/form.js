@@ -37,6 +37,7 @@ import {
     FormMeta,
     PatientName,
     PatientDOB,
+    VisitOptions,
 } from '@/components/sections'
 
 import IconQuestion from '@/icons/icon-question.svg'
@@ -183,7 +184,7 @@ const Form = ({ store }) => {
                             <SectionHeading>
                                 Requested Information
                             </SectionHeading>
-                            <Text>All medical records will be provided</Text>
+                            <VisitOptions />
 
                             <CheckboxWrapper className="mt-4">
                                 <Checkbox

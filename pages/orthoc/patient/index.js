@@ -2,9 +2,10 @@ import useNavigation from '@/lib/useNavigation'
 import { Box, Link, Text, Button, Heading } from '@/components/core'
 import { PageHeading, ButtonWrapper } from '@/components/atoms'
 import { Layout, Container } from '@/components/general'
+import hospitals from '@/lib/hospitals'
 
 const Instructions = () => {
-    const { getLandingPage, getStepPage } = useNavigation()
+    const { getLandingPage, getStepPage, hospital } = useNavigation()
 
     return (
         <Layout>
@@ -27,8 +28,9 @@ const Instructions = () => {
                                 only.
                             </Box>
                             <Box as="li">
-                                Processing fee: $25 plus $8 for each CD copy of
-                                imaging (X-rays/MRIs).{' '}
+                                Processing fee:{' '}
+                                {hospitals[hospital].imageFee || '$8'} for each
+                                CD copy of imaging (X-rays/MRIs).{' '}
                                 <Text as="span" className="font-bold">
                                     THERE ARE NO REFUNDS FOR ANY REASON
                                     WHATSOEVER.
