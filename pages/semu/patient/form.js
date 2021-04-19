@@ -183,6 +183,12 @@ const Form = ({ store }) => {
 
                             <PatientName />
                             <PatientDOB />
+                            <Input
+                                type="hidden"
+                                name="VI_OPT"
+                                value="All"
+                                ref={register}
+                            />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
@@ -284,6 +290,7 @@ const Form = ({ store }) => {
                                     <Checkbox
                                         labelClassName="hidden"
                                         label="Medical Records"
+                                        checked
                                         name="RI_CB"
                                         value="MR"
                                         onChange={handleChange}

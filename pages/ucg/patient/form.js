@@ -162,6 +162,12 @@ const Form = ({ store }) => {
 
                             <PatientName />
                             <PatientDOB />
+                            <Input
+                                type="hidden"
+                                name="VI_OPT"
+                                value="All"
+                                ref={register}
+                            />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
@@ -189,6 +195,13 @@ const Form = ({ store }) => {
                                     May delay processing by 2 days.
                                 </Checkbox>
                             </CheckboxWrapper>
+
+                            <Input
+                                type="hidden"
+                                name="RI_MR_OPT"
+                                value="AHI"
+                                ref={register}
+                            />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">

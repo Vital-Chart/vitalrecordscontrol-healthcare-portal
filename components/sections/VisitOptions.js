@@ -17,7 +17,7 @@ export const VisitOptions = ({ forceDateRange }) => {
                     <Input
                         type="hidden"
                         name="VI_OPT"
-                        value="MR"
+                        value="DR"
                         ref={register}
                     />
                     <VisitsDateRange />

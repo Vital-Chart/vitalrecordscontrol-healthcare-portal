@@ -179,6 +179,12 @@ const Form = ({ store }) => {
 
                             <PatientName />
                             <PatientDOB />
+                            <Input
+                                type="hidden"
+                                name="VI_OPT"
+                                value="All"
+                                ref={register}
+                            />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
@@ -194,9 +200,16 @@ const Form = ({ store }) => {
                                         id="RI_MR_OPT"
                                         className="block mt-1"
                                         onChange={handleChange}
-                                        ref={register}
+                                        ref={register({
+                                            validate: {
+                                                notEmpty: value =>
+                                                    value !==
+                                                        'Select records' ||
+                                                    'Please select the records you would like to receive.',
+                                            },
+                                        })}
                                     >
-                                        <option defaultValue value="">
+                                        <option defaultValue>
                                             Select records
                                         </option>
                                         <option value="ALLNXM">
@@ -209,6 +222,12 @@ const Form = ({ store }) => {
                                             Only Recent X-Rays/MRIs
                                         </option>
                                     </Select>
+                                    {errors.RI_MR_OPT && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.RI_MR_OPT.message}
+                                        />
+                                    )}
                                 </Box>
 
                                 {['ALLXM', 'XM'].includes(
