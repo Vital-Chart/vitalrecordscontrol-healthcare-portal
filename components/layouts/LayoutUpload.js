@@ -8,7 +8,6 @@ import { createRequest, createAuthForm } from '@/lib/api'
 import { isTouchDevice } from '@/lib/helpers'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
-import errorMessages from '@/lib/errorMessages'
 import { Layout, Container, ScreenReader } from '@/components/general'
 import { Box, Text, Flex, Button, Link } from '@/components/core'
 import {
@@ -64,6 +63,7 @@ export const LayoutUpload = ({ children }) => {
         goToLandingPage,
         goToStep,
         hasUploadAccess,
+        hospital,
         option,
     } = useNavigation()
 
@@ -222,26 +222,46 @@ export const LayoutUpload = ({ children }) => {
 
                     <Box>
                         <Text className="pb-4 leading-relaxed">
-                            <Text as="span" className="font-bold">
-                                All requests for medical records require
-                                printing out, signing, and uploading an image of
-                                this{' '}
-                                <Button
-                                    className="underline font-bold text-blue hover:text-black transition-colors"
-                                    onClick={getAuthForm}
-                                >
-                                    authorization form
-                                </Button>
-                                .
-                            </Text>{' '}
-                            Note that your driver's license or other government
-                            issued identification is required in the
-                            authorization form where indicated. If you are
-                            requesting medical records as the representative of,
-                            patient, copies of documentation establishing your
-                            authority to release medical records on the
-                            patient's behalf are required and must be provided
-                            through the secure upload below.{' '}
+                            {hospitals[hospital].altAuth ? (
+                                <>
+                                    <Text as="span" className="font-bold">
+                                        NOTE:
+                                    </Text>{' '}
+                                    If you have the legal authority to make
+                                    healthcare decisions for a patient as a
+                                    healthcare trustee/conservator, healthcare
+                                    proxy, or medical/healthcare power of
+                                    attorney, you must upload three items: (a)
+                                    the patient’s driver’s license/ID, (b) YOUR
+                                    OWN Driver’s License/ID, AND (c) official
+                                    documentation of your authority to make
+                                    healthcare decisions for the patient.{' '}
+                                </>
+                            ) : (
+                                <>
+                                    <Text as="span" className="font-bold">
+                                        All requests for medical records require
+                                        printing out, signing, and uploading an
+                                        image of this{' '}
+                                        <Button
+                                            className="underline font-bold text-blue hover:text-black transition-colors"
+                                            onClick={getAuthForm}
+                                        >
+                                            authorization form
+                                        </Button>
+                                        .
+                                    </Text>{' '}
+                                    Note that your driver's license or other
+                                    government issued identification is required
+                                    in the authorization form where indicated.
+                                    If you are requesting medical records as the
+                                    representative of, patient, copies of
+                                    documentation establishing your authority to
+                                    release medical records on the patient's
+                                    behalf are required and must be provided
+                                    through the secure upload below.{' '}
+                                </>
+                            )}
                             <MicroModal
                                 trigger={handleOpen => (
                                     <Box
@@ -335,21 +355,32 @@ export const LayoutUpload = ({ children }) => {
                                     as="ul"
                                     className="pl-8 pb-4 space-y-2 list-decimal"
                                 >
-                                    <Box as="li">
-                                        Print out and sign this{' '}
-                                        <Button
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                            onClick={getAuthForm}
-                                        >
-                                            authorization form
-                                        </Button>{' '}
-                                        along with a copy of a government-issued
-                                        picture ID,
-                                    </Box>
-                                    <Box as="li">
-                                        Scan or photograph all pages of the form
-                                        along with your government ID,
-                                    </Box>
+                                    {hospitals[hospital].altAuth ? (
+                                        <Box as="li">
+                                            Scan or Photograph an image of your
+                                            driver's license or other
+                                            government-issued identification,
+                                        </Box>
+                                    ) : (
+                                        <>
+                                            <Box as="li">
+                                                Print out and sign this{' '}
+                                                <Button
+                                                    className="underline font-bold text-blue hover:text-black transition-colors"
+                                                    onClick={getAuthForm}
+                                                >
+                                                    authorization form
+                                                </Button>{' '}
+                                                along with a copy of a
+                                                government-issued picture ID,
+                                            </Box>
+                                            <Box as="li">
+                                                Scan or photograph all pages of
+                                                the form along with your
+                                                government ID,
+                                            </Box>
+                                        </>
+                                    )}
                                     <Box as="li">
                                         If requesting on behalf of a patient,
                                         scan or photograph all pages of the
