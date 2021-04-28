@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 import { useDropzone } from 'react-dropzone'
