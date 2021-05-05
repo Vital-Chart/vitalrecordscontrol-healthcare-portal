@@ -12,7 +12,7 @@ import { BrowserAlert } from '@/components/atoms'
 export const Layout = ({ children }) => {
     const store = useStore()
     const { getLandingPage, isStepPage, hospital } = useNavigation()
-    const isIdle = useIdle(60e4) // 10 minutes
+    const isIdle = useIdle(120e4) // 20 minutes
     const browser = getBrowser()
     const [unsupportedBrowser, setUnsupportedBrowser] = useState(false)
 

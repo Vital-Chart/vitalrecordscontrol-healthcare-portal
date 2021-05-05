@@ -433,7 +433,7 @@ export const LayoutUpload = ({ children }) => {
                             <Box as="li">
                                 This site will automatically log you out if you
                                 are inactive or switch away from your browser to
-                                another app for 10 minutes.
+                                another app for 20 minutes.
                             </Box>
                         </Box>
                     </Box>
