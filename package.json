@@ -40,7 +40,8 @@
     "react-micro-modal": "^2.0.2",
     "react-signature-canvas": "^1.0.3",
     "react-use": "^17.1.1",
-    "tailwindcss": "^1.9"
+    "tailwindcss": "^1.9",
+    "web-vitals": "^1.1.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
