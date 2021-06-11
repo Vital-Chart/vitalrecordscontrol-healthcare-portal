@@ -1,3 +1,4 @@
+// Configures Next.js
 const path = require('path')
 const defaultImageSizes = [80, 160, 320, 640]
 
