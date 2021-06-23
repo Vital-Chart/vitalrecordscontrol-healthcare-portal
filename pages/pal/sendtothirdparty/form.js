@@ -718,10 +718,10 @@ const Form = ({ store }) => {
                                 <Text className="mb-4">
                                     Please choose from one of the below options
                                     for Medical Records. You can download them
-                                    directly from the website, or have them
-                                    faxed.  Any Image CD (Radiology, etc..) will
-                                    be delivered by mail via the US Postal
-                                    Service to the address entered below.
+                                    directly from the website. Any Image CD
+                                    (Radiology, etc..) will be delivered by mail
+                                    via the US Postal Service to the address
+                                    entered below.
                                 </Text>
                                 <Box className="mb-4">
                                     <Label htmlFor="DI_DM_DD">
@@ -739,10 +739,6 @@ const Form = ({ store }) => {
                                     >
                                         <option value="DL">
                                             Download from Website
-                                        </option>
-                                        <option value="FPS">
-                                            Records via Fax, CD via US Postal
-                                            Service
                                         </option>
                                     </Select>
                                     {errors.DI_DM_DD && (
