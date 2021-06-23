@@ -1,8 +1,9 @@
 import cx from 'classnames'
 import useNavigation from '@/lib/useNavigation'
 import hospitals from '@/lib/hospitals'
-import { Box, Link, Button, Flex } from '@/components/core'
+import { Box, Flex, Link, Button } from '@/components/core'
 import { Container } from '@/components/general'
+import { ContinueRequest } from '@/components/sections'
 
 export const LandingIntro = ({ children }) => {
     const { hospital } = useNavigation()
@@ -43,6 +44,8 @@ export const LandingIntro = ({ children }) => {
                         >
                             Track Request or Download Records
                         </Button>
+
+                        <ContinueRequest />
                     </Box>
                 </Box>
             </Container>

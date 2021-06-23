@@ -27,6 +27,9 @@ export default async function handler(req, res) {
         case 'deleteUploadedFile':
             payload = [fields['TRKNUM'], fields['fileName']].join(':')
             break
+        case 'continueRequest':
+            payload = [fields['TRKNUM'], fields['DOB'], fields['PhoneNumber'], fields['FI_CB']].join(':')
+            break
         default:
             payload = fields['TRKNUM']
     }

@@ -20,6 +20,7 @@ const nextConfig = {
         GET_FORM_ENDPOINT: `${envSettings[currentEnv]}/AuthorizationForm/DisplayForm`,
         DELETE_UPLOAD_ENDPOINT: `${envSettings[currentEnv]}/Uploads/Delete`,
         VIEW_UPLOAD_ENDPOINT: `${envSettings[currentEnv]}/Uploads/RenderUpload`,
+        CONTINUE_REQUEST_ENDPOINT: `${envSettings[currentEnv]}/PatientRequest/ReviveTrackingNumber`,
     },
     images: {
         deviceSizes: defaultImageSizes,
