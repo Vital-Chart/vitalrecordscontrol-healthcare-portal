@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useForm } from 'react-hook-form/dist/index.ie11'
@@ -13,11 +14,11 @@ import hospitals from '@/lib/hospitals'
 
 import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
-
-// TODO: Figure out how to indicate invalid data in form
+import IconArrow from '@/icons/icon-arrow-narrow-right.svg'
 
 const ContinueRequestForm = ({ setRequestStatus }) => {
     const store = useStore()
+    const router = useRouter()
     const { hospital, goToStep } = useNavigation()
     const facilityId = hospitals[hospital].facilities[0].id
 
@@ -59,23 +60,33 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
             } = await continueRequest(data)
 
             if (inError) {
-                console.log({ errorInformation })
-                setServerErrors(
-                    errorInformation.map(error => error.errorNumber)
-                )
                 setIsFetching(false)
+
+                console.log({ errorInformation })
+
+                // Put all of the error numbers in an array
+                const errorNumbers = errorInformation.map(
+                    error => error.errorNumber
+                )
+
+                if (errorNumbers.includes(100012)) {
+                    setRequestStatus('submitted')
+                } else if (errorNumbers.includes(100013)) {
+                    setRequestStatus('expired')
+                } else if (errorNumbers.includes(100014)) {
+                    setRequestStatus('locked')
+                } else {
+                    setServerErrors(errorNumbers)
+                }
             } else {
                 store.dispatch({
-                    type: 'UPDATE_TRACKING_NUMBER',
-                    value: trackingNumbers,
-                })
-
-                store.dispatch({
-                    type: 'UPDATE_FORM',
-                    value: fields,
+                    type: 'CONTINUE_REQUEST',
+                    value: { trackingNumbers, form: fields },
                 })
 
                 setIsFetching(false)
+
+                router.push(`/${hospital}/patient/form`)
             }
         } catch (error) {
             // General server error
@@ -92,6 +103,7 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                 Ad ac ligula sociosqu tempus vulputate hendrerit porta mauris
                 faucibus ut montes.
             </Text>
+            {/* TODO: Remove hard-coded values from form */}
             <Box as="form" onSubmit={handleSubmit(onSubmit)}>
                 <Label htmlFor="TRKNUM">Tracking Number</Label>
                 <Input
@@ -174,6 +186,9 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                         <>Submit</>
                     )}
                 </Button>
+
+                <ServerErrorList className="my-4" errors={serverErrors} />
+
                 {/* <Button variant="filled" onClick={() => goToStep('upload')}>
                     Next Step
                 </Button> */}
@@ -218,7 +233,7 @@ const RequestInvalid = () => (
     </Box>
 )
 
-const RequestOld = () => {
+const RequestExpired = () => {
     const { hospital } = useNavigation()
     return (
         <Box className="text-center">
@@ -236,7 +251,22 @@ const RequestOld = () => {
     )
 }
 
-export const ContinueRequest = () => {
+const RequestLocked = () => {
+    const { hospital } = useNavigation()
+    return (
+        <Box className="text-center">
+            <Text className="pb-4 mb-4 text-xl font-bold border-b-2 border-gray-light">
+                Request Locked
+            </Text>
+            <Text className="mb-4">This request has been locked...</Text>
+            <Button as={Link} href={`${hospital}/#newRequest`} variant="filled">
+                Start New Request
+            </Button>
+        </Box>
+    )
+}
+
+export const ContinueRequest = ({ customButtonStyles }) => {
     const [requestStatus, setRequestStatus] = useState(undefined)
 
     return (
@@ -244,9 +274,24 @@ export const ContinueRequest = () => {
             {/* TODO: Setup form validation for continue request form */}
             <MicroModal
                 trigger={handleOpen => (
-                    <Button onClick={handleOpen} variant="filledSecondary">
-                        Continue Request
-                    </Button>
+                    <Box
+                        as={Button}
+                        onClick={handleOpen}
+                        className="flex items-center mt-4 mx-2 px-2 pt-4 pb-2 font-bold text-sm text-white border-b-2 border-white hover:opacity-50 transition-opacity"
+                    >
+                        <Text as="span" className="pr-2">
+                            Continue a request I started previously.
+                        </Text>{' '}
+                        <IconArrow className="h-6 w-6" />
+                    </Box>
+                    // <Button
+                    //     onClick={handleOpen}
+                    //     variant="filledSecondary"
+                    //     className="m-2"
+                    //     styles={customButtonStyles}
+                    // >
+                    //     Continue Request
+                    // </Button>
                 )}
                 children={handleClose => (
                     <Box className="p-8 relative">
@@ -264,11 +309,12 @@ export const ContinueRequest = () => {
                                     setRequestStatus={setRequestStatus}
                                 />
                             )}
-                            {requestStatus === 'Submitted' && (
+                            {requestStatus === 'submitted' && (
                                 <RequestSubmitted />
                             )}
-                            {requestStatus === 'Old' && <RequestOld />}
-                            {requestStatus === 'Invalid' && <RequestInvalid />}
+                            {requestStatus === 'expired' && <RequestExpired />}
+                            {requestStatus === 'locked' && <RequestLocked />}
+                            {requestStatus === 'invalid' && <RequestInvalid />}
                         </Box>
                     </Box>
                 )}

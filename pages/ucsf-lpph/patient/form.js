@@ -78,10 +78,13 @@ const Form = ({ store }) => {
     const facility = hospitals[hospital].facilities[0]
 
     useEffect(() => {
-        if (Object.keys(store.state.form).length === 0) {
+        if (
+            !store.state.continuedRequest &&
+            Object.keys(store.state.form).length === 0
+        ) {
             reset({})
         }
-    }, [store.state.form])
+    }, [store.state.continuedRequest, store.state.form])
 
     useEffect(() => {
         if (watchRelationshipToPatient === 'SELF') {
