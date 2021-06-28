@@ -316,6 +316,8 @@ const Form = ({ store }) => {
                                             labelClassName="mb-2"
                                             name="RI_MR_AI_CB"
                                             label="Information pertaining to mental health diagnosis or treatment"
+                                            checked
+                                            disabled
                                             value="IPM"
                                             onChange={handleChange}
                                             ref={register}

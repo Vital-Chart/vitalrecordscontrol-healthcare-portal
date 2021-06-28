@@ -20,8 +20,8 @@ const Instructions = () => {
                         </Heading>
                         <Box as="ul" className="pl-8 mb-6 space-y-2 list-disc">
                             <Box as="li">
-                                This ordering site is for use by Petaluma Valley
-                                Hospital{' '}
+                                This ordering site is for use by Queen of the
+                                Valley Hospital{' '}
                                 <Text as="span" className="italic">
                                     patients only
                                 </Text>

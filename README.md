@@ -2,6 +2,8 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+---
+
 ## Getting Started
 
 Install npm packages:
@@ -18,6 +20,12 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+---
+## Organization
+* Each hospital/portal exists in its own directory within the `pages` directory.
+* Data for each hospital lives in `lib/hospitals.js`. That file includes an overview of the properties for each hospital. Form data with 
+* Hospitals share the Contact, Upload, and Review page layouts, with some options for customization via properties in `lib/hospitals.js`.
+---
 ## Deploying to Azure
 ### General Deploy Steps
 1. Pull updates from the remote `main` branch into your local repository using `git pull`.
@@ -45,6 +53,8 @@ yarn build:prod
 ### For More Help with Azure Deploy Setup
 Read: [Deploying Next.JS App on Azure App Service (Tutorial)](https://parveensingh.com/next-js-deployment-on-azure-app-service/)
 
+
+---
 ## Tools/Tech
 
 - [Next.js](https://nextjs.org)

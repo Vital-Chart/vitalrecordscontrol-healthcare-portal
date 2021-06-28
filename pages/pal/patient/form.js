@@ -746,10 +746,6 @@ const Form = ({ store }) => {
                                         <option value="PS">
                                             CD via US Postal Service
                                         </option>
-                                        <option value="FPS">
-                                            Records via Fax, CD via US Postal
-                                            Service
-                                        </option>
                                         <option value="PU">
                                             CD for On-Site Pickup
                                         </option>
@@ -763,8 +759,7 @@ const Form = ({ store }) => {
                                 </Box>
                             </Box>
 
-                            {(watchRecordDeliveryMethod === 'PS' ||
-                                watchRecordDeliveryMethod === 'FPS') && (
+                            {watchRecordDeliveryMethod === 'PS' && (
                                 <Box>
                                     <Box className="mb-4">
                                         <Label htmlFor="DI_NM">Name</Label>
