@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
@@ -81,15 +81,19 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
             } else {
                 store.dispatch({
                     type: 'CONTINUE_REQUEST',
-                    value: { trackingNumbers, form: fields },
+                    trackingNumbers,
+                    form: fields,
                 })
 
                 setIsFetching(false)
 
-                router.push(`/${hospital}/patient/form`)
+                // goToStep('form')
+
+                // router.push(`/${hospital}/patient/form`)
             }
         } catch (error) {
             // General server error
+            console.error(error)
             setServerErrors([100000])
             setIsFetching(false)
         }
@@ -110,7 +114,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     type="text"
                     name="TRKNUM"
                     id="TRKNUM"
-                    value="tr_662"
                     className="w-full mt-1"
                     ref={register({
                         required: 'Please enter a tracking number.',
@@ -132,7 +135,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     name="DOB"
                     id="DOB"
                     className="w-full mt-1"
-                    value="05/11/2021"
                     ref={register({
                         required: "Please enter the patient's DOB.",
                     })}
@@ -152,7 +154,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     type="tel"
                     name="PhoneNumber"
                     id="PhoneNumber"
-                    value="99402979633"
                     className="w-full mt-1"
                     ref={register({
                         required: 'Please enter a phone number.',
@@ -188,10 +189,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                 </Button>
 
                 <ServerErrorList className="my-4" errors={serverErrors} />
-
-                {/* <Button variant="filled" onClick={() => goToStep('upload')}>
-                    Next Step
-                </Button> */}
             </Box>
         </>
     )
@@ -266,8 +263,17 @@ const RequestLocked = () => {
     )
 }
 
-export const ContinueRequest = ({ customButtonStyles }) => {
+export const ContinueRequest = () => {
     const [requestStatus, setRequestStatus] = useState(undefined)
+    const store = useStore()
+    const { hospital } = useNavigation()
+    const router = useRouter()
+
+    useEffect(() => {
+        if (store.state.continuedRequest) {
+            router.push(`/${hospital}/patient/form`)
+        }
+    }, [store.state.continuedRequest])
 
     return (
         <>
@@ -277,7 +283,7 @@ export const ContinueRequest = ({ customButtonStyles }) => {
                     <Box
                         as={Button}
                         onClick={handleOpen}
-                        className="flex items-center mt-4 mx-2 px-2 pt-4 pb-2 font-bold text-sm text-white border-b-2 border-white hover:opacity-50 transition-opacity"
+                        className="flex items-center m-2 px-2 pt-4 pb-2 font-bold text-sm text-white border-b-2 border-white hover:opacity-50 transition-opacity"
                     >
                         <Text as="span" className="pr-2">
                             Continue a request I started previously.

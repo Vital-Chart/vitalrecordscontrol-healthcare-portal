@@ -32,6 +32,7 @@ import {
     Stepper,
     ServerErrorList,
     FacilityAddress,
+    ContinuedRequestAlert,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -152,6 +153,7 @@ const Form = ({ store }) => {
         <Layout>
             <Stepper />
             <Container>
+                <ContinuedRequestAlert />
                 <PageHeading className="mt-8">
                     New Medical Records Request
                 </PageHeading>

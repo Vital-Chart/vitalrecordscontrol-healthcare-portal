@@ -32,6 +32,7 @@ import {
     ServerErrorList,
     Info,
     FacilityAddress,
+    ContinuedRequestAlert,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -158,6 +159,7 @@ const Form = ({ store }) => {
         <Layout>
             <Stepper />
             <Container>
+                <ContinuedRequestAlert />
                 <PageHeading className="mt-8">
                     <Text
                         as="span"

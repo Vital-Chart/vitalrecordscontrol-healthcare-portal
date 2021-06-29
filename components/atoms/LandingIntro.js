@@ -8,8 +8,8 @@ import { ContinueRequest } from '@/components/sections'
 export const LandingIntro = ({ children }) => {
     const { hospital } = useNavigation()
     const customButtonStyles = {
-        backgroundColor: `${hospitals[hospital].buttonColor}`,
-        color: `${hospitals[hospital].buttonTextColor}`,
+        backgroundColor: hospitals[hospital].buttonColor,
+        color: hospitals[hospital].buttonTextColor,
     }
 
     return (
@@ -45,9 +45,7 @@ export const LandingIntro = ({ children }) => {
                             Track Request or Download Records
                         </Button>
 
-                        <ContinueRequest
-                            customButtonStyles={customButtonStyles}
-                        />
+                        <ContinueRequest />
                     </Box>
                 </Box>
             </Container>

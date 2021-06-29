@@ -19,7 +19,6 @@ import {
     Flex,
     Button,
     Link,
-    Heading,
 } from '@/components/core'
 import {
     FormSection,
@@ -31,6 +30,7 @@ import {
     Stepper,
     ServerErrorList,
     Info,
+    ContinuedRequestAlert,
 } from '@/components/atoms'
 import {
     FacilitySelector,
@@ -154,6 +154,7 @@ const Form = ({ store }) => {
         <Layout>
             <Stepper />
             <Container>
+                <ContinuedRequestAlert />
                 <PageHeading className="mt-8">
                     <Text
                         as="span"
