@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
 const MicroModal = dynamic(() => import('react-micro-modal'), { ssr: false })
 import { useForm } from 'react-hook-form/dist/index.ie11'
@@ -18,10 +17,8 @@ import IconArrow from '@/icons/icon-arrow-narrow-right.svg'
 
 const ContinueRequestForm = ({ setRequestStatus }) => {
     const store = useStore()
-    const router = useRouter()
-    const { hospital, goToStep } = useNavigation()
+    const { hospital } = useNavigation()
     const facilityId = hospitals[hospital].facilities[0].id
-
     const [serverErrors, setServerErrors] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const {
@@ -35,21 +32,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
         setServerErrors([])
         setIsFetching(true)
 
-        // 100012	Tracking Number already Completed
-        // setRequestStatus('Submitted')
-
-        // 100013	Tracking Number information too old (72 hours)
-        // Need to close modal after
-        // setRequestStatus('Old')
-
-        // setRequestStatus('Invalid')
-
-        // 100014	Tracking Number locked - too many failed access attempts
-
-        //          ? How many access attempts?
-        // ???      Incorrect Phone
-        // ???      Incorrect DOB
-
         try {
             const {
                 trackingNumbers,
@@ -61,8 +43,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
 
             if (inError) {
                 setIsFetching(false)
-
-                console.log({ errorInformation })
 
                 // Put all of the error numbers in an array
                 const errorNumbers = errorInformation.map(
@@ -79,17 +59,19 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     setServerErrors(errorNumbers)
                 }
             } else {
+                // Get the form type (option) based on returned form data
+                const formType =
+                    fields.FTYPE === 'PAT' ? 'patient' : 'sendtothirdparty'
+
                 store.dispatch({
                     type: 'CONTINUE_REQUEST',
                     trackingNumbers,
                     form: fields,
+                    redirect: `/${hospital}/${formType}/form`,
+                    requestId: `${hospital}:${formType}`,
                 })
 
                 setIsFetching(false)
-
-                // goToStep('form')
-
-                // router.push(`/${hospital}/patient/form`)
             }
         } catch (error) {
             // General server error
@@ -107,7 +89,6 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                 Ad ac ligula sociosqu tempus vulputate hendrerit porta mauris
                 faucibus ut montes.
             </Text>
-            {/* TODO: Remove hard-coded values from form */}
             <Box as="form" onSubmit={handleSubmit(onSubmit)}>
                 <Label htmlFor="TRKNUM">Tracking Number</Label>
                 <Input
@@ -170,8 +151,7 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                 <Input
                     type="hidden"
                     name="FI_CB"
-                    value="P7110-1"
-                    // value={facilityId}
+                    value={facilityId}
                     ref={register}
                 />
 
@@ -265,67 +245,45 @@ const RequestLocked = () => {
 
 export const ContinueRequest = () => {
     const [requestStatus, setRequestStatus] = useState(undefined)
-    const store = useStore()
-    const { hospital } = useNavigation()
-    const router = useRouter()
-
-    useEffect(() => {
-        if (store.state.continuedRequest) {
-            router.push(`/${hospital}/patient/form`)
-        }
-    }, [store.state.continuedRequest])
 
     return (
-        <>
-            {/* TODO: Setup form validation for continue request form */}
-            <MicroModal
-                trigger={handleOpen => (
-                    <Box
-                        as={Button}
-                        onClick={handleOpen}
-                        className="flex items-center m-2 px-2 pt-4 pb-2 font-bold text-sm text-white border-b-2 border-white hover:opacity-50 transition-opacity"
+        <MicroModal
+            trigger={handleOpen => (
+                <Box
+                    as={Button}
+                    onClick={handleOpen}
+                    className="flex items-center m-2 px-2 pt-4 pb-2 font-bold text-sm text-white border-b-2 border-white hover:opacity-50 transition-opacity"
+                >
+                    <Text as="span" className="pr-2">
+                        Continue a request I started previously.
+                    </Text>{' '}
+                    <IconArrow className="h-6 w-6" />
+                </Box>
+            )}
+            children={handleClose => (
+                <Box className="p-8 relative">
+                    <button
+                        onClick={handleClose}
+                        className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
                     >
-                        <Text as="span" className="pr-2">
-                            Continue a request I started previously.
-                        </Text>{' '}
-                        <IconArrow className="h-6 w-6" />
-                    </Box>
-                    // <Button
-                    //     onClick={handleOpen}
-                    //     variant="filledSecondary"
-                    //     className="m-2"
-                    //     styles={customButtonStyles}
-                    // >
-                    //     Continue Request
-                    // </Button>
-                )}
-                children={handleClose => (
-                    <Box className="p-8 relative">
-                        <button
-                            onClick={handleClose}
-                            className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                        >
-                            <IconClose onClick={handleClose} />
-                            <ScreenReader>Close</ScreenReader>
-                        </button>
+                        <IconClose onClick={handleClose} />
+                        <ScreenReader>Close</ScreenReader>
+                    </button>
 
-                        <Box>
-                            {!requestStatus && (
-                                <ContinueRequestForm
-                                    setRequestStatus={setRequestStatus}
-                                />
-                            )}
-                            {requestStatus === 'submitted' && (
-                                <RequestSubmitted />
-                            )}
-                            {requestStatus === 'expired' && <RequestExpired />}
-                            {requestStatus === 'locked' && <RequestLocked />}
-                            {requestStatus === 'invalid' && <RequestInvalid />}
-                        </Box>
+                    <Box>
+                        {!requestStatus && (
+                            <ContinueRequestForm
+                                setRequestStatus={setRequestStatus}
+                            />
+                        )}
+                        {requestStatus === 'submitted' && <RequestSubmitted />}
+                        {requestStatus === 'expired' && <RequestExpired />}
+                        {requestStatus === 'locked' && <RequestLocked />}
+                        {requestStatus === 'invalid' && <RequestInvalid />}
                     </Box>
-                )}
-            />
-        </>
+                </Box>
+            )}
+        />
     )
 }
 

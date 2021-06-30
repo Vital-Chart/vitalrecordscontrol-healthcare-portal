@@ -451,10 +451,10 @@ const Form = ({ store }) => {
                                     onChange={handleChange}
                                     ref={register({ required: true })}
                                 >
-                                    <option value="text">
+                                    <option value="TEXT">
                                         Text Message (Standard rates may apply.)
                                     </option>
-                                    <option value="email">Email</option>
+                                    <option value="EMAIL">Email</option>
                                 </Select>
                             </Box>
 
@@ -503,13 +503,13 @@ const Form = ({ store }) => {
                                         <option defaultValue disabled>
                                             Select phone type
                                         </option>
-                                        <option key="mobile" value="mobile">
+                                        <option key="mobile" value="MOBILE">
                                             Mobile
                                         </option>
-                                        <option key="home" value="home">
+                                        <option key="home" value="HOME">
                                             Home
                                         </option>
-                                        <option key="work" value="work">
+                                        <option key="work" value="WORK">
                                             Work
                                         </option>
                                     </Select>
