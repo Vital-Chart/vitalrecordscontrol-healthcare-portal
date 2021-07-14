@@ -5,9 +5,9 @@ const defaultImageSizes = [80, 160, 320, 640]
 const currentEnv = process.env.ENV || 'dev'
 
 const envSettings = {
-    dev: 'https://v2.abtroiplus.com/patientportalwebservicedev',
-    test: 'https://v2.abtroiplus.com/patientportalwebservicetest',
-    prod: 'https://v2.abtroiplus.com/patientportalwebserviceprod',
+    dev: 'https://www.vrcroiplus.com/patientportalwebservicedev',
+    test: 'https://www.vrcroiplus.com/patientportalwebservicetest',
+    prod: 'https://www.vrcroiplus.com/patientportalwebserviceprod',
 }
 
 const nextConfig = {
