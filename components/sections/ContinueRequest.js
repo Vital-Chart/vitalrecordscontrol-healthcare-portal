@@ -10,6 +10,7 @@ import { Text, Box, Button, Link, Input, Label } from '@/components/core'
 import { ScreenReader } from '@/components/general'
 import { ErrorMessage, ServerErrorList } from '@/components/atoms'
 import hospitals from '@/lib/hospitals'
+import { regexPatterns } from '@/lib/helpers'
 
 import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
@@ -116,8 +117,13 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     name="DOB"
                     id="DOB"
                     className="w-full mt-1"
+                    placeholder="MM/DD/YYYY"
                     ref={register({
                         required: "Please enter the patient's DOB.",
+                        pattern: {
+                            value: regexPatterns.date,
+                            message: 'Please enter a valid date (MM/DD/YYYY).',
+                        },
                     })}
                 />
 
