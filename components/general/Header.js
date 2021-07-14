@@ -32,23 +32,24 @@ export const Header = () => {
             </Box>
             {hospitals[hospital] && (
                 <Container>
-                    <Flex
+                    <Box
                         className={cx(
                             'py-6',
                             !!(isLandingPage || isSuccessPage) &&
-                                'justify-center'
+                                'flex justify-center'
                         )}
                     >
                         <Link
+                            className="block h-20"
                             href={getLandingPage()}
                             aria-label={`VitalChart® Virtual ROI Portal - ${hospitals[hospital].name}`}
                         >
                             <Image
-                                className="w-auto h-20"
+                                className="h-full object-contain"
                                 src={hospitals[hospital].logo}
                             />
                         </Link>
-                    </Flex>
+                    </Box>
                 </Container>
             )}
         </Box>
