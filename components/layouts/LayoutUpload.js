@@ -115,7 +115,6 @@ export const LayoutUpload = ({ children }) => {
     }
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        noDrag: true,
         onDrop: handleDrop,
         accept: 'image/jpeg, image/png, image/tiff, .pdf',
     })
@@ -441,25 +440,20 @@ export const LayoutUpload = ({ children }) => {
 
                     <Box>
                         <SectionHeading>Your Upload Area</SectionHeading>
-                        <Text className="mb-8">
-                            {hasTouch ? 'Tap ' : 'Click '}
-                            the button below to upload files. You will be
-                            prompted to select files using your device's file
-                            selector. Dignissim senectus ridiculus morbi
-                            elementum vestibulum phasellus cum metus quisque
-                            augue hendrerit.
-                        </Text>
 
                         <Box as="form">
                             <Box {...getRootProps()}>
                                 <input name="files" {...getInputProps()} />
-                                <Button variant="filled">
-                                    <IconUpload className="w-6 h-auto mr-4" />
-                                    Upload Files
-                                </Button>
-                                {/* <Box className="w-full p-8 rounded bg-gray-lightest border border-gray-light cursor-pointer">
-                                    
-                                    <Flex className="items-center text-center text-gray-dark my-2">
+                                <Box
+                                    className={cx([
+                                        'w-full p-8 rounded bg-gray-lightest border border-gray-light cursor-pointer',
+                                        isDragActive
+                                            ? 'bg-gray-400'
+                                            : 'bg-gray-200',
+                                    ])}
+                                >
+                                    <Flex className="items-center justify-center text-center text-gray-dark my-2">
+                                        <IconUpload className="w-12 h-auto mr-4" />
 
                                         <Text className="font-bold">
                                             {hasTouch ? (
@@ -469,18 +463,19 @@ export const LayoutUpload = ({ children }) => {
                                                 </>
                                             ) : (
                                                 <>
+                                                    Drag files or{' '}
                                                     <Box
                                                         as="span"
                                                         className="underline"
                                                     >
-                                                        Click here
+                                                        click here
                                                     </Box>{' '}
-                                                    to upload files.
+                                                    to upload.
                                                 </>
                                             )}
                                         </Text>
                                     </Flex>
-                                </Box> */}
+                                </Box>
                             </Box>
                         </Box>
 
