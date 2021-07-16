@@ -87,8 +87,7 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                 Continue an Unfinished Request
             </Text>
             <Text className="mb-4">
-                Ad ac ligula sociosqu tempus vulputate hendrerit porta mauris
-                faucibus ut montes.
+                Enter your information below to review and finish your request.
             </Text>
             <Box as="form" onSubmit={handleSubmit(onSubmit)}>
                 <Label htmlFor="TRKNUM">Tracking Number</Label>
@@ -144,6 +143,10 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     className="w-full mt-1"
                     ref={register({
                         required: 'Please enter a phone number.',
+                        pattern: {
+                            value: regexPatterns.phone,
+                            message: 'Please enter a valid phone number.',
+                        },
                     })}
                 />
 

@@ -10,7 +10,7 @@ export const ContinuedRequestAlert = ({ className }) => {
                 <Alert
                     className={cx(className, 'mt-8 max-w-screen-md')}
                     primaryAlertText="You are continuing a request."
-                    secondaryAlertText="Auctor id pellentesque faucibus taciti sociis consectetur vitae accumsan, eu class diam convallis elementum fames porttitor iaculis mauris, vivamus est mi rhoncus facilisi platea natoque."
+                    secondaryAlertText="Please review the information on the form below and click Continue to upload files and submit your request for processing."
                 />
             ) : null}
         </>
