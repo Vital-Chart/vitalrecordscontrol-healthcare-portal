@@ -21,6 +21,7 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
     const { hospital } = useNavigation()
     const facilityId = hospitals[hospital].facilities[0].id
     const [serverErrors, setServerErrors] = useState([])
+    const [infoIsInvalid, setInfoIsInvalid] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
     const {
         register,
@@ -32,6 +33,7 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
         e.preventDefault()
         setServerErrors([])
         setIsFetching(true)
+        setInfoIsInvalid(false)
 
         store.dispatch({
             type: 'RESET_REQUEST',
@@ -54,9 +56,12 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     error => error.errorNumber
                 )
 
-                // Invalid Info: 100001 (can't parse), 100002, 100008 (valid, but can't find)
-
-                if (errorNumbers.includes(100012)) {
+                if (
+                    // Make sure tracking number, phone, and DOB are valid
+                    errorNumbers.some(i => [100001, 100002, 100008].includes(i))
+                ) {
+                    setInfoIsInvalid(true)
+                } else if (errorNumbers.includes(100012)) {
                     setRequestStatus('submitted')
                 } else if (errorNumbers.includes(100013)) {
                     setRequestStatus('expired')
@@ -96,6 +101,15 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
             <Text className="mb-4">
                 Enter your information below to review and finish your request.
             </Text>
+            {infoIsInvalid && (
+                <Box className="px-6 py-4 mb-4 bg-red-light border-l-4 border-red">
+                    <Text className="text-sm">
+                        The information you provided does not match a request.
+                        Please try again.
+                    </Text>
+                </Box>
+            )}
+
             <Box as="form" onSubmit={handleSubmit(onSubmit)}>
                 <Label htmlFor="TRKNUM">Tracking Number</Label>
                 <Input
