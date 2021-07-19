@@ -202,7 +202,7 @@ const Form = ({ store }) => {
                                 <CheckboxWrapper>
                                     <Checkbox
                                         label="Medical Records"
-                                        name="RI_CB"
+                                        name="RI_CB.0"
                                         value="MR"
                                         onChange={handleChange}
                                         ref={register({

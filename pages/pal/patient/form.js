@@ -206,7 +206,7 @@ const Form = ({ store }) => {
                                 <CheckboxWrapper>
                                     <Checkbox
                                         label="Medical Records"
-                                        name="RI_CB"
+                                        name="RI_CB.0"
                                         value="MR"
                                         onChange={handleChange}
                                         ref={register({
@@ -229,7 +229,7 @@ const Form = ({ store }) => {
                                     )}
                                 </CheckboxWrapper>
 
-                                {watchRequestedInformation.includes('MR') && (
+                                {watchRequestedInformation.length > 0 && (
                                     <Box className="mt-4 pl-4">
                                         <Flex className="flex-col items-start ml-4">
                                             <Radio
@@ -941,7 +941,7 @@ const Form = ({ store }) => {
                                 as="ul"
                                 className="pl-8 mb-8 space-y-2 list-disc"
                             >
-                                {watchRecordDeliveryMethod.includes('DL') && (
+                                {watchRecordDeliveryMethod === 'DL' && (
                                     <Box as="li">
                                         Medical records and/or billing items
                                         will be delivered via this website in
@@ -952,14 +952,14 @@ const Form = ({ store }) => {
                                     </Box>
                                 )}
 
-                                {watchRecordDeliveryMethod.includes('PS') && (
+                                {watchRecordDeliveryMethod === 'PS' && (
                                     <Box as="li">
                                         Medical records and/or billing items
                                         will be mailed to the address you
                                         entered above via the US Postal Service.
                                     </Box>
                                 )}
-                                {watchRecordDeliveryMethod.includes('PU') && (
+                                {watchRecordDeliveryMethod === 'PU' && (
                                     <Box as="li">
                                         Once ready, medical records and/or
                                         billing items can be picked up from the

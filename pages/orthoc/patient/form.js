@@ -269,7 +269,7 @@ const Form = ({ store }) => {
                                     ) && (
                                         <Input
                                             type="hidden"
-                                            name="RI_CB"
+                                            name="RI_CB.0"
                                             value="MR"
                                             ref={register}
                                         />

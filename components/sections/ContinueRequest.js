@@ -54,6 +54,8 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     error => error.errorNumber
                 )
 
+                // Invalid Info: 100001 (can't parse), 100002, 100008 (valid, but can't find)
+
                 if (errorNumbers.includes(100012)) {
                     setRequestStatus('submitted')
                 } else if (errorNumbers.includes(100013)) {
