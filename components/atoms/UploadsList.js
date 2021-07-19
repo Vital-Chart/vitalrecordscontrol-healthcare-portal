@@ -19,15 +19,12 @@ export const UploadsList = ({
 
     const getUploadUri = async fileName => {
         try {
-            const {
-                FormURI,
-                inError,
-                errorInformation,
-            } = await getUploadedFile(
-                store.state.trackingNumbers[0].TrackingNumberID,
-                fileName,
-                store.state.form
-            )
+            const { FormURI, inError, errorInformation } =
+                await getUploadedFile(
+                    store.state.trackingNumbers[0].TrackingNumberID,
+                    fileName,
+                    store.state.form
+                )
 
             if (inError) {
                 errorInformation.map(error => {
@@ -130,18 +127,7 @@ export const UploadsList = ({
                             </Flex>
                         )}
                         <Flex className="flex-1 items-center py-2 px-4">
-                            <Text>
-                                {file.name}{' '}
-                                <Text as="span" className="text-gray">
-                                    {file.size >= 1000000
-                                        ? `(${(file.size / 1000000).toFixed(
-                                              1
-                                          )} MB)`
-                                        : `(${Math.round(
-                                              file.size / 1000
-                                          )} KB)`}
-                                </Text>
-                            </Text>
+                            <Text>{file.name}</Text>
                         </Flex>
 
                         <Box className="w-32 py-2 px-4 text-center">

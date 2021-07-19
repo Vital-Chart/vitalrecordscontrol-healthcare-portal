@@ -33,6 +33,10 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
         setServerErrors([])
         setIsFetching(true)
 
+        store.dispatch({
+            type: 'RESET_REQUEST',
+        })
+
         try {
             const {
                 trackingNumbers,
@@ -68,6 +72,7 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     type: 'CONTINUE_REQUEST',
                     trackingNumbers,
                     form: fields,
+                    files: File,
                     redirect: `/${hospital}/${formType}/form`,
                     requestId: `${hospital}:${formType}`,
                 })

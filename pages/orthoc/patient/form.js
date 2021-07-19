@@ -45,12 +45,8 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const {
-        getLandingPage,
-        goToStep,
-        getContactPage,
-        hospital,
-    } = useNavigation()
+    const { getLandingPage, goToStep, getContactPage, hospital } =
+        useNavigation()
 
     const methods = useForm({ defaultValues: store.state.form })
     const {
@@ -113,11 +109,8 @@ const Form = ({ store }) => {
         setIsFetching(true)
 
         try {
-            const {
-                trackingNumbers,
-                errorInformation,
-                inError,
-            } = await createRequest(store.state.form)
+            const { trackingNumbers, errorInformation, inError } =
+                await createRequest(store.state.form)
 
             if (inError) {
                 setServerErrors(
@@ -815,7 +808,7 @@ const Form = ({ store }) => {
                                 as="ul"
                                 className="pl-8 mb-8 space-y-2 list-disc"
                             >
-                                {watchRequestedInformation === 'MR' &&
+                                {watchRequestedInformation.includes('MR') &&
                                     watchRequestedInformationOptions !==
                                         'XM' && (
                                         <Box as="li">
