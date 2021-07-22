@@ -119,6 +119,10 @@ const ContinueRequestForm = ({ setRequestStatus }) => {
                     className="w-full mt-1"
                     ref={register({
                         required: 'Please enter a tracking number.',
+                        pattern: {
+                            value: regexPatterns.trackingNumber,
+                            message: 'Please enter a valid tracking number.',
+                        },
                     })}
                 />
 
