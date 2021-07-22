@@ -46,12 +46,8 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const {
-        getLandingPage,
-        goToStep,
-        getContactPage,
-        hospital,
-    } = useNavigation()
+    const { getLandingPage, goToStep, getContactPage, hospital } =
+        useNavigation()
 
     const methods = useForm({ defaultValues: store.state.form })
     const {
@@ -98,18 +94,6 @@ const Form = ({ store }) => {
         store.state.form.PI_PLN,
     ])
 
-    // Add or remove MR from RI_CB based on RI_MR_OPT
-    useEffect(() => {
-        if (['ALLXM', 'ALLNXM'].includes(watchRequestedInformationOptions)) {
-            setValue('RI_CB', [...getValues('RI_CB'), 'MR'])
-        } else {
-            setValue(
-                'RI_CB',
-                [getValues('RI_CB')].filter(el => el !== 'MR')
-            )
-        }
-    }, [watchRequestedInformationOptions])
-
     const handleChange = e => {
         setServerErrors([])
 
@@ -126,11 +110,8 @@ const Form = ({ store }) => {
         setIsFetching(true)
 
         try {
-            const {
-                trackingNumbers,
-                errorInformation,
-                inError,
-            } = await createRequest(store.state.form)
+            const { trackingNumbers, errorInformation, inError } =
+                await createRequest(store.state.form)
 
             if (inError) {
                 setServerErrors(
@@ -200,9 +181,16 @@ const Form = ({ store }) => {
                                         id="RI_MR_OPT"
                                         className="block mt-1"
                                         onChange={handleChange}
-                                        ref={register}
+                                        ref={register({
+                                            validate: {
+                                                notEmpty: value =>
+                                                    value !==
+                                                        'Select records' ||
+                                                    'Please select the records you would like to receive.',
+                                            },
+                                        })}
                                     >
-                                        <option defaultValue value="">
+                                        <option defaultValue>
                                             Select records
                                         </option>
                                         <option value="ALLNXM">
@@ -215,6 +203,12 @@ const Form = ({ store }) => {
                                             Only Recent X-Rays/MRIs
                                         </option>
                                     </Select>
+                                    {errors.RI_MR_OPT && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.RI_MR_OPT.message}
+                                        />
+                                    )}
                                 </Box>
 
                                 {['ALLXM', 'XM'].includes(
@@ -270,6 +264,9 @@ const Form = ({ store }) => {
                                         label="Medical Records"
                                         name="RI_CB"
                                         value="MR"
+                                        checked={['ALLXM', 'ALLNXM'].includes(
+                                            watchRequestedInformationOptions
+                                        )}
                                         onChange={handleChange}
                                         ref={register}
                                     />

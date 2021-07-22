@@ -46,12 +46,8 @@ import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
 
 const Form = ({ store }) => {
-    const {
-        getLandingPage,
-        goToStep,
-        getContactPage,
-        hospital,
-    } = useNavigation()
+    const { getLandingPage, goToStep, getContactPage, hospital } =
+        useNavigation()
 
     const methods = useForm({ defaultValues: store.state.form })
     const {
@@ -98,18 +94,6 @@ const Form = ({ store }) => {
         store.state.form.PI_PLN,
     ])
 
-    // Add or remove MR from RI_CB based on RI_MR_OPT
-    useEffect(() => {
-        if (['ALLXM', 'ALLNXM'].includes(watchRequestedInformationOptions)) {
-            setValue('RI_CB', [...getValues('RI_CB'), 'MR'])
-        } else {
-            setValue(
-                'RI_CB',
-                [getValues('RI_CB')].filter(el => el !== 'MR')
-            )
-        }
-    }, [watchRequestedInformationOptions])
-
     const handleChange = e => {
         setServerErrors([])
 
@@ -126,11 +110,8 @@ const Form = ({ store }) => {
         setIsFetching(true)
 
         try {
-            const {
-                trackingNumbers,
-                errorInformation,
-                inError,
-            } = await createRequest(store.state.form)
+            const { trackingNumbers, errorInformation, inError } =
+                await createRequest(store.state.form)
 
             if (inError) {
                 setServerErrors(
@@ -292,9 +273,11 @@ const Form = ({ store }) => {
                                     <Checkbox
                                         labelClassName="hidden"
                                         label="Medical Records"
-                                        checked
                                         name="RI_CB"
                                         value="MR"
+                                        checked={['ALLXM', 'ALLNXM'].includes(
+                                            watchRequestedInformationOptions
+                                        )}
                                         onChange={handleChange}
                                         ref={register}
                                     />

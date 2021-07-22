@@ -94,18 +94,6 @@ const Form = ({ store }) => {
         store.state.form.PI_PLN,
     ])
 
-    // Add or remove MR from RI_CB based on RI_MR_OPT
-    useEffect(() => {
-        if (['ALLXM', 'ALLNXM'].includes(watchRequestedInformationOptions)) {
-            setValue('RI_CB', [...getValues('RI_CB'), 'MR'])
-        } else {
-            setValue(
-                'RI_CB',
-                [getValues('RI_CB')].filter(el => el !== 'MR')
-            )
-        }
-    }, [watchRequestedInformationOptions])
-
     const handleChange = e => {
         setServerErrors([])
 
@@ -282,6 +270,9 @@ const Form = ({ store }) => {
                                         label="Medical Records"
                                         name="RI_CB"
                                         value="MR"
+                                        checked={['ALLXM', 'ALLNXM'].includes(
+                                            watchRequestedInformationOptions
+                                        )}
                                         onChange={handleChange}
                                         ref={register}
                                     />
