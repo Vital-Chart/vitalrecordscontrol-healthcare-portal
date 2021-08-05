@@ -17,11 +17,23 @@ import {
     ServerErrorList,
     UploadsList,
     Stepper,
+    Alert,
 } from '@/components/atoms'
 
 import IconUpload from '@/icons/icon-upload.svg'
 import IconClose from '@/icons/icon-close.svg'
 import IconLoading from '@/icons/icon-loading.svg'
+
+const TrackingNumber = ({ className }) => {
+    const store = useStore()
+    return (
+        <Text as="span" className={cx('font-bold', className)}>
+            {store.state.trackingNumbers
+                .map(number => number.TrackingNumberID)
+                .join(', ')}
+        </Text>
+    )
+}
 
 const FacilityList = () => {
     const store = useStore()
@@ -45,9 +57,9 @@ const FacilityList = () => {
                     return (
                         <Text key={facilityId} className="pb-4">
                             <Text as="span" className="font-bold">
-                                {trackingNumber.TrackingNumberID}:
+                                {facility.name}:
                             </Text>{' '}
-                            {facility.name} - {facility.phone}
+                            {facility.phone}
                         </Text>
                     )
                 })}
@@ -182,7 +194,7 @@ export const LayoutUpload = ({ children }) => {
             <Stepper className="mb-4" />
 
             <Container>
-                <Box className="w-full max-w-screen-md space-y-8 pb-8">
+                <Box className="w-full max-w-screen-md space-y-4 pb-8">
                     <PageHeading className="pt-4">
                         <Text
                             as="span"
@@ -195,16 +207,12 @@ export const LayoutUpload = ({ children }) => {
                         Provide Authorization Information
                     </PageHeading>
 
-                    <Box className="pb-4 border-b border-gray-light">
-                        <Text className="pb-4">
+                    {children}
+
+                    <Box>
+                        <Text className="pt-4 pb-4">
                             Your request has been saved and assigned tracking
-                            number(s):{' '}
-                            <Text as="span" className="font-bold">
-                                {store.state.trackingNumbers
-                                    .map(number => number.TrackingNumberID)
-                                    .join(', ')}
-                            </Text>
-                            .
+                            number(s): <TrackingNumber />.
                         </Text>
 
                         <Text className="pb-4">
@@ -218,228 +226,333 @@ export const LayoutUpload = ({ children }) => {
                         <FacilityList />
                     </Box>
 
-                    {children}
+                    {/* <Alert
+                        primaryAlertText="Additional documentation is required to complete this request."
+                        secondaryAlertText="Please follow the instructions below before proceeding."
+                    /> */}
 
-                    <Box>
-                        <Text className="pb-4 leading-relaxed">
-                            {hospitals[hospital].altAuth ? (
-                                <>
-                                    <Text as="span" className="font-bold">
-                                        NOTE:
-                                    </Text>{' '}
-                                    If you have the legal authority to make
-                                    healthcare decisions for a patient as a
-                                    healthcare trustee/conservator, healthcare
-                                    proxy, or medical/healthcare power of
-                                    attorney, you must upload three items: (a)
-                                    the patient’s driver’s license/ID, (b) YOUR
-                                    OWN Driver’s License/ID, AND (c) official
-                                    documentation of your authority to make
-                                    healthcare decisions for the patient.{' '}
-                                </>
-                            ) : (
-                                <>
-                                    <Text as="span" className="font-bold">
-                                        All requests for medical records require
-                                        printing out, signing, and uploading an
-                                        image of this{' '}
-                                        <Button
-                                            className="underline font-bold text-blue hover:text-black transition-colors"
-                                            onClick={getAuthForm}
-                                        >
-                                            authorization form
-                                        </Button>
-                                        .
-                                    </Text>{' '}
-                                    Note that your driver's license or other
-                                    government issued identification is required
-                                    in the authorization form where indicated.
-                                    If you are requesting medical records as the
-                                    representative of, patient, copies of
-                                    documentation establishing your authority to
-                                    release medical records on the patient's
-                                    behalf are required and must be provided
-                                    through the secure upload below.{' '}
-                                </>
-                            )}
-                            <MicroModal
-                                trigger={handleOpen => (
-                                    <Box
-                                        as="button"
-                                        onClick={handleOpen}
-                                        className="underline font-bold text-blue hover:text-black transition-colors"
-                                    >
-                                        Click here for examples.
-                                    </Box>
-                                )}
-                                children={handleClose => (
-                                    <Box className="p-8 relative">
-                                        <button
-                                            onClick={handleClose}
-                                            className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
-                                        >
-                                            <IconClose onClick={handleClose} />
-                                            <ScreenReader>Close</ScreenReader>
-                                        </button>
-
-                                        <Box>
-                                            <Text className="text-xl font-bold">
-                                                Types of Supporting Documents
-                                            </Text>
-                                            <Text className="mb-4">
-                                                Acceptable forms of supporting
-                                                documentation are listed below.
-                                                However, the facility where the
-                                                records you are requesting are
-                                                located may have additional or
-                                                other requirements.
-                                            </Text>
-                                            <Box
-                                                as="ul"
-                                                className="list-disc pl-8 mb-4 text-sm"
-                                            >
-                                                <Box as="li">
-                                                    Power of Attorney for
-                                                    Healthcare if the patient is
-                                                    alive but unable to sign for
-                                                    themselves
-                                                </Box>
-                                                <Box as="li">
-                                                    Executor's Documents if the
-                                                    patient is deceased
-                                                </Box>
-                                                <Box as="li">
-                                                    A copy of the deceased
-                                                    patient's will
-                                                </Box>
-                                                <Box as="li">
-                                                    Court Documents identifying
-                                                    custodial parent
-                                                </Box>
-                                                <Box as="li">
-                                                    Birth Certificate
-                                                </Box>
-                                            </Box>
-                                            <Text>
-                                                Note: Please understand until we
-                                                have the opportunity to review
-                                                the request against the medical
-                                                records, we do not know if
-                                                additional documentation will be
-                                                required. You will be notified
-                                                if we need further
-                                                documentation.
-                                            </Text>
-                                        </Box>
-                                    </Box>
-                                )}
-                            />{' '}
-                            If you have any questions regarding the
-                            documentation needed for your request, please
-                            contact us at the number above.
-                        </Text>
-
-                        {hasTouch ? (
-                            <Text className="pb-4">
-                                All requests for medical records require
-                                uploading an image of you holding your driver's
-                                license or other government-issued
-                                identification.
+                    {hospitals[hospital].altAuth ? (
+                        <Box className="p-8 bg-gray-lightest">
+                            <Text className="pb-4 font-bold leading-relaxed">
+                                The following items are required to complete
+                                this request:
                             </Text>
-                        ) : (
-                            <>
-                                <Text className="pb-4">
-                                    To complete your request:
-                                </Text>
-                                <Box
-                                    as="ul"
-                                    className="pl-8 pb-4 space-y-2 list-decimal"
-                                >
-                                    {hospitals[hospital].altAuth ? (
-                                        <Box as="li">
-                                            Scan or Photograph an image of your
-                                            driver's license or other
-                                            government-issued identification,
-                                        </Box>
-                                    ) : (
-                                        <>
-                                            <Box as="li">
-                                                Print out and sign this{' '}
-                                                <Button
-                                                    className="underline font-bold text-blue hover:text-black transition-colors"
-                                                    onClick={getAuthForm}
+                            <Box
+                                as="ul"
+                                className="pl-8 pb-4 space-y-2 list-disc"
+                            >
+                                <li>The patient’s driver’s license or ID,</li>
+                                <li>Your own driver’s license or ID</li>
+                                <li>
+                                    Official documentation of your authority to
+                                    make healthcare decisions for the patient{' '}
+                                    <MicroModal
+                                        trigger={handleOpen => (
+                                            <Box
+                                                as="button"
+                                                onClick={handleOpen}
+                                                className="underline font-bold text-blue hover:text-black transition-colors"
+                                            >
+                                                Click here for examples.
+                                            </Box>
+                                        )}
+                                        children={handleClose => (
+                                            <Box className="p-8 relative">
+                                                <button
+                                                    onClick={handleClose}
+                                                    className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
                                                 >
-                                                    authorization form
-                                                </Button>{' '}
-                                                along with a copy of a
-                                                government-issued picture ID,
-                                            </Box>
-                                            <Box as="li">
-                                                Scan or photograph all pages of
-                                                the form along with your
-                                                government ID,
-                                            </Box>
-                                        </>
-                                    )}
-                                    <Box as="li">
-                                        If requesting on behalf of a patient,
-                                        scan or photograph all pages of the
-                                        additional required documentation,
-                                    </Box>
-                                    <Box as="li">
-                                        Upload all photos/scans in the area
-                                        below, and
-                                    </Box>
-                                    <Box as="li">
-                                        Click{' '}
-                                        <Text as="span" className="font-bold">
-                                            Continue
-                                        </Text>{' '}
-                                        below.
-                                    </Box>
-                                </Box>
-                            </>
-                        )}
+                                                    <IconClose
+                                                        onClick={handleClose}
+                                                    />
+                                                    <ScreenReader>
+                                                        Close
+                                                    </ScreenReader>
+                                                </button>
 
-                        <Text className="pb-4 font-bold">
-                            Please note the following:
-                        </Text>
-
-                        <Box as="ul" className="pl-8 space-y-2 list-disc">
-                            <Box as="li">
+                                                <Box>
+                                                    <Text className="text-xl font-bold">
+                                                        Types of Supporting
+                                                        Documents
+                                                    </Text>
+                                                    <Text className="mb-4">
+                                                        Acceptable forms of
+                                                        supporting documentation
+                                                        are listed below.
+                                                        However, the facility
+                                                        where the records you
+                                                        are requesting are
+                                                        located may have
+                                                        additional or other
+                                                        requirements.
+                                                    </Text>
+                                                    <Box
+                                                        as="ul"
+                                                        className="list-disc pl-8 mb-4 text-sm"
+                                                    >
+                                                        <Box as="li">
+                                                            Power of Attorney
+                                                            for Healthcare if
+                                                            the patient is alive
+                                                            but unable to sign
+                                                            for themselves
+                                                        </Box>
+                                                        <Box as="li">
+                                                            Executor's Documents
+                                                            if the patient is
+                                                            deceased
+                                                        </Box>
+                                                        <Box as="li">
+                                                            A copy of the
+                                                            deceased patient's
+                                                            will
+                                                        </Box>
+                                                        <Box as="li">
+                                                            Court Documents
+                                                            identifying
+                                                            custodial parent
+                                                        </Box>
+                                                        <Box as="li">
+                                                            Birth Certificate
+                                                        </Box>
+                                                    </Box>
+                                                    <Text>
+                                                        Note: Please understand
+                                                        until we have the
+                                                        opportunity to review
+                                                        the request against the
+                                                        medical records, we do
+                                                        not know if additional
+                                                        documentation will be
+                                                        required. You will be
+                                                        notified if we need
+                                                        further documentation.
+                                                    </Text>
+                                                </Box>
+                                            </Box>
+                                        )}
+                                    />
+                                </li>
+                            </Box>
+                            <Text className="pb-4 leading-relaxed">
                                 If you are unable to submit the required
-                                images/documentation at this time, you may
-                                return to this screen by entering your tracking
-                                number on the main menu and following the
-                                prompts to log in with a temporary password that
-                                will be sent to you."{' '}
+                                images/documentation at this time, you may save
+                                this request and return to this screen by
+                                choosing "Continue a request I started
+                                previously" on the main screen.{' '}
                                 <Text as="span" className="font-bold">
                                     You must upload the required documentation
                                     within 72 hours or your request will be
                                     canceled.
                                 </Text>
+                            </Text>
+
+                            <Text className="pb-4 leading-relaxed">
+                                If you have any questions regarding the
+                                documentation needed for your request, please
+                                contact us at the number below.
+                            </Text>
+
+                            <FacilityList />
+
+                            <Box className="pt-4">
+                                <MicroModal
+                                    trigger={handleOpen => (
+                                        <Button
+                                            variant="outline"
+                                            className={cx(
+                                                'mt-2 mr-2 mb-2',
+                                                isFetching &&
+                                                    'pointer-events-none'
+                                            )}
+                                            onClick={handleOpen}
+                                        >
+                                            <>Save and Finish Later</>
+                                        </Button>
+                                    )}
+                                    children={handleClose => (
+                                        <Box className="p-8 relative">
+                                            <button
+                                                onClick={handleClose}
+                                                className="absolute top-0 right-0 h-4 w-4 text-blue cursor-pointer"
+                                            >
+                                                <IconClose
+                                                    onClick={handleClose}
+                                                />
+                                                <ScreenReader>
+                                                    Close
+                                                </ScreenReader>
+                                            </button>
+
+                                            <Box className="mb-4 text-center">
+                                                <Text className="mb-4 text-2xl font-bold">
+                                                    Save Your Request
+                                                </Text>
+                                                <Box className="mb-4 p-6 border-2 border-gray-light">
+                                                    <Text className="mb-4">
+                                                        Write down your tracking
+                                                        number before saving
+                                                        your request:
+                                                    </Text>
+                                                    <Text className="text-xl">
+                                                        <TrackingNumber />
+                                                    </Text>
+                                                </Box>
+
+                                                <Text className="text-sm leading-relaxed">
+                                                    Your request will expire if
+                                                    not completed within 72
+                                                    hours.
+                                                </Text>
+                                            </Box>
+                                            <Flex className="justify-center">
+                                                <Button
+                                                    variant="filled"
+                                                    className={cx(
+                                                        'm-2',
+                                                        isFetching &&
+                                                            'pointer-events-none'
+                                                    )}
+                                                    onClick={() => {
+                                                        store.dispatch({
+                                                            type: 'RESET_REQUEST',
+                                                            redirect:
+                                                                getLandingPage(),
+                                                        })
+                                                    }}
+                                                >
+                                                    <>Save Request</>
+                                                </Button>
+                                            </Flex>
+                                        </Box>
+                                    )}
+                                />
+
+                                <Button
+                                    variant="filled"
+                                    as={Link}
+                                    href={`${hospital}/${option}/upload/#continue`}
+                                    className={cx(
+                                        'm-2',
+                                        isFetching && 'pointer-events-none'
+                                    )}
+                                >
+                                    <>Continue Request</>
+                                </Button>
+                            </Box>
+                        </Box>
+                    ) : (
+                        <Box>
+                            <Text className="pb-4 leading-relaxed">
+                                <Text as="span" className="font-bold">
+                                    All requests for medical records require
+                                    printing out, signing, and uploading an
+                                    image of this{' '}
+                                    <Button
+                                        className="underline font-bold text-blue hover:text-black transition-colors"
+                                        onClick={getAuthForm}
+                                    >
+                                        authorization form
+                                    </Button>
+                                    .
+                                </Text>{' '}
+                                Note that your driver's license or other
+                                government issued identification is required in
+                                the authorization form where indicated. If you
+                                are requesting medical records as the
+                                representative of, patient, copies of
+                                documentation establishing your authority to
+                                release medical records on the patient's behalf
+                                are required and must be provided through the
+                                secure upload below.{' '}
+                            </Text>
+                        </Box>
+                    )}
+
+                    {hasTouch ? (
+                        <Text className="pb-4">
+                            All requests for medical records require uploading
+                            an image of you holding your driver's license or
+                            other government-issued identification.
+                        </Text>
+                    ) : (
+                        <Box id="continue" className="pt-4">
+                            <Text className="pb-4">
+                                To complete your request:
+                            </Text>
+                            <Box
+                                as="ol"
+                                className="pl-8 pb-4 space-y-2 list-decimal"
+                            >
+                                {hospitals[hospital].altAuth ? (
+                                    <Box as="li">
+                                        Scan or Photograph an image of your
+                                        driver's license or other
+                                        government-issued identification,
+                                    </Box>
+                                ) : (
+                                    <>
+                                        <Box as="li">
+                                            Print out and sign this{' '}
+                                            <Button
+                                                className="underline font-bold text-blue hover:text-black transition-colors"
+                                                onClick={getAuthForm}
+                                            >
+                                                authorization form
+                                            </Button>{' '}
+                                            along with a copy of a
+                                            government-issued picture ID,
+                                        </Box>
+                                        <Box as="li">
+                                            Scan or photograph all pages of the
+                                            form along with your government ID,
+                                        </Box>
+                                    </>
+                                )}
+                                <Box as="li">
+                                    If requesting on behalf of a patient, scan
+                                    or photograph all pages of the additional
+                                    required documentation,
+                                </Box>
+                                <Box as="li">
+                                    Upload all photos/scans in the area below,
+                                    and
+                                </Box>
+                                <Box as="li">
+                                    Click{' '}
+                                    <Text as="span" className="font-bold">
+                                        Continue
+                                    </Text>{' '}
+                                    below.
+                                </Box>
+                            </Box>
+                        </Box>
+                    )}
+
+                    <Box>
+                        <SectionHeading>Your Upload Area</SectionHeading>
+                        <Box
+                            as="ul"
+                            className="text-sm mb-4 pl-8 space-y-2 list-disc"
+                        >
+                            <Box as="li">
+                                The files you upload must have{' '}
+                                <Text as="span" className="font-bold">
+                                    PDF, JPG/JPEG, TIF/TIFF, or PNG
+                                </Text>{' '}
+                                as their extension.
                             </Box>
                             <Box as="li">
-                                The files you upload must have PDF, JPG/JPEG,
-                                TIF/TIFF, or PNG as their extension.
-                            </Box>
-                            <Box as="li">
-                                Uploaded files must be less than 10 MB in size.
-                                If your files are too large, consult your
+                                Uploaded files must be{' '}
+                                <Text as="span" className="font-bold">
+                                    less than 10 MB in size
+                                </Text>
+                                . If your files are too large, consult your
                                 device's documentation for instructions on
                                 lowering the resolution and/or color depth and
                                 compressing the file.
                             </Box>
-                            <Box as="li">
-                                This site will automatically log you out if you
-                                are inactive or switch away from your browser to
-                                another app for 20 minutes.
-                            </Box>
                         </Box>
-                    </Box>
-
-                    <Box>
-                        <SectionHeading>Your Upload Area</SectionHeading>
 
                         <Box as="form">
                             <Box {...getRootProps()}>
