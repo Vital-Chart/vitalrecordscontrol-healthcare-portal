@@ -355,11 +355,18 @@ export const LayoutUpload = ({ children }) => {
 
                             <FacilityList />
 
+                            <Alert
+                                primaryAlertText="If you're unable to complete your request at
+                                this time, please press the button below to save
+                                your request. If you're ready to proceed, follow
+                                the instructions below to complete your request."
+                            />
+
                             <Box className="pt-4">
                                 <MicroModal
                                     trigger={handleOpen => (
                                         <Button
-                                            variant="outline"
+                                            variant="filled"
                                             className={cx(
                                                 'mt-2 mr-2 mb-2',
                                                 isFetching &&
@@ -427,18 +434,6 @@ export const LayoutUpload = ({ children }) => {
                                         </Box>
                                     )}
                                 />
-
-                                <Button
-                                    variant="filled"
-                                    as={Link}
-                                    href={`${hospital}/${option}/upload/#continue`}
-                                    className={cx(
-                                        'm-2',
-                                        isFetching && 'pointer-events-none'
-                                    )}
-                                >
-                                    <>Continue Request</>
-                                </Button>
                             </Box>
                         </Box>
                     ) : (
