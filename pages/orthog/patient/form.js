@@ -783,7 +783,7 @@ const Form = ({ store }) => {
                                     </Flex>
                                     <Box className="mb-4">
                                         <Label htmlFor="DI_FAX">
-                                            Fax Number
+                                            Phone or Fax Number
                                         </Label>
                                         <Input
                                             type="tel"

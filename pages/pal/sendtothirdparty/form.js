@@ -917,7 +917,9 @@ const Form = ({ store }) => {
                                 </Box>
                             </Flex>
                             <Box className="mb-4">
-                                <Label htmlFor="DI_FAX">Fax Number</Label>
+                                <Label htmlFor="DI_FAX">
+                                    Phone or Fax Number
+                                </Label>
                                 <Input
                                     type="tel"
                                     name="DI_FAX"
