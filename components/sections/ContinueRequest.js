@@ -218,11 +218,7 @@ const RequestSubmitted = () => (
             button below to get more information about the status of the
             request.
         </Text>
-        <Button
-            as={Link}
-            href="https://www.myroiplus.com/Prod/V1Account/Login?ReturnUrl=%2fprod"
-            variant="filled"
-        >
+        <Button as={Link} href="https://myroiplus.com/" variant="filled">
             Track Request
         </Button>
     </Box>
