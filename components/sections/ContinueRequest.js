@@ -244,7 +244,7 @@ const RequestInvalid = () => (
     </Box>
 )
 
-const RequestExpired = () => {
+const RequestExpired = ({ handleClose }) => {
     const { hospital } = useNavigation()
     return (
         <Box className="text-center">
@@ -255,7 +255,7 @@ const RequestExpired = () => {
                 It has been more than 72 hours since this request was started.
                 Click the button below to start a new request.
             </Text>
-            <Button as={Link} href={`${hospital}/#newRequest`} variant="filled">
+            <Button onClick={handleClose} variant="filled">
                 Start New Request
             </Button>
         </Box>
@@ -311,7 +311,9 @@ export const ContinueRequest = () => {
                             />
                         )}
                         {requestStatus === 'submitted' && <RequestSubmitted />}
-                        {requestStatus === 'expired' && <RequestExpired />}
+                        {requestStatus === 'expired' && (
+                            <RequestExpired handleClose={handleClose} />
+                        )}
                         {requestStatus === 'locked' && <RequestLocked />}
                         {requestStatus === 'invalid' && <RequestInvalid />}
                     </Box>
