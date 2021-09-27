@@ -78,9 +78,9 @@ const Instructions = () => {
                                 request being canceled or delayed.
                             </Box>
                             <Box as="li" className="pb-2">
-                                You may be charged a processing fee.
-                                If your record is produced from paper you will be 
-                                charged 25 cents per page. These charges are due before
+                                You may be charged a processing fee of 25 cents
+                                per page (if copied from paper records) or $25
+                                (if created from electronic records) before
                                 delivery of your records.{' '}
                                 <Text as="span" className="font-bold">
                                     By submitting your request through this
