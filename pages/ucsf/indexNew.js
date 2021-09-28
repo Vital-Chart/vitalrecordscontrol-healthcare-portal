@@ -10,7 +10,7 @@ const ChartChoice = () => {
     return (
         <Layout>
 
-            <Container>
+            <Container id='recordChoice'>
                 <Box className="w-full max-w-screen-md">
                     <Text className="text-2xl text-center">
                     How to Obtain Medical Records and Test Results
