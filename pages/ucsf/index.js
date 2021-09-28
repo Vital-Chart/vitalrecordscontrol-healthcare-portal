@@ -10,10 +10,10 @@ const Hospital = () => {
     return (
         <Layout>
 
-<Container id='recordChoice'>
+            <Container id='recordChoice'>
                 <Box className="w-full max-w-screen-md">
-                    <Text className="text-2xl text-center">
-                    How to Obtain Medical Records and Test Results
+                    <Text className="text-2xl text-center font-bold">
+                    <br />How to Obtain Medical Records and Test Results
                     </Text>
 
                     <Box className="mt-8">
@@ -27,24 +27,24 @@ const Hospital = () => {
 
                     <Box className="mt-8">
                         <Text className="text-xl font-bold">
-                        <p>There are two ways to obtain your UCSF medical records:</p>
+                        <p>There are Two Ways to Obtain Your UCSF Medical Records:</p><br />
                         </Text>
                     
-                        <Text className="text-xl">
-                        Through <a class='text-blue' href='https://www.ucsfhealth.org/mychart'>MyChart: (https://www.ucsfhealth.org/mychart)</a>
+                        <Text>
+                        <a class='text-blue text-xl underline' href='https://www.ucsfhealth.org/mychart'>MyChart: - https://www.ucsfhealth.org/mychart</a>
                         </Text>
-                    
-                        <br />
-                        <Text className="text-xl">
-                        Or through <a  class='text-blue' href='#landingIntro'>Health Information Management Services below.</a><br />
+
+                        <div className="text-xl my-2">
+                        <span class='ml-48'>OR</span>
+                        </div>
+
+                        <Text>
+                        <a class='text-blue text-xl underline' href='#landingIntro'>Health Information Management Services</a> (see link below)
                         </Text>
                     </Box>
                     
                     <Box className="mt-8">
-                        <Text className="text-2xl font-bold">
-                        MyChart<br /><br />
-                        </Text>
-                        <Text className="text-2xl text-gray">
+                        <Text className="text-2xl  font-bold">
                         What is Available in MyChart<br />
                         </Text>
                         Most clinical notes, test results including laboratory, radiology, cardiology and
@@ -52,27 +52,29 @@ const Hospital = () => {
                          request. This allows you to prepare for your next health care visit by reviewing
                          your health care provider's recommendations and noting any questions you want to ask.
                         
-                        <br /><br />To obtain your record via MyChart <a class='text-blue' href='https://www.ucsfhealth.org/mychart'>click here https://www.ucsfhealth.org/mychart</a>
+                        <br /><br />To obtain your record via MyChart <a class='text-blue underline' href='https://www.ucsfhealth.org/mychart'>click here - https://www.ucsfhealth.org/mychart</a>
                     
                     </Box>
 
                     <Box className="mt-8">
                         <Text className="text-2xl font-bold">
-                        Health Information Management Services<br /><br />
+                        What is Available from Health Information Management Services<br />
                         </Text>
-                     
-                    To obtain your complete medical record, test results or clinical notes that are not
-                     available in MyChart, you can request from our Medical Records department. Using this
-                     option will require completion of a Health Information Authorization Form
-                     Processing fees will be charged and you will be notified of the charges prior to
-                     production of the record. Copies from paper chart will be charged at a rate of 25 cents
-                     per page.
-                     <br /><br />To obtain your record via HIM Services <a  class='text-blue' href='#landingIntro'>click here</a>
+                        Your complete medical record, test results or clinical notes that are <b><i>not</i></b> available in
+                         MyChart, you can request from our Medical Records Department. Using this option will require 
+                         completion of a Health Information Authorization Form.<br /><br />
+
+                        There will be a $25 Processing fee for records transferred to a CD or our Patient Portal.<br /><br />
+
+                        If your records are produced from your paper record there will be charge of 25 cents per page.<br /><br />
+
+                        You may request your records online, via mail or fax.
+                     <br /><br />For online request, to obtain your record from Health Information Management Services <a  class='text-blue underline underline' href='#landingIntro'>click here</a>
                     </Box>
  
                     <Box>
                     <Text className="text-xl font-bold">
-                    <br /><br />Mail or fax all written requests to:<br />
+                    <br /><br />To Mail or Fax your Written Requests:<br />
                     </Text>
                     Health Information Management Services<br />
                     UCSF Health<br />
@@ -86,7 +88,7 @@ const Hospital = () => {
 
 
             <div id='landingIntro'></div>
-            <LandingIntro id='landingIntro'>
+            <LandingIntro>
                 <Heading
                     as="h1"
                     variant="h1"
