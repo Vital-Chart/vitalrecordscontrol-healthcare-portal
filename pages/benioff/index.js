@@ -81,7 +81,7 @@ const Hospital = () => {
                     Benioff Children's Hospital Oakland<br />
                     747 52nd Street<br />
                     Oakland, CA 94609<br />
-                    Fax 510.658.1923<br /><br />
+                    Fax 510-658-1923<br /><br />
                     </Box>
                 </Box>
             </Container>
