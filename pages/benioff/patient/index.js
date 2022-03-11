@@ -78,9 +78,9 @@ const Instructions = () => {
                                 request being canceled or delayed.
                             </Box>
                             <Box as="li" className="pb-2">
-                                You may be charged a processing fee of 25 cents
-                                per page (if copied from paper records) or $25
-                                (if created from electronic records) before
+                                There will be a $25 Processing fee for records transferred to a CD or our Patient Portal.
+                                If your record is produced from paper you will be 
+                                charged 25 cents per page. These charges are due before
                                 delivery of your records.{' '}
                                 <Text as="span" className="font-bold">
                                     By submitting your request through this
@@ -93,7 +93,7 @@ const Instructions = () => {
                                 through this system. If you require copies of
                                 diagnostic imaging, contact the radiology
                                 department at{' '}
-                                <Link href="tel:4153531640">415-353-1640</Link>.
+                                <Link href="tel:5104283410">510-428-3410</Link>.
                             </Box>
                         </Box>
                         <Text>
