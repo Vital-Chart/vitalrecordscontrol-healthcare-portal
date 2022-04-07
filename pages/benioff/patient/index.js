@@ -78,9 +78,8 @@ const Instructions = () => {
                                 request being canceled or delayed.
                             </Box>
                             <Box as="li" className="pb-2">
-                                There will be a $25 Processing fee for records transferred to a CD or our Patient Portal.
-                                If your record is produced from paper you will be 
-                                charged 25 cents per page. These charges are due before
+                                You may be charged a nominal fee for records transferred to a CD or our Patient Portal,
+                                or if your record is produced from paper. These charges are due before
                                 delivery of your records.{' '}
                                 <Text as="span" className="font-bold">
                                     By submitting your request through this
