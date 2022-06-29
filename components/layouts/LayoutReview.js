@@ -114,6 +114,10 @@ function getFollowingRecordsString(store) {
                 return 'Immunization Record'
             case 'TR':
                 return 'Therapy Records'
+            case 'DIGR':
+                    return 'Diagnostic Result'
+            case 'COVID':
+                return 'Covid Vaccine Verification'
             default:
                 return null
         }
