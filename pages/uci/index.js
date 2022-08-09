@@ -9,6 +9,61 @@ const Hospital = () => {
 
     return (
         <Layout>
+
+            <Container id='recordChoice'>
+                <Box className="w-full max-w-screen-md">
+
+                    <Box className="mt-8">
+                        <Text className="text-lg">
+                        <p>
+                        At UCI Health and our physician practices, we believe in information transparency.  
+                        We want you (and, when appropriate, your healthcare proxies) to have access to your
+                        health information as soon as it is available.  We believe this improves communication
+                        and leads to better physician-patient relationships.
+                        </p>
+                        </Text>
+                    </Box> 
+
+                    <Box className="mt-8">
+                        <Text className="text-xl font-bold">
+                        <p>There are 3 ways to obtain your UCI Medical Records:</p><br />
+                        </Text>
+                    
+                        <Text>
+                        <b>1. MyChart</b> : 
+                        <a class='text-blue text underline' href='https://my.ucihealth.org/UCI/Signup'>https://my.ucihealth.org/UCI/Signup</a> or
+                        if you have a MyChart account <a class='text-blue text underline' href='https://www.myucihealth.org/mychart'>https://www.myucihealth.org/mychart</a> you can also contact
+                        customer service at 1.833.469.2478 24 hours a day, 7 days a week.
+                        </Text>
+
+                        <Text>
+                        <br /><b>2. Health Information Management Services</b> Vital Chart secure virtual portal  : 
+                        <a class='text-blue text underline' href='#landingIntro'>(click here)</a> or 
+                        </Text>
+
+                        <Text>
+                        <br /><b>3. You can request your records via mail or fax.</b> To Mail or fax your written requests: 
+                        
+                        <br /><br />UCI Health
+                        <br />Attention: Health Information Management Scanning Unit101 The City Drive South
+                        <br />Building 25A, RTE 118
+                        <br />Orange, CA 92868 
+
+                        <br /><br />Or fax them to 714.456.7576
+
+                        </Text>
+
+                        <Text>
+                        <br />Requests for Radiology Images can be requested through MyChart via the Life Image link or by 
+                        contacting 714.456.6281.
+                        </Text>
+                    </Box>
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+                </Box>
+            </Container>
+
+
+            <div id='landingIntro'></div>
             <LandingIntro>
                 <Heading
                     as="h1"
