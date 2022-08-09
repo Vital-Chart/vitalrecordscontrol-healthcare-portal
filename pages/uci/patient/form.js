@@ -172,7 +172,7 @@ const Form = ({ store }) => {
                             <PatientOtherNames />
                             <PatientDOB />
                             <PhysicianClinic />
-                            <VisitOptions />
+                            <VisitOptions forceDateRange={true} />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
@@ -206,26 +206,6 @@ const Form = ({ store }) => {
                                     ) && (
                                         <Flex className="flex-col items-start ml-4">
                                             <Radio
-                                                label="Pertinent Information (Discharge Summary, History and Physical, Consultation, ER Reports, Labs, Radiology Reports, EKGs, Pathology Reports)"
-                                                name="RI_MR_OPT"
-                                                value="PI"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select the items you would like released.',
-                                                })}
-                                            />
-                                            <Radio
-                                                label="All health information pertaining to my medical history, mental or physical condition and treatment received, including records received from other healthcare providers."
-                                                name="RI_MR_OPT"
-                                                value="AHI"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select the items you would like released.',
-                                                })}
-                                            />
-                                            <Radio
                                                 label="Only the following records or types of health information checked below:"
                                                 name="RI_MR_OPT"
                                                 value="FR"
@@ -239,7 +219,7 @@ const Form = ({ store }) => {
                                                 <CheckboxWrapper className="w-full">
                                                     <Checkbox
                                                         labelClassName="mb-2"
-                                                        label="Emergency/Urgent Care Physician Report"
+                                                        label="Emergency Reports"
                                                         name="RI_MR_FR_CB"
                                                         value="EUR"
                                                         onChange={handleChange}
@@ -263,9 +243,9 @@ const Form = ({ store }) => {
                                                     />
                                                     <Checkbox
                                                         labelClassName="mb-2"
-                                                        label="Diagnostic Result"
+                                                        label="TeleDoc (UCI"
                                                         name="RI_MR_FR_CB"
-                                                        value="DIGR"
+                                                        value="TDOC"
                                                         onChange={handleChange}
                                                         ref={register}
                                                     />
@@ -322,9 +302,9 @@ const Form = ({ store }) => {
                                                     />
                                                     <Checkbox
                                                         labelClassName="mb-2"
-                                                        label="Anesthesia Records"
+                                                        label="Progress Notes"
                                                         name="RI_MR_FR_CB"
-                                                        value="AR"
+                                                        value="PN"
                                                         onChange={handleChange}
                                                         ref={register}
                                                     />
@@ -345,6 +325,14 @@ const Form = ({ store }) => {
                                                         ref={register}
                                                     />
 
+                                                    <Checkbox
+                                                        labelClassName="mb-2"
+                                                        label="EKG"
+                                                        name="RI_MR_FR_CB"
+                                                        value="EKG"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
 
                                                     <Checkbox
                                                         labelClassName="mb-2"
@@ -396,7 +384,7 @@ const Form = ({ store }) => {
 
                                     <Checkbox
                                         labelClassName="mb-2"
-                                        label="Itemized Billing"
+                                        label="Billing Statements"
                                         name="RI_CB"
                                         value="IB"
                                         onChange={handleChange}

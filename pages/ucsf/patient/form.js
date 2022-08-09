@@ -310,7 +310,7 @@ const Form = ({ store }) => {
                                         <Checkbox
                                             labelClassName="mb-2"
                                             name="RI_MR_AI_CB"
-                                            label="Information pertaining to mental health diagnosis or treatment"
+                                            label="Psychological/Vocational Results"
                                             value="IPM"
                                             onChange={handleChange}
                                             ref={register}
