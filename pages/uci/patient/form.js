@@ -206,7 +206,7 @@ const Form = ({ store }) => {
                                     ) && (
                                         <Flex className="flex-col items-start ml-4">
                                             <Radio
-                                                label="Select at least one item below:"
+                                                label="Select at least one, or multiple items below:"
                                                 name="RI_MR_OPT"
                                                 value="FR"
                                                 checked={true}
