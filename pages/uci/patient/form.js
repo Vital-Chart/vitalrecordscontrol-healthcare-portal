@@ -209,6 +209,7 @@ const Form = ({ store }) => {
                                                 label="Select at least one item below:"
                                                 name="RI_MR_OPT"
                                                 value="FR"
+                                                checked={selected === 'yes'}
                                                 onChange={handleChange}
                                                 ref={register({
                                                     required:
