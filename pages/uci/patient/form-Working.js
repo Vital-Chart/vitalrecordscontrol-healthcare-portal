@@ -181,6 +181,11 @@ const Form = ({ store }) => {
                                     Please select the type of information you
                                     would like released:
                                 </Box>
+                                <input 
+                                    type="hidden" 
+                                    value="RI_MR_OPT"
+                                    name="FR"
+                                />
                                 <CheckboxWrapper>
                                     <Checkbox
                                         labelClassName="mb-2"
@@ -200,22 +205,19 @@ const Form = ({ store }) => {
                                             message={errors.RI_MR_OPT.message}
                                         />
                                     )}
-
-                                    {watchRequestedInformation.includes(
-                                        'MR'
-                                    ) && (
-                                        <Flex className="flex-col items-start ml-4">
-                                            <Radio
-                                                label="Select at least one item below:"
-                                                name="RI_MR_OPT"
-                                                value="FR"
-                                                onChange={handleChange}
-                                                ref={register({
-                                                    required:
-                                                        'Please select the items you would like released.',
-                                                })}
-                                            />
                                             <Flex className="w-full pl-8 flex-col md:flex-row">
+                                            <Checkbox
+                                        labelClassName="mb-2"
+                                        label="Medical Records"
+                                        name="RI_MR_OPT"
+                                        value="FR"
+                                        checked="TRUE"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select the items you would like released.',
+                                        })}
+                                    />
                                                 <CheckboxWrapper className="w-full">
                                                     <Checkbox
                                                         labelClassName="mb-2"
@@ -243,7 +245,7 @@ const Form = ({ store }) => {
                                                     />
                                                     <Checkbox
                                                         labelClassName="mb-2"
-                                                        label="TeleDoc (UCI Virtual Visit)"
+                                                        label="TeleDoc (UCI"
                                                         name="RI_MR_FR_CB"
                                                         value="TDOC"
                                                         onChange={handleChange}
@@ -270,14 +272,6 @@ const Form = ({ store }) => {
                                                         label="Covid Vaccine Verification"
                                                         name="RI_MR_FR_CB"
                                                         value="COVID"
-                                                        onChange={handleChange}
-                                                        ref={register}
-                                                    />
-                                                    <Checkbox
-                                                        labelClassName="mb-2"
-                                                        label="EKG"
-                                                        name="RI_MR_FR_CB"
-                                                        value="EKG"
                                                         onChange={handleChange}
                                                         ref={register}
                                                     />
@@ -335,6 +329,15 @@ const Form = ({ store }) => {
 
                                                     <Checkbox
                                                         labelClassName="mb-2"
+                                                        label="EKG"
+                                                        name="RI_MR_FR_CB"
+                                                        value="EKG"
+                                                        onChange={handleChange}
+                                                        ref={register}
+                                                    />
+
+                                                    <Checkbox
+                                                        labelClassName="mb-2"
                                                         label="Other Records"
                                                         name="RI_CB"
                                                         value="OR"
@@ -347,11 +350,7 @@ const Form = ({ store }) => {
 
                                                 </CheckboxWrapper>
 
-
-
                                             </Flex>
-                                        </Flex>
-                                    )}
 
                                     {watchRequestedInformation.includes('OR') && (
                                     
