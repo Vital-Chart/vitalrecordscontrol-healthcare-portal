@@ -92,7 +92,7 @@ const Instructions = () => {
                                 through this system. If you require copies of
                                 diagnostic imaging, contact the radiology
                                 department at{' '}
-                                <Link href="tel:4153531640">415-353-1640</Link>.
+                                <Link href="tel:8472854386">847.285.4386</Link>.
                             </Box>
                         </Box>
                         <Text>
