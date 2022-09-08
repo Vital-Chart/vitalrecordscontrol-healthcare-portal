@@ -79,7 +79,7 @@ const Hospital = () => {
                             <Flex className="w-1/2 items-center px-4 py-3">
                                 <Text className="w-full text-sm text-center">
                                     {hospitals[hospital].processingTime ||
-                                        '5-7 business days'}
+                                        '7-10 business days'}
                                 </Text>
                             </Flex>
                         </Flex>
@@ -201,7 +201,7 @@ const Hospital = () => {
                             <Box className="w-full max-w-lg rounded-8 bg-gray-lightest py-6 px-8">
                                 <Text className="w-full text-sm">
                                     Your Medical Records are ready! Go to
-                                    https://myroiplus.com
+                                    https://vrcroiplus.com/myroiplus
                                 </Text>
                                 <Text className="text-sm">
                                     Account #: xxxxxx PIN #: xxxx
