@@ -753,8 +753,7 @@ const Form = ({ store }) => {
                                         directly from the website, or have them
                                         created on CD to be delivered by mail
                                         via the US Postal Service to the address
-                                        entered above, or Picked up at the
-                                        Medical Facility.
+                                        entered above.
                                     </Text>
                                     <Box className="mb-4">
                                         <Label htmlFor="DI_DM_DD">
@@ -775,9 +774,6 @@ const Form = ({ store }) => {
                                             </option>
                                             <option value="PS">
                                                 CD via US Postal Service
-                                            </option>
-                                            <option value="PU" disabled>
-                                                CD for On-Site Pickup
                                             </option>
                                         </Select>
                                         {errors.DI_DM_DD && (
