@@ -748,7 +748,7 @@ const Form = ({ store }) => {
                                         Medical Records Delivery Options
                                     </Heading>
                                     <Text className="mb-4">
-                                        There are three delivery options for
+                                        There are two delivery options for
                                         Medical Records. You can download them
                                         directly from the website, or have them
                                         created on CD to be delivered by mail
@@ -763,7 +763,7 @@ const Form = ({ store }) => {
                                             name="DI_DM_DD"
                                             id="DI_DM_DD"
                                             className="block mt-1"
-                                            onChange={handleChange}
+                                           onChange={handleChange}
                                             ref={register({
                                                 required:
                                                     'Please select a delivery option.',
@@ -797,8 +797,7 @@ const Form = ({ store }) => {
                                         Radiology Images are automatically saved
                                         to CD. They can be delivered by mail via
                                         the US Postal Service to the address
-                                        entered above, or Picked up at the
-                                        Medical Facility. The department will
+                                        entered above. The department will
                                         contact you if additional information is
                                         required.
                                     </Text>
@@ -819,9 +818,6 @@ const Form = ({ store }) => {
                                         >
                                             <option value="PS">
                                                 Send via US Postal Service
-                                            </option>
-                                            <option value="PU">
-                                                Pickup at Facility
                                             </option>
                                         </Select>
                                         {errors.DI_DMRP_OPT && (
