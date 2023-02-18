@@ -743,13 +743,12 @@ const Form = ({ store }) => {
                                         Medical Records Delivery Options
                                     </Heading>
                                     <Text className="mb-4">
-                                        There are three delivery options for
+                                        There are two delivery options for
                                         Medical Records. You can download them
                                         directly from the website, or have them
                                         created on CD to be delivered by mail
                                         via the US Postal Service to the address
-                                        entered above, or Picked up at the
-                                        Medical Facility.
+                                        entered above.
                                     </Text>
                                     <Box className="mb-4">
                                         <Label htmlFor="DI_DM_DD">
@@ -771,7 +770,7 @@ const Form = ({ store }) => {
                                             <option value="PS">
                                                 CD via US Postal Service
                                             </option>
-                                            <option value="PU">
+                                            <option value="PU" hidden>
                                                 CD for On-Site Pickup
                                             </option>
                                         </Select>
