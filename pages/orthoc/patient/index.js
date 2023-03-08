@@ -60,7 +60,7 @@ const Instructions = () => {
                             </Box>
                             <Box as="li">
                                 For Imaging CD mailing, allow an average of 10
-                                business days f ail delivery time. For Imaging
+                                business days for mail delivery time. For Imaging
                                 CD pick-up, go to the off-site records
                                 processing office at Vital Records Control
                                 (VRC), 2830 Drake Avenue SW, Huntsville, AL
