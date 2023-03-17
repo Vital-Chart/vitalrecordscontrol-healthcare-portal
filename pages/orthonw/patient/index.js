@@ -63,11 +63,9 @@ const Instructions = () => {
                                     your government-issued ID.
                                 </Box>
                                 <Box as="li">
-                                    If you are on a non-mobile device (e.g.
+                                If you are on a non-mobile device (e.g.
                                     desktop/laptop computer) you will need to
-                                    print, manually sign, and upload a scanned
-                                    copy of an authorization form as well as
-                                    your government-issued ID.
+                                    upload a picture of your government-issued ID (i.e. driver's license).
                                 </Box>
                             </Box>
                             <Box as="li">
