@@ -1,5 +1,5 @@
-import { LayoutUpload } from '@/components/layouts'
+import { LayoutUploadDLOnly } from '@/components/layouts'
 
-const Upload = () => <LayoutUpload />
+const Upload = () => <LayoutUploadDLOnly />
 
 export default Upload
