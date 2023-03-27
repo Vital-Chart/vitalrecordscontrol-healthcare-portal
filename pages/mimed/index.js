@@ -188,8 +188,8 @@ const Hospital = () => {
                             <Box className="w-full max-w-lg rounded-8 bg-gray-lightest py-6 px-8">
                                 <Text className="w-full text-sm">
                                     Your Medical Records request is in process.
-                                    When complete, you will get Acct # and PIN #
-                                    for online access.
+                                    When complete, you will get an email with a Record ID: xx-xxxxxxxx 
+                                    and a Secure Passcode for online access.
                                 </Text>
                                 <Text className="w-full text-sm">
                                     ({hospitals[hospital].name})
@@ -203,11 +203,9 @@ const Hospital = () => {
                             </Text>
                             <Box className="w-full max-w-lg rounded-8 bg-gray-lightest py-6 px-8">
                                 <Text className="w-full text-sm">
-                                    Your Medical Records are ready! Go to
-                                    https://myroiplus.com
-                                </Text>
-                                <Text className="text-sm">
-                                    Account #: xxxxxx PIN #: xxxx
+                                    Your Medical Records are Complete! Go to
+                                    https://rce.recordconnect.com/file-portal-login and Enter Record ID: xx-xxxxxxxx 
+                                    and Secure Passcode: xxxxxxxx for online access.
                                 </Text>
                                 <Text className="text-sm">
                                     ({hospitals[hospital].name})
