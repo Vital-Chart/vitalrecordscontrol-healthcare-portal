@@ -40,6 +40,7 @@ import {
     PatientName,
     PatientOtherNames,
     PatientDOB,
+    PatientPhone,
     PhysicianClinic,
     VisitOptions,
     RequestPurpose,
@@ -171,98 +172,49 @@ const Form = ({ store }) => {
                             <PatientName />
                             <PatientOtherNames />
                             <PatientDOB />
+                            <PatientPhone />
                             <PhysicianClinic />
-                            <VisitOptions forceDateRange={true} />
+                            <VisitOptions forceDateRange={false} />
                         </FormSection>
 
                         <FormSection className="border-b border-gray-light">
                             <Box as="fieldset">
                                 <Box as="legend" className="mb-2">
-                                    Please select the type of information you
-                                    would like released:
+                                    Package selections (as recommended in section 4, more may be specified below:
                                 </Box>
                                 <CheckboxWrapper>
-                                    <Checkbox
+                                <Checkbox
                                         labelClassName="mb-2"
-                                        label="Emergency Room Visit"
+                                        label="Package 1 Key Clinical"
                                         name="RI_CB"
-                                        value="ERV"
+                                        value="PKG1"
                                         onChange={handleChange}
                                         ref={register({
                                             required:
                                                 'Please select the items you would like released.',
                                         })}
                                     >
-                                        (i.e. ED provider notes, radiology
-                                        reports, lab and diagnostic, consults
-                                        and procedure notes)
+                                        Written documentation (includes, as applicable, history and physical,
+                                        discharge summary, operative reports, consults, outpatient visit notes, test reports
+                                        ER clinical notes) related to a specific incident, injury or illness from Service Dates
+                                        list above.<strong> If no dates listed, for the past 24 months.</strong>
                                     </Checkbox>
                                     <Checkbox
                                         labelClassName="mb-2"
-                                        label="Entire Hospital Record"
+                                        label="Package 2 All Clinical"
                                         name="RI_CB"
-                                        value="EHR"
+                                        value="PKG2"
                                         onChange={handleChange}
                                         ref={register({
                                             required:
                                                 'Please select the items you would like released.',
                                         })}
                                     >
-                                        (i.e. History and physical, consult,
-                                        operative report, discharge summary,
-                                        lab, radiology reports, nursing notes,
-                                        progress notes)
+                                        Written documentation from Service Dates listed above (includes, as applicable, <strong>**Package 1 contents along with</strong>
+                                        <u> all</u> nursing notes, flow sheets, medication administration records, physician orders, etc..)
                                     </Checkbox>
                                     <Checkbox
-                                        labelClassName="mb-2"
-                                        label="Clinic or Office Visit"
-                                        name="RI_CB"
-                                        value="COV"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
-                                    >
-                                        (i.e. Progress notes, office notes,
-                                        procedure notes, operative notes, lab,
-                                        diagnostic and radiology reports)
-                                    </Checkbox>
-                                    <Checkbox
-                                        labelClassName="mb-2"
-                                        label="Billing Records"
-                                        name="RI_CB"
-                                        value="BR"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
-                                    />
-                                    <Checkbox
-                                        labelClassName="mb-2"
-                                        label="Radiology Images (only)"
-                                        name="RI_CB"
-                                        value="RI"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
-                                    />
-                                    <Checkbox
-                                        labelClassName="mb-2"
-                                        label="Reproductive Health (family planning , infertility)"
-                                        name="RI_CB"
-                                        value="RH"
-                                        onChange={handleChange}
-                                        ref={register({
-                                            required:
-                                                'Please select the items you would like released.',
-                                        })}
-                                    />
-                                    <Checkbox
-                                        label="Other Records"
+                                        label="Other Records (check to specify)"
                                         name="RI_CB"
                                         value="OR"
                                         onChange={handleChange}
@@ -298,6 +250,32 @@ const Form = ({ store }) => {
                                         )}
                                     </Box>
                                 )}
+
+                                <CheckboxWrapper>
+                                    <Checkbox
+                                        labelClassName="mb-2"
+                                        label="Billing Records"
+                                        name="RI_CB"
+                                        value="BR"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select the items you would like released.',
+                                        })}
+                                    />
+                                    <Checkbox
+                                        labelClassName="mb-2"
+                                        label="Radiology Images (only)"
+                                        name="RI_CB"
+                                        value="RI"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please select the items you would like released.',
+                                        })}
+                                    />
+                                </CheckboxWrapper>
+
 
                                 {errors.RI_CB && (
                                     <ErrorMessage
@@ -347,8 +325,8 @@ const Form = ({ store }) => {
                                         />
                                         <Checkbox
                                             name="RI_MR_AI_CB"
-                                            label="Worker's Comp information"
-                                            value="WCI"
+                                            label="Sexually Transmitted Diseases"
+                                            value="STD"
                                             onChange={handleChange}
                                             ref={register}
                                         />
@@ -366,26 +344,8 @@ const Form = ({ store }) => {
                             <SectionHeading>Your Information</SectionHeading>
 
                             <Flex className="flex-col sm:flex-row">
-                                <Box className="mr-4 mb-4">
-                                    <Label htmlFor="YI_REL_DD">
-                                        Relationship to Patient
-                                    </Label>
-                                    <Select
-                                        name="YI_REL_DD"
-                                        id="YI_REL_DD"
-                                        className="block mt-1"
-                                        onChange={handleChange}
-                                        ref={register({ required: true })}
-                                    >
-                                        <option value="SELF">Self</option>
-                                        <option value="PG">
-                                            Parent/Guardian
-                                        </option>
-                                        <option value="CON">Conservator</option>
-                                    </Select>
-                                </Box>
                                 <Box className="flex-grow mb-4">
-                                    <Label htmlFor="YI_REL_NM">Name</Label>
+                                    <Label htmlFor="YI_REL_NM">Requestor Name</Label>
                                     <Input
                                         type="text"
                                         name="YI_REL_NM"
@@ -567,6 +527,66 @@ const Form = ({ store }) => {
                                     />
                                 )}
                             </Box>
+                            
+                            <Flex className="flex-col sm:flex-row">
+
+                                <Box className="mb-4 sm:mr-4">
+                                    <Label htmlFor="YI_FAX">Fax Number</Label>
+                                    <Input
+                                        type="tel"
+                                        name="YI_FAX"
+                                        id="YI_FAX"
+                                        autoComplete="tel"
+                                        className="w-full mt-1"
+                                        onChange={handleChange}
+                                        ref={register({
+                                            required:
+                                                'Please enter your fax number.',
+                                            pattern: {
+                                                value: regexPatterns.phone,
+                                                message:
+                                                    'Please enter a valid fax number.',
+                                            },
+                                        })}
+                                    />
+                                    {errors.YI_FAX && (
+                                        <ErrorMessage
+                                            className="mt-2"
+                                            message={errors.YI_FAX.message}
+                                        />
+                                    )}
+                                </Box>
+
+                                <Box className="mb-4">
+                                <Label htmlFor="YI_FAXC">
+                                    Retype Fax Number
+                                </Label>
+                                <Input
+                                    type="tel"
+                                    name="YI_FAXC"
+                                    id="YI_FAXC"
+                                    autoComplete="tel"
+                                    className="w-full mt-1"
+                                    onChange={handleChange}
+                                    ref={register({
+                                        required:
+                                            'Please confirm your fax number.',
+                                        validate: {
+                                            phoneMatch: value =>
+                                                value === getValues('YI_FAX') ||
+                                                'The fax numbers you entered do not match!',
+                                        },
+                                    })}
+                                />
+                                {errors.YI_FAXC && (
+                                    <ErrorMessage
+                                        className="mt-2"
+                                        message={errors.YI_FAXC.message}
+                                    />
+                                )}
+                                </Box>
+                            </Flex>
+
                             <Box className="mb-4">
                                 <Label htmlFor="YI_EM">Email Address</Label>
                                 <Input

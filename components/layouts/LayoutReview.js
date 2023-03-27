@@ -60,6 +60,10 @@ function displayRequestedInformation(store) {
                 return 'Billing Records'
             case 'RI':
                 return 'Radiology Images (only)'
+            case 'PKG1':
+                return 'Package 1 '
+            case 'PKG2':
+                return 'Package 2 '
             case 'OR':
                 return 'Other Records'
             default:
@@ -146,6 +150,8 @@ function displayAuthorizedInformation(store) {
                 return 'Genetic testing information'
             case 'WCI':
                 return "Worker's Comp information"
+            case 'STD':
+                return "Sexually Transmitted Diseases"
             default:
                 return null
         }
