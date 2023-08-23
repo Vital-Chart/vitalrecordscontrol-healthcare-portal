@@ -65,9 +65,6 @@ const Hospital = () => {
                          MyChart, you can request from our Medical Records Department. Using this option will require 
                          completion of a Health Information Authorization Form.<br /><br />
 
-                        You may be charged a nominal fee for records transferred to a CD or our Patient Portal,<br />
-                        or if your record is produced from paper. These charges are due before delivery of your records.<br /><br />
-
                         You may request your records online, via mail or fax.
                      <br /><br />For online request, to obtain your record from Health Information Management Services <a  class='text-blue underline underline' href='#landingIntro'>click here</a>
                     </Box>
