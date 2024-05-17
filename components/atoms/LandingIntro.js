@@ -37,7 +37,7 @@ export const LandingIntro = ({ children }) => {
 
                         <Button
                             as={Link}
-                            href="https://www.myroiplus.com"
+                            href="http://www.myroiplus.com"
                             variant="filledSecondary"
                             className="flex-grow m-2 text-center"
                             style={customButtonStyles}
