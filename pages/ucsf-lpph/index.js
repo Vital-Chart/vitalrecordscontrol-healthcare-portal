@@ -10,7 +10,7 @@ const Hospital = () => {
         <Layout>
 
                     <Box className="mt-8">
-                        <center>Site is no longer available.</center>
+                        <center>Site is no longer available. </center>
                     </Box> 
 
             
